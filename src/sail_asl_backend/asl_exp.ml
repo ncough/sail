@@ -83,6 +83,8 @@ let rec call_doc name args =
       (arg1 ^^ space ^^ string "-" ^^ space ^^ parens arg2)
   | ("add_atom",  [arg1; arg2]) ->
       (arg1 ^^ space ^^ string "+" ^^ space ^^ arg2)
+  | ("negate_atom",  [arg1]) ->
+      (string "-" ^^ parens arg1)
   | ("ediv_int", [arg1; arg2]) ->
       div_op arg1 arg2
   | ("__id",  [arg]) ->
@@ -965,6 +967,7 @@ let pp_stmts e = unwrap_unit (asl_body asl_return e)
 let pp_instruction_stmts e = unwrap_unit (asl_body asl_ignore e)
 
 let pp_fundef (FD_aux (FD_function (_, _, funcls), _)) =
+  fresh_counter := 0;
   match funcls with
   | [funcl] -> unwrap_pure (asl_funcl funcl)
   | _ -> Error ("Function with many clauses")

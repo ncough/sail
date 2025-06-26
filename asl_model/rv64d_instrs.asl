@@ -475,17 +475,17 @@ __instruction DIV_0
         __field mapping2XH 12 +: 1
         __field mapping3XH 7 +: 5
         __opcode '0000001xxxxxxxxxx10xxxxxx0110011'
-        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_not_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_M))
+        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_M))
         __decode
             return;
 
     __execute
         bits(5) rs2;
         bits(5) rs1;
-        boolean s;
+        boolean is_unsigned;
         bits(5) rd;
-        (rs2, rs1, s, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_not_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
-        - = execute_DIV(rs2, rs1, rd, s);
+        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        - = execute_DIV(rs2, rs1, rd, is_unsigned);
 
 __instruction DIVW_0
     __encoding DIVW_0
@@ -495,17 +495,17 @@ __instruction DIVW_0
         __field mapping2XH 12 +: 1
         __field mapping3XH 7 +: 5
         __opcode '0000001xxxxxxxxxx10xxxxxx0111011'
-        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_not_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), and_bool(eq_int(xlen, 64), currentlyEnabled(Ext_M)))
+        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), and_bool(eq_int(xlen, 64), currentlyEnabled(Ext_M)))
         __decode
             return;
 
     __execute
         bits(5) rs2;
         bits(5) rs1;
-        boolean s;
+        boolean is_unsigned;
         bits(5) rd;
-        (rs2, rs1, s, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_not_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
-        - = execute_DIVW(rs2, rs1, rd, s);
+        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        - = execute_DIVW(rs2, rs1, rd, is_unsigned);
 
 __instruction EBREAK_0
     __encoding EBREAK_0
@@ -3027,7 +3027,7 @@ __instruction LOAD_0
         word_width width;
         bits(5) rd;
         (rs1, is_unsigned, width, rd) = (encdec_reg_backwards(mapping0XH), bool_bits_backwards(mapping1XH), size_enc_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
-        - = execute_LOAD(imm, rs1, rd, is_unsigned, width, FALSE, FALSE);
+        - = execute_LOAD(imm, rs1, rd, is_unsigned, width);
 
 __instruction LOADRES_0
     __encoding LOADRES_0
@@ -3520,17 +3520,17 @@ __instruction REM_0
         __field mapping2XH 12 +: 1
         __field mapping3XH 7 +: 5
         __opcode '0000001xxxxxxxxxx11xxxxxx0110011'
-        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_not_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_M))
+        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_M))
         __decode
             return;
 
     __execute
         bits(5) rs2;
         bits(5) rs1;
-        boolean s;
+        boolean is_unsigned;
         bits(5) rd;
-        (rs2, rs1, s, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_not_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
-        - = execute_REM(rs2, rs1, rd, s);
+        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        - = execute_REM(rs2, rs1, rd, is_unsigned);
 
 __instruction REMW_0
     __encoding REMW_0
@@ -3540,17 +3540,17 @@ __instruction REMW_0
         __field mapping2XH 12 +: 1
         __field mapping3XH 7 +: 5
         __opcode '0000001xxxxxxxxxx11xxxxxx0111011'
-        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_not_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), and_bool(eq_int(xlen, 64), currentlyEnabled(Ext_M)))
+        __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), and_bool(eq_int(xlen, 64), currentlyEnabled(Ext_M)))
         __decode
             return;
 
     __execute
         bits(5) rs2;
         bits(5) rs1;
-        boolean s;
+        boolean is_unsigned;
         bits(5) rd;
-        (rs2, rs1, s, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_not_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
-        - = execute_REMW(rs2, rs1, rd, s);
+        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        - = execute_REMW(rs2, rs1, rd, is_unsigned);
 
 __instruction REV8_0
     __encoding REV8_0
@@ -4459,7 +4459,7 @@ __instruction STORE_0
         bits(5) rs1;
         word_width width;
         (rs2, rs1, width) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), size_enc_backwards(mapping2XH));
-        - = execute_STORE(bitvector_concat(imm7, imm5), rs2, rs1, width, FALSE, FALSE);
+        - = execute_STORE(bitvector_concat(imm7, imm5), rs2, rs1, width);
 
 __instruction STORECON_0
     __encoding STORECON_0
@@ -5506,18 +5506,19 @@ __instruction VMVRTYPE_0
     __encoding VMVRTYPE_0
         __instruction_set R64
         __field mapping0XH 20 +: 5
-        __field simm 15 +: 5
-        __field mapping1XH 7 +: 5
+        __field mapping1XH 15 +: 5
+        __field mapping2XH 7 +: 5
         __opcode '1001111xxxxxxxxxx011xxxxx1010111'
-        __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
+        __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_nreg_forwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
             return;
 
     __execute
         bits(5) vs2;
+        integer nreg;
         bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
-        - = execute_VMVRTYPE(vs2, simm, vd);
+        (vs2, nreg, vd) = (encdec_vreg_backwards(mapping0XH), encdec_nreg_forwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        - = execute_VMVRTYPE(vs2, nreg, vd);
 
 __instruction VMVSX_0
     __encoding VMVSX_0
@@ -5609,11 +5610,12 @@ __instruction VROL_VX_0
 __instruction VROR_VI_0
     __encoding VROR_VI_0
         __instruction_set R64
+        __field uimm5 26 +: 1
         __field vm 25 +: 1
         __field mapping0XH 20 +: 5
-        __field uimm 15 +: 5
+        __field uimm40 15 +: 5
         __field mapping1XH 7 +: 5
-        __opcode '010100xxxxxxxxxxx011xxxxx1010111'
+        __opcode '01010xxxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvkb))
         __decode
             return;
@@ -5622,7 +5624,7 @@ __instruction VROR_VI_0
         bits(5) vs2;
         bits(5) vd;
         (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
-        - = execute_VROR_VI(vm, vs2, uimm, vd);
+        - = execute_VROR_VI(vm, vs2, bitvector_concat(uimm5, uimm40), vd);
 
 __instruction VROR_VV_0
     __encoding VROR_VV_0
@@ -5770,6 +5772,23 @@ __instruction VSM3ME_VV_0
         bits(5) vd;
         (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
         - = execute_VSM3ME_VV(vs2, vs1, vd);
+
+__instruction VSM4K_VI_0
+    __encoding VSM4K_VI_0
+        __instruction_set R64
+        __field mapping0XH 20 +: 5
+        __field uimm 15 +: 5
+        __field mapping1XH 7 +: 5
+        __opcode '1000011xxxxxxxxxx010xxxxx1110111'
+        __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvksed), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
+        __decode
+            return;
+
+    __execute
+        bits(5) vs2;
+        bits(5) vd;
+        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        - = execute_VSM4K_VI(vs2, uimm, vd);
 
 __instruction VSOXSEGTYPE_0
     __encoding VSOXSEGTYPE_0
@@ -7051,14 +7070,46 @@ __instruction ZVKSHA2TYPE_0
         __field mapping2XH 15 +: 5
         __field mapping3XH 7 +: 5
         __opcode 'xxxxxx1xxxxxxxxxx010xxxxx1110111'
-        __guard and_bool(and_bool(encdec_zvkfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), or_bool(and_bool(currentlyEnabled(Ext_Zvknha), eq_int(get_sew(), 32)), and_bool(and_bool(currentlyEnabled(Ext_Zvknhb), or_bool(eq_int(get_sew(), 32), eq_int(get_sew(), 64))), zvknhab_check_encdec(encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH)))))
+        __guard and_bool(and_bool(encdec_vsha2_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), or_bool(and_bool(currentlyEnabled(Ext_Zvknha), eq_int(get_sew(), 32)), and_bool(and_bool(currentlyEnabled(Ext_Zvknhb), or_bool(eq_int(get_sew(), 32), eq_int(get_sew(), 64))), zvknhab_check_encdec(encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH)))))
         __decode
             return;
 
     __execute
-        zvkfunct6 funct6;
+        zvk_vsha2_funct6 funct6;
         bits(5) vs2;
         bits(5) vs1;
         bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_zvkfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        (funct6, vs2, vs1, vd) = (encdec_vsha2_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
         - = execute_ZVKSHA2TYPE(funct6, vs2, vs1, vd);
+
+__instruction ZVKSM4RTYPE_0
+    __encoding ZVKSM4RTYPE_0
+        __instruction_set R64
+        __field mapping0XH 20 +: 5
+        __field mapping1XH 7 +: 5
+        __opcode '1010011xxxxx10000010xxxxx1110111'
+        __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvksed), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(128, 4), zvk_valid_reg_overlap(encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), get_lmul_pow())))))
+        __decode
+            return;
+
+    __execute
+        bits(5) vs2;
+        bits(5) vd;
+        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        - = execute_ZVKSM4RTYPE(ZVK_VSM4R_VS, vs2, vd);
+
+__instruction ZVKSM4RTYPE_1
+    __encoding ZVKSM4RTYPE_1
+        __instruction_set R64
+        __field mapping0XH 20 +: 5
+        __field mapping1XH 7 +: 5
+        __opcode '1010001xxxxx10000010xxxxx1110111'
+        __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvksed), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
+        __decode
+            return;
+
+    __execute
+        bits(5) vs2;
+        bits(5) vd;
+        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        - = execute_ZVKSM4RTYPE(ZVK_VSM4R_VV, vs2, vd);

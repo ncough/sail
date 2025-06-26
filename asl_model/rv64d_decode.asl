@@ -312,7 +312,7 @@ __decode R64
         when ('010010xxxxxx01001010xxxxx1010111') => __encoding VREV8_V_0
         when ('010101xxxxxxxxxxx000xxxxx1010111') => __encoding VROL_VV_0
         when ('010101xxxxxxxxxxx100xxxxx1010111') => __encoding VROL_VX_0
-        when ('010100xxxxxxxxxxx011xxxxx1010111') => __encoding VROR_VI_0
+        when ('01010xxxxxxxxxxxx011xxxxx1010111') => __encoding VROR_VI_0
         when ('010100xxxxxxxxxxx000xxxxx1010111') => __encoding VROR_VV_0
         when ('010100xxxxxxxxxxx100xxxxx1010111') => __encoding VROR_VX_0
         when ('1100xxxxxxxxxxxxx111xxxxx1010111') => __encoding VSETIVLI_0
@@ -321,6 +321,7 @@ __decode R64
         when ('1011011xxxxxxxxxx010xxxxx1110111') => __encoding VSHA2MS_VV_0
         when ('1010111xxxxxxxxxx010xxxxx1110111') => __encoding VSM3C_VI_0
         when ('1000001xxxxxxxxxx010xxxxx1110111') => __encoding VSM3ME_VV_0
+        when ('1000011xxxxxxxxxx010xxxxx1110111') => __encoding VSM4K_VI_0
         when ('xxx011xxxxxxxxxxxxxxxxxxx0100111') => __encoding VSOXSEGTYPE_0
         when ('xxx000101000xxxxx000xxxxx0100111') => __encoding VSRETYPE_0
         when ('xxx000x00000xxxxxxxxxxxxx0100111') => __encoding VSSEGTYPE_0
@@ -391,4 +392,6 @@ __decode R64
         when ('1x00xx1xxxxxxxxxx100xxxxx1110011') => __encoding ZIMOP_MOP_RR_0
         when ('000010001111xxxxx001xxxxx0010011') => __encoding ZIP_0
         when ('xxxxxx1xxxxxxxxxx010xxxxx1110111') => __encoding ZVKSHA2TYPE_0
+        when ('1010011xxxxx10000010xxxxx1110111') => __encoding ZVKSM4RTYPE_0
+        when ('1010001xxxxx10000010xxxxx1110111') => __encoding ZVKSM4RTYPE_1
 
