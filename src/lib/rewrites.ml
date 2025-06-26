@@ -3277,6 +3277,7 @@ let rewrite_ast_remove_e_assign env ast =
     }
     { ast with defs = loop_specs @ ast.defs }
 
+    (*
 let merge_funcls env ast =
   let merge_function (FD_aux (FD_function (r, t, fcls), ann) as f) =
     match fcls with
@@ -3315,6 +3316,61 @@ let merge_funcls env ast =
     | d -> d
   in
   { ast with defs = List.map merge_in_def ast.defs }
+*)
+let merge_var_of_typ ann (Typ_aux (typ, _)) =
+  let upto i = (List.init i (fun i -> i)) in
+  let mk_eid var = (E_aux (E_id var, ann)) in
+  let mk_pid var = (P_aux (P_id var, ann)) in
+  let vars = match typ with
+  | Typ_tuple typs ->
+      List.map (fun i -> mk_id ("merge_var" ^ string_of_int i)) (upto (List.length typs))
+  | _ -> 
+      [mk_id "merge_var"] in
+  match vars with
+  | [var] -> mk_pid var, mk_eid var
+  | vs -> (P_aux (P_tuple (List.map mk_pid vs), ann), E_aux (E_tuple (List.map mk_eid vs), ann))
+
+let merge_funcls env ast =
+  let merge_function (FD_aux (FD_function (r, t, fcls), ann) as f) =
+    match fcls with
+    | [] | [_] -> f
+    | FCL_aux (FCL_funcl (id, pexp), (def_annot, _)) :: _ ->
+        let (pat, _, _, _) = destruct_pexp pexp in
+        let typ = typ_of_pat pat in
+        let l = def_annot.loc in
+        let l_g = Parse_ast.Generated l in
+        let ann_g : _ * tannot = (l_g, empty_tannot) in
+        let pat, exp = merge_var_of_typ ann_g typ in
+        let clauses = List.map (fun (FCL_aux (FCL_funcl (_, pexp), _)) -> pexp) fcls in
+        FD_aux
+          ( FD_function
+              ( r,
+                t,
+                [
+                  FCL_aux
+                    ( FCL_funcl
+                        ( id,
+                          Pat_aux
+                            ( Pat_exp
+                                (pat, E_aux (E_match (exp, clauses), ann_g)),
+                              ann_g
+                            )
+                        ),
+                      (mk_def_annot l (), empty_tannot)
+                    );
+                ]
+              ),
+            ann
+          )
+  in
+  let merge_in_def = function
+    | DEF_aux (DEF_fundef f, def_annot) -> DEF_aux (DEF_fundef (merge_function f), def_annot)
+    | DEF_aux (DEF_internal_mutrec fs, def_annot) ->
+        DEF_aux (DEF_internal_mutrec (List.map merge_function fs), def_annot)
+    | d -> d
+  in
+  { ast with defs = List.map merge_in_def ast.defs }
+
 
 let rec exp_of_mpat (MP_aux (mpat, (l, annot))) =
   let empty_vec = E_aux (E_vector [], (l, empty_uannot)) in

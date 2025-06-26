@@ -793,6 +793,7 @@ let ambiguous_vars typ =
   let vars = ambiguous_vars' typ in
   if KidSet.cardinal vars > 1 then vars else KidSet.empty
 
+  (*
 let rec is_typ_inhabited env (Typ_aux (aux, l) as typ) =
   match aux with
   | Typ_tuple typs -> List.for_all (is_typ_inhabited env) typs
@@ -830,6 +831,7 @@ let rec is_typ_inhabited env (Typ_aux (aux, l) as typ) =
   | Typ_internal_unknown -> Reporting.unreachable l __POS__ "Inhabitedness check applied to unknown type"
 
 and is_typ_arg_inhabited env (A_aux (aux, _)) = match aux with A_typ typ -> is_typ_inhabited env typ | _ -> true
+*)
 
 (**************************************************************************)
 (* 3.5. Subtyping with existentials                                       *)
@@ -2507,10 +2509,11 @@ let rec check_exp env (E_aux (exp_aux, (l, uannot)) as exp : uannot exp) (Typ_au
       | None -> typ_error l ("List " ^ string_of_exp exp ^ " must have list type, got " ^ string_of_typ typ)
     end
   | E_lit (L_aux (L_undef, _) as lit), _ ->
+      annot_exp (E_lit lit) typ (*
       if can_be_undefined ~at:l env typ then
         if is_typ_inhabited env (Env.expand_synonyms env typ) then annot_exp (E_lit lit) typ
         else typ_error l ("Type " ^ string_of_typ typ ^ " could be empty")
-      else typ_error l ("Type " ^ string_of_typ typ ^ " cannot be undefined")
+      else typ_error l ("Type " ^ string_of_typ typ ^ " cannot be undefined") *)
   | E_internal_assume (nc, exp), _ ->
       Env.wf_constraint ~at:l env nc;
       let env = Env.add_constraint nc env in

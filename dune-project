@@ -92,6 +92,13 @@ http://www.cl.cam.ac.uk/~pes20/sail/.
     (libsail (= :version))))
 
 (package
+  (name sail_asl_backend)
+  (synopsis "Sail to ASL translation")
+  (depends
+    (libsail (= :version))))
+
+
+(package
   (name sail_coq_backend)
   (synopsis "Sail to Coq translation")
   (depends
