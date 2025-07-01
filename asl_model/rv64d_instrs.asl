@@ -12,9 +12,8 @@ __instruction ADDIW_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ADDIW(imm, rs1, rd);
 
 __instruction AES32DSI_0
@@ -30,10 +29,9 @@ __instruction AES32DSI_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES32DSI(bs, rs2, rs1, rd);
 
 __instruction AES32DSMI_0
@@ -49,10 +47,9 @@ __instruction AES32DSMI_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES32DSMI(bs, rs2, rs1, rd);
 
 __instruction AES32ESI_0
@@ -68,10 +65,9 @@ __instruction AES32ESI_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES32ESI(bs, rs2, rs1, rd);
 
 __instruction AES32ESMI_0
@@ -87,10 +83,9 @@ __instruction AES32ESMI_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES32ESMI(bs, rs2, rs1, rd);
 
 __instruction AES64DS_0
@@ -105,10 +100,9 @@ __instruction AES64DS_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES64DS(rs2, rs1, rd);
 
 __instruction AES64DSM_0
@@ -123,10 +117,9 @@ __instruction AES64DSM_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES64DSM(rs2, rs1, rd);
 
 __instruction AES64ES_0
@@ -141,10 +134,9 @@ __instruction AES64ES_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES64ES(rs2, rs1, rd);
 
 __instruction AES64ESM_0
@@ -159,10 +151,9 @@ __instruction AES64ESM_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES64ESM(rs2, rs1, rd);
 
 __instruction AES64IM_0
@@ -176,9 +167,8 @@ __instruction AES64IM_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_AES64IM(rs1, rd);
 
 __instruction AES64KS1I_0
@@ -193,9 +183,8 @@ __instruction AES64KS1I_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_AES64KS1I(rnum, rs1, rd);
 
 __instruction AES64KS2_0
@@ -210,10 +199,9 @@ __instruction AES64KS2_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_AES64KS2(rs2, rs1, rd);
 
 __instruction AMO_0
@@ -232,14 +220,13 @@ __instruction AMO_0
             return;
 
     __execute
-        amoop op;
-        boolean aq;
-        boolean rl;
-        bits(5) rs2;
-        bits(5) rs1;
-        word_width size;
-        bits(5) rd;
-        (op, aq, rl, rs2, rs1, size, rd) = (encdec_amoop_backwards(mapping0XH), bool_bits_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH), encdec_reg_backwards(mapping4XH), size_enc_backwards(mapping5XH), encdec_reg_backwards(mapping6XH));
+        constant amoop op = encdec_amoop_backwards(mapping0XH);
+        constant boolean aq = bool_bits_backwards(mapping1XH);
+        constant boolean rl = bool_bits_backwards(mapping2XH);
+        constant bits(5) rs2 = encdec_reg_backwards(mapping3XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping4XH);
+        constant word_width size = size_enc_backwards(mapping5XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping6XH);
         - = execute_AMO(op, aq, rl, rs2, rs1, size, rd);
 
 __instruction BREV8_0
@@ -253,9 +240,8 @@ __instruction BREV8_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_BREV8(rs1, rd);
 
 __instruction BTYPE_0
@@ -274,10 +260,9 @@ __instruction BTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bop op;
-        (rs2, rs1, op) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_bop_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bop op = encdec_bop_backwards(mapping2XH);
         - = execute_BTYPE(bitvector_concat(imm7_6, bitvector_concat(imm5_0, bitvector_concat(imm7_5_0, bitvector_concat(imm5_4_1, '0')))), rs2, rs1, op);
 
 __instruction CLMUL_0
@@ -292,10 +277,9 @@ __instruction CLMUL_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_CLMUL(rs2, rs1, rd);
 
 __instruction CLMULH_0
@@ -310,10 +294,9 @@ __instruction CLMULH_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_CLMULH(rs2, rs1, rd);
 
 __instruction CLMULR_0
@@ -328,10 +311,9 @@ __instruction CLMULR_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_CLMULR(rs2, rs1, rd);
 
 __instruction CLZ_0
@@ -345,9 +327,8 @@ __instruction CLZ_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_CLZ(rs1, rd);
 
 __instruction CLZW_0
@@ -361,9 +342,8 @@ __instruction CLZW_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_CLZW(rs1, rd);
 
 __instruction CPOP_0
@@ -377,9 +357,8 @@ __instruction CPOP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_CPOP(rs1, rd);
 
 __instruction CPOPW_0
@@ -393,9 +372,8 @@ __instruction CPOPW_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_CPOPW(rs1, rd);
 
 __instruction CSRImm_0
@@ -411,9 +389,8 @@ __instruction CSRImm_0
             return;
 
     __execute
-        csrop op;
-        bits(5) rd;
-        (op, rd) = (encdec_csrop_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant csrop op = encdec_csrop_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_CSRImm(csr, imm, rd, op);
 
 __instruction CSRReg_0
@@ -429,10 +406,9 @@ __instruction CSRReg_0
             return;
 
     __execute
-        bits(5) rs1;
-        csrop op;
-        bits(5) rd;
-        (rs1, op, rd) = (encdec_reg_backwards(mapping0XH), encdec_csrop_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant csrop op = encdec_csrop_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_CSRReg(csr, rs1, rd, op);
 
 __instruction CTZ_0
@@ -446,9 +422,8 @@ __instruction CTZ_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_CTZ(rs1, rd);
 
 __instruction CTZW_0
@@ -462,9 +437,8 @@ __instruction CTZW_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_CTZW(rs1, rd);
 
 __instruction DIV_0
@@ -480,11 +454,10 @@ __instruction DIV_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        boolean is_unsigned;
-        bits(5) rd;
-        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant boolean is_unsigned = bool_bits_backwards(mapping2XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping3XH);
         - = execute_DIV(rs2, rs1, rd, is_unsigned);
 
 __instruction DIVW_0
@@ -500,11 +473,10 @@ __instruction DIVW_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        boolean is_unsigned;
-        bits(5) rd;
-        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant boolean is_unsigned = bool_bits_backwards(mapping2XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping3XH);
         - = execute_DIVW(rs2, rs1, rd, is_unsigned);
 
 __instruction EBREAK_0
@@ -540,9 +512,8 @@ __instruction FCVTMOD_W_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_FCVTMOD_W_D(rs1, rd);
 
 __instruction FENCE_0
@@ -581,9 +552,8 @@ __instruction FENCEI_RESERVED_0
             return;
 
     __execute
-        bits(5) rs;
-        bits(5) rd;
-        (rs, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_FENCEI_RESERVED(imm, rs, rd);
 
 __instruction FENCE_RESERVED_0
@@ -600,9 +570,8 @@ __instruction FENCE_RESERVED_0
             return;
 
     __execute
-        bits(5) rs;
-        bits(5) rd;
-        (rs, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_FENCE_RESERVED(fm, pred, succ, rs, rd);
 
 __instruction FENCE_TSO_0
@@ -628,10 +597,9 @@ __instruction FLEQ_D_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_FLEQ_D(rs2, rs1, rd);
 
 __instruction FLEQ_H_0
@@ -646,10 +614,9 @@ __instruction FLEQ_H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_FLEQ_H(rs2, rs1, rd);
 
 __instruction FLEQ_S_0
@@ -664,10 +631,9 @@ __instruction FLEQ_S_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_FLEQ_S(rs2, rs1, rd);
 
 __instruction FLI_D_0
@@ -724,10 +690,9 @@ __instruction FLTQ_D_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_FLTQ_D(rs2, rs1, rd);
 
 __instruction FLTQ_H_0
@@ -742,10 +707,9 @@ __instruction FLTQ_H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_FLTQ_H(rs2, rs1, rd);
 
 __instruction FLTQ_S_0
@@ -760,10 +724,9 @@ __instruction FLTQ_S_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_FLTQ_S(rs2, rs1, rd);
 
 __instruction FMAXM_D_0
@@ -778,10 +741,9 @@ __instruction FMAXM_D_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FMAXM_D(rs2, rs1, rd);
 
 __instruction FMAXM_H_0
@@ -796,10 +758,9 @@ __instruction FMAXM_H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FMAXM_H(rs2, rs1, rd);
 
 __instruction FMAXM_S_0
@@ -814,10 +775,9 @@ __instruction FMAXM_S_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FMAXM_S(rs2, rs1, rd);
 
 __instruction FMINM_D_0
@@ -832,10 +792,9 @@ __instruction FMINM_D_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FMINM_D(rs2, rs1, rd);
 
 __instruction FMINM_H_0
@@ -850,10 +809,9 @@ __instruction FMINM_H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FMINM_H(rs2, rs1, rd);
 
 __instruction FMINM_S_0
@@ -868,10 +826,9 @@ __instruction FMINM_S_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FMINM_S(rs2, rs1, rd);
 
 __instruction FMVH_X_D_0
@@ -885,9 +842,8 @@ __instruction FMVH_X_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_FMVH_X_D(rs1, rd);
 
 __instruction FMVP_D_X_0
@@ -902,10 +858,9 @@ __instruction FMVP_D_X_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FMVP_D_X(rs2, rs1, rd);
 
 __instruction FROUNDNX_D_0
@@ -920,10 +875,9 @@ __instruction FROUNDNX_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FROUNDNX_D(rs1, rm, rd);
 
 __instruction FROUNDNX_H_0
@@ -938,10 +892,9 @@ __instruction FROUNDNX_H_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FROUNDNX_H(rs1, rm, rd);
 
 __instruction FROUNDNX_S_0
@@ -956,10 +909,9 @@ __instruction FROUNDNX_S_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FROUNDNX_S(rs1, rm, rd);
 
 __instruction FROUND_D_0
@@ -974,10 +926,9 @@ __instruction FROUND_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FROUND_D(rs1, rm, rd);
 
 __instruction FROUND_H_0
@@ -992,10 +943,9 @@ __instruction FROUND_H_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FROUND_H(rs1, rm, rd);
 
 __instruction FROUND_S_0
@@ -1010,10 +960,9 @@ __instruction FROUND_S_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_FROUND_S(rs1, rm, rd);
 
 __instruction FVFMATYPE_0
@@ -1030,11 +979,10 @@ __instruction FVFMATYPE_0
             return;
 
     __execute
-        fvfmafunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_fvfmafunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fvfmafunct6 funct6 = encdec_fvfmafunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FVFMATYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction FVFMTYPE_0
@@ -1051,11 +999,10 @@ __instruction FVFMTYPE_0
             return;
 
     __execute
-        fvfmfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_fvfmfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fvfmfunct6 funct6 = encdec_fvfmfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FVFMTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction FVFTYPE_0
@@ -1072,11 +1019,10 @@ __instruction FVFTYPE_0
             return;
 
     __execute
-        fvffunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_fvffunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fvffunct6 funct6 = encdec_fvffunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FVFTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction FVVMATYPE_0
@@ -1093,11 +1039,10 @@ __instruction FVVMATYPE_0
             return;
 
     __execute
-        fvvmafunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_fvvmafunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fvvmafunct6 funct6 = encdec_fvvmafunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FVVMATYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction FVVMTYPE_0
@@ -1114,11 +1059,10 @@ __instruction FVVMTYPE_0
             return;
 
     __execute
-        fvvmfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_fvvmfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fvvmfunct6 funct6 = encdec_fvvmfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FVVMTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction FVVTYPE_0
@@ -1135,11 +1079,10 @@ __instruction FVVTYPE_0
             return;
 
     __execute
-        fvvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_fvvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fvvfunct6 funct6 = encdec_fvvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction FWFTYPE_0
@@ -1156,11 +1099,10 @@ __instruction FWFTYPE_0
             return;
 
     __execute
-        fwffunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_fwffunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fwffunct6 funct6 = encdec_fwffunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FWFTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction FWVFMATYPE_0
@@ -1177,11 +1119,10 @@ __instruction FWVFMATYPE_0
             return;
 
     __execute
-        fwvfmafunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_fwvfmafunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fwvfmafunct6 funct6 = encdec_fwvfmafunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FWVFMATYPE(funct6, vm, rs1, vs2, vd);
 
 __instruction FWVFTYPE_0
@@ -1198,11 +1139,10 @@ __instruction FWVFTYPE_0
             return;
 
     __execute
-        fwvffunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_fwvffunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fwvffunct6 funct6 = encdec_fwvffunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FWVFTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction FWVTYPE_0
@@ -1219,11 +1159,10 @@ __instruction FWVTYPE_0
             return;
 
     __execute
-        fwvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_fwvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fwvfunct6 funct6 = encdec_fwvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FWVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction FWVVMATYPE_0
@@ -1240,11 +1179,10 @@ __instruction FWVVMATYPE_0
             return;
 
     __execute
-        fwvvmafunct6 funct6;
-        bits(5) vs1;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs1, vs2, vd) = (encdec_fwvvmafunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fwvvmafunct6 funct6 = encdec_fwvvmafunct6_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FWVVMATYPE(funct6, vm, vs1, vs2, vd);
 
 __instruction FWVVTYPE_0
@@ -1261,11 +1199,10 @@ __instruction FWVVTYPE_0
             return;
 
     __execute
-        fwvvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_fwvvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant fwvvfunct6 funct6 = encdec_fwvvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_FWVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction F_BIN_F_TYPE_D_0
@@ -1280,10 +1217,9 @@ __instruction F_BIN_F_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FMAXX_D);
 
 __instruction F_BIN_F_TYPE_D_1
@@ -1298,10 +1234,9 @@ __instruction F_BIN_F_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FMIN_D);
 
 __instruction F_BIN_F_TYPE_D_2
@@ -1316,10 +1251,9 @@ __instruction F_BIN_F_TYPE_D_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJXX_D);
 
 __instruction F_BIN_F_TYPE_D_3
@@ -1334,10 +1268,9 @@ __instruction F_BIN_F_TYPE_D_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJN_D);
 
 __instruction F_BIN_F_TYPE_D_4
@@ -1352,10 +1285,9 @@ __instruction F_BIN_F_TYPE_D_4
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJ_D);
 
 __instruction F_BIN_F_TYPE_H_0
@@ -1370,10 +1302,9 @@ __instruction F_BIN_F_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FMAXX_H);
 
 __instruction F_BIN_F_TYPE_H_1
@@ -1388,10 +1319,9 @@ __instruction F_BIN_F_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FMIN_H);
 
 __instruction F_BIN_F_TYPE_H_2
@@ -1406,10 +1336,9 @@ __instruction F_BIN_F_TYPE_H_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJXX_H);
 
 __instruction F_BIN_F_TYPE_H_3
@@ -1424,10 +1353,9 @@ __instruction F_BIN_F_TYPE_H_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJN_H);
 
 __instruction F_BIN_F_TYPE_H_4
@@ -1442,10 +1370,9 @@ __instruction F_BIN_F_TYPE_H_4
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJ_H);
 
 __instruction F_BIN_RM_TYPE_D_0
@@ -1461,11 +1388,10 @@ __instruction F_BIN_RM_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FDIV_D);
 
 __instruction F_BIN_RM_TYPE_D_1
@@ -1481,11 +1407,10 @@ __instruction F_BIN_RM_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FMUL_D);
 
 __instruction F_BIN_RM_TYPE_D_2
@@ -1501,11 +1426,10 @@ __instruction F_BIN_RM_TYPE_D_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FSUB_D);
 
 __instruction F_BIN_RM_TYPE_D_3
@@ -1521,11 +1445,10 @@ __instruction F_BIN_RM_TYPE_D_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FADD_D);
 
 __instruction F_BIN_RM_TYPE_H_0
@@ -1541,11 +1464,10 @@ __instruction F_BIN_RM_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FDIV_H);
 
 __instruction F_BIN_RM_TYPE_H_1
@@ -1561,11 +1483,10 @@ __instruction F_BIN_RM_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FMUL_H);
 
 __instruction F_BIN_RM_TYPE_H_2
@@ -1581,11 +1502,10 @@ __instruction F_BIN_RM_TYPE_H_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FSUB_H);
 
 __instruction F_BIN_RM_TYPE_H_3
@@ -1601,11 +1521,10 @@ __instruction F_BIN_RM_TYPE_H_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FADD_H);
 
 __instruction F_BIN_RM_TYPE_S_0
@@ -1621,11 +1540,10 @@ __instruction F_BIN_RM_TYPE_S_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FDIV_S);
 
 __instruction F_BIN_RM_TYPE_S_1
@@ -1641,11 +1559,10 @@ __instruction F_BIN_RM_TYPE_S_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FMUL_S);
 
 __instruction F_BIN_RM_TYPE_S_2
@@ -1661,11 +1578,10 @@ __instruction F_BIN_RM_TYPE_S_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FSUB_S);
 
 __instruction F_BIN_RM_TYPE_S_3
@@ -1681,11 +1597,10 @@ __instruction F_BIN_RM_TYPE_S_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_rounding_mode_backwards(mapping2XH), encdec_freg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping2XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping3XH);
         - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FADD_S);
 
 __instruction F_BIN_TYPE_F_S_0
@@ -1700,10 +1615,9 @@ __instruction F_BIN_TYPE_F_S_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FMAXX_S);
 
 __instruction F_BIN_TYPE_F_S_1
@@ -1718,10 +1632,9 @@ __instruction F_BIN_TYPE_F_S_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FMIN_S);
 
 __instruction F_BIN_TYPE_F_S_2
@@ -1736,10 +1649,9 @@ __instruction F_BIN_TYPE_F_S_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJXX_S);
 
 __instruction F_BIN_TYPE_F_S_3
@@ -1754,10 +1666,9 @@ __instruction F_BIN_TYPE_F_S_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJN_S);
 
 __instruction F_BIN_TYPE_F_S_4
@@ -1772,10 +1683,9 @@ __instruction F_BIN_TYPE_F_S_4
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJ_S);
 
 __instruction F_BIN_TYPE_X_S_0
@@ -1790,10 +1700,9 @@ __instruction F_BIN_TYPE_X_S_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FLE_S);
 
 __instruction F_BIN_TYPE_X_S_1
@@ -1808,10 +1717,9 @@ __instruction F_BIN_TYPE_X_S_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FLT_S);
 
 __instruction F_BIN_TYPE_X_S_2
@@ -1826,10 +1734,9 @@ __instruction F_BIN_TYPE_X_S_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FEQ_S);
 
 __instruction F_BIN_X_TYPE_D_0
@@ -1844,10 +1751,9 @@ __instruction F_BIN_X_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FLE_D);
 
 __instruction F_BIN_X_TYPE_D_1
@@ -1862,10 +1768,9 @@ __instruction F_BIN_X_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FLT_D);
 
 __instruction F_BIN_X_TYPE_D_2
@@ -1880,10 +1785,9 @@ __instruction F_BIN_X_TYPE_D_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FEQ_D);
 
 __instruction F_BIN_X_TYPE_H_0
@@ -1898,10 +1802,9 @@ __instruction F_BIN_X_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FLE_H);
 
 __instruction F_BIN_X_TYPE_H_1
@@ -1916,10 +1819,9 @@ __instruction F_BIN_X_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FLT_H);
 
 __instruction F_BIN_X_TYPE_H_2
@@ -1934,10 +1836,9 @@ __instruction F_BIN_X_TYPE_H_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FEQ_H);
 
 __instruction F_MADD_TYPE_D_0
@@ -1954,12 +1855,11 @@ __instruction F_MADD_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FNMADD_D);
 
 __instruction F_MADD_TYPE_D_1
@@ -1976,12 +1876,11 @@ __instruction F_MADD_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FNMSUB_D);
 
 __instruction F_MADD_TYPE_D_2
@@ -1998,12 +1897,11 @@ __instruction F_MADD_TYPE_D_2
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FMSUB_D);
 
 __instruction F_MADD_TYPE_D_3
@@ -2020,12 +1918,11 @@ __instruction F_MADD_TYPE_D_3
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FMADD_D);
 
 __instruction F_MADD_TYPE_H_0
@@ -2042,12 +1939,11 @@ __instruction F_MADD_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FNMADD_H);
 
 __instruction F_MADD_TYPE_H_1
@@ -2064,12 +1960,11 @@ __instruction F_MADD_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FNMSUB_H);
 
 __instruction F_MADD_TYPE_H_2
@@ -2086,12 +1981,11 @@ __instruction F_MADD_TYPE_H_2
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FMSUB_H);
 
 __instruction F_MADD_TYPE_H_3
@@ -2108,12 +2002,11 @@ __instruction F_MADD_TYPE_H_3
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FMADD_H);
 
 __instruction F_MADD_TYPE_S_0
@@ -2130,12 +2023,11 @@ __instruction F_MADD_TYPE_S_0
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FNMADD_S);
 
 __instruction F_MADD_TYPE_S_1
@@ -2152,12 +2044,11 @@ __instruction F_MADD_TYPE_S_1
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FNMSUB_S);
 
 __instruction F_MADD_TYPE_S_2
@@ -2174,12 +2065,11 @@ __instruction F_MADD_TYPE_S_2
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FMSUB_S);
 
 __instruction F_MADD_TYPE_S_3
@@ -2196,12 +2086,11 @@ __instruction F_MADD_TYPE_S_3
             return;
 
     __execute
-        bits(5) rs3;
-        bits(5) rs2;
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs3, rs2, rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_freg_backwards(mapping2XH), encdec_rounding_mode_backwards(mapping3XH), encdec_freg_backwards(mapping4XH));
+        constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs2 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping2XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping3XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping4XH);
         - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FMADD_S);
 
 __instruction F_UN_F_TYPE_D_0
@@ -2215,9 +2104,8 @@ __instruction F_UN_F_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping1XH);
         - = execute_F_UN_F_TYPE_D(rs1, rd, FMV_D_XX);
 
 __instruction F_UN_F_TYPE_H_0
@@ -2231,9 +2119,8 @@ __instruction F_UN_F_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping1XH);
         - = execute_F_UN_F_TYPE_H(rs1, rd, FMV_H_XX);
 
 __instruction F_UN_RM_FF_TYPE_D_0
@@ -2248,10 +2135,9 @@ __instruction F_UN_RM_FF_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FCVT_D_S);
 
 __instruction F_UN_RM_FF_TYPE_D_1
@@ -2266,10 +2152,9 @@ __instruction F_UN_RM_FF_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FCVT_S_D);
 
 __instruction F_UN_RM_FF_TYPE_D_2
@@ -2284,10 +2169,9 @@ __instruction F_UN_RM_FF_TYPE_D_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FSQRT_D);
 
 __instruction F_UN_RM_FF_TYPE_H_0
@@ -2302,10 +2186,9 @@ __instruction F_UN_RM_FF_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_D_H);
 
 __instruction F_UN_RM_FF_TYPE_H_1
@@ -2320,10 +2203,9 @@ __instruction F_UN_RM_FF_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_S_H);
 
 __instruction F_UN_RM_FF_TYPE_H_2
@@ -2338,10 +2220,9 @@ __instruction F_UN_RM_FF_TYPE_H_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_H_D);
 
 __instruction F_UN_RM_FF_TYPE_H_3
@@ -2356,10 +2237,9 @@ __instruction F_UN_RM_FF_TYPE_H_3
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_H_S);
 
 __instruction F_UN_RM_FF_TYPE_H_4
@@ -2374,10 +2254,9 @@ __instruction F_UN_RM_FF_TYPE_H_4
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FSQRT_H);
 
 __instruction F_UN_RM_FF_TYPE_S_0
@@ -2392,10 +2271,9 @@ __instruction F_UN_RM_FF_TYPE_S_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_FF_TYPE_S(rs1, rm, rd, FSQRT_S);
 
 __instruction F_UN_RM_FX_TYPE_D_0
@@ -2410,10 +2288,9 @@ __instruction F_UN_RM_FX_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_LU_D);
 
 __instruction F_UN_RM_FX_TYPE_D_1
@@ -2428,10 +2305,9 @@ __instruction F_UN_RM_FX_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_L_D);
 
 __instruction F_UN_RM_FX_TYPE_D_2
@@ -2446,10 +2322,9 @@ __instruction F_UN_RM_FX_TYPE_D_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_WU_D);
 
 __instruction F_UN_RM_FX_TYPE_D_3
@@ -2464,10 +2339,9 @@ __instruction F_UN_RM_FX_TYPE_D_3
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_W_D);
 
 __instruction F_UN_RM_FX_TYPE_H_0
@@ -2482,10 +2356,9 @@ __instruction F_UN_RM_FX_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_LU_H);
 
 __instruction F_UN_RM_FX_TYPE_H_1
@@ -2500,10 +2373,9 @@ __instruction F_UN_RM_FX_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_L_H);
 
 __instruction F_UN_RM_FX_TYPE_H_2
@@ -2518,10 +2390,9 @@ __instruction F_UN_RM_FX_TYPE_H_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_WU_H);
 
 __instruction F_UN_RM_FX_TYPE_H_3
@@ -2536,10 +2407,9 @@ __instruction F_UN_RM_FX_TYPE_H_3
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_W_H);
 
 __instruction F_UN_RM_FX_TYPE_S_0
@@ -2554,10 +2424,9 @@ __instruction F_UN_RM_FX_TYPE_S_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_LU_S);
 
 __instruction F_UN_RM_FX_TYPE_S_1
@@ -2572,10 +2441,9 @@ __instruction F_UN_RM_FX_TYPE_S_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_L_S);
 
 __instruction F_UN_RM_FX_TYPE_S_2
@@ -2590,10 +2458,9 @@ __instruction F_UN_RM_FX_TYPE_S_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_WU_S);
 
 __instruction F_UN_RM_FX_TYPE_S_3
@@ -2608,10 +2475,9 @@ __instruction F_UN_RM_FX_TYPE_S_3
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_freg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_W_S);
 
 __instruction F_UN_RM_XF_TYPE_D_0
@@ -2626,10 +2492,9 @@ __instruction F_UN_RM_XF_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_LU);
 
 __instruction F_UN_RM_XF_TYPE_D_1
@@ -2644,10 +2509,9 @@ __instruction F_UN_RM_XF_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_L);
 
 __instruction F_UN_RM_XF_TYPE_D_2
@@ -2662,10 +2526,9 @@ __instruction F_UN_RM_XF_TYPE_D_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_WU);
 
 __instruction F_UN_RM_XF_TYPE_D_3
@@ -2680,10 +2543,9 @@ __instruction F_UN_RM_XF_TYPE_D_3
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_W);
 
 __instruction F_UN_RM_XF_TYPE_H_0
@@ -2698,10 +2560,9 @@ __instruction F_UN_RM_XF_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_LU);
 
 __instruction F_UN_RM_XF_TYPE_H_1
@@ -2716,10 +2577,9 @@ __instruction F_UN_RM_XF_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_L);
 
 __instruction F_UN_RM_XF_TYPE_H_2
@@ -2734,10 +2594,9 @@ __instruction F_UN_RM_XF_TYPE_H_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_WU);
 
 __instruction F_UN_RM_XF_TYPE_H_3
@@ -2752,10 +2611,9 @@ __instruction F_UN_RM_XF_TYPE_H_3
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_W);
 
 __instruction F_UN_RM_XF_TYPE_S_0
@@ -2770,10 +2628,9 @@ __instruction F_UN_RM_XF_TYPE_S_0
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_LU);
 
 __instruction F_UN_RM_XF_TYPE_S_1
@@ -2788,10 +2645,9 @@ __instruction F_UN_RM_XF_TYPE_S_1
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_L);
 
 __instruction F_UN_RM_XF_TYPE_S_2
@@ -2806,10 +2662,9 @@ __instruction F_UN_RM_XF_TYPE_S_2
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_WU);
 
 __instruction F_UN_RM_XF_TYPE_S_3
@@ -2824,10 +2679,9 @@ __instruction F_UN_RM_XF_TYPE_S_3
             return;
 
     __execute
-        bits(5) rs1;
-        rounding_mode rm;
-        bits(5) rd;
-        (rs1, rm, rd) = (encdec_reg_backwards(mapping0XH), encdec_rounding_mode_backwards(mapping1XH), encdec_freg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant rounding_mode rm = encdec_rounding_mode_backwards(mapping1XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping2XH);
         - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_W);
 
 __instruction F_UN_TYPE_F_S_0
@@ -2841,9 +2695,8 @@ __instruction F_UN_TYPE_F_S_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping1XH);
         - = execute_F_UN_TYPE_F_S(rs1, rd, FMV_W_XX);
 
 __instruction F_UN_TYPE_X_S_0
@@ -2857,9 +2710,8 @@ __instruction F_UN_TYPE_X_S_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_F_UN_TYPE_X_S(rs1, rd, FMV_XX_W);
 
 __instruction F_UN_TYPE_X_S_1
@@ -2873,9 +2725,8 @@ __instruction F_UN_TYPE_X_S_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_F_UN_TYPE_X_S(rs1, rd, FCLASS_S);
 
 __instruction F_UN_X_TYPE_D_0
@@ -2889,9 +2740,8 @@ __instruction F_UN_X_TYPE_D_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_F_UN_X_TYPE_D(rs1, rd, FMV_XX_D);
 
 __instruction F_UN_X_TYPE_D_1
@@ -2905,9 +2755,8 @@ __instruction F_UN_X_TYPE_D_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_F_UN_X_TYPE_D(rs1, rd, FCLASS_D);
 
 __instruction F_UN_X_TYPE_H_0
@@ -2921,9 +2770,8 @@ __instruction F_UN_X_TYPE_H_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_F_UN_X_TYPE_H(rs1, rd, FMV_XX_H);
 
 __instruction F_UN_X_TYPE_H_1
@@ -2937,9 +2785,8 @@ __instruction F_UN_X_TYPE_H_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_F_UN_X_TYPE_H(rs1, rd, FCLASS_H);
 
 __instruction ILLEGAL_0
@@ -2967,10 +2814,9 @@ __instruction ITYPE_0
             return;
 
     __execute
-        bits(5) rs1;
-        iop op;
-        bits(5) rd;
-        (rs1, op, rd) = (encdec_reg_backwards(mapping0XH), encdec_iop_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant iop op = encdec_iop_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ITYPE(imm, rs1, rd, op);
 
 __instruction JAL_0
@@ -3003,9 +2849,8 @@ __instruction JALR_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_JALR(imm, rs1, rd);
 
 __instruction LOAD_0
@@ -3022,11 +2867,10 @@ __instruction LOAD_0
             return;
 
     __execute
-        bits(5) rs1;
-        boolean is_unsigned;
-        word_width width;
-        bits(5) rd;
-        (rs1, is_unsigned, width, rd) = (encdec_reg_backwards(mapping0XH), bool_bits_backwards(mapping1XH), size_enc_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant boolean is_unsigned = bool_bits_backwards(mapping1XH);
+        constant word_width width = size_enc_backwards(mapping2XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping3XH);
         - = execute_LOAD(imm, rs1, rd, is_unsigned, width);
 
 __instruction LOADRES_0
@@ -3043,12 +2887,11 @@ __instruction LOADRES_0
             return;
 
     __execute
-        boolean aq;
-        boolean rl;
-        bits(5) rs1;
-        word_width size;
-        bits(5) rd;
-        (aq, rl, rs1, size, rd) = (bool_bits_backwards(mapping0XH), bool_bits_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), size_enc_backwards(mapping3XH), encdec_reg_backwards(mapping4XH));
+        constant boolean aq = bool_bits_backwards(mapping0XH);
+        constant boolean rl = bool_bits_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant word_width size = size_enc_backwards(mapping3XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping4XH);
         - = execute_LOADRES(aq, rl, rs1, size, rd);
 
 __instruction LOAD_FP_0
@@ -3063,9 +2906,8 @@ __instruction LOAD_FP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping1XH);
         - = execute_LOAD_FP(imm, rs1, rd, DOUBLE);
 
 __instruction LOAD_FP_1
@@ -3080,9 +2922,8 @@ __instruction LOAD_FP_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping1XH);
         - = execute_LOAD_FP(imm, rs1, rd, WORD);
 
 __instruction LOAD_FP_2
@@ -3097,9 +2938,8 @@ __instruction LOAD_FP_2
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping1XH);
         - = execute_LOAD_FP(imm, rs1, rd, HALF);
 
 __instruction MASKTYPEI_0
@@ -3114,9 +2954,8 @@ __instruction MASKTYPEI_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_MASKTYPEI(vs2, simm, vd);
 
 __instruction MASKTYPEV_0
@@ -3131,10 +2970,9 @@ __instruction MASKTYPEV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_MASKTYPEV(vs2, vs1, vd);
 
 __instruction MASKTYPEX_0
@@ -3149,10 +2987,9 @@ __instruction MASKTYPEX_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_MASKTYPEX(vs2, rs1, vd);
 
 __instruction MMTYPE_0
@@ -3168,11 +3005,10 @@ __instruction MMTYPE_0
             return;
 
     __execute
-        mmfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_mmfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant mmfunct6 funct6 = encdec_mmfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_MMTYPE(funct6, vs2, vs1, vd);
 
 __instruction MOVETYPEI_0
@@ -3200,9 +3036,8 @@ __instruction MOVETYPEV_0
             return;
 
     __execute
-        bits(5) vs1;
-        bits(5) vd;
-        (vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_MOVETYPEV(vs1, vd);
 
 __instruction MOVETYPEX_0
@@ -3216,9 +3051,8 @@ __instruction MOVETYPEX_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) vd;
-        (rs1, vd) = (encdec_reg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_MOVETYPEX(rs1, vd);
 
 __instruction MRET_0
@@ -3245,11 +3079,10 @@ __instruction MUL_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        mul_op mul_opXN;
-        bits(5) rd;
-        (rs2, rs1, mul_opXN, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_mul_op_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant mul_op mul_opXN = encdec_mul_op_backwards(mapping2XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping3XH);
         - = execute_MUL(rs2, rs1, rd, mul_opXN);
 
 __instruction MULW_0
@@ -3264,10 +3097,9 @@ __instruction MULW_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_MULW(rs2, rs1, rd);
 
 __instruction MVVCOMPRESS_0
@@ -3282,10 +3114,9 @@ __instruction MVVCOMPRESS_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_MVVCOMPRESS(vs2, vs1, vd);
 
 __instruction MVVMATYPE_0
@@ -3302,11 +3133,10 @@ __instruction MVVMATYPE_0
             return;
 
     __execute
-        mvvmafunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_mvvmafunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant mvvmafunct6 funct6 = encdec_mvvmafunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_MVVMATYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction MVVTYPE_0
@@ -3323,11 +3153,10 @@ __instruction MVVTYPE_0
             return;
 
     __execute
-        mvvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_mvvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant mvvfunct6 funct6 = encdec_mvvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_MVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction MVXMATYPE_0
@@ -3344,11 +3173,10 @@ __instruction MVXMATYPE_0
             return;
 
     __execute
-        mvxmafunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_mvxmafunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant mvxmafunct6 funct6 = encdec_mvxmafunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_MVXMATYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction MVXTYPE_0
@@ -3365,11 +3193,10 @@ __instruction MVXTYPE_0
             return;
 
     __execute
-        mvxfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_mvxfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant mvxfunct6 funct6 = encdec_mvxfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_MVXTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction NISTYPE_0
@@ -3386,10 +3213,9 @@ __instruction NISTYPE_0
             return;
 
     __execute
-        nisfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_nisfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant nisfunct6 funct6 = encdec_nisfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_NISTYPE(funct6, vm, vs2, simm, vd);
 
 __instruction NITYPE_0
@@ -3406,10 +3232,9 @@ __instruction NITYPE_0
             return;
 
     __execute
-        nifunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_nifunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant nifunct6 funct6 = encdec_nifunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_NITYPE(funct6, vm, vs2, simm, vd);
 
 __instruction NVSTYPE_0
@@ -3426,11 +3251,10 @@ __instruction NVSTYPE_0
             return;
 
     __execute
-        nvsfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_nvsfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant nvsfunct6 funct6 = encdec_nvsfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_NVSTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction NVTYPE_0
@@ -3447,11 +3271,10 @@ __instruction NVTYPE_0
             return;
 
     __execute
-        nvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_nvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant nvfunct6 funct6 = encdec_nvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_NVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction NXSTYPE_0
@@ -3468,11 +3291,10 @@ __instruction NXSTYPE_0
             return;
 
     __execute
-        nxsfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_nxsfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant nxsfunct6 funct6 = encdec_nxsfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_NXSTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction NXTYPE_0
@@ -3489,11 +3311,10 @@ __instruction NXTYPE_0
             return;
 
     __execute
-        nxfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_nxfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant nxfunct6 funct6 = encdec_nxfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_NXTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction ORCB_0
@@ -3507,9 +3328,8 @@ __instruction ORCB_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ORCB(rs1, rd);
 
 __instruction REM_0
@@ -3525,11 +3345,10 @@ __instruction REM_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        boolean is_unsigned;
-        bits(5) rd;
-        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant boolean is_unsigned = bool_bits_backwards(mapping2XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping3XH);
         - = execute_REM(rs2, rs1, rd, is_unsigned);
 
 __instruction REMW_0
@@ -3545,11 +3364,10 @@ __instruction REMW_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        boolean is_unsigned;
-        bits(5) rd;
-        (rs2, rs1, is_unsigned, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), bool_bits_backwards(mapping2XH), encdec_reg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant boolean is_unsigned = bool_bits_backwards(mapping2XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping3XH);
         - = execute_REMW(rs2, rs1, rd, is_unsigned);
 
 __instruction REV8_0
@@ -3563,9 +3381,8 @@ __instruction REV8_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_REV8(rs1, rd);
 
 __instruction REV8_1
@@ -3579,9 +3396,8 @@ __instruction REV8_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_REV8(rs1, rd);
 
 __instruction RFVVTYPE_0
@@ -3598,11 +3414,10 @@ __instruction RFVVTYPE_0
             return;
 
     __execute
-        rfvvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_rfvvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant rfvvfunct6 funct6 = encdec_rfvvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_RFVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction RIVVTYPE_0
@@ -3619,11 +3434,10 @@ __instruction RIVVTYPE_0
             return;
 
     __execute
-        rivvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_rivvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant rivvfunct6 funct6 = encdec_rivvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_RIVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction RMVVTYPE_0
@@ -3640,11 +3454,10 @@ __instruction RMVVTYPE_0
             return;
 
     __execute
-        rmvvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_rmvvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant rmvvfunct6 funct6 = encdec_rmvvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_RMVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction RORI_0
@@ -3659,9 +3472,8 @@ __instruction RORI_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_RORI(shamt, rs1, rd);
 
 __instruction RORIW_0
@@ -3676,9 +3488,8 @@ __instruction RORIW_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_RORIW(shamt, rs1, rd);
 
 __instruction RTYPE_0
@@ -3693,10 +3504,9 @@ __instruction RTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, SRA);
 
 __instruction RTYPE_1
@@ -3711,10 +3521,9 @@ __instruction RTYPE_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, SUB);
 
 __instruction RTYPE_2
@@ -3729,10 +3538,9 @@ __instruction RTYPE_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, SRL);
 
 __instruction RTYPE_3
@@ -3747,10 +3555,9 @@ __instruction RTYPE_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, SLL);
 
 __instruction RTYPE_4
@@ -3765,10 +3572,9 @@ __instruction RTYPE_4
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, XXOR);
 
 __instruction RTYPE_5
@@ -3783,10 +3589,9 @@ __instruction RTYPE_5
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, OR_XN);
 
 __instruction RTYPE_6
@@ -3801,10 +3606,9 @@ __instruction RTYPE_6
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, AND_XN);
 
 __instruction RTYPE_7
@@ -3819,10 +3623,9 @@ __instruction RTYPE_7
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, SLTU);
 
 __instruction RTYPE_8
@@ -3837,10 +3640,9 @@ __instruction RTYPE_8
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, SLT);
 
 __instruction RTYPE_9
@@ -3855,10 +3657,9 @@ __instruction RTYPE_9
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPE(rs2, rs1, rd, ADD);
 
 __instruction RTYPEW_0
@@ -3873,10 +3674,9 @@ __instruction RTYPEW_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPEW(rs2, rs1, rd, SRAW);
 
 __instruction RTYPEW_1
@@ -3891,10 +3691,9 @@ __instruction RTYPEW_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPEW(rs2, rs1, rd, SRLW);
 
 __instruction RTYPEW_2
@@ -3909,10 +3708,9 @@ __instruction RTYPEW_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPEW(rs2, rs1, rd, SLLW);
 
 __instruction RTYPEW_3
@@ -3927,10 +3725,9 @@ __instruction RTYPEW_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPEW(rs2, rs1, rd, SUBW);
 
 __instruction RTYPEW_4
@@ -3945,10 +3742,9 @@ __instruction RTYPEW_4
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_RTYPEW(rs2, rs1, rd, ADDW);
 
 __instruction SFENCE_INVAL_IR_0
@@ -3973,9 +3769,8 @@ __instruction SFENCE_VMA_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        (rs2, rs1) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
         - = execute_SFENCE_VMA(rs1, rs2);
 
 __instruction SFENCE_W_INVAL_0
@@ -4000,9 +3795,8 @@ __instruction SHA256SIG0_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA256SIG0(rs1, rd);
 
 __instruction SHA256SIG1_0
@@ -4016,9 +3810,8 @@ __instruction SHA256SIG1_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA256SIG1(rs1, rd);
 
 __instruction SHA256SUM0_0
@@ -4032,9 +3825,8 @@ __instruction SHA256SUM0_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA256SUM0(rs1, rd);
 
 __instruction SHA256SUM1_0
@@ -4048,9 +3840,8 @@ __instruction SHA256SUM1_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA256SUM1(rs1, rd);
 
 __instruction SHA512SIG0_0
@@ -4064,9 +3855,8 @@ __instruction SHA512SIG0_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA512SIG0(rs1, rd);
 
 __instruction SHA512SIG0H_0
@@ -4081,10 +3871,9 @@ __instruction SHA512SIG0H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SHA512SIG0H(rs2, rs1, rd);
 
 __instruction SHA512SIG0L_0
@@ -4099,10 +3888,9 @@ __instruction SHA512SIG0L_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SHA512SIG0L(rs2, rs1, rd);
 
 __instruction SHA512SIG1_0
@@ -4116,9 +3904,8 @@ __instruction SHA512SIG1_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA512SIG1(rs1, rd);
 
 __instruction SHA512SIG1H_0
@@ -4133,10 +3920,9 @@ __instruction SHA512SIG1H_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SHA512SIG1H(rs2, rs1, rd);
 
 __instruction SHA512SIG1L_0
@@ -4151,10 +3937,9 @@ __instruction SHA512SIG1L_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SHA512SIG1L(rs2, rs1, rd);
 
 __instruction SHA512SUM0_0
@@ -4168,9 +3953,8 @@ __instruction SHA512SUM0_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA512SUM0(rs1, rd);
 
 __instruction SHA512SUM0R_0
@@ -4185,10 +3969,9 @@ __instruction SHA512SUM0R_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SHA512SUM0R(rs2, rs1, rd);
 
 __instruction SHA512SUM1_0
@@ -4202,9 +3985,8 @@ __instruction SHA512SUM1_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHA512SUM1(rs1, rd);
 
 __instruction SHA512SUM1R_0
@@ -4219,10 +4001,9 @@ __instruction SHA512SUM1R_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SHA512SUM1R(rs2, rs1, rd);
 
 __instruction SHIFTIOP_0
@@ -4237,9 +4018,8 @@ __instruction SHIFTIOP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHIFTIOP(shamt, rs1, rd, SRAI);
 
 __instruction SHIFTIOP_1
@@ -4254,9 +4034,8 @@ __instruction SHIFTIOP_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHIFTIOP(shamt, rs1, rd, SRLI);
 
 __instruction SHIFTIOP_2
@@ -4271,9 +4050,8 @@ __instruction SHIFTIOP_2
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHIFTIOP(shamt, rs1, rd, SLLI);
 
 __instruction SHIFTIWOP_0
@@ -4288,9 +4066,8 @@ __instruction SHIFTIWOP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHIFTIWOP(shamt, rs1, rd, SRAIW);
 
 __instruction SHIFTIWOP_1
@@ -4305,9 +4082,8 @@ __instruction SHIFTIWOP_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHIFTIWOP(shamt, rs1, rd, SRLIW);
 
 __instruction SHIFTIWOP_2
@@ -4322,9 +4098,8 @@ __instruction SHIFTIWOP_2
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SHIFTIWOP(shamt, rs1, rd, SLLIW);
 
 __instruction SINVAL_VMA_0
@@ -4338,9 +4113,8 @@ __instruction SINVAL_VMA_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        (rs2, rs1) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
         - = execute_SINVAL_VMA(rs1, rs2);
 
 __instruction SLLIUW_0
@@ -4355,9 +4129,8 @@ __instruction SLLIUW_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SLLIUW(shamt, rs1, rd);
 
 __instruction SM3P0_0
@@ -4371,9 +4144,8 @@ __instruction SM3P0_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SM3P0(rs1, rd);
 
 __instruction SM3P1_0
@@ -4387,9 +4159,8 @@ __instruction SM3P1_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_SM3P1(rs1, rd);
 
 __instruction SM4ED_0
@@ -4405,10 +4176,9 @@ __instruction SM4ED_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SM4ED(bs, rs2, rs1, rd);
 
 __instruction SM4KS_0
@@ -4424,10 +4194,9 @@ __instruction SM4KS_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_SM4KS(bs, rs2, rs1, rd);
 
 __instruction SRET_0
@@ -4455,10 +4224,9 @@ __instruction STORE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        word_width width;
-        (rs2, rs1, width) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), size_enc_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant word_width width = size_enc_backwards(mapping2XH);
         - = execute_STORE(bitvector_concat(imm7, imm5), rs2, rs1, width);
 
 __instruction STORECON_0
@@ -4476,13 +4244,12 @@ __instruction STORECON_0
             return;
 
     __execute
-        boolean aq;
-        boolean rl;
-        bits(5) rs2;
-        bits(5) rs1;
-        word_width size;
-        bits(5) rd;
-        (aq, rl, rs2, rs1, size, rd) = (bool_bits_backwards(mapping0XH), bool_bits_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_reg_backwards(mapping3XH), size_enc_backwards(mapping4XH), encdec_reg_backwards(mapping5XH));
+        constant boolean aq = bool_bits_backwards(mapping0XH);
+        constant boolean rl = bool_bits_backwards(mapping1XH);
+        constant bits(5) rs2 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping3XH);
+        constant word_width size = size_enc_backwards(mapping4XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping5XH);
         - = execute_STORECON(aq, rl, rs2, rs1, size, rd);
 
 __instruction STORE_FP_0
@@ -4498,9 +4265,8 @@ __instruction STORE_FP_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        (rs2, rs1) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
         - = execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, DOUBLE);
 
 __instruction STORE_FP_1
@@ -4516,9 +4282,8 @@ __instruction STORE_FP_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        (rs2, rs1) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
         - = execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, WORD);
 
 __instruction STORE_FP_2
@@ -4534,9 +4299,8 @@ __instruction STORE_FP_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        (rs2, rs1) = (encdec_freg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
         - = execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, HALF);
 
 __instruction UNZIP_0
@@ -4550,9 +4314,8 @@ __instruction UNZIP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_UNZIP(rs1, rd);
 
 __instruction UTYPE_0
@@ -4567,9 +4330,8 @@ __instruction UTYPE_0
             return;
 
     __execute
-        bits(5) rd;
-        uop op;
-        (rd, op) = (encdec_reg_backwards(mapping0XH), encdec_uop_backwards(mapping1XH));
+        constant bits(5) rd = encdec_reg_backwards(mapping0XH);
+        constant uop op = encdec_uop_backwards(mapping1XH);
         - = execute_UTYPE(imm, rd, op);
 
 __instruction VAESDF_0
@@ -4584,10 +4346,9 @@ __instruction VAESDF_0
             return;
 
     __execute
-        zvk_vaesdf_funct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vaesdf_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant zvk_vaesdf_funct6 funct6 = encdec_vaesdf_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VAESDF(funct6, vs2, vd);
 
 __instruction VAESDM_0
@@ -4602,10 +4363,9 @@ __instruction VAESDM_0
             return;
 
     __execute
-        zvk_vaesdm_funct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vaesdm_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant zvk_vaesdm_funct6 funct6 = encdec_vaesdm_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VAESDM(funct6, vs2, vd);
 
 __instruction VAESEF_0
@@ -4620,10 +4380,9 @@ __instruction VAESEF_0
             return;
 
     __execute
-        zvk_vaesef_funct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vaesef_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant zvk_vaesef_funct6 funct6 = encdec_vaesef_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VAESEF(funct6, vs2, vd);
 
 __instruction VAESEM_0
@@ -4638,10 +4397,9 @@ __instruction VAESEM_0
             return;
 
     __execute
-        zvk_vaesem_funct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vaesem_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant zvk_vaesem_funct6 funct6 = encdec_vaesem_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VAESEM(funct6, vs2, vd);
 
 __instruction VAESKF1_VI_0
@@ -4656,9 +4414,8 @@ __instruction VAESKF1_VI_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VAESKF1_VI(vs2, rnd, vd);
 
 __instruction VAESKF2_VI_0
@@ -4673,9 +4430,8 @@ __instruction VAESKF2_VI_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VAESKF2_VI(vs2, rnd, vd);
 
 __instruction VAESZ_VS_0
@@ -4689,9 +4445,8 @@ __instruction VAESZ_VS_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VAESZ_VS(vs2, vd);
 
 __instruction VANDN_VV_0
@@ -4707,10 +4462,9 @@ __instruction VANDN_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VANDN_VV(vm, vs1, vs2, vd);
 
 __instruction VANDN_VX_0
@@ -4726,10 +4480,9 @@ __instruction VANDN_VX_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VANDN_VX(vm, vs2, rs1, vd);
 
 __instruction VBREV8_V_0
@@ -4744,9 +4497,8 @@ __instruction VBREV8_V_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VBREV8_V(vm, vs2, vd);
 
 __instruction VBREV_V_0
@@ -4761,9 +4513,8 @@ __instruction VBREV_V_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VBREV_V(vm, vs2, vd);
 
 __instruction VCLMULH_VV_0
@@ -4779,10 +4530,9 @@ __instruction VCLMULH_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VCLMULH_VV(vm, vs2, vs1, vd);
 
 __instruction VCLMULH_VX_0
@@ -4798,10 +4548,9 @@ __instruction VCLMULH_VX_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VCLMULH_VX(vm, vs2, rs1, vd);
 
 __instruction VCLMUL_VV_0
@@ -4817,10 +4566,9 @@ __instruction VCLMUL_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VCLMUL_VV(vm, vs2, vs1, vd);
 
 __instruction VCLMUL_VX_0
@@ -4836,10 +4584,9 @@ __instruction VCLMUL_VX_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VCLMUL_VX(vm, vs2, rs1, vd);
 
 __instruction VCLZ_V_0
@@ -4854,9 +4601,8 @@ __instruction VCLZ_V_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VCLZ_V(vm, vs2, vd);
 
 __instruction VCPOP_M_0
@@ -4871,9 +4617,8 @@ __instruction VCPOP_M_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rd;
-        (vs2, rd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_VCPOP_M(vm, vs2, rd);
 
 __instruction VCPOP_V_0
@@ -4888,9 +4633,8 @@ __instruction VCPOP_V_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VCPOP_V(vm, vs2, vd);
 
 __instruction VCTZ_V_0
@@ -4905,9 +4649,8 @@ __instruction VCTZ_V_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VCTZ_V(vm, vs2, vd);
 
 __instruction VEXT2TYPE_0
@@ -4923,10 +4666,9 @@ __instruction VEXT2TYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        vext2funct6 funct6;
-        bits(5) vd;
-        (vs2, funct6, vd) = (encdec_vreg_backwards(mapping0XH), vext2_vs1_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant vext2funct6 funct6 = vext2_vs1_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VEXT2TYPE(funct6, vm, vs2, vd);
 
 __instruction VEXT4TYPE_0
@@ -4942,10 +4684,9 @@ __instruction VEXT4TYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        vext4funct6 funct6;
-        bits(5) vd;
-        (vs2, funct6, vd) = (encdec_vreg_backwards(mapping0XH), vext4_vs1_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant vext4funct6 funct6 = vext4_vs1_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VEXT4TYPE(funct6, vm, vs2, vd);
 
 __instruction VEXT8TYPE_0
@@ -4961,10 +4702,9 @@ __instruction VEXT8TYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        vext8funct6 funct6;
-        bits(5) vd;
-        (vs2, funct6, vd) = (encdec_vreg_backwards(mapping0XH), vext8_vs1_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant vext8funct6 funct6 = vext8_vs1_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VEXT8TYPE(funct6, vm, vs2, vd);
 
 __instruction VFIRST_M_0
@@ -4979,9 +4719,8 @@ __instruction VFIRST_M_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rd;
-        (vs2, rd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_VFIRST_M(vm, vs2, rd);
 
 __instruction VFMERGE_0
@@ -4996,10 +4735,9 @@ __instruction VFMERGE_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_freg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VFMERGE(vs2, rs1, vd);
 
 __instruction VFMV_0
@@ -5013,9 +4751,8 @@ __instruction VFMV_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) vd;
-        (rs1, vd) = (encdec_freg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VFMV(rs1, vd);
 
 __instruction VFMVFS_0
@@ -5029,9 +4766,8 @@ __instruction VFMVFS_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rd;
-        (vs2, rd) = (encdec_vreg_backwards(mapping0XH), encdec_freg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_freg_backwards(mapping1XH);
         - = execute_VFMVFS(vs2, rd);
 
 __instruction VFMVSF_0
@@ -5045,9 +4781,8 @@ __instruction VFMVSF_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) vd;
-        (rs1, vd) = (encdec_freg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VFMVSF(rs1, vd);
 
 __instruction VFNUNARY0_0
@@ -5063,10 +4798,9 @@ __instruction VFNUNARY0_0
             return;
 
     __execute
-        bits(5) vs2;
-        vfnunary0 vfnunary0XN;
-        bits(5) vd;
-        (vs2, vfnunary0XN, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vfnunary0_vs1_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant vfnunary0 vfnunary0XN = encdec_vfnunary0_vs1_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VFNUNARY0(vm, vs2, vfnunary0XN, vd);
 
 __instruction VFUNARY0_0
@@ -5082,10 +4816,9 @@ __instruction VFUNARY0_0
             return;
 
     __execute
-        bits(5) vs2;
-        vfunary0 vfunary0XN;
-        bits(5) vd;
-        (vs2, vfunary0XN, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vfunary0_vs1_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant vfunary0 vfunary0XN = encdec_vfunary0_vs1_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VFUNARY0(vm, vs2, vfunary0XN, vd);
 
 __instruction VFUNARY1_0
@@ -5101,10 +4834,9 @@ __instruction VFUNARY1_0
             return;
 
     __execute
-        bits(5) vs2;
-        vfunary1 vfunary1XN;
-        bits(5) vd;
-        (vs2, vfunary1XN, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vfunary1_vs1_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant vfunary1 vfunary1XN = encdec_vfunary1_vs1_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VFUNARY1(vm, vs2, vfunary1XN, vd);
 
 __instruction VFWUNARY0_0
@@ -5120,10 +4852,9 @@ __instruction VFWUNARY0_0
             return;
 
     __execute
-        bits(5) vs2;
-        vfwunary0 vfwunary0XN;
-        bits(5) vd;
-        (vs2, vfwunary0XN, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vfwunary0_vs1_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant vfwunary0 vfwunary0XN = encdec_vfwunary0_vs1_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VFWUNARY0(vm, vs2, vfwunary0XN, vd);
 
 __instruction VGHSH_VV_0
@@ -5138,10 +4869,9 @@ __instruction VGHSH_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VGHSH_VV(vs2, vs1, vd);
 
 __instruction VGMUL_VV_0
@@ -5155,9 +4885,8 @@ __instruction VGMUL_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VGMUL_VV(vs2, vd);
 
 __instruction VICMPTYPE_0
@@ -5174,10 +4903,9 @@ __instruction VICMPTYPE_0
             return;
 
     __execute
-        vicmpfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vicmpfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant vicmpfunct6 funct6 = encdec_vicmpfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VICMPTYPE(funct6, vm, vs2, simm, vd);
 
 __instruction VID_V_0
@@ -5207,10 +4935,9 @@ __instruction VIMCTYPE_0
             return;
 
     __execute
-        vimcfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vimcfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant vimcfunct6 funct6 = encdec_vimcfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VIMCTYPE(funct6, vs2, simm, vd);
 
 __instruction VIMSTYPE_0
@@ -5226,10 +4953,9 @@ __instruction VIMSTYPE_0
             return;
 
     __execute
-        vimsfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vimsfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant vimsfunct6 funct6 = encdec_vimsfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VIMSTYPE(funct6, vs2, simm, vd);
 
 __instruction VIMTYPE_0
@@ -5245,10 +4971,9 @@ __instruction VIMTYPE_0
             return;
 
     __execute
-        vimfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vimfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant vimfunct6 funct6 = encdec_vimfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VIMTYPE(funct6, vs2, simm, vd);
 
 __instruction VIOTA_M_0
@@ -5263,9 +4988,8 @@ __instruction VIOTA_M_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VIOTA_M(vm, vs2, vd);
 
 __instruction VISG_0
@@ -5282,10 +5006,9 @@ __instruction VISG_0
             return;
 
     __execute
-        visgfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_visgfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant visgfunct6 funct6 = encdec_visgfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VISG(funct6, vm, vs2, simm, vd);
 
 __instruction VITYPE_0
@@ -5302,10 +5025,9 @@ __instruction VITYPE_0
             return;
 
     __execute
-        vifunct6 funct6;
-        bits(5) vs2;
-        bits(5) vd;
-        (funct6, vs2, vd) = (encdec_vifunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant vifunct6 funct6 = encdec_vifunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VITYPE(funct6, vm, vs2, simm, vd);
 
 __instruction VLOXSEGTYPE_0
@@ -5323,11 +5045,10 @@ __instruction VLOXSEGTYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vd;
-        (vs2, rs1, width, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vlewidth_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VLOXSEGTYPE(nf, vm, vs2, rs1, width, vd);
 
 __instruction VLRETYPE_0
@@ -5343,10 +5064,9 @@ __instruction VLRETYPE_0
             return;
 
     __execute
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vd;
-        (rs1, width, vd) = (encdec_reg_backwards(mapping0XH), encdec_vlewidth_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VLRETYPE(nf, rs1, width, vd);
 
 __instruction VLSEGFFTYPE_0
@@ -5363,10 +5083,9 @@ __instruction VLSEGFFTYPE_0
             return;
 
     __execute
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vd;
-        (rs1, width, vd) = (encdec_reg_backwards(mapping0XH), encdec_vlewidth_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VLSEGFFTYPE(nf, vm, rs1, width, vd);
 
 __instruction VLSEGTYPE_0
@@ -5383,10 +5102,9 @@ __instruction VLSEGTYPE_0
             return;
 
     __execute
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vd;
-        (rs1, width, vd) = (encdec_reg_backwards(mapping0XH), encdec_vlewidth_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VLSEGTYPE(nf, vm, rs1, width, vd);
 
 __instruction VLSSEGTYPE_0
@@ -5404,11 +5122,10 @@ __instruction VLSSEGTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vd;
-        (rs2, rs1, width, vd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vlewidth_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VLSSEGTYPE(nf, vm, rs2, rs1, width, vd);
 
 __instruction VLUXSEGTYPE_0
@@ -5426,11 +5143,10 @@ __instruction VLUXSEGTYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vd;
-        (vs2, rs1, width, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vlewidth_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VLUXSEGTYPE(nf, vm, vs2, rs1, width, vd);
 
 __instruction VMSBF_M_0
@@ -5445,9 +5161,8 @@ __instruction VMSBF_M_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VMSBF_M(vm, vs2, vd);
 
 __instruction VMSIF_M_0
@@ -5462,9 +5177,8 @@ __instruction VMSIF_M_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VMSIF_M(vm, vs2, vd);
 
 __instruction VMSOF_M_0
@@ -5479,9 +5193,8 @@ __instruction VMSOF_M_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VMSOF_M(vm, vs2, vd);
 
 __instruction VMTYPE_0
@@ -5496,10 +5209,9 @@ __instruction VMTYPE_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) vd_or_vs3;
-        vmlsop op;
-        (rs1, vd_or_vs3, op) = (encdec_reg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_lsop_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) vd_or_vs3 = encdec_vreg_backwards(mapping1XH);
+        constant vmlsop op = encdec_lsop_backwards(mapping2XH);
         - = execute_VMTYPE(rs1, vd_or_vs3, op);
 
 __instruction VMVRTYPE_0
@@ -5514,10 +5226,9 @@ __instruction VMVRTYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        integer nreg;
-        bits(5) vd;
-        (vs2, nreg, vd) = (encdec_vreg_backwards(mapping0XH), encdec_nreg_forwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant integer nreg = encdec_nreg_forwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VMVRTYPE(vs2, nreg, vd);
 
 __instruction VMVSX_0
@@ -5531,9 +5242,8 @@ __instruction VMVSX_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) vd;
-        (rs1, vd) = (encdec_reg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VMVSX(rs1, vd);
 
 __instruction VMVXS_0
@@ -5547,9 +5257,8 @@ __instruction VMVXS_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rd;
-        (vs2, rd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_VMVXS(vs2, rd);
 
 __instruction VREV8_V_0
@@ -5564,9 +5273,8 @@ __instruction VREV8_V_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VREV8_V(vm, vs2, vd);
 
 __instruction VROL_VV_0
@@ -5582,10 +5290,9 @@ __instruction VROL_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VROL_VV(vm, vs1, vs2, vd);
 
 __instruction VROL_VX_0
@@ -5601,10 +5308,9 @@ __instruction VROL_VX_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VROL_VX(vm, vs2, rs1, vd);
 
 __instruction VROR_VI_0
@@ -5621,9 +5327,8 @@ __instruction VROR_VI_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VROR_VI(vm, vs2, bitvector_concat(uimm5, uimm40), vd);
 
 __instruction VROR_VV_0
@@ -5639,10 +5344,9 @@ __instruction VROR_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VROR_VV(vm, vs1, vs2, vd);
 
 __instruction VROR_VX_0
@@ -5658,10 +5362,9 @@ __instruction VROR_VX_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VROR_VX(vm, vs2, rs1, vd);
 
 __instruction VSETIVLI_0
@@ -5694,10 +5397,9 @@ __instruction VSETVL_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_VSETVL(rs2, rs1, rd);
 
 __instruction VSETVLI_0
@@ -5715,9 +5417,8 @@ __instruction VSETVLI_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_VSETVLI(ma, ta, sew, lmul, rs1, rd);
 
 __instruction VSHA2MS_VV_0
@@ -5732,10 +5433,9 @@ __instruction VSHA2MS_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VSHA2MS_VV(vs2, vs1, vd);
 
 __instruction VSM3C_VI_0
@@ -5750,9 +5450,8 @@ __instruction VSM3C_VI_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VSM3C_VI(vs2, uimm, vd);
 
 __instruction VSM3ME_VV_0
@@ -5767,10 +5466,9 @@ __instruction VSM3ME_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VSM3ME_VV(vs2, vs1, vd);
 
 __instruction VSM4K_VI_0
@@ -5785,9 +5483,8 @@ __instruction VSM4K_VI_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VSM4K_VI(vs2, uimm, vd);
 
 __instruction VSOXSEGTYPE_0
@@ -5805,11 +5502,10 @@ __instruction VSOXSEGTYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vs3;
-        (vs2, rs1, width, vs3) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vlewidth_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping2XH);
+        constant bits(5) vs3 = encdec_vreg_backwards(mapping3XH);
         - = execute_VSOXSEGTYPE(nf, vm, vs2, rs1, width, vs3);
 
 __instruction VSRETYPE_0
@@ -5824,9 +5520,8 @@ __instruction VSRETYPE_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) vs3;
-        (rs1, vs3) = (encdec_reg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) vs3 = encdec_vreg_backwards(mapping1XH);
         - = execute_VSRETYPE(nf, rs1, vs3);
 
 __instruction VSSEGTYPE_0
@@ -5843,10 +5538,9 @@ __instruction VSSEGTYPE_0
             return;
 
     __execute
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vs3;
-        (rs1, width, vs3) = (encdec_reg_backwards(mapping0XH), encdec_vlewidth_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping1XH);
+        constant bits(5) vs3 = encdec_vreg_backwards(mapping2XH);
         - = execute_VSSEGTYPE(nf, vm, rs1, width, vs3);
 
 __instruction VSSSEGTYPE_0
@@ -5864,11 +5558,10 @@ __instruction VSSSEGTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vs3;
-        (rs2, rs1, width, vs3) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vlewidth_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping2XH);
+        constant bits(5) vs3 = encdec_vreg_backwards(mapping3XH);
         - = execute_VSSSEGTYPE(nf, vm, rs2, rs1, width, vs3);
 
 __instruction VSUXSEGTYPE_0
@@ -5886,11 +5579,10 @@ __instruction VSUXSEGTYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        vlewidth width;
-        bits(5) vs3;
-        (vs2, rs1, width, vs3) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vlewidth_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant vlewidth width = encdec_vlewidth_backwards(mapping2XH);
+        constant bits(5) vs3 = encdec_vreg_backwards(mapping3XH);
         - = execute_VSUXSEGTYPE(nf, vm, vs2, rs1, width, vs3);
 
 __instruction VVCMPTYPE_0
@@ -5907,11 +5599,10 @@ __instruction VVCMPTYPE_0
             return;
 
     __execute
-        vvcmpfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_vvcmpfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vvcmpfunct6 funct6 = encdec_vvcmpfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VVCMPTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction VVMCTYPE_0
@@ -5927,11 +5618,10 @@ __instruction VVMCTYPE_0
             return;
 
     __execute
-        vvmcfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_vvmcfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vvmcfunct6 funct6 = encdec_vvmcfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VVMCTYPE(funct6, vs2, vs1, vd);
 
 __instruction VVMSTYPE_0
@@ -5947,11 +5637,10 @@ __instruction VVMSTYPE_0
             return;
 
     __execute
-        vvmsfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_vvmsfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vvmsfunct6 funct6 = encdec_vvmsfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VVMSTYPE(funct6, vs2, vs1, vd);
 
 __instruction VVMTYPE_0
@@ -5967,11 +5656,10 @@ __instruction VVMTYPE_0
             return;
 
     __execute
-        vvmfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_vvmfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vvmfunct6 funct6 = encdec_vvmfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VVMTYPE(funct6, vs2, vs1, vd);
 
 __instruction VVTYPE_0
@@ -5988,11 +5676,10 @@ __instruction VVTYPE_0
             return;
 
     __execute
-        vvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_vvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vvfunct6 funct6 = encdec_vvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction VWSLL_VI_0
@@ -6008,9 +5695,8 @@ __instruction VWSLL_VI_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_VWSLL_VI(vm, vs2, uimm, vd);
 
 __instruction VWSLL_VV_0
@@ -6026,10 +5712,9 @@ __instruction VWSLL_VV_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (vs2, vs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VWSLL_VV(vm, vs2, vs1, vd);
 
 __instruction VWSLL_VX_0
@@ -6045,10 +5730,9 @@ __instruction VWSLL_VX_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (vs2, rs1, vd) = (encdec_vreg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping2XH);
         - = execute_VWSLL_VX(vm, vs2, rs1, vd);
 
 __instruction VXCMPTYPE_0
@@ -6065,11 +5749,10 @@ __instruction VXCMPTYPE_0
             return;
 
     __execute
-        vxcmpfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_vxcmpfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vxcmpfunct6 funct6 = encdec_vxcmpfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VXCMPTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction VXMCTYPE_0
@@ -6085,11 +5768,10 @@ __instruction VXMCTYPE_0
             return;
 
     __execute
-        vxmcfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_vxmcfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vxmcfunct6 funct6 = encdec_vxmcfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VXMCTYPE(funct6, vs2, rs1, vd);
 
 __instruction VXMSTYPE_0
@@ -6105,11 +5787,10 @@ __instruction VXMSTYPE_0
             return;
 
     __execute
-        vxmsfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_vxmsfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vxmsfunct6 funct6 = encdec_vxmsfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VXMSTYPE(funct6, vs2, rs1, vd);
 
 __instruction VXMTYPE_0
@@ -6125,11 +5806,10 @@ __instruction VXMTYPE_0
             return;
 
     __execute
-        vxmfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_vxmfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vxmfunct6 funct6 = encdec_vxmfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VXMTYPE(funct6, vs2, rs1, vd);
 
 __instruction VXSG_0
@@ -6146,11 +5826,10 @@ __instruction VXSG_0
             return;
 
     __execute
-        vxsgfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_vxsgfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vxsgfunct6 funct6 = encdec_vxsgfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VXSG(funct6, vm, vs2, rs1, vd);
 
 __instruction VXTYPE_0
@@ -6167,11 +5846,10 @@ __instruction VXTYPE_0
             return;
 
     __execute
-        vxfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_vxfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant vxfunct6 funct6 = encdec_vxfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_VXTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction WFI_0
@@ -6199,11 +5877,10 @@ __instruction WMVVTYPE_0
             return;
 
     __execute
-        wmvvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_wmvvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant wmvvfunct6 funct6 = encdec_wmvvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_WMVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction WMVXTYPE_0
@@ -6220,11 +5897,10 @@ __instruction WMVXTYPE_0
             return;
 
     __execute
-        wmvxfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_wmvxfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant wmvxfunct6 funct6 = encdec_wmvxfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_WMVXTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction WRS_0
@@ -6254,11 +5930,10 @@ __instruction WVTYPE_0
             return;
 
     __execute
-        wvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_wvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant wvfunct6 funct6 = encdec_wvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_WVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction WVVTYPE_0
@@ -6275,11 +5950,10 @@ __instruction WVVTYPE_0
             return;
 
     __execute
-        wvvfunct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_wvvfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant wvvfunct6 funct6 = encdec_wvvfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_WVVTYPE(funct6, vm, vs2, vs1, vd);
 
 __instruction WVXTYPE_0
@@ -6296,11 +5970,10 @@ __instruction WVXTYPE_0
             return;
 
     __execute
-        wvxfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_wvxfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant wvxfunct6 funct6 = encdec_wvxfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_WVXTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction WXTYPE_0
@@ -6317,11 +5990,10 @@ __instruction WXTYPE_0
             return;
 
     __execute
-        wxfunct6 funct6;
-        bits(5) vs2;
-        bits(5) rs1;
-        bits(5) vd;
-        (funct6, vs2, rs1, vd) = (encdec_wxfunct6_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant wxfunct6 funct6 = encdec_wxfunct6_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_WXTYPE(funct6, vm, vs2, rs1, vd);
 
 __instruction XPERM4_0
@@ -6336,10 +6008,9 @@ __instruction XPERM4_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_XPERM4(rs2, rs1, rd);
 
 __instruction XPERM8_0
@@ -6354,10 +6025,9 @@ __instruction XPERM8_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_XPERM8(rs2, rs1, rd);
 
 __instruction ZBA_RTYPE_0
@@ -6372,10 +6042,9 @@ __instruction ZBA_RTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBA_RTYPE(rs2, rs1, rd, SH3ADD);
 
 __instruction ZBA_RTYPE_1
@@ -6390,10 +6059,9 @@ __instruction ZBA_RTYPE_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBA_RTYPE(rs2, rs1, rd, SH2ADD);
 
 __instruction ZBA_RTYPE_2
@@ -6408,10 +6076,9 @@ __instruction ZBA_RTYPE_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBA_RTYPE(rs2, rs1, rd, SH1ADD);
 
 __instruction ZBA_RTYPEUW_0
@@ -6426,10 +6093,9 @@ __instruction ZBA_RTYPEUW_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBA_RTYPEUW(rs2, rs1, rd, SH3ADDUW);
 
 __instruction ZBA_RTYPEUW_1
@@ -6444,10 +6110,9 @@ __instruction ZBA_RTYPEUW_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBA_RTYPEUW(rs2, rs1, rd, SH2ADDUW);
 
 __instruction ZBA_RTYPEUW_2
@@ -6462,10 +6127,9 @@ __instruction ZBA_RTYPEUW_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBA_RTYPEUW(rs2, rs1, rd, SH1ADDUW);
 
 __instruction ZBA_RTYPEUW_3
@@ -6480,10 +6144,9 @@ __instruction ZBA_RTYPEUW_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBA_RTYPEUW(rs2, rs1, rd, ADDUW);
 
 __instruction ZBB_EXTOP_0
@@ -6497,9 +6160,8 @@ __instruction ZBB_EXTOP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBB_EXTOP(rs1, rd, ZEXXTH);
 
 __instruction ZBB_EXTOP_1
@@ -6513,9 +6175,8 @@ __instruction ZBB_EXTOP_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBB_EXTOP(rs1, rd, ZEXXTH);
 
 __instruction ZBB_EXTOP_2
@@ -6529,9 +6190,8 @@ __instruction ZBB_EXTOP_2
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBB_EXTOP(rs1, rd, SEXXTH);
 
 __instruction ZBB_EXTOP_3
@@ -6545,9 +6205,8 @@ __instruction ZBB_EXTOP_3
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBB_EXTOP(rs1, rd, SEXXTB);
 
 __instruction ZBB_RTYPE_0
@@ -6562,10 +6221,9 @@ __instruction ZBB_RTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, ROR);
 
 __instruction ZBB_RTYPE_1
@@ -6580,10 +6238,9 @@ __instruction ZBB_RTYPE_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, ROL);
 
 __instruction ZBB_RTYPE_2
@@ -6598,10 +6255,9 @@ __instruction ZBB_RTYPE_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, MINU);
 
 __instruction ZBB_RTYPE_3
@@ -6616,10 +6272,9 @@ __instruction ZBB_RTYPE_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, MIN);
 
 __instruction ZBB_RTYPE_4
@@ -6634,10 +6289,9 @@ __instruction ZBB_RTYPE_4
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, MAXXU);
 
 __instruction ZBB_RTYPE_5
@@ -6652,10 +6306,9 @@ __instruction ZBB_RTYPE_5
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, MAXX);
 
 __instruction ZBB_RTYPE_6
@@ -6670,10 +6323,9 @@ __instruction ZBB_RTYPE_6
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, XXNOR);
 
 __instruction ZBB_RTYPE_7
@@ -6688,10 +6340,9 @@ __instruction ZBB_RTYPE_7
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, ORN);
 
 __instruction ZBB_RTYPE_8
@@ -6706,10 +6357,9 @@ __instruction ZBB_RTYPE_8
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPE(rs2, rs1, rd, ANDN);
 
 __instruction ZBB_RTYPEW_0
@@ -6724,10 +6374,9 @@ __instruction ZBB_RTYPEW_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPEW(rs2, rs1, rd, RORW);
 
 __instruction ZBB_RTYPEW_1
@@ -6742,10 +6391,9 @@ __instruction ZBB_RTYPEW_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBB_RTYPEW(rs2, rs1, rd, ROLW);
 
 __instruction ZBKB_PACKW_0
@@ -6760,10 +6408,9 @@ __instruction ZBKB_PACKW_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBKB_PACKW(rs2, rs1, rd);
 
 __instruction ZBKB_RTYPE_0
@@ -6778,10 +6425,9 @@ __instruction ZBKB_RTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBKB_RTYPE(rs2, rs1, rd, PACKH);
 
 __instruction ZBKB_RTYPE_1
@@ -6796,10 +6442,9 @@ __instruction ZBKB_RTYPE_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBKB_RTYPE(rs2, rs1, rd, PACK);
 
 __instruction ZBS_IOP_0
@@ -6814,9 +6459,8 @@ __instruction ZBS_IOP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBS_IOP(shamt, rs1, rd, BSETI);
 
 __instruction ZBS_IOP_1
@@ -6831,9 +6475,8 @@ __instruction ZBS_IOP_1
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBS_IOP(shamt, rs1, rd, BINVI);
 
 __instruction ZBS_IOP_2
@@ -6848,9 +6491,8 @@ __instruction ZBS_IOP_2
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBS_IOP(shamt, rs1, rd, BEXXTI);
 
 __instruction ZBS_IOP_3
@@ -6865,9 +6507,8 @@ __instruction ZBS_IOP_3
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZBS_IOP(shamt, rs1, rd, BCLRI);
 
 __instruction ZBS_RTYPE_0
@@ -6882,10 +6523,9 @@ __instruction ZBS_RTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBS_RTYPE(rs2, rs1, rd, BSET);
 
 __instruction ZBS_RTYPE_1
@@ -6900,10 +6540,9 @@ __instruction ZBS_RTYPE_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBS_RTYPE(rs2, rs1, rd, BINV);
 
 __instruction ZBS_RTYPE_2
@@ -6918,10 +6557,9 @@ __instruction ZBS_RTYPE_2
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBS_RTYPE(rs2, rs1, rd, BEXXT);
 
 __instruction ZBS_RTYPE_3
@@ -6936,10 +6574,9 @@ __instruction ZBS_RTYPE_3
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZBS_RTYPE(rs2, rs1, rd, BCLR);
 
 __instruction ZICBOM_0
@@ -6953,9 +6590,8 @@ __instruction ZICBOM_0
             return;
 
     __execute
-        cbop_zicbom cbop;
-        bits(5) rs1;
-        (cbop, rs1) = (encdec_cbop_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant cbop_zicbom cbop = encdec_cbop_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
         - = execute_ZICBOM(cbop, rs1);
 
 __instruction ZICBOZ_0
@@ -6983,10 +6619,9 @@ __instruction ZICOND_RTYPE_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZICOND_RTYPE(rs2, rs1, rd, CZERO_NEZ);
 
 __instruction ZICOND_RTYPE_1
@@ -7001,10 +6636,9 @@ __instruction ZICOND_RTYPE_1
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZICOND_RTYPE(rs2, rs1, rd, CZERO_EQZ);
 
 __instruction ZIMOP_MOP_R_0
@@ -7021,9 +6655,8 @@ __instruction ZIMOP_MOP_R_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZIMOP_MOP_R(bitvector_concat(mop_30, bitvector_concat(mop_27_26, mop_21_20)), rs1, rd);
 
 __instruction ZIMOP_MOP_RR_0
@@ -7040,10 +6673,9 @@ __instruction ZIMOP_MOP_RR_0
             return;
 
     __execute
-        bits(5) rs2;
-        bits(5) rs1;
-        bits(5) rd;
-        (rs2, rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH), encdec_reg_backwards(mapping2XH));
+        constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rs1 = encdec_reg_backwards(mapping1XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping2XH);
         - = execute_ZIMOP_MOP_RR(bitvector_concat(mop_30, mop_27_26), rs2, rs1, rd);
 
 __instruction ZIP_0
@@ -7057,9 +6689,8 @@ __instruction ZIP_0
             return;
 
     __execute
-        bits(5) rs1;
-        bits(5) rd;
-        (rs1, rd) = (encdec_reg_backwards(mapping0XH), encdec_reg_backwards(mapping1XH));
+        constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
+        constant bits(5) rd = encdec_reg_backwards(mapping1XH);
         - = execute_ZIP(rs1, rd);
 
 __instruction ZVKSHA2TYPE_0
@@ -7075,11 +6706,10 @@ __instruction ZVKSHA2TYPE_0
             return;
 
     __execute
-        zvk_vsha2_funct6 funct6;
-        bits(5) vs2;
-        bits(5) vs1;
-        bits(5) vd;
-        (funct6, vs2, vs1, vd) = (encdec_vsha2_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH));
+        constant zvk_vsha2_funct6 funct6 = encdec_vsha2_backwards(mapping0XH);
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping1XH);
+        constant bits(5) vs1 = encdec_vreg_backwards(mapping2XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping3XH);
         - = execute_ZVKSHA2TYPE(funct6, vs2, vs1, vd);
 
 __instruction ZVKSM4RTYPE_0
@@ -7093,9 +6723,8 @@ __instruction ZVKSM4RTYPE_0
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_ZVKSM4RTYPE(ZVK_VSM4R_VS, vs2, vd);
 
 __instruction ZVKSM4RTYPE_1
@@ -7109,7 +6738,6 @@ __instruction ZVKSM4RTYPE_1
             return;
 
     __execute
-        bits(5) vs2;
-        bits(5) vd;
-        (vs2, vd) = (encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH));
+        constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
+        constant bits(5) vd = encdec_vreg_backwards(mapping1XH);
         - = execute_ZVKSM4RTYPE(ZVK_VSM4R_VV, vs2, vd);

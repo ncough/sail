@@ -1746,9 +1746,8 @@ enumeration SATPMode {
 
 (option, SATPMode) satpMode_of_bits(Architecture a, bits(4) m)
     (option, SATPMode) temp_XT_1;
-    Architecture g__9;
-    bits(4) b__0;
-    (g__9, b__0) = (a, m);
+    constant Architecture g__9 = a;
+    constant bits(4) b__0 = m;
     if eq_bits(b__0, '0000') then
         temp_XT_1 = (Some, Bare);
     else
@@ -1760,7 +1759,8 @@ enumeration SATPMode {
                 if eq_bits(b__0, '0001') then
                     temp_XT_1 = (Some, Sv32);
                 else
-                    (-, -) = (RV32, b__0);
+                    - = RV32;
+                    - = b__0;
                     temp_XT_1 = (None, SATPMode UNKNOWN);
             when (RV64, -)
                 bits(4) b__0;
@@ -1774,7 +1774,8 @@ enumeration SATPMode {
                         if eq_bits(b__0, '1010') then
                             temp_XT_1 = (Some, Sv57);
                         else
-                            (-, -) = (RV64, b__0);
+                            - = RV64;
+                            - = b__0;
                             temp_XT_1 = (None, SATPMode UNKNOWN);
             when (-, -)
                 temp_XT_1 = (None, SATPMode UNKNOWN);
@@ -5896,10 +5897,9 @@ boolean is_aligned_bits(bits((pow2_int(3)) * (8)) vaddr, word_width width)
 
 write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
     write_kind temp_XT_1;
-    boolean p0XH;
-    boolean p1XH;
-    boolean p2XH;
-    (p0XH, p1XH, p2XH) = (aq, rl, con);
+    constant boolean p0XH = aq;
+    constant boolean p1XH = rl;
+    constant boolean p2XH = con;
     if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, FALSE)) then
         temp_XT_1 = Write_plain;
     else
@@ -18510,9 +18510,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant boolean fiom = is_fiom_active();
     constant bits(4) pred = effective_fence_set(pred, fiom);
     constant bits(4) succ = effective_fence_set(succ, fiom);
-    bits(4) v__3892;
-    bits(4) v__3893;
-    (v__3892, v__3893) = (pred, succ);
+    constant bits(4) v__3892 = pred;
+    constant bits(4) v__3893 = succ;
     if and_bool(eq_bits(subrange_bits(v__3892, 1, 0), '11'), eq_bits(subrange_bits(v__3893, 1, 0), '11')) then
         sail_barrier(Barrier_RISCV_rw_rw);
     else
