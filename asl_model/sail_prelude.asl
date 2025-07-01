@@ -54,6 +54,9 @@ bits(n) zeros(integer n)
 bits(w) get_slice_int(integer w, integer n, integer lo)
     return n[lo +: w];
 
+bits(l) to_bits(integer l, integer n)
+    return get_slice_int(l, n, 0);
+
 bits(wd) slice(bits(m) b, integer lo, integer wd)
     return b[lo +: wd];
 
