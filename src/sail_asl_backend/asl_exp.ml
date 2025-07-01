@@ -871,6 +871,12 @@ and asl_exp (E_aux (e, annot) as exp) =
       asl_exp (Util.last exprs)
 
   (* Variable management *)
+  | E_let (LB_aux (LB_val (P_aux(P_tuple pats,_), E_aux(E_tuple exps,_)), _), body) ->
+      let lets = List.combine pats exps in
+      let@ _ = traverse (fun (pat,exp) ->
+        let@ exp_doc = asl_expr exp in
+        asl_const_decl pat exp_doc) lets in
+      asl_exp body
   | E_let (LB_aux (LB_val (pat, exp), _), body) ->
       let@ exp_doc = asl_expr exp in
       let@ _ = asl_const_decl pat exp_doc in
