@@ -38,54 +38,6 @@ let external_functions = ref (IdSet.of_list [
   mk_id "mem_read_priv";
   mk_id "write_ram";
 
-  (* TODO: context-sensitive (?) typing *)
-  mk_id "execute_VMVXS";
-  mk_id "vmem_read";
-
-  (* TODO: flow-sensitive typing *)
-  mk_id "canonical_NaN";
-  mk_id "nan_unbox";
-  mk_id "clint_store";
-  mk_id "htif_store";
-  mk_id "satp_to_asid";
-  mk_id "satp_to_ppn";
-  mk_id "get_satp";
-  mk_id "read_CSR";
-  mk_id "write_CSR";
-  mk_id "f_is_neg_inf";
-  mk_id "f_is_neg_norm";
-  mk_id "f_is_neg_subnorm";
-  mk_id "f_is_neg_zero";
-  mk_id "f_is_pos_zero";
-  mk_id "f_is_pos_subnorm";
-  mk_id "f_is_pos_norm";
-  mk_id "f_is_pos_inf";
-  mk_id "f_is_SNaN";
-  mk_id "f_is_QNaN";
-  mk_id "f_is_NaN";
-  mk_id "get_scalar_fp";
-  mk_id "fp_add";
-  mk_id "fp_sub";
-  mk_id "fp_min";
-  mk_id "fp_max";
-  mk_id "fp_eq";
-  mk_id "fp_gt";
-  mk_id "fp_ge";
-  mk_id "fp_lt";
-  mk_id "fp_le";
-  mk_id "fp_mul";
-  mk_id "fp_div";
-  mk_id "fp_muladd";
-  mk_id "fp_nmuladd";
-  mk_id "fp_mulsub";
-  mk_id "fp_nmulsub";
-  mk_id "fp_widen";
-  mk_id "execute_VFWUNARY0";
-  mk_id "execute_VFUNARY1";
-  mk_id "execute_VFUNARY0";
-  mk_id "execute_VFMVFS";
-  mk_id "execute_VFNUNARY0";
-
   (* Floats. Just want high-level prototypes. *)
   mk_id "riscv_f16Add";
   mk_id "riscv_f16Sub";
@@ -153,6 +105,12 @@ let external_functions = ref (IdSet.of_list [
   mk_id "riscv_f16roundToInt";
   mk_id "riscv_f32roundToInt";
   mk_id "riscv_f64roundToInt";
+  mk_id "riscv_f16Rsqrte7";
+  mk_id "riscv_f32Rsqrte7";
+  mk_id "riscv_f64Rsqrte7";
+  mk_id "riscv_f16Recip7";
+  mk_id "riscv_f32Recip7";
+  mk_id "riscv_f64Recip7";
 ])
 
 let external_types = ref (IdSet.of_list [
@@ -189,7 +147,7 @@ let add_external_let id = external_lets := IdSet.add id !external_lets
 
 (* Global configuration variables with defaults *)
 let opt_architecture_name = ref "R64"
-let opt_instruction_filter = ref {|.^|}  
+let opt_instruction_filter = ref {|.^|}
 let opt_execute_function_name = ref "execute"
 let opt_encdec_function_name = ref "encdec_backwards"
 let opt_output_dir = ref (None : string option)

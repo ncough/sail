@@ -2590,6 +2590,9 @@ let rewrite_lit_lem (L_aux (lit, _)) =
 let rewrite_lit_ocaml (L_aux (lit, _)) =
   match lit with L_num _ | L_string _ | L_hex _ | L_bin _ | L_real _ | L_unit -> false | _ -> true
 
+let rewrite_lit_asl (L_aux (lit, _)) =
+  match lit with L_num _ | L_hex _ | L_bin _ | L_real _ | L_unit -> false | _ -> true
+
 let rewrite_ast_pat_lits rewrite_lit env ast =
   let rewrite_pexp (Pat_aux (pexp_aux, annot)) =
     let guards = ref [] in
@@ -4800,6 +4803,7 @@ let rec describe_rewriter = function
 
 let instantiate_rewriter rewriter args =
   let selector_function = function
+    | "asl" -> rewrite_lit_asl
     | "ocaml" -> rewrite_lit_ocaml
     | "lem" -> rewrite_lit_lem
     | "all" -> fun _ -> true

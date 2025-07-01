@@ -72,6 +72,8 @@ let if_expr cond arg1 arg2 =
   parens (string "if" ^^ space ^^ cond ^^ space ^^ string "then" ^^ space ^^ arg1 ^^ space ^^ string "else" ^^
   space ^^ arg2)
 
+let basic_call name args = (string name ^^ parens (separate (comma ^^ space) args))
+
 let rec call_doc name args =
   match (name, args) with
   (* These are used in types, need to convert directly to primitives to help type checking *)
@@ -108,6 +110,113 @@ let rec call_doc name args =
       call_doc "slt_bits" args
   | ("(operator >_s)", _) ->
       call_doc "sgt_bits" args
+
+  (* Explicit cast to these functions *)
+  | ("negate_H", [arg])
+  | ("f_is_neg_zero_H", [arg])
+  | ("f_is_pos_zero_H", [arg])
+  | ("f_is_neg_inf_H", [arg])
+  | ("f_is_neg_norm_H", [arg])
+  | ("f_is_neg_subnorm_H", [arg])
+  | ("f_is_pos_subnorm_H", [arg])
+  | ("f_is_pos_norm_H", [arg])
+  | ("f_is_pos_inf_H", [arg])
+  | ("f_is_SNaN_H", [arg])
+  | ("f_is_QNaN_H", [arg])
+  | ("f_is_NaN_H", [arg]) ->
+      basic_call name [arg ^^ string "[15:0]"]
+
+  | ("Mk_Satp32", [arg])
+  | ("negate_S", [arg])
+  | ("f_is_neg_zero_S", [arg])
+  | ("f_is_pos_zero_S", [arg])
+  | ("f_is_neg_inf_S", [arg])
+  | ("f_is_neg_norm_S", [arg])
+  | ("f_is_neg_subnorm_S", [arg])
+  | ("f_is_pos_subnorm_S", [arg])
+  | ("f_is_pos_norm_S", [arg])
+  | ("f_is_pos_inf_S", [arg])
+  | ("f_is_SNaN_S", [arg])
+  | ("f_is_QNaN_S", [arg])
+  | ("f_is_NaN_S", [arg]) ->
+      basic_call name [arg ^^ string "[31:0]"]
+
+  | ("Mk_Satp64", [arg])
+  | ("negate_D", [arg])
+  | ("f_is_neg_zero_D", [arg])
+  | ("f_is_pos_zero_D", [arg])
+  | ("f_is_neg_inf_D", [arg])
+  | ("f_is_neg_norm_D", [arg])
+  | ("f_is_neg_subnorm_D", [arg])
+  | ("f_is_pos_subnorm_D", [arg])
+  | ("f_is_pos_norm_D", [arg])
+  | ("f_is_pos_inf_D", [arg])
+  | ("f_is_SNaN_D", [arg])
+  | ("f_is_QNaN_D", [arg])
+  | ("f_is_NaN_D", [arg]) ->
+      basic_call name [arg ^^ string "[63:0]"]
+
+  | ("riscv_f16Sqrt", [rm; op])
+  | ("riscv_f16Rsqrte7", [rm; op])
+  | ("riscv_f16Recip7", [rm; op])
+  | ("riscv_f16ToF32", [rm; op]) ->
+      basic_call name [rm; op ^^ string "[15:0]"]
+
+  | ("riscv_f32Sqrt", [rm; op])
+  | ("riscv_f32Rsqrte7", [rm; op])
+  | ("riscv_f32Recip7", [rm; op])
+  | ("riscv_f32ToF64", [rm; op]) ->
+      basic_call name [rm; op ^^ string "[31:0]"]
+
+  | ("riscv_f64Sqrt", [rm; op]) 
+  | ("riscv_f64Rsqrte7", [rm; op])
+  | ("riscv_f64Recip7", [rm; op]) ->
+      basic_call name [rm; op ^^ string "[63:0]"]
+
+  | ("riscv_f16Add", [rm; op1; op2])
+  | ("riscv_f16Sub", [rm; op1; op2])
+  | ("riscv_f16Mul", [rm; op1; op2])
+  | ("riscv_f16Div", [rm; op1; op2]) ->
+      basic_call name [rm; op1 ^^ string "[15:0]"; op2 ^^ string "[15:0]"]
+
+  | ("riscv_f32Add", [rm; op1; op2])
+  | ("riscv_f32Sub", [rm; op1; op2])
+  | ("riscv_f32Mul", [rm; op1; op2])
+  | ("riscv_f32Div", [rm; op1; op2]) ->
+      basic_call name [rm; op1 ^^ string "[31:0]"; op2 ^^ string "[31:0]"]
+
+  | ("riscv_f64Add", [rm; op1; op2])
+  | ("riscv_f64Sub", [rm; op1; op2])
+  | ("riscv_f64Mul", [rm; op1; op2])
+  | ("riscv_f64Div", [rm; op1; op2]) ->
+      basic_call name [rm; op1 ^^ string "[63:0]"; op2 ^^ string "[63:0]"]
+
+  | ("riscv_f16Lt_quiet", [op1; op2]) 
+  | ("riscv_f16Le", [op1; op2]) 
+  | ("riscv_f16Lt", [op1; op2]) 
+  | ("riscv_f16Eq", [op1; op2]) ->
+      basic_call name [op1 ^^ string "[15:0]"; op2 ^^ string "[15:0]"]
+
+  | ("riscv_f32Lt_quiet", [op1; op2]) 
+  | ("riscv_f32Le", [op1; op2]) 
+  | ("riscv_f32Lt", [op1; op2]) 
+  | ("riscv_f32Eq", [op1; op2]) ->
+      basic_call name [op1 ^^ string "[31:0]"; op2 ^^ string "[31:0]"]
+
+  | ("riscv_f64Lt_quiet", [op1; op2]) 
+  | ("riscv_f64Le", [op1; op2]) 
+  | ("riscv_f64Lt", [op1; op2]) 
+  | ("riscv_f64Eq", [op1; op2]) ->
+      basic_call name [op1 ^^ string "[63:0]"; op2 ^^ string "[63:0]"]
+
+  | ("riscv_f16MulAdd", [rm; op1; op2; op3]) ->
+      basic_call name [rm; op1 ^^ string "[15:0]"; op2 ^^ string "[15:0]"; op3 ^^ string "[15:0]"]
+
+  | ("riscv_f32MulAdd", [rm; op1; op2; op3]) ->
+      basic_call name [rm; op1 ^^ string "[31:0]"; op2 ^^ string "[31:0]"; op3 ^^ string "[31:0]"]
+
+  | ("riscv_f64MulAdd", [rm; op1; op2; op3]) ->
+      basic_call name [rm; op1 ^^ string "[63:0]"; op2 ^^ string "[63:0]"; op3 ^^ string "[63:0]"]
 
   (* Translate poly equality and inequality *)
   | ("eq_anything", [arg1; arg2]) ->
@@ -611,7 +720,13 @@ let asl_unit arg = emit (arg ^^ semi)
 
 (* Construct an pattern match case *)
 let rec asl_pat (P_aux (p, annot) as pat) =
+  let uannot = untyped_annot (snd annot) in
   match p with
+  | P_wild when get_attribute "int_wildcard" uannot <> None ->
+      (match get_attribute "int_wildcard" uannot with
+      | Some (_, Some (Parse_ast.Attribute_data.AD_aux(AD_num n,_))) -> 
+          return (string (Big_int.to_string n))
+      | _ -> failwith "")
   | P_wild
   | P_lit (L_aux (L_unit, _)) ->
       return wild_doc

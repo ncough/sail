@@ -16,9 +16,13 @@ integer min_int(integer a, integer b)
 integer max_int(integer a, integer b)
     return if a > b then a else b;
 
-// TODO: Not implemented
 integer quot_positive_round_zero(integer a, integer b)
+    return a QUOT b;
+
 integer quot_round_zero(integer a, integer b)
+    return a QUOT b;
+
+// TODO: Not implemented
 integer rem_round_zero(integer a, integer b)
 integer emod_int(integer a, integer b)
 
@@ -122,10 +126,12 @@ bits(m) shift_bits_right(bits(m) a, bits(n) b)
 
 string bits_str(bits(n) a)
 string hex_str(integer i)
+string hex_bits_str(bits(n) a)
 string concat_str(string a, string b)
 bits(n) hex_bits_backwards((integer, string) t)
 boolean eq_string(string a, string b)
 print_platform(string a)
+plat_term_write(bits(n) a)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Architecture Operations

@@ -563,17 +563,24 @@ let eliminate_unions ast =
   } in
   let ast = rewrite_exp_pat exp_alg pat_alg ast in
 
-  (* Apply type transform *)
-  let ast = transform_ast_types (transform_type !union_info_map) ast in
-
   (* Eliminate 'mapping_match', it has some implications with option('a) *)
   let match_alg = {
     id_exp_alg with
-    e_aux = (fun (exp_aux, (l, tannot)) ->
-      let tannot = Type_check.map_uannot (remove_attribute "mapping_match") tannot in
-      E_aux (exp_aux, (l, tannot)));
+    e_aux = (fun (exp_aux, (l, (tannot : tannot))) ->
+      match exp_aux, get_attribute "mapping_match" (untyped_annot tannot) with
+      | E_match (E_aux (E_match (e_inner, arms_inner), tannot_inner) as e_match, arms), Some _ -> 
+          let (pat, guard_opt, body, pexp_annot) = destruct_pexp (List.hd arms_inner) in
+          let typ = typ_of body in
+          let tannot = Type_check.map_uannot (remove_attribute "mapping_match") tannot in
+          E_aux (E_match (E_aux (E_typ (typ, e_match), tannot_inner), arms), (l, tannot))
+      | _, _ -> 
+          let tannot = Type_check.map_uannot (remove_attribute "mapping_match") tannot in
+          E_aux (exp_aux, (l, tannot)) );
   } in
   let ast = rewrite_exp_pat match_alg id_pat_alg ast in
+
+  (* Apply type transform *)
+  let ast = transform_ast_types (transform_type !union_info_map) ast in
 
   (* Run the trivial match eliminate - wish we didn't have to but the type checker
      can't infer the type of a match? *)
