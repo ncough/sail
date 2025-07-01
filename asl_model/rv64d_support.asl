@@ -35,17 +35,21 @@ string hex_bits_12_forwards(bits(12) argXH)
     (option, string) temp_XT_3;
     constant bits(12) mapping0XH = head_expXH;
     if hex_bits_forwards_matches(mapping0XH) then
-        integer l__1074;
-        string s;
-        (l__1074, s) = hex_bits_forwards(mapping0XH);
-        temp_XT_3 = (if eq_int(l__1074, 12) then (Some, s) else (None, string UNKNOWN));
+        constant (integer, string) XM_match_469 = hex_bits_forwards(mapping0XH);
+        case XM_match_469 of
+            when (12, -)
+                string s;
+                (-, s) = XM_match_469;
+                temp_XT_3 = (Some, s);
+            when -
+                temp_XT_3 = (None, string UNKNOWN);
     else
         temp_XT_3 = (None, string UNKNOWN);
-    constant (option, string) XM_match_405 = temp_XT_3;
-    case XM_match_405 of
+    constant (option, string) XM_match_470 = temp_XT_3;
+    case XM_match_470 of
         when (Some, -)
             string resultXN;
-            (-, resultXN) = XM_match_405;
+            (-, resultXN) = XM_match_470;
             temp_XT_1 = resultXN;
         when -
             assert(FALSE);
@@ -65,6 +69,19 @@ bit not_bit(bit b)
 
 boolean not(boolean b)
     return not_bool(b);
+
+string bit_str(bit b)
+    string temp_XT_1;
+    constant bit p0XH = b;
+    if eq_bit(p0XH, '0') then
+        temp_XT_1 = "0b0";
+    else
+        if eq_bit(p0XH, '1') then
+            temp_XT_1 = "0b1";
+        else
+            assert(FALSE);
+            exit();
+    return temp_XT_1;
 
 boolean get_config_print_platform()
     return FALSE;
@@ -92,35 +109,41 @@ bits(m) trunc(integer m, bits(n) v)
 
 bit bool_bit_forwards(boolean argXH)
     bit temp_XT_1;
-    constant boolean XM_match_403 = argXH;
-    case XM_match_403 of
-        when TRUE
-            temp_XT_1 = '1';
-        when FALSE
+    constant boolean p0XH = argXH;
+    if eq_bool(p0XH, TRUE) then
+        temp_XT_1 = '1';
+    else
+        if eq_bool(p0XH, FALSE) then
             temp_XT_1 = '0';
+        else
+            assert(FALSE);
+            exit();
     return temp_XT_1;
 
 boolean bool_bit_backwards(bit argXH)
     boolean temp_XT_1;
-    constant bit XM_match_402 = argXH;
-    case XM_match_402 of
-        when '1'
-            temp_XT_1 = TRUE;
-        when '0'
+    constant bit p0XH = argXH;
+    if eq_bit(p0XH, '1') then
+        temp_XT_1 = TRUE;
+    else
+        if eq_bit(p0XH, '0') then
             temp_XT_1 = FALSE;
-        when -
+        else
             assert(FALSE);
             exit();
     return temp_XT_1;
 
 bits(1) bool_bits_forwards(boolean argXH)
     bits(1) temp_XT_1;
-    constant boolean XM_match_401 = argXH;
-    case XM_match_401 of
-        when TRUE
-            temp_XT_1 = '1';
-        when FALSE
+    constant boolean p0XH = argXH;
+    if eq_bool(p0XH, TRUE) then
+        temp_XT_1 = '1';
+    else
+        if eq_bool(p0XH, FALSE) then
             temp_XT_1 = '0';
+        else
+            assert(FALSE);
+            exit();
     return temp_XT_1;
 
 boolean bool_bits_backwards(bits(1) argXH)
@@ -179,8 +202,24 @@ bits(n) reverse_bits(bits(n) xs)
     return ys;
 
 integer log2(integer n)
-    constant integer l__813 = n;
-    constant integer resultXN = (if eq_int(l__813, 1) then 0 else (if eq_int(l__813, 2) then 1 else (if eq_int(l__813, 4) then 2 else (if eq_int(l__813, 8) then 3 else (if eq_int(l__813, 16) then 4 else (if eq_int(l__813, 32) then 5 else 6))))));
+    integer temp_XT_2;
+    constant integer XM_match_468 = n;
+    case XM_match_468 of
+        when 1
+            temp_XT_2 = 0;
+        when 2
+            temp_XT_2 = 1;
+        when 4
+            temp_XT_2 = 2;
+        when 8
+            temp_XT_2 = 3;
+        when 16
+            temp_XT_2 = 4;
+        when 32
+            temp_XT_2 = 5;
+        when 64
+            temp_XT_2 = 6;
+    constant integer resultXN = temp_XT_2;
     return resultXN;
 
 constant integer max_mem_access = 4096;
@@ -360,8 +399,8 @@ enumeration extension {
 
 boolean hartSupports(extension merge_var)
     boolean temp_XT_1;
-    constant extension XM_match_396 = merge_var;
-    case XM_match_396 of
+    constant extension XM_match_463 = merge_var;
+    case XM_match_463 of
         when Ext_M
             temp_XT_1 = TRUE;
         when Ext_A
@@ -527,8 +566,8 @@ enumeration Architecture {
 
 bits(2) architecture_forwards(Architecture argXH)
     bits(2) temp_XT_1;
-    constant Architecture XM_match_395 = argXH;
-    case XM_match_395 of
+    constant Architecture XM_match_462 = argXH;
+    case XM_match_462 of
         when RV32
             temp_XT_1 = '01';
         when RV64
@@ -560,8 +599,8 @@ enumeration Privilege {
 
 bits(2) privLevel_bits_forwards(Privilege argXH)
     bits(2) temp_XT_1;
-    constant Privilege XM_match_394 = argXH;
-    case XM_match_394 of
+    constant Privilege XM_match_461 = argXH;
+    case XM_match_461 of
         when User
             temp_XT_1 = '00';
         when Supervisor
@@ -593,8 +632,8 @@ Privilege privLevel_of_bits(bits(2) b)
 
 string privLevel_to_str(Privilege p)
     string temp_XT_1;
-    constant Privilege XM_match_393 = p;
-    case XM_match_393 of
+    constant Privilege XM_match_460 = p;
+    case XM_match_460 of
         when User
             temp_XT_1 = "U";
         when Supervisor
@@ -612,8 +651,8 @@ enumeration AccessType {
 
 string accessType_to_str(AccessType a)
     string temp_XT_1;
-    constant AccessType XM_match_392 = a;
-    case XM_match_392 of
+    constant AccessType XM_match_459 = a;
+    case XM_match_459 of
         when Read
             temp_XT_1 = "R";
         when Write
@@ -650,8 +689,8 @@ enumeration ExceptionType {
 
 string exceptionType_to_str(ExceptionType e)
     string temp_XT_1;
-    constant ExceptionType XM_match_391 = e;
-    case XM_match_391 of
+    constant ExceptionType XM_match_458 = e;
+    case XM_match_458 of
         when E_Fetch_Addr_Align
             temp_XT_1 = "misaligned-fetch";
         when E_Fetch_Access_Fault
@@ -685,7 +724,7 @@ string exceptionType_to_str(ExceptionType e)
         when E_SAMO_Page_Fault
             temp_XT_1 = "store/amo-page-fault";
         when E_Extension
-            - = XM_match_391;
+            - = XM_match_458;
             temp_XT_1 = ext_exc_type_to_str();
     return temp_XT_1;
 
@@ -1576,8 +1615,8 @@ type is_mem_width = integer;
 
 bits(8) exceptionType_to_bits(ExceptionType e)
     bits(8) temp_XT_1;
-    constant ExceptionType XM_match_390 = e;
-    case XM_match_390 of
+    constant ExceptionType XM_match_457 = e;
+    case XM_match_457 of
         when E_Fetch_Addr_Align
             temp_XT_1 = '00000000';
         when E_Fetch_Access_Fault
@@ -1611,14 +1650,14 @@ bits(8) exceptionType_to_bits(ExceptionType e)
         when E_SAMO_Page_Fault
             temp_XT_1 = '00001111';
         when E_Extension
-            - = XM_match_390;
+            - = XM_match_457;
             temp_XT_1 = ext_exc_type_to_bits();
     return temp_XT_1;
 
 integer num_of_ExceptionType(ExceptionType e)
     integer temp_XT_1;
-    constant ExceptionType XM_match_389 = e;
-    case XM_match_389 of
+    constant ExceptionType XM_match_456 = e;
+    case XM_match_456 of
         when E_Fetch_Addr_Align
             temp_XT_1 = 0;
         when E_Fetch_Access_Fault
@@ -1652,7 +1691,7 @@ integer num_of_ExceptionType(ExceptionType e)
         when E_SAMO_Page_Fault
             temp_XT_1 = 15;
         when E_Extension
-            - = XM_match_389;
+            - = XM_match_456;
             temp_XT_1 = num_of_ext_exc_type();
     return temp_XT_1;
 
@@ -1675,8 +1714,8 @@ enumeration ExtStatus {
 
 bits(2) extStatus_bits_forwards(ExtStatus argXH)
     bits(2) temp_XT_1;
-    constant ExtStatus XM_match_388 = argXH;
-    case XM_match_388 of
+    constant ExtStatus XM_match_455 = argXH;
+    case XM_match_455 of
         when Off
             temp_XT_1 = '00';
         when Initial
@@ -1687,8 +1726,15 @@ bits(2) extStatus_bits_forwards(ExtStatus argXH)
             temp_XT_1 = '11';
     return temp_XT_1;
 
+ExtStatus extStatus_bits_backwards(bits(2) argXH)
+    constant bits(2) b__0 = argXH;
+    return (if eq_bits(b__0, '00') then Off else (if eq_bits(b__0, '01') then Initial else (if eq_bits(b__0, '10') then Clean else Dirty)));
+
 bits(2) extStatus_to_bits(ExtStatus e)
     return extStatus_bits_forwards(e);
+
+ExtStatus extStatus_of_bits(bits(2) b)
+    return extStatus_bits_backwards(b);
 
 enumeration SATPMode {
     Bare
@@ -1700,17 +1746,17 @@ enumeration SATPMode {
 
 (option, SATPMode) satpMode_of_bits(Architecture a, bits(4) m)
     (option, SATPMode) temp_XT_1;
-    Architecture g__1099;
+    Architecture g__9;
     bits(4) b__0;
-    (g__1099, b__0) = (a, m);
+    (g__9, b__0) = (a, m);
     if eq_bits(b__0, '0000') then
         temp_XT_1 = (Some, Bare);
     else
-        constant (Architecture, bits(4)) XM_match_387 = (g__1099, b__0);
-        case XM_match_387 of
+        constant (Architecture, bits(4)) XM_match_454 = (g__9, b__0);
+        case XM_match_454 of
             when (RV32, -)
                 bits(4) b__0;
-                (-, b__0) = XM_match_387;
+                (-, b__0) = XM_match_454;
                 if eq_bits(b__0, '0001') then
                     temp_XT_1 = (Some, Sv32);
                 else
@@ -1718,7 +1764,7 @@ enumeration SATPMode {
                     temp_XT_1 = (None, SATPMode UNKNOWN);
             when (RV64, -)
                 bits(4) b__0;
-                (-, b__0) = XM_match_387;
+                (-, b__0) = XM_match_454;
                 if eq_bits(b__0, '1000') then
                     temp_XT_1 = (Some, Sv39);
                 else
@@ -1744,8 +1790,8 @@ boolean size_enc_backwards_matches(bits(2) argXH)
 
 integer size_bytes_forwards(word_width argXH)
     integer temp_XT_1;
-    constant word_width XM_match_386 = argXH;
-    case XM_match_386 of
+    constant word_width XM_match_453 = argXH;
+    case XM_match_453 of
         when BYTE
             temp_XT_1 = 1;
         when HALF
@@ -1757,8 +1803,20 @@ integer size_bytes_forwards(word_width argXH)
     return temp_XT_1;
 
 word_width size_bytes_backwards(integer argXH)
-    constant integer l__694 = argXH;
-    return (if eq_int(l__694, 1) then BYTE else (if eq_int(l__694, 2) then HALF else (if eq_int(l__694, 4) then WORD else DOUBLE)));
+    word_width temp_XT_1;
+    constant integer XM_match_452 = argXH;
+    case XM_match_452 of
+        when 1
+            temp_XT_1 = BYTE;
+        when 2
+            temp_XT_1 = HALF;
+        when 4
+            temp_XT_1 = WORD;
+        when 8
+            temp_XT_1 = DOUBLE;
+    return temp_XT_1;
+
+type is_sv_mode = integer;
 
 
 
@@ -2749,11 +2807,11 @@ bits(12) csr_name_map_backwards(string argXH)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     temp_XT_3 = (Some, reg);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 else
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     temp_XT_3 = (None, bits(12) UNKNOWN);
-    constant (option, bits(12)) XM_match_385 = temp_XT_3;
-    case XM_match_385 of
+    constant (option, bits(12)) XM_match_451 = temp_XT_3;
+    case XM_match_451 of
         when (Some, -)
             bits(12) resultXN;
-            (-, resultXN) = XM_match_385;
+            (-, resultXN) = XM_match_451;
             temp_XT_1 = resultXN;
         when -
             assert(FALSE);
@@ -2860,107 +2918,144 @@ bits((pow2_int(3)) * (8)) x30;
 bits((pow2_int(3)) * (8)) x31;
 
 bits((pow2_int(3)) * (8)) rX(integer r)
-    constant integer l__591 = r;
-    constant bits((pow2_int(3)) * (8)) v = (if eq_int(l__591, 0) then zero_reg else (if eq_int(l__591, 1) then x1 else (if eq_int(l__591, 2) then x2 else (if eq_int(l__591, 3) then x3 else (if eq_int(l__591, 4) then x4 else (if eq_int(l__591, 5) then x5 else (if eq_int(l__591, 6) then x6 else (if eq_int(l__591, 7) then x7 else (if eq_int(l__591, 8) then x8 else (if eq_int(l__591, 9) then x9 else (if eq_int(l__591, 10) then x10 else (if eq_int(l__591, 11) then x11 else (if eq_int(l__591, 12) then x12 else (if eq_int(l__591, 13) then x13 else (if eq_int(l__591, 14) then x14 else (if eq_int(l__591, 15) then x15 else (if eq_int(l__591, 16) then x16 else (if eq_int(l__591, 17) then x17 else (if eq_int(l__591, 18) then x18 else (if eq_int(l__591, 19) then x19 else (if eq_int(l__591, 20) then x20 else (if eq_int(l__591, 21) then x21 else (if eq_int(l__591, 22) then x22 else (if eq_int(l__591, 23) then x23 else (if eq_int(l__591, 24) then x24 else (if eq_int(l__591, 25) then x25 else (if eq_int(l__591, 26) then x26 else (if eq_int(l__591, 27) then x27 else (if eq_int(l__591, 28) then x28 else (if eq_int(l__591, 29) then x29 else (if eq_int(l__591, 30) then x30 else x31)))))))))))))))))))))))))))))));
+    bits((pow2_int(3)) * (8)) temp_XT_2;
+    constant integer XM_match_450 = r;
+    case XM_match_450 of
+        when 0
+            temp_XT_2 = zero_reg;
+        when 1
+            temp_XT_2 = x1;
+        when 2
+            temp_XT_2 = x2;
+        when 3
+            temp_XT_2 = x3;
+        when 4
+            temp_XT_2 = x4;
+        when 5
+            temp_XT_2 = x5;
+        when 6
+            temp_XT_2 = x6;
+        when 7
+            temp_XT_2 = x7;
+        when 8
+            temp_XT_2 = x8;
+        when 9
+            temp_XT_2 = x9;
+        when 10
+            temp_XT_2 = x10;
+        when 11
+            temp_XT_2 = x11;
+        when 12
+            temp_XT_2 = x12;
+        when 13
+            temp_XT_2 = x13;
+        when 14
+            temp_XT_2 = x14;
+        when 15
+            temp_XT_2 = x15;
+        when 16
+            temp_XT_2 = x16;
+        when 17
+            temp_XT_2 = x17;
+        when 18
+            temp_XT_2 = x18;
+        when 19
+            temp_XT_2 = x19;
+        when 20
+            temp_XT_2 = x20;
+        when 21
+            temp_XT_2 = x21;
+        when 22
+            temp_XT_2 = x22;
+        when 23
+            temp_XT_2 = x23;
+        when 24
+            temp_XT_2 = x24;
+        when 25
+            temp_XT_2 = x25;
+        when 26
+            temp_XT_2 = x26;
+        when 27
+            temp_XT_2 = x27;
+        when 28
+            temp_XT_2 = x28;
+        when 29
+            temp_XT_2 = x29;
+        when 30
+            temp_XT_2 = x30;
+        when 31
+            temp_XT_2 = x31;
+    constant bits((pow2_int(3)) * (8)) v = temp_XT_2;
     return regval_from_reg(v);
 
 () wX(integer r, bits((pow2_int(3)) * (8)) in_v)
     constant bits((pow2_int(3)) * (8)) v = regval_into_reg(in_v);
-    constant integer l__560 = r;
-    if eq_int(l__560, 0) then
+    constant integer XM_match_449 = r;
+    case XM_match_449 of
+        when 0
 
-    else
-        if eq_int(l__560, 1) then
+        when 1
             x1 = v;
-        else
-            if eq_int(l__560, 2) then
-                x2 = v;
-            else
-                if eq_int(l__560, 3) then
-                    x3 = v;
-                else
-                    if eq_int(l__560, 4) then
-                        x4 = v;
-                    else
-                        if eq_int(l__560, 5) then
-                            x5 = v;
-                        else
-                            if eq_int(l__560, 6) then
-                                x6 = v;
-                            else
-                                if eq_int(l__560, 7) then
-                                    x7 = v;
-                                else
-                                    if eq_int(l__560, 8) then
-                                        x8 = v;
-                                    else
-                                        if eq_int(l__560, 9) then
-                                            x9 = v;
-                                        else
-                                            if eq_int(l__560, 10) then
-                                                x10 = v;
-                                            else
-                                                if eq_int(l__560, 11) then
-                                                    x11 = v;
-                                                else
-                                                    if eq_int(l__560, 12) then
-                                                        x12 = v;
-                                                    else
-                                                        if eq_int(l__560, 13) then
-                                                            x13 = v;
-                                                        else
-                                                            if eq_int(l__560, 14) then
-                                                                x14 = v;
-                                                            else
-                                                                if eq_int(l__560, 15) then
-                                                                    x15 = v;
-                                                                else
-                                                                    if eq_int(l__560, 16) then
-                                                                        x16 = v;
-                                                                    else
-                                                                        if eq_int(l__560, 17) then
-                                                                            x17 = v;
-                                                                        else
-                                                                            if eq_int(l__560, 18) then
-                                                                                x18 = v;
-                                                                            else
-                                                                                if eq_int(l__560, 19) then
-                                                                                    x19 = v;
-                                                                                else
-                                                                                    if eq_int(l__560, 20) then
-                                                                                        x20 = v;
-                                                                                    else
-                                                                                        if eq_int(l__560, 21) then
-                                                                                            x21 = v;
-                                                                                        else
-                                                                                            if eq_int(l__560, 22) then
-                                                                                                x22 = v;
-                                                                                            else
-                                                                                                if eq_int(l__560, 23) then
-                                                                                                    x23 = v;
-                                                                                                else
-                                                                                                    if eq_int(l__560, 24) then
-                                                                                                        x24 = v;
-                                                                                                    else
-                                                                                                        if eq_int(l__560, 25) then
-                                                                                                            x25 = v;
-                                                                                                        else
-                                                                                                            if eq_int(l__560, 26) then
-                                                                                                                x26 = v;
-                                                                                                            else
-                                                                                                                if eq_int(l__560, 27) then
-                                                                                                                    x27 = v;
-                                                                                                                else
-                                                                                                                    if eq_int(l__560, 28) then
-                                                                                                                        x28 = v;
-                                                                                                                    else
-                                                                                                                        if eq_int(l__560, 29) then
-                                                                                                                            x29 = v;
-                                                                                                                        else
-                                                                                                                            if eq_int(l__560, 30) then
-                                                                                                                                x30 = v;
-                                                                                                                            else
-                                                                                                                                x31 = v;
+        when 2
+            x2 = v;
+        when 3
+            x3 = v;
+        when 4
+            x4 = v;
+        when 5
+            x5 = v;
+        when 6
+            x6 = v;
+        when 7
+            x7 = v;
+        when 8
+            x8 = v;
+        when 9
+            x9 = v;
+        when 10
+            x10 = v;
+        when 11
+            x11 = v;
+        when 12
+            x12 = v;
+        when 13
+            x13 = v;
+        when 14
+            x14 = v;
+        when 15
+            x15 = v;
+        when 16
+            x16 = v;
+        when 17
+            x17 = v;
+        when 18
+            x18 = v;
+        when 19
+            x19 = v;
+        when 20
+            x20 = v;
+        when 21
+            x21 = v;
+        when 22
+            x22 = v;
+        when 23
+            x23 = v;
+        when 24
+            x24 = v;
+        when 25
+            x25 = v;
+        when 26
+            x26 = v;
+        when 27
+            x27 = v;
+        when 28
+            x28 = v;
+        when 29
+            x29 = v;
+        when 30
+            x30 = v;
+        when 31
+            x31 = v;
     if neq_int(r, 0) then
         xreg_write_callback(to_bits(5, r), in_v);
 
@@ -2996,23 +3091,47 @@ bits((pow2_int(3)) * (8)) Mk_Misa(bits(64) v)
 bits(1) _get_Misa_A(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 0, 0);
 
+bits((pow2_int(3)) * (8)) _update_Misa_A(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 0, 0, x);
+
+bits(8) _update_Pmpcfg_ent_A(bits(8) v, bits(2) x)
+    return update_subrange_bits(v, 4, 3, x);
+
 bits(2) _get_Pmpcfg_ent_A(bits(8) v)
     return subrange_bits(v, 4, 3);
 
 bits(1) _get_Misa_B(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 1, 1);
 
+bits((pow2_int(3)) * (8)) _update_Misa_B(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 1, 1, x);
+
 bits(1) _get_Misa_C(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 2, 2);
+
+bits((pow2_int(3)) * (8)) _update_Misa_C(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 2, 2, x);
 
 bits(1) _get_Misa_D(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 3, 3);
 
+bits((pow2_int(3)) * (8)) _update_Misa_D(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 3, 3, x);
+
 bits(1) _get_Misa_F(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 5, 5);
 
+bits((pow2_int(3)) * (8)) _update_Misa_F(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 5, 5, x);
+
 bits(1) _get_Misa_H(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 7, 7);
+
+bits((pow2_int(3)) * (8)) _update_Misa_H(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 7, 7, x);
+
+bits((pow2_int(3)) * (8)) _update_Misa_I(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 8, 8, x);
 
 bits(1) _get_Pmpcfg_ent_L(bits(8) v)
     return subrange_bits(v, 7, 7);
@@ -3020,11 +3139,17 @@ bits(1) _get_Pmpcfg_ent_L(bits(8) v)
 bits(1) _get_Misa_M(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 12, 12);
 
+bits((pow2_int(3)) * (8)) _update_Misa_M(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 12, 12, x);
+
 bits(2) _get_Misa_MXL(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (2));
 
 bits((pow2_int(3)) * (8)) _update_Misa_MXL(bits((pow2_int(3)) * (8)) v, bits(2) x)
     return update_subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (2), x);
+
+bits(8) _update_Pmpcfg_ent_R(bits(8) v, bits(1) x)
+    return update_subrange_bits(v, 0, 0, x);
 
 bits(1) _get_Pmpcfg_ent_R(bits(8) v)
     return subrange_bits(v, 0, 0);
@@ -3032,21 +3157,47 @@ bits(1) _get_Pmpcfg_ent_R(bits(8) v)
 bits(1) _get_Misa_S(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 18, 18);
 
+bits((pow2_int(3)) * (8)) _update_Misa_S(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 18, 18, x);
+
 bits(1) _get_Misa_U(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 20, 20);
+
+bits((pow2_int(3)) * (8)) _update_Misa_U(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 20, 20, x);
 
 bits(1) _get_Misa_V(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 21, 21);
 
+bits((pow2_int(3)) * (8)) _update_Misa_V(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 21, 21, x);
+
+bits(8) _update_Pmpcfg_ent_W(bits(8) v, bits(1) x)
+    return update_subrange_bits(v, 1, 1, x);
+
 bits(1) _get_Pmpcfg_ent_W(bits(8) v)
     return subrange_bits(v, 1, 1);
+
+bits(8) _update_Pmpcfg_ent_X(bits(8) v, bits(1) x)
+    return update_subrange_bits(v, 2, 2, x);
 
 bits(1) _get_Pmpcfg_ent_X(bits(8) v)
     return subrange_bits(v, 2, 2);
 
 bits((pow2_int(3)) * (8)) misa;
 
+constant boolean sys_enable_writable_misa = TRUE;
+
 constant boolean sys_enable_writable_fiom = TRUE;
+
+constant bits(32) sys_writable_hpm_counters = '11111111111111111111111111111111';
+
+boolean ext_veto_disable_C()
+    return FALSE;
+
+bits((pow2_int(3)) * (8)) legalize_misa(bits((pow2_int(3)) * (8)) m, bits((pow2_int(3)) * (8)) v)
+    constant bits((pow2_int(3)) * (8)) v = Mk_Misa(v);
+    return (if or_bool(not(sys_enable_writable_misa), and_bool(eq_bits(_get_Misa_C(v), '0'), or_bool(eq_bit(bitvector_access(nextPC, 1), '1'), ext_veto_disable_C()))) then m else _update_Misa_V(_update_Misa_U(_update_Misa_S(_update_Misa_M(_update_Misa_I(_update_Misa_H(_update_Misa_F(_update_Misa_D(_update_Misa_C(_update_Misa_B(_update_Misa_A(m, (if hartSupports(Ext_A) then _get_Misa_A(v) else '0')), (if hartSupports(Ext_B) then _get_Misa_B(v) else '0')), (if hartSupports(Ext_C) then _get_Misa_C(v) else '0')), (if and_bool(hartSupports(Ext_D), eq_bits(_get_Misa_F(v), '1')) then _get_Misa_D(v) else '0')), (if hartSupports(Ext_F) then _get_Misa_F(v) else '0')), (if hartSupports(Ext_H) then _get_Misa_H(v) else '0')), '1'), (if hartSupports(Ext_M) then _get_Misa_M(v) else '0')), (if and_bool(hartSupports(Ext_S), eq_bits(_get_Misa_U(v), '1')) then _get_Misa_S(v) else '0')), (if hartSupports(Ext_U) then _get_Misa_U(v) else '0')), (if and_bool(hartSupports(Ext_V), and_bool(eq_bits(_get_Misa_F(v), '1'), eq_bits(_get_Misa_D(v), '1'))) then _get_Misa_V(v) else '0')));
 
 bits(64) Mk_Mstatus(bits(64) v)
     return v;
@@ -3067,8 +3218,8 @@ bits(2) _get_Mstatus_VS(bits(64) v)
 
 boolean currentlyEnabled(extension merge_var)
     boolean temp_XT_1;
-    constant extension XM_match_384 = merge_var;
-    case XM_match_384 of
+    constant extension XM_match_448 = merge_var;
+    case XM_match_448 of
         when Ext_Zkt
             temp_XT_1 = hartSupports(Ext_Zkt);
         when Ext_Zvkt
@@ -3214,31 +3365,113 @@ boolean currentlyEnabled(extension merge_var)
 boolean virtual_memory_supported()
     return or_bool(currentlyEnabled(Ext_Sv32), or_bool(currentlyEnabled(Ext_Sv39), or_bool(currentlyEnabled(Ext_Sv48), currentlyEnabled(Ext_Sv57))));
 
+Privilege lowest_supported_privLevel()
+    return (if currentlyEnabled(Ext_U) then User else Machine);
+
+boolean have_privLevel(bits(2) priv)
+    constant bits(2) b__0 = priv;
+    return (if eq_bits(b__0, '00') then currentlyEnabled(Ext_U) else (if eq_bits(b__0, '01') then currentlyEnabled(Ext_S) else (if eq_bits(b__0, '10') then FALSE else TRUE)));
+
+bits(64) _update_Mstatus_FS(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 14, 13, x);
+
+bits(64) _update_Sstatus_FS(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 14, 13, x);
+
+bits(2) _get_Sstatus_FS(bits(64) v)
+    return subrange_bits(v, 14, 13);
+
 bits(1) _get_Mstatus_MIE(bits(64) v)
     return subrange_bits(v, 3, 3);
+
+bits(64) _update_Mstatus_MIE(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 3, 3, x);
 
 bits(1) _get_Mstatus_MPIE(bits(64) v)
     return subrange_bits(v, 7, 7);
 
+bits(64) _update_Mstatus_MPIE(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 7, 7, x);
+
 bits(2) _get_Mstatus_MPP(bits(64) v)
     return subrange_bits(v, 12, 11);
+
+bits(64) _update_Mstatus_MPP(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 12, 11, x);
 
 bits(1) _get_Mstatus_MPRV(bits(64) v)
     return subrange_bits(v, 17, 17);
 
+bits(64) _update_Mstatus_MPRV(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 17, 17, x);
+
 bits(1) _get_Mstatus_MXR(bits(64) v)
     return subrange_bits(v, 19, 19);
 
+bits(64) _update_Mstatus_MXR(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 19, 19, x);
+
+bits(64) _update_Sstatus_MXR(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 19, 19, x);
+
+bits(1) _get_Sstatus_MXR(bits(64) v)
+    return subrange_bits(v, 19, 19);
+
+bits(1) _get_Mstatus_SD(bits(64) v)
+    return subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (1));
+
+bits(64) _update_Mstatus_SD(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (1), x);
+
+bits(64) _update_Sstatus_SD(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (1), x);
+
 bits(1) _get_Mstatus_SIE(bits(64) v)
+    return subrange_bits(v, 1, 1);
+
+bits(64) _update_Mstatus_SIE(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 1, 1, x);
+
+bits(64) _update_Sstatus_SIE(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 1, 1, x);
+
+bits(1) _get_Sstatus_SIE(bits(64) v)
     return subrange_bits(v, 1, 1);
 
 bits(1) _get_Mstatus_SPIE(bits(64) v)
     return subrange_bits(v, 5, 5);
 
+bits(64) _update_Mstatus_SPIE(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 5, 5, x);
+
+bits(64) _update_Sstatus_SPIE(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 5, 5, x);
+
+bits(1) _get_Sstatus_SPIE(bits(64) v)
+    return subrange_bits(v, 5, 5);
+
 bits(1) _get_Mstatus_SPP(bits(64) v)
     return subrange_bits(v, 8, 8);
 
+bits(64) _update_Mstatus_SPP(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 8, 8, x);
+
+bits(64) _update_Sstatus_SPP(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 8, 8, x);
+
+bits(1) _get_Sstatus_SPP(bits(64) v)
+    return subrange_bits(v, 8, 8);
+
 bits(1) _get_Mstatus_SUM(bits(64) v)
+    return subrange_bits(v, 18, 18);
+
+bits(64) _update_Mstatus_SUM(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 18, 18, x);
+
+bits(64) _update_Sstatus_SUM(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 18, 18, x);
+
+bits(1) _get_Sstatus_SUM(bits(64) v)
     return subrange_bits(v, 18, 18);
 
 bits(2) _get_Mstatus_SXL(bits(64) v)
@@ -3247,14 +3480,50 @@ bits(2) _get_Mstatus_SXL(bits(64) v)
 bits(1) _get_Mstatus_TSR(bits(64) v)
     return subrange_bits(v, 22, 22);
 
+bits(64) _update_Mstatus_TSR(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 22, 22, x);
+
 bits(1) _get_Mstatus_TVM(bits(64) v)
     return subrange_bits(v, 20, 20);
+
+bits(64) _update_Mstatus_TVM(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 20, 20, x);
 
 bits(1) _get_Mstatus_TW(bits(64) v)
     return subrange_bits(v, 21, 21);
 
+bits(64) _update_Mstatus_TW(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 21, 21, x);
+
 bits(2) _get_Mstatus_UXL(bits(64) v)
     return subrange_bits(v, 33, 32);
+
+bits(64) _update_Sstatus_UXL(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 33, 32, x);
+
+bits(2) _get_Sstatus_UXL(bits(64) v)
+    return subrange_bits(v, 33, 32);
+
+bits(64) _update_Mstatus_VS(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 10, 9, x);
+
+bits(64) _update_Sstatus_VS(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 10, 9, x);
+
+bits(2) _get_Sstatus_VS(bits(64) v)
+    return subrange_bits(v, 10, 9);
+
+bits(2) _get_Mstatus_XS(bits(64) v)
+    return subrange_bits(v, 16, 15);
+
+bits(64) _update_Mstatus_XS(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 16, 15, x);
+
+bits(64) _update_Sstatus_XS(bits(64) v, bits(2) x)
+    return update_subrange_bits(v, 16, 15, x);
+
+bits(2) _get_Sstatus_XS(bits(64) v)
+    return subrange_bits(v, 16, 15);
 
 Privilege effectivePrivilege(AccessType t, bits(64) m, Privilege priv)
     return (if and_bool(t != InstructionFetch, eq_bits(_get_Mstatus_MPRV(m), '1')) then privLevel_of_bits(_get_Mstatus_MPP(m)) else priv);
@@ -3265,10 +3534,16 @@ bits(2) get_mstatus_SXL(bits(64) m)
 bits(2) get_mstatus_UXL(bits(64) m)
     return _get_Mstatus_UXL(m);
 
+bits(64) legalize_mstatus(bits(64) o, bits(64) v)
+    constant bits(64) v = Mk_Mstatus(v);
+    constant bits(64) o = _update_Mstatus_SIE(_update_Mstatus_MIE(_update_Mstatus_SPIE(_update_Mstatus_MPIE(_update_Mstatus_VS(_update_Mstatus_SPP(_update_Mstatus_MPP(_update_Mstatus_FS(_update_Mstatus_XS(_update_Mstatus_MPRV(_update_Mstatus_SUM(_update_Mstatus_MXR(_update_Mstatus_TVM(_update_Mstatus_TW(_update_Mstatus_TSR(o, (if currentlyEnabled(Ext_S) then _get_Mstatus_TSR(v) else '0')), (if currentlyEnabled(Ext_U) then _get_Mstatus_TW(v) else '0')), (if currentlyEnabled(Ext_S) then _get_Mstatus_TVM(v) else '0')), (if currentlyEnabled(Ext_S) then _get_Mstatus_MXR(v) else '0')), (if virtual_memory_supported() then _get_Mstatus_SUM(v) else '0')), (if currentlyEnabled(Ext_U) then _get_Mstatus_MPRV(v) else '0')), extStatus_to_bits(Off)), (if hartSupports(Ext_Zfinx) then extStatus_to_bits(Off) else _get_Mstatus_FS(v))), (if have_privLevel(_get_Mstatus_MPP(v)) then _get_Mstatus_MPP(v) else privLevel_to_bits(lowest_supported_privLevel()))), (if currentlyEnabled(Ext_S) then _get_Mstatus_SPP(v) else '0')), _get_Mstatus_VS(v)), _get_Mstatus_MPIE(v)), (if currentlyEnabled(Ext_S) then _get_Mstatus_SPIE(v) else '0')), _get_Mstatus_MIE(v)), (if currentlyEnabled(Ext_S) then _get_Mstatus_SIE(v) else '0'));
+    constant boolean dirty = or_bool(extStatus_of_bits(_get_Mstatus_FS(o)) == Dirty, or_bool(extStatus_of_bits(_get_Mstatus_XS(o)) == Dirty, extStatus_of_bits(_get_Mstatus_VS(o)) == Dirty));
+    return _update_Mstatus_SD(o, bool_to_bits(dirty));
+
 Architecture cur_architecture()
     bits(2) temp_XT_2;
-    constant Privilege XM_match_383 = cur_privilege;
-    case XM_match_383 of
+    constant Privilege XM_match_447 = cur_privilege;
+    case XM_match_447 of
         when Machine
             temp_XT_2 = _get_Misa_MXL(misa);
         when Supervisor
@@ -3355,8 +3630,8 @@ bits((pow2_int(3)) * (8)) senvcfg;
 
 boolean is_fiom_active()
     boolean temp_XT_1;
-    constant Privilege XM_match_382 = cur_privilege;
-    case XM_match_382 of
+    constant Privilege XM_match_446 = cur_privilege;
+    case XM_match_446 of
         when Machine
             temp_XT_1 = FALSE;
         when Supervisor
@@ -3365,13 +3640,102 @@ boolean is_fiom_active()
             temp_XT_1 = eq_bits(or_vec(_get_MEnvcfg_FIOM(menvcfg), _get_SEnvcfg_FIOM(senvcfg)), '1');
     return temp_XT_1;
 
+bits((pow2_int(3)) * (8)) Mk_Minterrupts(bits(64) v)
+    return v;
+
+bits(1) _get_Minterrupts_MEI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 11, 11);
+
+bits((pow2_int(3)) * (8)) _update_Minterrupts_MEI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 11, 11, x);
+
+bits(1) _get_Minterrupts_MSI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 3, 3);
+
+bits((pow2_int(3)) * (8)) _update_Minterrupts_MSI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 3, 3, x);
+
+bits(1) _get_Minterrupts_MTI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 7, 7);
+
+bits((pow2_int(3)) * (8)) _update_Minterrupts_MTI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 7, 7, x);
+
+bits(1) _get_Minterrupts_SEI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 9, 9);
+
+bits((pow2_int(3)) * (8)) _update_Minterrupts_SEI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 9, 9, x);
+
+bits((pow2_int(3)) * (8)) _update_Sinterrupts_SEI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 9, 9, x);
+
+bits(1) _get_Sinterrupts_SEI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 9, 9);
+
+bits(1) _get_Minterrupts_SSI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 1, 1);
+
+bits((pow2_int(3)) * (8)) _update_Minterrupts_SSI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 1, 1, x);
+
+bits((pow2_int(3)) * (8)) _update_Sinterrupts_SSI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 1, 1, x);
+
+bits(1) _get_Sinterrupts_SSI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 1, 1);
+
+bits(1) _get_Minterrupts_STI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 5, 5);
+
+bits((pow2_int(3)) * (8)) _update_Minterrupts_STI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 5, 5, x);
+
+bits((pow2_int(3)) * (8)) _update_Sinterrupts_STI(bits((pow2_int(3)) * (8)) v, bits(1) x)
+    return update_subrange_bits(v, 5, 5, x);
+
+bits(1) _get_Sinterrupts_STI(bits((pow2_int(3)) * (8)) v)
+    return subrange_bits(v, 5, 5);
+
+bits((pow2_int(3)) * (8)) legalize_mip(bits((pow2_int(3)) * (8)) o, bits((pow2_int(3)) * (8)) v)
+    constant bits((pow2_int(3)) * (8)) v = Mk_Minterrupts(v);
+    return _update_Minterrupts_STI(_update_Minterrupts_SSI(_update_Minterrupts_SEI(o, (if currentlyEnabled(Ext_S) then _get_Minterrupts_SEI(v) else '0')), (if currentlyEnabled(Ext_S) then _get_Minterrupts_SSI(v) else '0')), (if currentlyEnabled(Ext_S) then (if and_bool(currentlyEnabled(Ext_Sstc), eq_bits(_get_MEnvcfg_STCE(menvcfg), '1')) then _get_Minterrupts_STI(o) else _get_Minterrupts_STI(v)) else '0'));
+
+bits((pow2_int(3)) * (8)) legalize_mie(bits((pow2_int(3)) * (8)) o, bits((pow2_int(3)) * (8)) v)
+    constant bits((pow2_int(3)) * (8)) v = Mk_Minterrupts(v);
+    return _update_Minterrupts_SSI(_update_Minterrupts_STI(_update_Minterrupts_SEI(_update_Minterrupts_MSI(_update_Minterrupts_MTI(_update_Minterrupts_MEI(o, _get_Minterrupts_MEI(v)), _get_Minterrupts_MTI(v)), _get_Minterrupts_MSI(v)), (if currentlyEnabled(Ext_S) then _get_Minterrupts_SEI(v) else '0')), (if currentlyEnabled(Ext_S) then _get_Minterrupts_STI(v) else '0')), (if currentlyEnabled(Ext_S) then _get_Minterrupts_SSI(v) else '0'));
+
+bits((pow2_int(3)) * (8)) legalize_mideleg(bits((pow2_int(3)) * (8)) o, bits((pow2_int(3)) * (8)) v)
+    return _update_Minterrupts_MSI(_update_Minterrupts_MTI(_update_Minterrupts_MEI(Mk_Minterrupts(v), '0'), '0'), '0');
+
+bits(64) Mk_Medeleg(bits(64) v)
+    return v;
+
+bits(64) _update_Medeleg_MEnvCall(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 11, 11, x);
+
+bits(64) legalize_medeleg(bits(64) o, bits(64) v)
+    return _update_Medeleg_MEnvCall(Mk_Medeleg(v), '0');
+
+bits((pow2_int(3)) * (8)) mie;
+
+bits((pow2_int(3)) * (8)) mip;
+
 bits(64) medeleg;
+
+bits((pow2_int(3)) * (8)) mideleg;
+
+bits((pow2_int(3)) * (8)) Mk_Mtvec(bits(64) v)
+    return v;
 
 bits(62) _get_Mtvec_Base(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, (pow2_int(3)) * (8) - (1), 2);
 
 bits(2) _get_Mtvec_Mode(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 1, 0);
+
+bits((pow2_int(3)) * (8)) _update_Mtvec_Mode(bits((pow2_int(3)) * (8)) v, bits(2) x)
+    return update_subrange_bits(v, 1, 0, x);
 
 bits(1) _get_Satp32_Mode(bits(32) v)
     return subrange_bits(v, 31, 31);
@@ -3380,6 +3744,19 @@ bits(4) _get_Satp64_Mode(bits(64) v)
     return subrange_bits(v, 63, 60);
 
 bits((pow2_int(3)) * (8)) mtvec;
+
+bits((pow2_int(3)) * (8)) legalize_tvec(bits((pow2_int(3)) * (8)) o, bits((pow2_int(3)) * (8)) v)
+    bits((pow2_int(3)) * (8)) temp_XT_1;
+    constant bits((pow2_int(3)) * (8)) v = Mk_Mtvec(v);
+    constant TrapVectorMode XM_match_445 = trapVectorMode_of_bits(_get_Mtvec_Mode(v));
+    case XM_match_445 of
+        when TV_Direct
+            temp_XT_1 = v;
+        when TV_Vector
+            temp_XT_1 = v;
+        when -
+            temp_XT_1 = _update_Mtvec_Mode(v, _get_Mtvec_Mode(o));
+    return temp_XT_1;
 
 bits(63) _get_Mcause_Cause(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, (pow2_int(3)) * (8) - (2), 0);
@@ -3392,8 +3769,8 @@ bits((pow2_int(3)) * (8)) mcause;
 (option, bits((pow2_int(3)) * (8))) tvec_addr(bits((pow2_int(3)) * (8)) m, bits((pow2_int(3)) * (8)) c)
     (option, bits((pow2_int(3)) * (8))) temp_XT_1;
     constant bits((pow2_int(3)) * (8)) base = bitvector_concat(_get_Mtvec_Base(m), '00');
-    constant TrapVectorMode XM_match_380 = trapVectorMode_of_bits(_get_Mtvec_Mode(m));
-    case XM_match_380 of
+    constant TrapVectorMode XM_match_444 = trapVectorMode_of_bits(_get_Mtvec_Mode(m));
+    case XM_match_444 of
         when TV_Direct
             temp_XT_1 = (Some, base);
         when TV_Vector
@@ -3404,19 +3781,104 @@ bits((pow2_int(3)) * (8)) mcause;
 
 bits((pow2_int(3)) * (8)) mepc;
 
+bits((pow2_int(3)) * (8)) legalize_xepc(bits((pow2_int(3)) * (8)) v)
+    return (if hartSupports(Ext_Zca) then bitvector_update(v, 0, '0') else update_subrange_bits(v, 1, 0, zeros(1 - (0 - (1)))));
+
 bits((pow2_int(3)) * (8)) align_pc(bits((pow2_int(3)) * (8)) addr)
     return (if currentlyEnabled(Ext_Zca) then bitvector_update(addr, 0, '0') else update_subrange_bits(addr, 1, 0, zeros(1 - (0 - (1)))));
 
 bits((pow2_int(3)) * (8)) mtval;
 
+bits((pow2_int(3)) * (8)) mscratch;
+
+bits(32) Mk_Counteren(bits(32) v)
+    return v;
+
 bits(1) _get_Counteren_TM(bits(32) v)
     return subrange_bits(v, 1, 1);
 
+bits(32) legalize_scounteren(bits(32) c, bits((pow2_int(3)) * (8)) v)
+    constant bits((((31) - (3)) + (1)) + (3)) supported_counters = bitvector_concat(subrange_bits(sys_writable_hpm_counters, 31, 3), '111');
+    return Mk_Counteren(and_vec(subrange_bits(v, 31, 0), supported_counters));
+
 bits(32) scounteren;
+
+bits(32) legalize_mcounteren(bits(32) c, bits((pow2_int(3)) * (8)) v)
+    constant bits((((31) - (3)) + (1)) + (3)) supported_counters = bitvector_concat(subrange_bits(sys_writable_hpm_counters, 31, 3), '111');
+    return Mk_Counteren(and_vec(subrange_bits(v, 31, 0), supported_counters));
 
 bits(32) mcounteren;
 
+bits(32) Mk_Counterin(bits(32) v)
+    return v;
+
+bits(32) legalize_mcountinhibit(bits(32) c, bits((pow2_int(3)) * (8)) v)
+    constant bits((((31) - (3)) + (1)) + (3)) supported_counters = bitvector_concat(subrange_bits(sys_writable_hpm_counters, 31, 3), '101');
+    return Mk_Counterin(and_vec(subrange_bits(v, 31, 0), supported_counters));
+
+bits(32) mcountinhibit;
+
+bits(64) mcycle;
+
+bits(64) mtime;
+
+bits(64) minstret;
+
+boolean minstret_increment;
+
+bits(32) mvendorid;
+
+bits((pow2_int(3)) * (8)) mimpid;
+
+bits((pow2_int(3)) * (8)) marchid;
+
+bits((pow2_int(3)) * (8)) mhartid;
+
+bits((pow2_int(3)) * (8)) mconfigptr;
+
+bits(64) Mk_Sstatus(bits(64) v)
+    return v;
+
+bits(64) lower_mstatus(bits(64) m)
+    constant bits(64) s = Mk_Sstatus(zeros(64));
+    return _update_Sstatus_SIE(_update_Sstatus_SPIE(_update_Sstatus_SPP(_update_Sstatus_VS(_update_Sstatus_FS(_update_Sstatus_XS(_update_Sstatus_SUM(_update_Sstatus_MXR(_update_Sstatus_UXL(_update_Sstatus_SD(s, _get_Mstatus_SD(m)), _get_Mstatus_UXL(m)), _get_Mstatus_MXR(m)), _get_Mstatus_SUM(m)), _get_Mstatus_XS(m)), _get_Mstatus_FS(m)), _get_Mstatus_VS(m)), _get_Mstatus_SPP(m)), _get_Mstatus_SPIE(m)), _get_Mstatus_SIE(m));
+
+bits(64) lift_sstatus(bits(64) m, bits(64) s)
+    constant boolean dirty = or_bool(extStatus_of_bits(_get_Sstatus_FS(s)) == Dirty, or_bool(extStatus_of_bits(_get_Sstatus_XS(s)) == Dirty, extStatus_of_bits(_get_Sstatus_VS(s)) == Dirty));
+    return _update_Mstatus_SIE(_update_Mstatus_SPIE(_update_Mstatus_SPP(_update_Mstatus_VS(_update_Mstatus_FS(_update_Mstatus_XS(_update_Mstatus_SUM(_update_Mstatus_MXR(_update_Mstatus_UXL(_update_Mstatus_SD(m, bool_to_bits(dirty)), _get_Sstatus_UXL(s)), _get_Sstatus_MXR(s)), _get_Sstatus_SUM(s)), _get_Sstatus_XS(s)), _get_Sstatus_FS(s)), _get_Sstatus_VS(s)), _get_Sstatus_SPP(s)), _get_Sstatus_SPIE(s)), _get_Sstatus_SIE(s));
+
+bits(64) legalize_sstatus(bits(64) m, bits((pow2_int(3)) * (8)) v)
+    return legalize_mstatus(m, lift_sstatus(m, Mk_Sstatus(zero_extend(64, v))));
+
+bits((pow2_int(3)) * (8)) Mk_Sinterrupts(bits(64) v)
+    return v;
+
+bits((pow2_int(3)) * (8)) lower_mip(bits((pow2_int(3)) * (8)) m, bits((pow2_int(3)) * (8)) d)
+    constant bits((pow2_int(3)) * (8)) s = Mk_Sinterrupts(zeros(64));
+    return _update_Sinterrupts_SSI(_update_Sinterrupts_STI(_update_Sinterrupts_SEI(s, and_vec(_get_Minterrupts_SEI(m), _get_Minterrupts_SEI(d))), and_vec(_get_Minterrupts_STI(m), _get_Minterrupts_STI(d))), and_vec(_get_Minterrupts_SSI(m), _get_Minterrupts_SSI(d)));
+
+bits((pow2_int(3)) * (8)) lower_mie(bits((pow2_int(3)) * (8)) m, bits((pow2_int(3)) * (8)) d)
+    constant bits((pow2_int(3)) * (8)) s = Mk_Sinterrupts(zeros(64));
+    return _update_Sinterrupts_SSI(_update_Sinterrupts_STI(_update_Sinterrupts_SEI(s, and_vec(_get_Minterrupts_SEI(m), _get_Minterrupts_SEI(d))), and_vec(_get_Minterrupts_STI(m), _get_Minterrupts_STI(d))), and_vec(_get_Minterrupts_SSI(m), _get_Minterrupts_SSI(d)));
+
+bits((pow2_int(3)) * (8)) lift_sip(bits((pow2_int(3)) * (8)) o, bits((pow2_int(3)) * (8)) d, bits((pow2_int(3)) * (8)) s)
+    constant bits((pow2_int(3)) * (8)) m = o;
+    constant bits((pow2_int(3)) * (8)) m = (if eq_bits(_get_Minterrupts_SSI(d), '1') then _update_Minterrupts_SSI(m, _get_Sinterrupts_SSI(s)) else m);
+    return m;
+
+bits((pow2_int(3)) * (8)) legalize_sip(bits((pow2_int(3)) * (8)) m, bits((pow2_int(3)) * (8)) d, bits((pow2_int(3)) * (8)) v)
+    return lift_sip(m, d, Mk_Sinterrupts(v));
+
+bits((pow2_int(3)) * (8)) lift_sie(bits((pow2_int(3)) * (8)) o, bits((pow2_int(3)) * (8)) d, bits((pow2_int(3)) * (8)) s)
+    constant bits((pow2_int(3)) * (8)) m = o;
+    return _update_Minterrupts_SSI(_update_Minterrupts_STI(_update_Minterrupts_SEI(m, (if eq_bits(_get_Minterrupts_SEI(d), '1') then _get_Sinterrupts_SEI(s) else _get_Minterrupts_SEI(m))), (if eq_bits(_get_Minterrupts_STI(d), '1') then _get_Sinterrupts_STI(s) else _get_Minterrupts_STI(m))), (if eq_bits(_get_Minterrupts_SSI(d), '1') then _get_Sinterrupts_SSI(s) else _get_Minterrupts_SSI(m)));
+
+bits((pow2_int(3)) * (8)) legalize_sie(bits((pow2_int(3)) * (8)) m, bits((pow2_int(3)) * (8)) d, bits((pow2_int(3)) * (8)) v)
+    return lift_sie(m, d, Mk_Sinterrupts(v));
+
 bits((pow2_int(3)) * (8)) stvec;
+
+bits((pow2_int(3)) * (8)) sscratch;
 
 bits((pow2_int(3)) * (8)) sepc;
 
@@ -3427,12 +3889,52 @@ bits((pow2_int(3)) * (8)) stval;
 bits(64) Mk_Satp64(bits(64) v)
     return v;
 
+bits(16) _get_Satp64_Asid(bits(64) v)
+    return subrange_bits(v, 59, 44);
+
+bits(9) _get_Satp32_Asid(bits(32) v)
+    return subrange_bits(v, 30, 22);
+
+bits(44) _get_Satp64_PPN(bits(64) v)
+    return subrange_bits(v, 43, 0);
+
+bits(22) _get_Satp32_PPN(bits(32) v)
+    return subrange_bits(v, 21, 0);
+
 bits(32) Mk_Satp32(bits(32) v)
     return v;
+
+bits((pow2_int(3)) * (8)) legalize_satp(Architecture arch, bits((pow2_int(3)) * (8)) prev_value, bits((pow2_int(3)) * (8)) written_value)
+    bits((pow2_int(3)) * (8)) temp_XT_1;
+    constant bits(64) s = Mk_Satp64(written_value[63:0]);
+    constant (option, SATPMode) XM_match_443 = satpMode_of_bits(arch, _get_Satp64_Mode(s));
+    case XM_match_443 of
+        when (None, -)
+            temp_XT_1 = prev_value;
+        when (Some, -)
+            SATPMode Sv_mode;
+            (-, Sv_mode) = XM_match_443;
+            constant SATPMode XM_match_442 = Sv_mode;
+            case XM_match_442 of
+                when Bare
+                    temp_XT_1 = (if currentlyEnabled(Ext_Svbare) then s else prev_value);
+                when Sv39
+                    temp_XT_1 = (if currentlyEnabled(Ext_Sv39) then s else prev_value);
+                when Sv48
+                    temp_XT_1 = (if currentlyEnabled(Ext_Sv48) then s else prev_value);
+                when Sv57
+                    temp_XT_1 = (if currentlyEnabled(Ext_Sv57) then s else prev_value);
+                when -
+                    temp_XT_1 = prev_value;
+    return temp_XT_1;
+
+bits((pow2_int(3)) * (8)) tselect;
 
 bits(16) vstart;
 
 bits((pow2_int(3)) * (8)) vl;
+
+constant bits((pow2_int(3)) * (8)) VLENB = to_bits((pow2_int(3)) * (8), quot_positive_round_zero(pow2_int(VLEN_pow), 8));
 
 bits(1) _get_Vtype_vill(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (1));
@@ -3534,40 +4036,81 @@ PmpAddrMatchType pmpAddrMatchType_of_bits(bits(2) bs)
     constant bits(2) b__0 = bs;
     return (if eq_bits(b__0, '00') then OFF else (if eq_bits(b__0, '01') then TOR else (if eq_bits(b__0, '10') then NA4 else NAPOT)));
 
+bits(2) pmpAddrMatchType_to_bits(PmpAddrMatchType bs)
+    bits(2) temp_XT_1;
+    constant PmpAddrMatchType XM_match_441 = bs;
+    case XM_match_441 of
+        when OFF
+            temp_XT_1 = '00';
+        when TOR
+            temp_XT_1 = '01';
+        when NA4
+            temp_XT_1 = '10';
+        when NAPOT
+            temp_XT_1 = '11';
+    return temp_XT_1;
+
+bits(8) Mk_Pmpcfg_ent(bits(8) v)
+    return v;
+
 bits((64) * (8)) pmpcfg_n;
 
 bits((64) * ((pow2_int(3)) * (8))) pmpaddr_n;
+
+bits((pow2_int(3)) * (8)) pmpReadCfgReg(integer n)
+    assert(eq_int(emod_int(n, 2), 0));
+    return bitvector_concat(plain_vector_access(pmpcfg_n, (n) * (4) + 7, 64, 8), bitvector_concat(plain_vector_access(pmpcfg_n, (n) * (4) + 6, 64, 8), bitvector_concat(plain_vector_access(pmpcfg_n, (n) * (4) + 5, 64, 8), bitvector_concat(plain_vector_access(pmpcfg_n, (n) * (4) + 4, 64, 8), bitvector_concat(plain_vector_access(pmpcfg_n, (n) * (4) + 3, 64, 8), bitvector_concat(plain_vector_access(pmpcfg_n, (n) * (4) + 2, 64, 8), bitvector_concat(plain_vector_access(pmpcfg_n, (n) * (4) + 1, 64, 8), plain_vector_access(pmpcfg_n, (n) * (4) + 0, 64, 8))))))));
 
 bits((pow2_int(3)) * (8)) pmpReadAddrReg(integer n)
     bits((pow2_int(3)) * (8)) temp_XT_1;
     constant integer G = sys_pmp_grain;
     constant bits(2) match_type = _get_Pmpcfg_ent_A(plain_vector_access(pmpcfg_n, n, 64, 8));
     constant bits((pow2_int(3)) * (8)) addr = plain_vector_access(pmpaddr_n, n, 64, (pow2_int(3)) * (8));
-    constant bit XM_match_376 = bitvector_access(match_type, 1);
-    case XM_match_376 of
-        when '1'
-            if gteq_int(G, 2) then
-                constant bits((pow2_int(3)) * (8)) mask = zero_extend((pow2_int(3)) * (8), ones(min_int(G - (1), xlen)));
-                temp_XT_1 = or_vec(addr, mask);
-            else
-                temp_XT_1 = addr;
-        when '0'
-            if gteq_int(G, 1) then
-                constant bits((pow2_int(3)) * (8)) mask = zero_extend((pow2_int(3)) * (8), ones(min_int(G, xlen)));
-                temp_XT_1 = and_vec(addr, not_vec(mask));
-            else
-                temp_XT_1 = addr;
-        when -
+    constant bit p0XH = bitvector_access(match_type, 1);
+    if and_bool(gteq_int(G, 2), eq_bit(p0XH, '1')) then
+        constant bits((pow2_int(3)) * (8)) mask = zero_extend((pow2_int(3)) * (8), ones(min_int(G - (1), xlen)));
+        temp_XT_1 = or_vec(addr, mask);
+    else
+        if and_bool(gteq_int(G, 1), eq_bit(p0XH, '0')) then
+            constant bits((pow2_int(3)) * (8)) mask = zero_extend((pow2_int(3)) * (8), ones(min_int(G, xlen)));
+            temp_XT_1 = and_vec(addr, not_vec(mask));
+        else
             temp_XT_1 = addr;
     return temp_XT_1;
 
 boolean pmpLocked(bits(8) cfg)
     return eq_bits(_get_Pmpcfg_ent_L(cfg), '1');
 
+boolean pmpTORLocked(bits(8) cfg)
+    return and_bool(eq_bits(_get_Pmpcfg_ent_L(cfg), '1'), pmpAddrMatchType_of_bits(_get_Pmpcfg_ent_A(cfg)) == TOR);
+
+bits(8) pmpWriteCfg(integer n, bits(8) cfg, bits(8) v)
+    bits(8) temp_XT_1;
+    if pmpLocked(cfg) then
+        temp_XT_1 = cfg;
+    else
+        constant bits(8) cfg = Mk_Pmpcfg_ent(and_vec(v, '10011111'));
+        constant bits(8) cfg = (if and_bool(eq_bits(_get_Pmpcfg_ent_W(cfg), '1'), eq_bits(_get_Pmpcfg_ent_R(cfg), '0')) then _update_Pmpcfg_ent_R(_update_Pmpcfg_ent_W(_update_Pmpcfg_ent_X(cfg, '0'), '0'), '0') else cfg);
+        constant bits(8) cfg = (if and_bool(gteq_int(sys_pmp_grain, 1), pmpAddrMatchType_of_bits(_get_Pmpcfg_ent_A(cfg)) == NA4) then _update_Pmpcfg_ent_A(cfg, pmpAddrMatchType_to_bits(OFF)) else cfg);
+        temp_XT_1 = cfg;
+    return temp_XT_1;
+
+() pmpWriteCfgReg(integer n, bits((pow2_int(3)) * (8)) v)
+    assert(eq_int(emod_int(n, 2), 0));
+    for i = 0 to 7
+        constant integer idx = (n) * (4) + i;
+        pmpcfg_n = plain_vector_update(pmpcfg_n, idx, pmpWriteCfg(idx, plain_vector_access(pmpcfg_n, idx, 64, 8), subrange_bits(v, (8) * (i) + 7, (8) * (i))));
+
+bits((pow2_int(3)) * (8)) pmpWriteAddr(boolean locked, boolean tor_locked, bits((pow2_int(3)) * (8)) reg, bits((pow2_int(3)) * (8)) v)
+    return (if or_bool(locked, tor_locked) then reg else zero_extend((pow2_int(3)) * (8), subrange_bits(v, 53, 0)));
+
+() pmpWriteAddrReg(integer n, bits((pow2_int(3)) * (8)) v)
+    pmpaddr_n = plain_vector_update(pmpaddr_n, n, pmpWriteAddr(pmpLocked(plain_vector_access(pmpcfg_n, n, 64, 8)), (if lt_int(n + 1, 64) then pmpTORLocked(plain_vector_access(pmpcfg_n, n + 1, 64, 8)) else FALSE), plain_vector_access(pmpaddr_n, n, 64, (pow2_int(3)) * (8)), v));
+
 boolean pmpCheckRWX(bits(8) ent, AccessType acc)
     boolean temp_XT_1;
-    constant AccessType XM_match_375 = acc;
-    case XM_match_375 of
+    constant AccessType XM_match_440 = acc;
+    case XM_match_440 of
         when Read
             temp_XT_1 = eq_bits(_get_Pmpcfg_ent_R(ent), '1');
         when Write
@@ -3591,8 +4134,8 @@ pmpAddrMatch pmpMatchAddr(bits(64) addr, bits((pow2_int(3)) * (8)) width, bits(8
     pmpAddrMatch temp_XT_1;
     constant integer addr = unsigned(addr);
     constant integer width = unsigned(width);
-    constant PmpAddrMatchType XM_match_374 = pmpAddrMatchType_of_bits(_get_Pmpcfg_ent_A(ent));
-    case XM_match_374 of
+    constant PmpAddrMatchType XM_match_439 = pmpAddrMatchType_of_bits(_get_Pmpcfg_ent_A(ent));
+    case XM_match_439 of
         when OFF
             temp_XT_1 = PMP_NoMatch;
         when TOR
@@ -3610,8 +4153,8 @@ pmpAddrMatch pmpMatchAddr(bits(64) addr, bits((pow2_int(3)) * (8)) width, bits(8
 
 ExceptionType accessToFault(AccessType acc)
     ExceptionType temp_XT_1;
-    constant AccessType XM_match_373 = acc;
-    case XM_match_373 of
+    constant AccessType XM_match_438 = acc;
+    case XM_match_438 of
         when Read
             temp_XT_1 = E_Load_Access_Fault;
         when Write
@@ -3627,8 +4170,8 @@ ExceptionType accessToFault(AccessType acc)
     for i = 0 to 63
         constant bits((pow2_int(3)) * (8)) prev_pmpaddr = (if gt_int(i, 0) then pmpReadAddrReg(i - (1)) else zeros((pow2_int(3)) * (8)));
         constant bits(8) cfg = plain_vector_access(pmpcfg_n, i, 64, 8);
-        constant pmpAddrMatch XM_match_372 = pmpMatchAddr(addr, width, cfg, pmpReadAddrReg(i), prev_pmpaddr);
-        case XM_match_372 of
+        constant pmpAddrMatch XM_match_437 = pmpMatchAddr(addr, width, cfg, pmpReadAddrReg(i), prev_pmpaddr);
+        case XM_match_437 of
             when PMP_NoMatch
 
             when PMP_PartialMatch
@@ -3764,105 +4307,142 @@ bits(65536) vr31;
     long_csr_write_callback("mstatus", "mstatush", mstatus);
 
 bits(65536) rV(integer r)
-    constant integer l__283 = r;
-    return (if eq_int(l__283, 0) then vr0 else (if eq_int(l__283, 1) then vr1 else (if eq_int(l__283, 2) then vr2 else (if eq_int(l__283, 3) then vr3 else (if eq_int(l__283, 4) then vr4 else (if eq_int(l__283, 5) then vr5 else (if eq_int(l__283, 6) then vr6 else (if eq_int(l__283, 7) then vr7 else (if eq_int(l__283, 8) then vr8 else (if eq_int(l__283, 9) then vr9 else (if eq_int(l__283, 10) then vr10 else (if eq_int(l__283, 11) then vr11 else (if eq_int(l__283, 12) then vr12 else (if eq_int(l__283, 13) then vr13 else (if eq_int(l__283, 14) then vr14 else (if eq_int(l__283, 15) then vr15 else (if eq_int(l__283, 16) then vr16 else (if eq_int(l__283, 17) then vr17 else (if eq_int(l__283, 18) then vr18 else (if eq_int(l__283, 19) then vr19 else (if eq_int(l__283, 20) then vr20 else (if eq_int(l__283, 21) then vr21 else (if eq_int(l__283, 22) then vr22 else (if eq_int(l__283, 23) then vr23 else (if eq_int(l__283, 24) then vr24 else (if eq_int(l__283, 25) then vr25 else (if eq_int(l__283, 26) then vr26 else (if eq_int(l__283, 27) then vr27 else (if eq_int(l__283, 28) then vr28 else (if eq_int(l__283, 29) then vr29 else (if eq_int(l__283, 30) then vr30 else vr31)))))))))))))))))))))))))))))));
+    bits(65536) temp_XT_1;
+    constant integer XM_match_436 = r;
+    case XM_match_436 of
+        when 0
+            temp_XT_1 = vr0;
+        when 1
+            temp_XT_1 = vr1;
+        when 2
+            temp_XT_1 = vr2;
+        when 3
+            temp_XT_1 = vr3;
+        when 4
+            temp_XT_1 = vr4;
+        when 5
+            temp_XT_1 = vr5;
+        when 6
+            temp_XT_1 = vr6;
+        when 7
+            temp_XT_1 = vr7;
+        when 8
+            temp_XT_1 = vr8;
+        when 9
+            temp_XT_1 = vr9;
+        when 10
+            temp_XT_1 = vr10;
+        when 11
+            temp_XT_1 = vr11;
+        when 12
+            temp_XT_1 = vr12;
+        when 13
+            temp_XT_1 = vr13;
+        when 14
+            temp_XT_1 = vr14;
+        when 15
+            temp_XT_1 = vr15;
+        when 16
+            temp_XT_1 = vr16;
+        when 17
+            temp_XT_1 = vr17;
+        when 18
+            temp_XT_1 = vr18;
+        when 19
+            temp_XT_1 = vr19;
+        when 20
+            temp_XT_1 = vr20;
+        when 21
+            temp_XT_1 = vr21;
+        when 22
+            temp_XT_1 = vr22;
+        when 23
+            temp_XT_1 = vr23;
+        when 24
+            temp_XT_1 = vr24;
+        when 25
+            temp_XT_1 = vr25;
+        when 26
+            temp_XT_1 = vr26;
+        when 27
+            temp_XT_1 = vr27;
+        when 28
+            temp_XT_1 = vr28;
+        when 29
+            temp_XT_1 = vr29;
+        when 30
+            temp_XT_1 = vr30;
+        when 31
+            temp_XT_1 = vr31;
+    return temp_XT_1;
 
 () wV(integer r, bits(65536) v)
-    constant integer l__252 = r;
-    if eq_int(l__252, 0) then
-        vr0 = v;
-    else
-        if eq_int(l__252, 1) then
+    constant integer XM_match_435 = r;
+    case XM_match_435 of
+        when 0
+            vr0 = v;
+        when 1
             vr1 = v;
-        else
-            if eq_int(l__252, 2) then
-                vr2 = v;
-            else
-                if eq_int(l__252, 3) then
-                    vr3 = v;
-                else
-                    if eq_int(l__252, 4) then
-                        vr4 = v;
-                    else
-                        if eq_int(l__252, 5) then
-                            vr5 = v;
-                        else
-                            if eq_int(l__252, 6) then
-                                vr6 = v;
-                            else
-                                if eq_int(l__252, 7) then
-                                    vr7 = v;
-                                else
-                                    if eq_int(l__252, 8) then
-                                        vr8 = v;
-                                    else
-                                        if eq_int(l__252, 9) then
-                                            vr9 = v;
-                                        else
-                                            if eq_int(l__252, 10) then
-                                                vr10 = v;
-                                            else
-                                                if eq_int(l__252, 11) then
-                                                    vr11 = v;
-                                                else
-                                                    if eq_int(l__252, 12) then
-                                                        vr12 = v;
-                                                    else
-                                                        if eq_int(l__252, 13) then
-                                                            vr13 = v;
-                                                        else
-                                                            if eq_int(l__252, 14) then
-                                                                vr14 = v;
-                                                            else
-                                                                if eq_int(l__252, 15) then
-                                                                    vr15 = v;
-                                                                else
-                                                                    if eq_int(l__252, 16) then
-                                                                        vr16 = v;
-                                                                    else
-                                                                        if eq_int(l__252, 17) then
-                                                                            vr17 = v;
-                                                                        else
-                                                                            if eq_int(l__252, 18) then
-                                                                                vr18 = v;
-                                                                            else
-                                                                                if eq_int(l__252, 19) then
-                                                                                    vr19 = v;
-                                                                                else
-                                                                                    if eq_int(l__252, 20) then
-                                                                                        vr20 = v;
-                                                                                    else
-                                                                                        if eq_int(l__252, 21) then
-                                                                                            vr21 = v;
-                                                                                        else
-                                                                                            if eq_int(l__252, 22) then
-                                                                                                vr22 = v;
-                                                                                            else
-                                                                                                if eq_int(l__252, 23) then
-                                                                                                    vr23 = v;
-                                                                                                else
-                                                                                                    if eq_int(l__252, 24) then
-                                                                                                        vr24 = v;
-                                                                                                    else
-                                                                                                        if eq_int(l__252, 25) then
-                                                                                                            vr25 = v;
-                                                                                                        else
-                                                                                                            if eq_int(l__252, 26) then
-                                                                                                                vr26 = v;
-                                                                                                            else
-                                                                                                                if eq_int(l__252, 27) then
-                                                                                                                    vr27 = v;
-                                                                                                                else
-                                                                                                                    if eq_int(l__252, 28) then
-                                                                                                                        vr28 = v;
-                                                                                                                    else
-                                                                                                                        if eq_int(l__252, 29) then
-                                                                                                                            vr29 = v;
-                                                                                                                        else
-                                                                                                                            if eq_int(l__252, 30) then
-                                                                                                                                vr30 = v;
-                                                                                                                            else
-                                                                                                                                vr31 = v;
+        when 2
+            vr2 = v;
+        when 3
+            vr3 = v;
+        when 4
+            vr4 = v;
+        when 5
+            vr5 = v;
+        when 6
+            vr6 = v;
+        when 7
+            vr7 = v;
+        when 8
+            vr8 = v;
+        when 9
+            vr9 = v;
+        when 10
+            vr10 = v;
+        when 11
+            vr11 = v;
+        when 12
+            vr12 = v;
+        when 13
+            vr13 = v;
+        when 14
+            vr14 = v;
+        when 15
+            vr15 = v;
+        when 16
+            vr16 = v;
+        when 17
+            vr17 = v;
+        when 18
+            vr18 = v;
+        when 19
+            vr19 = v;
+        when 20
+            vr20 = v;
+        when 21
+            vr21 = v;
+        when 22
+            vr22 = v;
+        when 23
+            vr23 = v;
+        when 24
+            vr24 = v;
+        when 25
+            vr25 = v;
+        when 26
+            vr26 = v;
+        when 27
+            vr27 = v;
+        when 28
+            vr28 = v;
+        when 29
+            vr29 = v;
+        when 30
+            vr30 = v;
+        when 31
+            vr31 = v;
     dirty_v_context();
     assert(and_bool(lt_int(0, VLEN), lteq_int(VLEN, 65536)));
     vreg_write_callback(vregno_to_vregidx(r), v);
@@ -3876,7 +4456,15 @@ bits(65536) rV_bits(bits(5) i)
 bits(2) _get_Vcsr_vxrm(bits(3) v)
     return subrange_bits(v, 2, 1);
 
+bits(1) _get_Vcsr_vxsat(bits(3) v)
+    return subrange_bits(v, 0, 0);
+
 bits(3) vcsr;
+
+() ext_write_vcsr(bits(2) vxrm_val, bits(1) vxsat_val)
+    vcsr = update_subrange_bits(vcsr, 2, 1, vxrm_val);
+    vcsr = update_subrange_bits(vcsr, 0, 0, vxsat_val);
+    dirty_v_context();
 
 integer get_num_elem(integer LMUL_pow, integer SEW)
     constant integer LMUL_pow_reg = (if lt_int(LMUL_pow, 0) then 0 else LMUL_pow);
@@ -4014,8 +4602,8 @@ boolean ext_check_xret_priv(Privilege p)
 bits((pow2_int(3)) * (8)) prepare_trap_vector(Privilege p, bits((pow2_int(3)) * (8)) cause)
     bits((pow2_int(3)) * (8)) temp_XT_1;
     bits((pow2_int(3)) * (8)) temp_XT_2;
-    constant Privilege XM_match_371 = p;
-    case XM_match_371 of
+    constant Privilege XM_match_434 = p;
+    case XM_match_434 of
         when Machine
             temp_XT_2 = mtvec;
         when Supervisor
@@ -4023,11 +4611,11 @@ bits((pow2_int(3)) * (8)) prepare_trap_vector(Privilege p, bits((pow2_int(3)) * 
         when User
             assert(FALSE);
     constant bits((pow2_int(3)) * (8)) tvec = temp_XT_2;
-    constant (option, bits((pow2_int(3)) * (8))) XM_match_370 = tvec_addr(tvec, cause);
-    case XM_match_370 of
+    constant (option, bits((pow2_int(3)) * (8))) XM_match_433 = tvec_addr(tvec, cause);
+    case XM_match_433 of
         when (Some, -)
             bits((pow2_int(3)) * (8)) epc;
-            (-, epc) = XM_match_370;
+            (-, epc) = XM_match_433;
             temp_XT_1 = epc;
         when (None, -)
             assert(FALSE);
@@ -4035,8 +4623,8 @@ bits((pow2_int(3)) * (8)) prepare_trap_vector(Privilege p, bits((pow2_int(3)) * 
 
 bits((pow2_int(3)) * (8)) get_xepc(Privilege p)
     bits((pow2_int(3)) * (8)) temp_XT_1;
-    constant Privilege XM_match_369 = p;
-    case XM_match_369 of
+    constant Privilege XM_match_432 = p;
+    case XM_match_432 of
         when Machine
             temp_XT_1 = align_pc(mepc);
         when Supervisor
@@ -4045,8 +4633,34 @@ bits((pow2_int(3)) * (8)) get_xepc(Privilege p)
             assert(FALSE);
     return temp_XT_1;
 
+bits((pow2_int(3)) * (8)) set_xepc(Privilege p, bits((pow2_int(3)) * (8)) value)
+    constant bits((pow2_int(3)) * (8)) target = legalize_xepc(value);
+    constant Privilege XM_match_431 = p;
+    case XM_match_431 of
+        when Machine
+            mepc = target;
+        when Supervisor
+            sepc = target;
+        when User
+            assert(FALSE);
+    return target;
+
 bits((pow2_int(3)) * (8)) prepare_xret_target(Privilege p)
     return get_xepc(p);
+
+bits((pow2_int(3)) * (8)) get_mtvec()
+    return mtvec;
+
+bits((pow2_int(3)) * (8)) get_stvec()
+    return stvec;
+
+bits((pow2_int(3)) * (8)) set_mtvec(bits((pow2_int(3)) * (8)) value)
+    mtvec = legalize_tvec(mtvec, value);
+    return mtvec;
+
+bits((pow2_int(3)) * (8)) set_stvec(bits((pow2_int(3)) * (8)) value)
+    stvec = legalize_tvec(stvec, value);
+    return stvec;
 
 type sync_exception is (ExceptionType trap,
 (option, bits((pow2_int(3)) * (8))) excinfo,
@@ -4058,6 +4672,155 @@ sync_exception asl_make_sync_exception(ExceptionType trap, (option, bits((pow2_i
     temp.excinfo = excinfo;
     temp.ext = ext;
     return temp;
+
+bits(64) Mk_HpmEvent(bits(64) v)
+    return v;
+
+bits(1) _get_HpmEvent_MINH(bits(64) v)
+    return subrange_bits(v, 62, 62);
+
+bits(64) _update_HpmEvent_MINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 62, 62, x);
+
+bits(64) _update_CountSmcntrpmf_MINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 62, 62, x);
+
+bits(1) _get_CountSmcntrpmf_MINH(bits(64) v)
+    return subrange_bits(v, 62, 62);
+
+bits(1) _get_HpmEvent_OF(bits(64) v)
+    return subrange_bits(v, 63, 63);
+
+bits(64) _update_HpmEvent_OF(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 63, 63, x);
+
+bits(1) _get_HpmEvent_SINH(bits(64) v)
+    return subrange_bits(v, 61, 61);
+
+bits(64) _update_HpmEvent_SINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 61, 61, x);
+
+bits(64) _update_CountSmcntrpmf_SINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 61, 61, x);
+
+bits(1) _get_CountSmcntrpmf_SINH(bits(64) v)
+    return subrange_bits(v, 61, 61);
+
+bits(1) _get_HpmEvent_UINH(bits(64) v)
+    return subrange_bits(v, 60, 60);
+
+bits(64) _update_HpmEvent_UINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 60, 60, x);
+
+bits(64) _update_CountSmcntrpmf_UINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 60, 60, x);
+
+bits(1) _get_CountSmcntrpmf_UINH(bits(64) v)
+    return subrange_bits(v, 60, 60);
+
+bits(64) _update_HpmEvent_VSINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 59, 59, x);
+
+bits(64) _update_HpmEvent_VUINH(bits(64) v, bits(1) x)
+    return update_subrange_bits(v, 58, 58, x);
+
+bits(32) _get_HpmEvent_event(bits(64) v)
+    return subrange_bits(v, 31, 0);
+
+bits(64) _update_HpmEvent_event(bits(64) v, bits(32) x)
+    return update_subrange_bits(v, 31, 0, x);
+
+bits((32) * (64)) mhpmevent;
+
+bits((32) * (64)) mhpmcounter;
+
+integer hpmidx_from_bits(bits(5) b)
+    constant integer index = unsigned(b);
+    assert(gteq_int(index, 3));
+    return index;
+
+bits(64) legalize_hpmevent(bits(64) v)
+    return _update_HpmEvent_event(_update_HpmEvent_VUINH(_update_HpmEvent_VSINH(_update_HpmEvent_UINH(_update_HpmEvent_SINH(_update_HpmEvent_MINH(_update_HpmEvent_OF(Mk_HpmEvent(zeros(64)), (if currentlyEnabled(Ext_Sscofpmf) then _get_HpmEvent_OF(v) else '0')), (if currentlyEnabled(Ext_Sscofpmf) then _get_HpmEvent_MINH(v) else '0')), (if and_bool(currentlyEnabled(Ext_Sscofpmf), currentlyEnabled(Ext_S)) then _get_HpmEvent_SINH(v) else '0')), (if and_bool(currentlyEnabled(Ext_Sscofpmf), currentlyEnabled(Ext_U)) then _get_HpmEvent_UINH(v) else '0')), '0'), '0'), _get_HpmEvent_event(v));
+
+bits((pow2_int(3)) * (8)) read_mhpmcounter(integer index)
+    return subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), xlen - (1), 0);
+
+bits(32) read_mhpmcounterh(integer index)
+    return subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), 63, 32);
+
+bits((pow2_int(3)) * (8)) read_mhpmevent(integer index)
+    return subrange_bits(plain_vector_access(mhpmevent, index, 32, 64), xlen - (1), 0);
+
+() write_mhpmcounter(integer index, bits((pow2_int(3)) * (8)) value)
+    if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
+        mhpmcounter = plain_vector_update(mhpmcounter, index, update_subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), xlen - (1), 0, value));
+
+() write_mhpmcounterh(integer index, bits(32) value)
+    if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
+        mhpmcounter = plain_vector_update(mhpmcounter, index, update_subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), 63, 32, value));
+
+() write_mhpmevent(integer index, bits((pow2_int(3)) * (8)) value)
+    if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
+        bits(64) temp_XT_12;
+        constant integer XM_match_430 = xlen;
+        case XM_match_430 of
+            when 32
+                temp_XT_12 = bitvector_concat(subrange_bits(plain_vector_access(mhpmevent, index, 32, 64), 63, 32), value);
+            when 64
+                temp_XT_12 = value;
+            when -
+                assert(FALSE);
+        mhpmevent = plain_vector_update(mhpmevent, index, legalize_hpmevent(Mk_HpmEvent(temp_XT_12)));
+
+bits(32) read_mhpmeventh(integer index)
+    return subrange_bits(plain_vector_access(mhpmevent, index, 32, 64), 63, 32);
+
+() write_mhpmeventh(integer index, bits(32) value)
+    if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
+        mhpmevent = plain_vector_update(mhpmevent, index, legalize_hpmevent(Mk_HpmEvent(bitvector_concat(value, subrange_bits(plain_vector_access(mhpmevent, index, 32, 64), 31, 0)))));
+
+bits(32) get_scountovf(Privilege priv)
+    bits(32) temp_XT_1;
+    constant bits((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + ((1) + (3)))))))))))))))))))))))))))))) overflow = bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 31, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 30, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 29, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 28, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 27, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 26, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 25, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 24, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 23, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 22, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 21, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 20, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 19, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 18, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 17, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 16, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 15, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 14, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 13, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 12, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 11, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 10, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 9, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 8, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 7, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 6, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 5, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 4, 32, 64)), bitvector_concat(_get_HpmEvent_OF(plain_vector_access(mhpmevent, 3, 32, 64)), '000')))))))))))))))))))))))))))));
+    constant Privilege XM_match_429 = priv;
+    case XM_match_429 of
+        when Machine
+            temp_XT_1 = overflow;
+        when Supervisor
+            temp_XT_1 = and_vec(overflow, mcounteren);
+        when User
+            assert(FALSE);
+    return temp_XT_1;
+
+enumeration seed_opst {
+    BIST
+    , ES16
+    , WAIT
+    , DEAD
+};
+
+bits(2) opst_code_forwards(seed_opst argXH)
+    bits(2) temp_XT_1;
+    constant seed_opst XM_match_428 = argXH;
+    case XM_match_428 of
+        when BIST
+            temp_XT_1 = '00';
+        when WAIT
+            temp_XT_1 = '01';
+        when ES16
+            temp_XT_1 = '10';
+        when DEAD
+            temp_XT_1 = '11';
+    return temp_XT_1;
+
+bits((pow2_int(3)) * (8)) read_seed_csr()
+    constant bits(6) reserved_bits = '000000';
+    constant bits(8) custom_bits = '00000000';
+    constant bits(16) seed = get_16_random_bits();
+    return zero_extend((pow2_int(3)) * (8), bitvector_concat(opst_code_forwards(ES16), bitvector_concat(reserved_bits, bitvector_concat(custom_bits, seed))));
+
+bits((pow2_int(3)) * (8)) write_seed_csr()
+    return zeros((pow2_int(3)) * (8));
 
 (bits(5), bits(16)) riscv_f16Add(bits(3) rm, bits(16) v1, bits(16) v2)
 
@@ -4192,6 +4955,18 @@ sync_exception asl_make_sync_exception(ExceptionType trap, (option, bits((pow2_i
 (bits(5), bits(64)) riscv_f64roundToInt(bits(3) rm, bits(64) v, boolean exact)
 
 bits(n) canonical_NaN(integer n)
+    bits(n) temp_XT_1;
+    constant integer XM_match_427 = n;
+    case XM_match_427 of
+        when 16
+            temp_XT_1 = bitvector_concat('0', bitvector_concat(ones(5), bitvector_concat('1', zeros(9))));
+        when 32
+            temp_XT_1 = bitvector_concat('0', bitvector_concat(ones(8), bitvector_concat('1', zeros(22))));
+        when 64
+            temp_XT_1 = bitvector_concat('0', bitvector_concat(ones(11), bitvector_concat('1', zeros(51))));
+        when 128
+            temp_XT_1 = bitvector_concat('0', bitvector_concat(ones(15), bitvector_concat('1', zeros(111))));
+    return temp_XT_1;
 
 bits(16) canonical_NaN_H()
     return canonical_NaN(16);
@@ -4203,6 +4978,7 @@ bits(64) canonical_NaN_D()
     return canonical_NaN(64);
 
 bits(m) nan_unbox(integer m, bits(n) x)
+    return (if eq_int(n, m) then x else (if eq_bits(subrange_bits(x, n - (1), m), ones(n - (1) - (m) + 1)) then subrange_bits(x, m - (1), 0) else canonical_NaN(m)));
 
 bits(5) encdec_freg_backwards(bits(5) argXH)
     constant bits(5) r = argXH;
@@ -4293,206 +5069,147 @@ bits((8) * (8)) f31;
 bits((8) * (8)) rF(integer r)
     assert(hartSupports(Ext_F));
     bits((8) * (8)) temp_XT_5;
-    constant integer l__212 = r;
-    if eq_int(l__212, 0) then
-        temp_XT_5 = f0;
-    else
-        if eq_int(l__212, 1) then
+    constant integer XM_match_426 = r;
+    case XM_match_426 of
+        when 0
+            temp_XT_5 = f0;
+        when 1
             temp_XT_5 = f1;
-        else
-            if eq_int(l__212, 2) then
-                temp_XT_5 = f2;
-            else
-                if eq_int(l__212, 3) then
-                    temp_XT_5 = f3;
-                else
-                    if eq_int(l__212, 4) then
-                        temp_XT_5 = f4;
-                    else
-                        if eq_int(l__212, 5) then
-                            temp_XT_5 = f5;
-                        else
-                            if eq_int(l__212, 6) then
-                                temp_XT_5 = f6;
-                            else
-                                if eq_int(l__212, 7) then
-                                    temp_XT_5 = f7;
-                                else
-                                    if eq_int(l__212, 8) then
-                                        temp_XT_5 = f8;
-                                    else
-                                        if eq_int(l__212, 9) then
-                                            temp_XT_5 = f9;
-                                        else
-                                            if eq_int(l__212, 10) then
-                                                temp_XT_5 = f10;
-                                            else
-                                                if eq_int(l__212, 11) then
-                                                    temp_XT_5 = f11;
-                                                else
-                                                    if eq_int(l__212, 12) then
-                                                        temp_XT_5 = f12;
-                                                    else
-                                                        if eq_int(l__212, 13) then
-                                                            temp_XT_5 = f13;
-                                                        else
-                                                            if eq_int(l__212, 14) then
-                                                                temp_XT_5 = f14;
-                                                            else
-                                                                if eq_int(l__212, 15) then
-                                                                    temp_XT_5 = f15;
-                                                                else
-                                                                    if eq_int(l__212, 16) then
-                                                                        temp_XT_5 = f16;
-                                                                    else
-                                                                        if eq_int(l__212, 17) then
-                                                                            temp_XT_5 = f17;
-                                                                        else
-                                                                            if eq_int(l__212, 18) then
-                                                                                temp_XT_5 = f18;
-                                                                            else
-                                                                                if eq_int(l__212, 19) then
-                                                                                    temp_XT_5 = f19;
-                                                                                else
-                                                                                    if eq_int(l__212, 20) then
-                                                                                        temp_XT_5 = f20;
-                                                                                    else
-                                                                                        if eq_int(l__212, 21) then
-                                                                                            temp_XT_5 = f21;
-                                                                                        else
-                                                                                            if eq_int(l__212, 22) then
-                                                                                                temp_XT_5 = f22;
-                                                                                            else
-                                                                                                if eq_int(l__212, 23) then
-                                                                                                    temp_XT_5 = f23;
-                                                                                                else
-                                                                                                    if eq_int(l__212, 24) then
-                                                                                                        temp_XT_5 = f24;
-                                                                                                    else
-                                                                                                        if eq_int(l__212, 25) then
-                                                                                                            temp_XT_5 = f25;
-                                                                                                        else
-                                                                                                            if eq_int(l__212, 26) then
-                                                                                                                temp_XT_5 = f26;
-                                                                                                            else
-                                                                                                                if eq_int(l__212, 27) then
-                                                                                                                    temp_XT_5 = f27;
-                                                                                                                else
-                                                                                                                    if eq_int(l__212, 28) then
-                                                                                                                        temp_XT_5 = f28;
-                                                                                                                    else
-                                                                                                                        if eq_int(l__212, 29) then
-                                                                                                                            temp_XT_5 = f29;
-                                                                                                                        else
-                                                                                                                            if eq_int(l__212, 30) then
-                                                                                                                                temp_XT_5 = f30;
-                                                                                                                            else
-                                                                                                                                if eq_int(l__212, 31) then
-                                                                                                                                    temp_XT_5 = f31;
-                                                                                                                                else
-                                                                                                                                    assert(FALSE);
-                                                                                                                                    exit();
+        when 2
+            temp_XT_5 = f2;
+        when 3
+            temp_XT_5 = f3;
+        when 4
+            temp_XT_5 = f4;
+        when 5
+            temp_XT_5 = f5;
+        when 6
+            temp_XT_5 = f6;
+        when 7
+            temp_XT_5 = f7;
+        when 8
+            temp_XT_5 = f8;
+        when 9
+            temp_XT_5 = f9;
+        when 10
+            temp_XT_5 = f10;
+        when 11
+            temp_XT_5 = f11;
+        when 12
+            temp_XT_5 = f12;
+        when 13
+            temp_XT_5 = f13;
+        when 14
+            temp_XT_5 = f14;
+        when 15
+            temp_XT_5 = f15;
+        when 16
+            temp_XT_5 = f16;
+        when 17
+            temp_XT_5 = f17;
+        when 18
+            temp_XT_5 = f18;
+        when 19
+            temp_XT_5 = f19;
+        when 20
+            temp_XT_5 = f20;
+        when 21
+            temp_XT_5 = f21;
+        when 22
+            temp_XT_5 = f22;
+        when 23
+            temp_XT_5 = f23;
+        when 24
+            temp_XT_5 = f24;
+        when 25
+            temp_XT_5 = f25;
+        when 26
+            temp_XT_5 = f26;
+        when 27
+            temp_XT_5 = f27;
+        when 28
+            temp_XT_5 = f28;
+        when 29
+            temp_XT_5 = f29;
+        when 30
+            temp_XT_5 = f30;
+        when 31
+            temp_XT_5 = f31;
+        when -
+            assert(FALSE);
+            exit();
     constant bits((8) * (8)) v = temp_XT_5;
     return fregval_from_freg(v);
 
 () wF(integer r, bits((8) * (8)) in_v)
     assert(hartSupports(Ext_F));
     constant bits((8) * (8)) v = fregval_into_freg(in_v);
-    constant integer l__181 = r;
-    if eq_int(l__181, 0) then
-        f0 = v;
-    else
-        if eq_int(l__181, 1) then
+    constant integer XM_match_425 = r;
+    case XM_match_425 of
+        when 0
+            f0 = v;
+        when 1
             f1 = v;
-        else
-            if eq_int(l__181, 2) then
-                f2 = v;
-            else
-                if eq_int(l__181, 3) then
-                    f3 = v;
-                else
-                    if eq_int(l__181, 4) then
-                        f4 = v;
-                    else
-                        if eq_int(l__181, 5) then
-                            f5 = v;
-                        else
-                            if eq_int(l__181, 6) then
-                                f6 = v;
-                            else
-                                if eq_int(l__181, 7) then
-                                    f7 = v;
-                                else
-                                    if eq_int(l__181, 8) then
-                                        f8 = v;
-                                    else
-                                        if eq_int(l__181, 9) then
-                                            f9 = v;
-                                        else
-                                            if eq_int(l__181, 10) then
-                                                f10 = v;
-                                            else
-                                                if eq_int(l__181, 11) then
-                                                    f11 = v;
-                                                else
-                                                    if eq_int(l__181, 12) then
-                                                        f12 = v;
-                                                    else
-                                                        if eq_int(l__181, 13) then
-                                                            f13 = v;
-                                                        else
-                                                            if eq_int(l__181, 14) then
-                                                                f14 = v;
-                                                            else
-                                                                if eq_int(l__181, 15) then
-                                                                    f15 = v;
-                                                                else
-                                                                    if eq_int(l__181, 16) then
-                                                                        f16 = v;
-                                                                    else
-                                                                        if eq_int(l__181, 17) then
-                                                                            f17 = v;
-                                                                        else
-                                                                            if eq_int(l__181, 18) then
-                                                                                f18 = v;
-                                                                            else
-                                                                                if eq_int(l__181, 19) then
-                                                                                    f19 = v;
-                                                                                else
-                                                                                    if eq_int(l__181, 20) then
-                                                                                        f20 = v;
-                                                                                    else
-                                                                                        if eq_int(l__181, 21) then
-                                                                                            f21 = v;
-                                                                                        else
-                                                                                            if eq_int(l__181, 22) then
-                                                                                                f22 = v;
-                                                                                            else
-                                                                                                if eq_int(l__181, 23) then
-                                                                                                    f23 = v;
-                                                                                                else
-                                                                                                    if eq_int(l__181, 24) then
-                                                                                                        f24 = v;
-                                                                                                    else
-                                                                                                        if eq_int(l__181, 25) then
-                                                                                                            f25 = v;
-                                                                                                        else
-                                                                                                            if eq_int(l__181, 26) then
-                                                                                                                f26 = v;
-                                                                                                            else
-                                                                                                                if eq_int(l__181, 27) then
-                                                                                                                    f27 = v;
-                                                                                                                else
-                                                                                                                    if eq_int(l__181, 28) then
-                                                                                                                        f28 = v;
-                                                                                                                    else
-                                                                                                                        if eq_int(l__181, 29) then
-                                                                                                                            f29 = v;
-                                                                                                                        else
-                                                                                                                            if eq_int(l__181, 30) then
-                                                                                                                                f30 = v;
-                                                                                                                            else
-                                                                                                                                f31 = v;
+        when 2
+            f2 = v;
+        when 3
+            f3 = v;
+        when 4
+            f4 = v;
+        when 5
+            f5 = v;
+        when 6
+            f6 = v;
+        when 7
+            f7 = v;
+        when 8
+            f8 = v;
+        when 9
+            f9 = v;
+        when 10
+            f10 = v;
+        when 11
+            f11 = v;
+        when 12
+            f12 = v;
+        when 13
+            f13 = v;
+        when 14
+            f14 = v;
+        when 15
+            f15 = v;
+        when 16
+            f16 = v;
+        when 17
+            f17 = v;
+        when 18
+            f18 = v;
+        when 19
+            f19 = v;
+        when 20
+            f20 = v;
+        when 21
+            f21 = v;
+        when 22
+            f22 = v;
+        when 23
+            f23 = v;
+        when 24
+            f24 = v;
+        when 25
+            f25 = v;
+        when 26
+            f26 = v;
+        when 27
+            f27 = v;
+        when 28
+            f28 = v;
+        when 29
+            f29 = v;
+        when 30
+            f30 = v;
+        when 31
+            f31 = v;
     freg_write_callback(to_bits(5, r), in_v);
     dirty_fd_context();
 
@@ -4579,11 +5296,27 @@ bits(3) _get_Fcsr_FRM(bits(32) v)
 
 bits(32) fcsr;
 
+() write_fcsr(bits(3) frm, bits(5) fflags)
+    fcsr = update_subrange_bits(fcsr, 7, 5, frm);
+    fcsr = update_subrange_bits(fcsr, 4, 0, fflags);
+    dirty_fd_context_if_present();
+
 () accrue_fflags(bits(5) flags)
     constant bits(5) f = or_vec(_get_Fcsr_FFLAGS(fcsr), flags);
     if neq_bits(_get_Fcsr_FFLAGS(fcsr), f) then
         fcsr = update_subrange_bits(fcsr, 4, 0, f);
         dirty_fd_context_if_present();
+
+bits(64) Mk_CountSmcntrpmf(bits(64) v)
+    return v;
+
+bits(64) legalize_smcntrpmf(bits(64) c, bits(64) value)
+    constant bits(64) v = Mk_CountSmcntrpmf(value);
+    return _update_CountSmcntrpmf_UINH(_update_CountSmcntrpmf_SINH(_update_CountSmcntrpmf_MINH(c, _get_CountSmcntrpmf_MINH(v)), (if currentlyEnabled(Ext_S) then _get_CountSmcntrpmf_SINH(v) else '0')), (if currentlyEnabled(Ext_U) then _get_CountSmcntrpmf_UINH(v) else '0'));
+
+bits(64) mcyclecfg;
+
+bits(64) minstretcfg;
 
 bits(2) csrAccess(bits(12) csr)
     return subrange_bits(csr, 11, 10);
@@ -4602,8 +5335,8 @@ boolean check_TVM_SATP(bits(12) csr, Privilege p)
 
 boolean feature_enabled_for_priv(Privilege p, bit machine_enable_bit, bit supervisor_enable_bit)
     boolean temp_XT_1;
-    constant Privilege XM_match_365 = p;
-    case XM_match_365 of
+    constant Privilege XM_match_424 = p;
+    case XM_match_424 of
         when Machine
             temp_XT_1 = TRUE;
         when Supervisor
@@ -4631,8 +5364,8 @@ boolean check_seed_CSR(bits(12) csr, Privilege p, boolean isWrite)
         if not(isWrite) then
             temp_XT_1 = FALSE;
         else
-            constant Privilege XM_match_364 = p;
-            case XM_match_364 of
+            constant Privilege XM_match_423 = p;
+            case XM_match_423 of
                 when Machine
                     temp_XT_1 = TRUE;
                 when Supervisor
@@ -4824,11 +5557,11 @@ enumeration ctl_result {
 
 bits((pow2_int(3)) * (8)) tval((option, bits((pow2_int(3)) * (8))) excinfo)
     bits((pow2_int(3)) * (8)) temp_XT_1;
-    constant (option, bits((pow2_int(3)) * (8))) XM_match_363 = excinfo;
-    case XM_match_363 of
+    constant (option, bits((pow2_int(3)) * (8))) XM_match_422 = excinfo;
+    case XM_match_422 of
         when (Some, -)
             bits((pow2_int(3)) * (8)) e;
-            (-, e) = XM_match_363;
+            (-, e) = XM_match_422;
             temp_XT_1 = e;
         when (None, -)
             temp_XT_1 = zeros((pow2_int(3)) * (8));
@@ -4836,8 +5569,8 @@ bits((pow2_int(3)) * (8)) tval((option, bits((pow2_int(3)) * (8))) excinfo)
 
 () track_trap(Privilege p)
     long_csr_write_callback("mstatus", "mstatush", mstatus);
-    constant Privilege XM_match_362 = p;
-    case XM_match_362 of
+    constant Privilege XM_match_421 = p;
+    case XM_match_421 of
         when Machine
             csr_name_write_callback("mcause", mcause);
             csr_name_write_callback("mtval", mtval);
@@ -4854,8 +5587,8 @@ bits((pow2_int(3)) * (8)) trap_handler(Privilege del_priv, boolean intr, bits(8)
     trap_callback();
     if get_config_print_platform() then
         print_platform(concat_str("handling ", concat_str((if intr then "int#" else "exc#"), concat_str(bits_str(c), concat_str(" at priv ", concat_str(privLevel_to_str(del_priv), concat_str(" with tval ", bits_str(tval(info)))))))));
-    constant Privilege XM_match_361 = del_priv;
-    case XM_match_361 of
+    constant Privilege XM_match_420 = del_priv;
+    case XM_match_420 of
         when Machine
             mcause = update_subrange_bits(mcause, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (1), bool_to_bits(intr));
             mcause = update_subrange_bits(mcause, (pow2_int(3)) * (8) - (2), 0, zero_extend(63, c));
@@ -4875,8 +5608,8 @@ bits((pow2_int(3)) * (8)) trap_handler(Privilege del_priv, boolean intr, bits(8)
             mstatus = update_subrange_bits(mstatus, 5, 5, _get_Mstatus_SIE(mstatus));
             mstatus = update_subrange_bits(mstatus, 1, 1, '0');
             bits((8) - ((8) - (1))) temp_XT_143;
-            constant Privilege XM_match_360 = cur_privilege;
-            case XM_match_360 of
+            constant Privilege XM_match_419 = cur_privilege;
+            case XM_match_419 of
                 when User
                     temp_XT_143 = '0';
                 when Supervisor
@@ -4896,11 +5629,11 @@ bits((pow2_int(3)) * (8)) trap_handler(Privilege del_priv, boolean intr, bits(8)
 
 bits((pow2_int(3)) * (8)) exception_handler(Privilege cur_priv, (ctl_result, sync_exception) ctl, bits((pow2_int(3)) * (8)) pc)
     bits((pow2_int(3)) * (8)) temp_XT_1;
-    constant (Privilege, (ctl_result, sync_exception)) XM_match_359 = (cur_priv, ctl);
-    case XM_match_359 of
+    constant (Privilege, (ctl_result, sync_exception)) XM_match_418 = (cur_priv, ctl);
+    case XM_match_418 of
         when (-, (CTL_TRAP, -))
             sync_exception e;
-            (-, (-, e)) = XM_match_359;
+            (-, (-, e)) = XM_match_418;
             constant Privilege del_priv = exception_delegatee(e.trap, cur_priv);
             if get_config_print_platform() then
                 print_platform(concat_str("trapping from ", concat_str(privLevel_to_str(cur_priv), concat_str(" to ", concat_str(privLevel_to_str(del_priv), concat_str(" to handle ", exceptionType_to_str(e.trap)))))));
@@ -4980,9 +5713,160 @@ boolean within_clint(bits(64) addr, integer width)
 boolean within_htif_writable(bits(64) addr, integer width)
     return and_bool(plat_enable_htif(), or_bool(eq_bits(plat_htif_tohost(), addr), and_bool(eq_bits(add_bits_int(plat_htif_tohost(), 4), addr), eq_int(width, 4))));
 
+bits(64) mtimecmp;
+
+bits(64) stimecmp;
+
+constant bits(64) MSIP_BASE = zero_extend(64, '00000000000000000000');
+
+constant bits(64) MTIMECMP_BASE = zero_extend(64, '00000100000000000000');
+
+constant bits(64) MTIMECMP_BASE_HI = zero_extend(64, '00000100000000000100');
+
+constant bits(64) MTIME_BASE = zero_extend(64, '00001011111111111000');
+
+constant bits(64) MTIME_BASE_HI = zero_extend(64, '00001011111111111100');
+
+() clint_dispatch()
+    mip = update_subrange_bits(mip, 7, 7, bool_to_bits(ule_bits(mtimecmp, mtime)));
+    if and_bool(currentlyEnabled(Ext_Sstc), eq_bits(_get_MEnvcfg_STCE(menvcfg), '1')) then
+        mip = update_subrange_bits(mip, 5, 5, bool_to_bits(ule_bits(stimecmp, mtime)));
+    if get_config_print_platform() then
+        print_platform(concat_str("clint mtime ", concat_str(bits_str(mtime), concat_str(" (mip.MTI <- ", concat_str(bits_str(_get_Minterrupts_MTI(mip)), concat_str((if currentlyEnabled(Ext_Sstc) then concat_str(", mip.STI <- ", bits_str(_get_Minterrupts_STI(mip))) else ""), ")"))))));
+
 (result, boolean, ExceptionType) clint_store(bits(64) addr, integer width, bits((8) * (width)) data)
+    (result, boolean, ExceptionType) temp_XT_1;
+    constant bits(64) addr = sub_vec(addr, plat_clint_base);
+    if and_bool(eq_bits(addr, MSIP_BASE), or_bool(eq_int(width, 8), eq_int(width, 4))) then
+        if get_config_print_platform() then
+            print_platform(concat_str("clint[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), concat_str(" (mip.MSI <- ", concat_str(bit_str(bitvector_access(data, 0)), ")")))))));
+        mip = update_subrange_bits(mip, 3, 3, bitvector_access(data, 0));
+        clint_dispatch();
+        temp_XT_1 = (Ok, TRUE, ExceptionType UNKNOWN);
+    else
+        if and_bool(eq_bits(addr, MTIMECMP_BASE), eq_int(width, 8)) then
+            if get_config_print_platform() then
+                print_platform(concat_str("clint<8>[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), " (mtimecmp)")))));
+            mtimecmp = zero_extend(64, data);
+            clint_dispatch();
+            temp_XT_1 = (Ok, TRUE, ExceptionType UNKNOWN);
+        else
+            if and_bool(eq_bits(addr, MTIMECMP_BASE), eq_int(width, 4)) then
+                if get_config_print_platform() then
+                    print_platform(concat_str("clint<4>[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), " (mtimecmp)")))));
+                mtimecmp = update_subrange_bits(mtimecmp, 31, 0, zero_extend(32, data));
+                clint_dispatch();
+                temp_XT_1 = (Ok, TRUE, ExceptionType UNKNOWN);
+            else
+                if and_bool(eq_bits(addr, MTIMECMP_BASE_HI), eq_int(width, 4)) then
+                    if get_config_print_platform() then
+                        print_platform(concat_str("clint<4>[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), " (mtimecmp)")))));
+                    mtimecmp = update_subrange_bits(mtimecmp, 63, 32, zero_extend(32, data));
+                    clint_dispatch();
+                    temp_XT_1 = (Ok, TRUE, ExceptionType UNKNOWN);
+                else
+                    if and_bool(eq_bits(addr, MTIME_BASE), eq_int(width, 8)) then
+                        if get_config_print_platform() then
+                            print_platform(concat_str("clint<8>[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), " (mtime)")))));
+                        mtime = data;
+                        clint_dispatch();
+                        temp_XT_1 = (Ok, TRUE, ExceptionType UNKNOWN);
+                    else
+                        if and_bool(eq_bits(addr, MTIME_BASE), eq_int(width, 4)) then
+                            if get_config_print_platform() then
+                                print_platform(concat_str("clint<4>[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), " (mtime)")))));
+                            mtime = update_subrange_bits(mtime, 31, 0, data);
+                            clint_dispatch();
+                            temp_XT_1 = (Ok, TRUE, ExceptionType UNKNOWN);
+                        else
+                            if and_bool(eq_bits(addr, MTIME_BASE_HI), eq_int(width, 4)) then
+                                if get_config_print_platform() then
+                                    print_platform(concat_str("clint<4>[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), " (mtime)")))));
+                                mtime = update_subrange_bits(mtime, 63, 32, data);
+                                clint_dispatch();
+                                temp_XT_1 = (Ok, TRUE, ExceptionType UNKNOWN);
+                            else
+                                if get_config_print_platform() then
+                                    print_platform(concat_str("clint[", concat_str(bits_str(addr), concat_str("] <- ", concat_str(bits_str(data), " (<unmapped>)")))));
+                                temp_XT_1 = (Err, boolean UNKNOWN, E_SAMO_Access_Fault);
+    return temp_XT_1;
+
+bits(64) Mk_htif_cmd(bits(64) v)
+    return v;
+
+bits(8) _get_htif_cmd_cmd(bits(64) v)
+    return subrange_bits(v, 55, 48);
+
+bits(8) _get_htif_cmd_device(bits(64) v)
+    return subrange_bits(v, 63, 56);
+
+bits(48) _get_htif_cmd_payload(bits(64) v)
+    return subrange_bits(v, 47, 0);
+
+bits(64) htif_tohost;
+
+boolean htif_done;
+
+bits(64) htif_exit_code;
+
+bit htif_cmd_write;
+
+bits(4) htif_payload_writes;
+
+() reset_htif()
+    htif_cmd_write = '0';
+    htif_payload_writes = '0000';
+    htif_tohost = zeros(64);
 
 (result, boolean, ExceptionType) htif_store(bits(64) paddr, integer width, bits((8) * (width)) data)
+    if get_config_print_platform() then
+        print_platform(concat_str("htif[", concat_str(hex_bits_str(paddr), concat_str("] <- ", bits_str(data)))));
+    if eq_int(width, 8) then
+        htif_cmd_write = '1';
+        htif_payload_writes = add_bits_int(htif_payload_writes, 1);
+        htif_tohost = zero_extend(64, data);
+    else
+        if and_bool(eq_int(width, 4), eq_bits(paddr, plat_htif_tohost())) then
+            if eq_bits(data, subrange_bits(htif_tohost, 31, 0)) then
+                htif_payload_writes = add_bits_int(htif_payload_writes, 1);
+            else
+                htif_payload_writes = '0001';
+            htif_tohost = update_subrange_bits(htif_tohost, 31, 0, data);
+        else
+            if and_bool(eq_int(width, 4), eq_bits(paddr, add_bits_int(plat_htif_tohost(), 4))) then
+                if eq_bits(subrange_bits(data, 15, 0), subrange_bits(htif_tohost, 47, 32)) then
+                    htif_payload_writes = add_bits_int(htif_payload_writes, 1);
+                else
+                    htif_payload_writes = '0001';
+                htif_cmd_write = '1';
+                htif_tohost = update_subrange_bits(htif_tohost, 63, 32, data);
+            else
+                htif_tohost = zero_extend(64, data);
+    if or_bool(and_bool(eq_bit(htif_cmd_write, '1'), gt_int(unsigned(htif_payload_writes), 0)), gt_int(unsigned(htif_payload_writes), 2)) then
+        constant bits(64) cmd = Mk_htif_cmd(htif_tohost);
+        constant bits(8) b__0 = _get_htif_cmd_device(cmd);
+        if eq_bits(b__0, '00000000') then
+            if get_config_print_platform() then
+                print_platform(concat_str("htif-syscall-proxy cmd: ", bits_str(_get_htif_cmd_payload(cmd))));
+            if eq_bit(bitvector_access(_get_htif_cmd_payload(cmd), 0), '1') then
+                htif_done = TRUE;
+                htif_exit_code = shiftr(zero_extend(64, _get_htif_cmd_payload(cmd)), 1);
+        else
+            if eq_bits(b__0, '00000001') then
+                if get_config_print_platform() then
+                    print_platform(concat_str("htif-term cmd: ", bits_str(_get_htif_cmd_payload(cmd))));
+                constant bits(8) b__2 = _get_htif_cmd_cmd(cmd);
+                if eq_bits(b__2, '00000000') then
+
+                else
+                    if eq_bits(b__2, '00000001') then
+                        plat_term_write(subrange_bits(_get_htif_cmd_payload(cmd), 7, 0));
+                    else
+                        print(concat_str("Unknown term cmd: ", bits_str(b__2)));
+                reset_htif();
+            else
+                print(concat_str("htif-???? cmd: ", bits_str(data)));
+    return (Ok, TRUE, ExceptionType UNKNOWN);
 
 boolean within_mmio_writable(bits(64) addr, integer width)
     return (if get_config_rvfi() then FALSE else or_bool(within_clint(addr, width), and_bool(within_htif_writable(addr, width), lteq_int(width, 8))));
@@ -4998,8 +5882,8 @@ boolean is_aligned_vaddr(bits((pow2_int(3)) * (8)) addr, integer width)
 
 boolean is_aligned_bits(bits((pow2_int(3)) * (8)) vaddr, word_width width)
     boolean temp_XT_1;
-    constant word_width XM_match_353 = width;
-    case XM_match_353 of
+    constant word_width XM_match_412 = width;
+    case XM_match_412 of
         when BYTE
             temp_XT_1 = TRUE;
         when HALF
@@ -5012,24 +5896,36 @@ boolean is_aligned_bits(bits((pow2_int(3)) * (8)) vaddr, word_width width)
 
 write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
     write_kind temp_XT_1;
-    constant (boolean, boolean, boolean) XM_match_351 = (aq, rl, con);
-    case XM_match_351 of
-        when (FALSE, FALSE, FALSE)
-            temp_XT_1 = Write_plain;
-        when (FALSE, TRUE, FALSE)
+    boolean p0XH;
+    boolean p1XH;
+    boolean p2XH;
+    (p0XH, p1XH, p2XH) = (aq, rl, con);
+    if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, FALSE)) then
+        temp_XT_1 = Write_plain;
+    else
+        if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, FALSE)) then
             temp_XT_1 = Write_RISCV_release;
-        when (FALSE, FALSE, TRUE)
-            temp_XT_1 = Write_RISCV_conditional;
-        when (FALSE, TRUE, TRUE)
-            temp_XT_1 = Write_RISCV_conditional_release;
-        when (TRUE, TRUE, FALSE)
-            temp_XT_1 = Write_RISCV_strong_release;
-        when (TRUE, TRUE, TRUE)
-            temp_XT_1 = Write_RISCV_conditional_strong_release;
-        when (TRUE, FALSE, FALSE)
-            assert(FALSE);
-        when (TRUE, FALSE, TRUE)
-            assert(FALSE);
+        else
+            if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, FALSE)) then
+                temp_XT_1 = Write_RISCV_conditional;
+            else
+                if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, FALSE)) then
+                    temp_XT_1 = Write_RISCV_conditional_release;
+                else
+                    if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, TRUE)) then
+                        temp_XT_1 = Write_RISCV_strong_release;
+                    else
+                        if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, TRUE)) then
+                            temp_XT_1 = Write_RISCV_conditional_strong_release;
+                        else
+                            if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, TRUE)) then
+                                assert(FALSE);
+                            else
+                                if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, TRUE)) then
+                                    assert(FALSE);
+                                else
+                                    assert(FALSE);
+                                    exit();
     return temp_XT_1;
 
 (option, ExceptionType) phys_access_check(AccessType t, Privilege p, bits(64) paddr, integer width)
@@ -5049,11 +5945,11 @@ write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
 
 (result, boolean, ExceptionType) checked_mem_write(bits(64) paddr, integer width, bits((8) * (width)) data, AccessType typ, Privilege priv, boolean aq, boolean rl, boolean con)
     (result, boolean, ExceptionType) temp_XT_1;
-    constant (option, ExceptionType) XM_match_343 = phys_access_check(typ, priv, paddr, width);
-    case XM_match_343 of
+    constant (option, ExceptionType) XM_match_405 = phys_access_check(typ, priv, paddr, width);
+    case XM_match_405 of
         when (Some, -)
             ExceptionType e;
-            (-, e) = XM_match_343;
+            (-, e) = XM_match_405;
             temp_XT_1 = (Err, boolean UNKNOWN, e);
         when (None, -)
             if within_mmio_writable(paddr, width) then
@@ -5061,13 +5957,13 @@ write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
             else
                 if within_phys_mem(paddr, width) then
                     constant write_kind wk = write_kind_of_flags(aq, rl, con);
-                    constant (Ext_PhysAddr_Check, ExceptionType) XM_match_342 = ext_check_phys_mem_write(wk, paddr, width, data);
-                    case XM_match_342 of
+                    constant (Ext_PhysAddr_Check, ExceptionType) XM_match_404 = ext_check_phys_mem_write(wk, paddr, width, data);
+                    case XM_match_404 of
                         when (Ext_PhysAddr_OK, -)
                             temp_XT_1 = phys_mem_write(wk, paddr, width, data);
                         when (Ext_PhysAddr_Error, -)
                             ExceptionType e;
-                            (-, e) = XM_match_342;
+                            (-, e) = XM_match_404;
                             temp_XT_1 = (Err, boolean UNKNOWN, e);
                 else
                     temp_XT_1 = (Err, boolean UNKNOWN, E_SAMO_Access_Fault);
@@ -5079,13 +5975,13 @@ write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
         temp_XT_1 = (Err, boolean UNKNOWN, E_SAMO_Addr_Align);
     else
         constant (result, boolean, ExceptionType) resultXN = checked_mem_write(paddr, width, value, typ, priv, aq, rl, con);
-        constant (result, boolean, ExceptionType) XM_match_341 = resultXN;
-        case XM_match_341 of
+        constant (result, boolean, ExceptionType) XM_match_403 = resultXN;
+        case XM_match_403 of
             when (Ok, -, -)
                 mem_write_callback(accessType_to_str(typ), bits_of_physaddr(paddr), width, value);
             when (Err, -, -)
                 ExceptionType e;
-                (-, -, e) = XM_match_341;
+                (-, -, e) = XM_match_403;
                 mem_exception_callback(bits_of_physaddr(paddr), num_of_ExceptionType(e));
         temp_XT_1 = resultXN;
     return temp_XT_1;
@@ -5114,10 +6010,10 @@ constant (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), 
 
 ExceptionType translationException(AccessType a, PTW_Error f)
     ExceptionType temp_XT_1;
-    constant (AccessType, PTW_Error) XM_match_338 = (a, f);
-    case XM_match_338 of
+    constant (AccessType, PTW_Error) XM_match_400 = (a, f);
+    case XM_match_400 of
         when (-, PTW_Ext_Error)
-            (-, -) = XM_match_338;
+            (-, -) = XM_match_400;
             temp_XT_1 = E_Extension;
         when (ReadWrite, PTW_Access)
             temp_XT_1 = E_SAMO_Access_Fault;
@@ -5142,8 +6038,10 @@ ExceptionType translationException(AccessType a, PTW_Error f)
 bits((pow2_int(3)) * (8)) satp;
 
 bits((if n == 32 then 9 else 16)) satp_to_asid(bits(n) satp_val)
+    return (if eq_int(n, 32) then _get_Satp32_Asid(Mk_Satp32(satp_val[31:0])) else _get_Satp64_Asid(Mk_Satp64(satp_val[63:0])));
 
 bits((if n == 32 then 22 else 44)) satp_to_ppn(bits(n) satp_val)
+    return (if eq_int(n, 32) then _get_Satp32_PPN(Mk_Satp32(satp_val[31:0])) else _get_Satp64_PPN(Mk_Satp64(satp_val[63:0])));
 
 SATPMode translationMode(Privilege priv)
     SATPMode temp_XT_1;
@@ -5152,21 +6050,21 @@ SATPMode translationMode(Privilege priv)
     else
         constant Architecture arch = architecture_backwards(get_mstatus_SXL(mstatus));
         bits(4) temp_XT_8;
-        constant Architecture XM_match_331 = arch;
-        case XM_match_331 of
+        constant Architecture XM_match_393 = arch;
+        case XM_match_393 of
             when RV64
                 assert(gteq_int(xlen, 64));
-                temp_XT_8 = _get_Satp64_Mode(Mk_Satp64(satp));
+                temp_XT_8 = _get_Satp64_Mode(Mk_Satp64(satp[63:0]));
             when RV32
-                temp_XT_8 = bitvector_concat('000', _get_Satp32_Mode(Mk_Satp32(subrange_bits(satp, 31, 0))));
+                temp_XT_8 = bitvector_concat('000', _get_Satp32_Mode(Mk_Satp32(subrange_bits(satp, 31, 0)[31:0])));
             when RV128
                 assert(FALSE);
         constant bits(4) mbits = temp_XT_8;
-        constant (option, SATPMode) XM_match_330 = satpMode_of_bits(arch, mbits);
-        case XM_match_330 of
+        constant (option, SATPMode) XM_match_392 = satpMode_of_bits(arch, mbits);
+        case XM_match_392 of
             when (Some, -)
                 SATPMode m;
-                (-, m) = XM_match_330;
+                (-, m) = XM_match_392;
                 temp_XT_1 = m;
             when (None, -)
                 assert(FALSE);
@@ -5174,8 +6072,8 @@ SATPMode translationMode(Privilege priv)
 
 integer satp_mode_width_forwards(SATPMode argXH)
     integer temp_XT_1;
-    constant SATPMode XM_match_323 = argXH;
-    case XM_match_323 of
+    constant SATPMode XM_match_385 = argXH;
+    case XM_match_385 of
         when Sv32
             temp_XT_1 = 32;
         when Sv39
@@ -5192,6 +6090,8 @@ integer satp_mode_width_forwards(SATPMode argXH)
 (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) translate(integer sv_width, bits(16) asid, bits((if sv_width == 32 then 22 else 44)) base_ppn, bits((sv_width) - (12)) vpn, AccessType ac, Privilege priv, boolean mxr, boolean do_sum)
 
 bits((if sv_width == 32 then 32 else 64)) get_satp(integer sv_width)
+    assert(or_bool(eq_int(sv_width, 32), eq_int(xlen, 64)));
+    return (if eq_int(sv_width, 32) then subrange_bits(satp, 31, 0) else satp);
 
 (result, bits(64), ExceptionType) translateAddr(bits((pow2_int(3)) * (8)) vAddr, AccessType ac)
     (result, bits(64), ExceptionType) temp_XT_1;
@@ -5211,16 +6111,16 @@ bits((if sv_width == 32 then 32 else 64)) get_satp(integer sv_width)
         constant bits((if (if sv_width == 32 then 32 else 64) == 32 then 9 else 16)) asid = satp_to_asid(satp_sxlen);
         constant bits((if (if sv_width == 32 then 32 else 64) == 32 then 22 else 44)) base_ppn = satp_to_ppn(satp_sxlen);
         constant (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) res = translate(sv_width, zero_extend(16, asid), base_ppn, subrange_bits(svAddr, sv_width - (1), pagesize_bits), ac, effPriv, mxr, do_sum);
-        constant (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) XM_match_321 = res;
-        case XM_match_321 of
+        constant (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) XM_match_383 = res;
+        case XM_match_383 of
             when (Ok, -, -)
                 bits((if sv_width == 32 then 22 else 44)) ppn;
-                (-, ppn, -) = XM_match_321;
+                (-, ppn, -) = XM_match_383;
                 constant bits(((if sv_width == 32 then 22 else 44)) + ((((12) - (1)) - (0)) + (1))) paddr = bitvector_concat(ppn, subrange_bits(bits_of_virtaddr(vAddr), pagesize_bits - (1), 0));
                 temp_XT_1 = (Ok, zero_extend(64, paddr), ExceptionType UNKNOWN);
             when (Err, -, -)
                 PTW_Error f;
-                (-, -, f) = XM_match_321;
+                (-, -, f) = XM_match_383;
                 temp_XT_1 = (Err, bits(64) UNKNOWN, translationException(ac, f));
     return temp_XT_1;
 
@@ -5274,35 +6174,35 @@ boolean allowed_misaligned(bits((pow2_int(3)) * (8)) vaddr, integer width)
     repeat
         constant integer offset = i;
         constant bits((pow2_int(3)) * (8)) vaddr = add_bits_int(vaddr, (offset) * (bytes));
-        constant (result, bits(64), ExceptionType) XM_match_320 = translateAddr(vaddr, acc);
-        case XM_match_320 of
+        constant (result, bits(64), ExceptionType) XM_match_382 = translateAddr(vaddr, acc);
+        case XM_match_382 of
             when (Err, -, -)
                 ExceptionType e;
-                (-, -, e) = XM_match_320;
+                (-, -, e) = XM_match_382;
                 return (Err, boolean UNKNOWN, (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, e));
             when (Ok, -, -)
                 bits(64) paddr;
-                (-, paddr, -) = XM_match_320;
+                (-, paddr, -) = XM_match_382;
                 if and_bool(res, not(match_reservation(bits_of_physaddr(paddr)))) then
                     write_success = FALSE;
                 else
-                    constant (result, ExceptionType) XM_match_319 = mem_write_ea(paddr, bytes, aq, rl, res);
-                    case XM_match_319 of
+                    constant (result, ExceptionType) XM_match_381 = mem_write_ea(paddr, bytes, aq, rl, res);
+                    case XM_match_381 of
                         when (Err, -)
                             ExceptionType e;
-                            (-, e) = XM_match_319;
+                            (-, e) = XM_match_381;
                             return (Err, boolean UNKNOWN, (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, e));
                         when (Ok, -)
                             constant bits((((((8) * ((offset) + (1))) * (bytes)) - (1)) - (((8) * (offset)) * (bytes))) + (1)) write_value = subrange_bits(data, ((8) * (offset + 1)) * (bytes) - (1), ((8) * (offset)) * (bytes));
-                            constant (result, boolean, ExceptionType) XM_match_318 = mem_write_value(paddr, bytes, write_value, aq, rl, res);
-                            case XM_match_318 of
+                            constant (result, boolean, ExceptionType) XM_match_380 = mem_write_value(paddr, bytes, write_value, aq, rl, res);
+                            case XM_match_380 of
                                 when (Err, -, -)
                                     ExceptionType e;
-                                    (-, -, e) = XM_match_318;
+                                    (-, -, e) = XM_match_380;
                                     return (Err, boolean UNKNOWN, (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, e));
                                 when (Ok, -, -)
                                     boolean s;
-                                    (-, s, -) = XM_match_318;
+                                    (-, s, -) = XM_match_380;
                                     write_success = and_bool(write_success, s);
         if eq_int(offset, last) then
             finished = TRUE;
@@ -5315,17 +6215,76 @@ boolean check_misaligned(bits((pow2_int(3)) * (8)) vaddr, word_width width)
     return (if plat_enable_misaligned_access then FALSE else not(is_aligned_vaddr(vaddr, size_bytes_forwards(width))));
 
 (result, bits((8) * (width)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) vmem_read(bits(5) rs, bits((pow2_int(3)) * (8)) offset, integer width, AccessType acc, boolean aq, boolean rl, boolean res)
+    bits((pow2_int(3)) * (8)) temp_XT_2;
+    constant (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) XM_match_379 = ext_data_get_addr(rs, offset, acc, width);
+    case XM_match_379 of
+        when (Ext_DataAddr_OK, -)
+            bits((pow2_int(3)) * (8)) vaddr;
+            (-, vaddr) = XM_match_379;
+            temp_XT_2 = vaddr;
+        when (Ext_DataAddr_Error, -)
+            (-, -) = XM_match_379;
+            return (Err, bits((8) * (width)) UNKNOWN, (Ext_DataAddr_Check_Failure, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN));
+    constant bits((pow2_int(3)) * (8)) vaddr = temp_XT_2;
+    if res then
+        if not(is_aligned_vaddr(vaddr, width)) then
+            return (Err, bits((8) * (width)) UNKNOWN, (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, E_Load_Addr_Align));
+    else
+        if check_misaligned(vaddr, size_bytes_backwards(width)) then
+            return (Err, bits((8) * (width)) UNKNOWN, (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, E_Load_Addr_Align));
+    integer n;
+    integer bytes;
+    (n, bytes) = split_misaligned(vaddr, width);
+    assert(eq_int(width, (n) * (bytes)));
+    bits(((8) * (n)) * (bytes)) data = zeros(((8) * (n)) * (bytes));
+    integer first;
+    integer last;
+    integer step;
+    (first, last, step) = misaligned_order(n);
+    integer i = first;
+    boolean finished = FALSE;
+    constant bits((pow2_int(3)) * (8)) vaddr = bits_of_virtaddr(vaddr);
+    repeat
+        constant integer offset = i;
+        constant bits((pow2_int(3)) * (8)) vaddr = add_bits_int(vaddr, (offset) * (bytes));
+        constant (result, bits(64), ExceptionType) XM_match_378 = translateAddr(vaddr, acc);
+        case XM_match_378 of
+            when (Err, -, -)
+                ExceptionType e;
+                (-, -, e) = XM_match_378;
+                return (Err, bits((8) * (width)) UNKNOWN, (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, e));
+            when (Ok, -, -)
+                bits(64) paddr;
+                (-, paddr, -) = XM_match_378;
+                constant (result, bits((8) * (bytes)), ExceptionType) XM_match_377 = mem_read(acc, paddr, bytes, aq, rl, res);
+                case XM_match_377 of
+                    when (Err, -, -)
+                        ExceptionType e;
+                        (-, -, e) = XM_match_377;
+                        return (Err, bits((8) * (width)) UNKNOWN, (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, e));
+                    when (Ok, -, -)
+                        bits((8) * (bytes)) v;
+                        (-, v, -) = XM_match_377;
+                        if res then
+                            load_reservation(bits_of_physaddr(paddr));
+                        data = update_subrange_bits(data, ((8) * (offset + 1)) * (bytes) - (1), ((8) * (offset)) * (bytes), v);
+        if eq_int(offset, last) then
+            finished = TRUE;
+        else
+            i = offset + step;
+    until finished;
+    return (Ok, data, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) UNKNOWN);
 
 (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) vmem_write(bits(5) rs_addr, bits((pow2_int(3)) * (8)) offset, integer width, bits((8) * (width)) data, AccessType acc, boolean aq, boolean rl, boolean res)
     bits((pow2_int(3)) * (8)) temp_XT_2;
-    constant (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) XM_match_314 = ext_data_get_addr(rs_addr, offset, acc, width);
-    case XM_match_314 of
+    constant (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) XM_match_376 = ext_data_get_addr(rs_addr, offset, acc, width);
+    case XM_match_376 of
         when (Ext_DataAddr_OK, -)
             bits((pow2_int(3)) * (8)) vaddr;
-            (-, vaddr) = XM_match_314;
+            (-, vaddr) = XM_match_376;
             temp_XT_2 = vaddr;
         when (Ext_DataAddr_Error, -)
-            (-, -) = XM_match_314;
+            (-, -) = XM_match_376;
             return (Err, boolean UNKNOWN, (Ext_DataAddr_Check_Failure, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN));
     constant bits((pow2_int(3)) * (8)) vaddr = temp_XT_2;
     if check_misaligned(vaddr, size_bytes_backwards(width)) then
@@ -5513,20 +6472,44 @@ boolean zvknhab_check_encdec(bits(5) vs2, bits(5) vs1, bits(5) vd)
     return and_bool(zvk_check_encdec(SEW, 4), and_bool(zvk_valid_reg_overlap(vs1, vd, LMUL_pow), zvk_valid_reg_overlap(vs2, vd, LMUL_pow)));
 
 bits(SEW) zvk_sig0(bits(SEW) x, integer SEW)
-    constant integer l__172 = SEW;
-    return (if eq_int(l__172, 32) then xor_vec(rotater(x, 7), xor_vec(rotater(x, 18), shiftr(x, 3))) else xor_vec(rotater(x, 1), xor_vec(rotater(x, 8), shiftr(x, 7))));
+    bits(SEW) temp_XT_1;
+    constant integer XM_match_375 = SEW;
+    case XM_match_375 of
+        when 32
+            temp_XT_1 = xor_vec(rotater(x, 7), xor_vec(rotater(x, 18), shiftr(x, 3)));
+        when 64
+            temp_XT_1 = xor_vec(rotater(x, 1), xor_vec(rotater(x, 8), shiftr(x, 7)));
+    return temp_XT_1;
 
 bits(SEW) zvk_sig1(bits(SEW) x, integer SEW)
-    constant integer l__171 = SEW;
-    return (if eq_int(l__171, 32) then xor_vec(rotater(x, 17), xor_vec(rotater(x, 19), shiftr(x, 10))) else xor_vec(rotater(x, 19), xor_vec(rotater(x, 61), shiftr(x, 6))));
+    bits(SEW) temp_XT_1;
+    constant integer XM_match_374 = SEW;
+    case XM_match_374 of
+        when 32
+            temp_XT_1 = xor_vec(rotater(x, 17), xor_vec(rotater(x, 19), shiftr(x, 10)));
+        when 64
+            temp_XT_1 = xor_vec(rotater(x, 19), xor_vec(rotater(x, 61), shiftr(x, 6)));
+    return temp_XT_1;
 
 bits(SEW) zvk_sum0(bits(SEW) x, integer SEW)
-    constant integer l__170 = SEW;
-    return (if eq_int(l__170, 32) then xor_vec(rotater(x, 2), xor_vec(rotater(x, 13), rotater(x, 22))) else xor_vec(rotater(x, 28), xor_vec(rotater(x, 34), rotater(x, 39))));
+    bits(SEW) temp_XT_1;
+    constant integer XM_match_373 = SEW;
+    case XM_match_373 of
+        when 32
+            temp_XT_1 = xor_vec(rotater(x, 2), xor_vec(rotater(x, 13), rotater(x, 22)));
+        when 64
+            temp_XT_1 = xor_vec(rotater(x, 28), xor_vec(rotater(x, 34), rotater(x, 39)));
+    return temp_XT_1;
 
 bits(SEW) zvk_sum1(bits(SEW) x, integer SEW)
-    constant integer l__169 = SEW;
-    return (if eq_int(l__169, 32) then xor_vec(rotater(x, 6), xor_vec(rotater(x, 11), rotater(x, 25))) else xor_vec(rotater(x, 14), xor_vec(rotater(x, 18), rotater(x, 41))));
+    bits(SEW) temp_XT_1;
+    constant integer XM_match_372 = SEW;
+    case XM_match_372 of
+        when 32
+            temp_XT_1 = xor_vec(rotater(x, 6), xor_vec(rotater(x, 11), rotater(x, 25)));
+        when 64
+            temp_XT_1 = xor_vec(rotater(x, 14), xor_vec(rotater(x, 18), rotater(x, 41)));
+    return temp_XT_1;
 
 bits(n) zvk_ch(bits(n) x, bits(n) y, bits(n) z)
     return xor_vec(and_vec(x, y), and_vec(not_vec(x), z));
@@ -5679,8 +6662,8 @@ bits(4) effective_fence_set(bits(4) set, boolean fiom)
 
 boolean amo_width_valid(word_width size)
     boolean temp_XT_1;
-    constant word_width XM_match_313 = size;
-    case XM_match_313 of
+    constant word_width XM_match_371 = size;
+    case XM_match_371 of
         when BYTE
             temp_XT_1 = currentlyEnabled(Ext_Zabha);
         when HALF
@@ -5731,8 +6714,8 @@ boolean encdec_amoop_backwards_matches(bits(5) argXH)
 
 boolean lrsc_width_valid(word_width size)
     boolean temp_XT_1;
-    constant word_width XM_match_312 = size;
-    case XM_match_312 of
+    constant word_width XM_match_370 = size;
+    case XM_match_370 of
         when WORD
             temp_XT_1 = TRUE;
         when DOUBLE
@@ -5785,8 +6768,515 @@ boolean encdec_csrop_backwards_matches(bits(2) argXH)
     return (if eq_bits(b__0, '01') then TRUE else (if eq_bits(b__0, '10') then TRUE else (if eq_bits(b__0, '11') then TRUE else FALSE)));
 
 bits((pow2_int(3)) * (8)) read_CSR(bits(12) b__0)
+    bits((pow2_int(3)) * (8)) temp_XT_1;
+    if eq_bits(b__0, '001100000001') then
+        temp_XT_1 = misa;
+    else
+        if eq_bits(b__0, '001100000000') then
+            temp_XT_1 = subrange_bits(mstatus, xlen - (1), 0);
+        else
+            if and_bool(eq_bits(b__0, '001100010000'), eq_int(xlen, 32)) then
+                temp_XT_1 = subrange_bits(mstatus, 63, 32);
+            else
+                if eq_bits(b__0, '001100001010') then
+                    temp_XT_1 = subrange_bits(menvcfg, xlen - (1), 0);
+                else
+                    if and_bool(eq_bits(b__0, '001100011010'), eq_int(xlen, 32)) then
+                        temp_XT_1 = subrange_bits(menvcfg, 63, 32);
+                    else
+                        if eq_bits(b__0, '000100001010') then
+                            temp_XT_1 = subrange_bits(senvcfg, xlen - (1), 0);
+                        else
+                            if eq_bits(b__0, '001100000100') then
+                                temp_XT_1 = mie;
+                            else
+                                if eq_bits(b__0, '001101000100') then
+                                    temp_XT_1 = mip;
+                                else
+                                    if eq_bits(b__0, '001100000010') then
+                                        temp_XT_1 = subrange_bits(medeleg, xlen - (1), 0);
+                                    else
+                                        if and_bool(eq_bits(b__0, '001100010010'), eq_int(xlen, 32)) then
+                                            temp_XT_1 = subrange_bits(medeleg, 63, 32);
+                                        else
+                                            if eq_bits(b__0, '001100000011') then
+                                                temp_XT_1 = mideleg;
+                                            else
+                                                if eq_bits(b__0, '001101000010') then
+                                                    temp_XT_1 = mcause;
+                                                else
+                                                    if eq_bits(b__0, '001101000011') then
+                                                        temp_XT_1 = mtval;
+                                                    else
+                                                        if eq_bits(b__0, '001101000000') then
+                                                            temp_XT_1 = mscratch;
+                                                        else
+                                                            if eq_bits(b__0, '000100000110') then
+                                                                temp_XT_1 = zero_extend((pow2_int(3)) * (8), scounteren);
+                                                            else
+                                                                if eq_bits(b__0, '001100000110') then
+                                                                    temp_XT_1 = zero_extend((pow2_int(3)) * (8), mcounteren);
+                                                                else
+                                                                    if eq_bits(b__0, '001100100000') then
+                                                                        temp_XT_1 = zero_extend((pow2_int(3)) * (8), mcountinhibit);
+                                                                    else
+                                                                        if eq_bits(b__0, '111100010001') then
+                                                                            temp_XT_1 = zero_extend((pow2_int(3)) * (8), mvendorid);
+                                                                        else
+                                                                            if eq_bits(b__0, '111100010010') then
+                                                                                temp_XT_1 = marchid;
+                                                                            else
+                                                                                if eq_bits(b__0, '111100010011') then
+                                                                                    temp_XT_1 = mimpid;
+                                                                                else
+                                                                                    if eq_bits(b__0, '111100010100') then
+                                                                                        temp_XT_1 = mhartid;
+                                                                                    else
+                                                                                        if eq_bits(b__0, '111100010101') then
+                                                                                            temp_XT_1 = mconfigptr;
+                                                                                        else
+                                                                                            if eq_bits(b__0, '000100000000') then
+                                                                                                temp_XT_1 = subrange_bits(lower_mstatus(mstatus), xlen - (1), 0);
+                                                                                            else
+                                                                                                if eq_bits(b__0, '000101000100') then
+                                                                                                    temp_XT_1 = lower_mip(mip, mideleg);
+                                                                                                else
+                                                                                                    if eq_bits(b__0, '000100000100') then
+                                                                                                        temp_XT_1 = lower_mie(mie, mideleg);
+                                                                                                    else
+                                                                                                        if eq_bits(b__0, '000101000000') then
+                                                                                                            temp_XT_1 = sscratch;
+                                                                                                        else
+                                                                                                            if eq_bits(b__0, '000101000010') then
+                                                                                                                temp_XT_1 = scause;
+                                                                                                            else
+                                                                                                                if eq_bits(b__0, '000101000011') then
+                                                                                                                    temp_XT_1 = stval;
+                                                                                                                else
+                                                                                                                    if eq_bits(b__0, '011110100000') then
+                                                                                                                        temp_XT_1 = not_vec(tselect);
+                                                                                                                    else
+                                                                                                                        constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                        if and_bool(eq_bits(subrange_bits(b__0, 11, 4), '00111010'), or_bool(eq_bit(bitvector_access(idx, 0), '0'), eq_int(xlen, 32))) then
+                                                                                                                            constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                            temp_XT_1 = pmpReadCfgReg(unsigned(idx));
+                                                                                                                        else
+                                                                                                                            if eq_bits(subrange_bits(b__0, 11, 4), '00111011') then
+                                                                                                                                constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                                temp_XT_1 = pmpReadAddrReg(unsigned(bitvector_concat('00', idx)));
+                                                                                                                            else
+                                                                                                                                if eq_bits(subrange_bits(b__0, 11, 4), '00111100') then
+                                                                                                                                    constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                                    temp_XT_1 = pmpReadAddrReg(unsigned(bitvector_concat('01', idx)));
+                                                                                                                                else
+                                                                                                                                    if eq_bits(subrange_bits(b__0, 11, 4), '00111101') then
+                                                                                                                                        constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                                        temp_XT_1 = pmpReadAddrReg(unsigned(bitvector_concat('10', idx)));
+                                                                                                                                    else
+                                                                                                                                        if eq_bits(subrange_bits(b__0, 11, 4), '00111110') then
+                                                                                                                                            constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                                            temp_XT_1 = pmpReadAddrReg(unsigned(bitvector_concat('11', idx)));
+                                                                                                                                        else
+                                                                                                                                            if eq_bits(b__0, '000000001000') then
+                                                                                                                                                temp_XT_1 = zero_extend((pow2_int(3)) * (8), vstart);
+                                                                                                                                            else
+                                                                                                                                                if eq_bits(b__0, '000000001001') then
+                                                                                                                                                    temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Vcsr_vxsat(vcsr));
+                                                                                                                                                else
+                                                                                                                                                    if eq_bits(b__0, '000000001010') then
+                                                                                                                                                        temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Vcsr_vxrm(vcsr));
+                                                                                                                                                    else
+                                                                                                                                                        if eq_bits(b__0, '000000001111') then
+                                                                                                                                                            temp_XT_1 = zero_extend((pow2_int(3)) * (8), vcsr);
+                                                                                                                                                        else
+                                                                                                                                                            if eq_bits(b__0, '110000100000') then
+                                                                                                                                                                temp_XT_1 = vl;
+                                                                                                                                                            else
+                                                                                                                                                                if eq_bits(b__0, '110000100001') then
+                                                                                                                                                                    temp_XT_1 = vtype;
+                                                                                                                                                                else
+                                                                                                                                                                    if eq_bits(b__0, '110000100010') then
+                                                                                                                                                                        temp_XT_1 = VLENB;
+                                                                                                                                                                    else
+                                                                                                                                                                        if eq_bits(b__0, '000100000101') then
+                                                                                                                                                                            temp_XT_1 = get_stvec();
+                                                                                                                                                                        else
+                                                                                                                                                                            if eq_bits(b__0, '000101000001') then
+                                                                                                                                                                                temp_XT_1 = get_xepc(Supervisor);
+                                                                                                                                                                            else
+                                                                                                                                                                                if eq_bits(b__0, '001100000101') then
+                                                                                                                                                                                    temp_XT_1 = get_mtvec();
+                                                                                                                                                                                else
+                                                                                                                                                                                    if eq_bits(b__0, '001101000001') then
+                                                                                                                                                                                        temp_XT_1 = get_xepc(Machine);
+                                                                                                                                                                                    else
+                                                                                                                                                                                        constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                        if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '0011001'), gteq_int(unsigned(index), 3)) then
+                                                                                                                                                                                            constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                            temp_XT_1 = read_mhpmevent(hpmidx_from_bits(index));
+                                                                                                                                                                                        else
+                                                                                                                                                                                            constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                            if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '1011000'), gteq_int(unsigned(index), 3)) then
+                                                                                                                                                                                                constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                temp_XT_1 = read_mhpmcounter(hpmidx_from_bits(index));
+                                                                                                                                                                                            else
+                                                                                                                                                                                                constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '1011100'), and_bool(eq_int(xlen, 32), gteq_int(unsigned(index), 3))) then
+                                                                                                                                                                                                    constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                    temp_XT_1 = read_mhpmcounterh(hpmidx_from_bits(index));
+                                                                                                                                                                                                else
+                                                                                                                                                                                                    constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                    if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '1100000'), gteq_int(unsigned(index), 3)) then
+                                                                                                                                                                                                        constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                        temp_XT_1 = read_mhpmcounter(hpmidx_from_bits(index));
+                                                                                                                                                                                                    else
+                                                                                                                                                                                                        constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                        if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '1100100'), and_bool(eq_int(xlen, 32), gteq_int(unsigned(index), 3))) then
+                                                                                                                                                                                                            constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                            temp_XT_1 = read_mhpmcounterh(hpmidx_from_bits(index));
+                                                                                                                                                                                                        else
+                                                                                                                                                                                                            constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                            if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '0111001'), and_bool(eq_int(xlen, 32), gteq_int(unsigned(index), 3))) then
+                                                                                                                                                                                                                constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                                                temp_XT_1 = read_mhpmeventh(hpmidx_from_bits(index));
+                                                                                                                                                                                                            else
+                                                                                                                                                                                                                if eq_bits(b__0, '110110100000') then
+                                                                                                                                                                                                                    temp_XT_1 = zero_extend((pow2_int(3)) * (8), get_scountovf(cur_privilege));
+                                                                                                                                                                                                                else
+                                                                                                                                                                                                                    if eq_bits(b__0, '000000010101') then
+                                                                                                                                                                                                                        temp_XT_1 = read_seed_csr();
+                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                        if eq_bits(b__0, '110000000000') then
+                                                                                                                                                                                                                            temp_XT_1 = subrange_bits(mcycle, xlen - (1), 0);
+                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                            if eq_bits(b__0, '110000000001') then
+                                                                                                                                                                                                                                temp_XT_1 = subrange_bits(mtime, xlen - (1), 0);
+                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                if eq_bits(b__0, '110000000010') then
+                                                                                                                                                                                                                                    temp_XT_1 = subrange_bits(minstret, xlen - (1), 0);
+                                                                                                                                                                                                                                else
+                                                                                                                                                                                                                                    if and_bool(eq_bits(b__0, '110010000000'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                        temp_XT_1 = subrange_bits(mcycle, 63, 32);
+                                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                                        if and_bool(eq_bits(b__0, '110010000001'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                            temp_XT_1 = subrange_bits(mtime, 63, 32);
+                                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                                            if and_bool(eq_bits(b__0, '110010000010'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                                temp_XT_1 = subrange_bits(minstret, 63, 32);
+                                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                                if eq_bits(b__0, '101100000000') then
+                                                                                                                                                                                                                                                    temp_XT_1 = subrange_bits(mcycle, xlen - (1), 0);
+                                                                                                                                                                                                                                                else
+                                                                                                                                                                                                                                                    if eq_bits(b__0, '101100000010') then
+                                                                                                                                                                                                                                                        temp_XT_1 = subrange_bits(minstret, xlen - (1), 0);
+                                                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                                                        if and_bool(eq_bits(b__0, '101110000000'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                                            temp_XT_1 = subrange_bits(mcycle, 63, 32);
+                                                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                                                            if and_bool(eq_bits(b__0, '101110000010'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                                                temp_XT_1 = subrange_bits(minstret, 63, 32);
+                                                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                                                if eq_bits(b__0, '000000000001') then
+                                                                                                                                                                                                                                                                    temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Fcsr_FFLAGS(fcsr));
+                                                                                                                                                                                                                                                                else
+                                                                                                                                                                                                                                                                    if eq_bits(b__0, '000000000010') then
+                                                                                                                                                                                                                                                                        temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Fcsr_FRM(fcsr));
+                                                                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                                                                        if eq_bits(b__0, '000000000011') then
+                                                                                                                                                                                                                                                                            temp_XT_1 = zero_extend((pow2_int(3)) * (8), fcsr);
+                                                                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                                                                            if eq_bits(b__0, '001100100001') then
+                                                                                                                                                                                                                                                                                temp_XT_1 = subrange_bits(mcyclecfg, xlen - (1), 0);
+                                                                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                                                                if and_bool(eq_bits(b__0, '011100100001'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                                                                    temp_XT_1 = subrange_bits(mcyclecfg, 63, 32);
+                                                                                                                                                                                                                                                                                else
+                                                                                                                                                                                                                                                                                    if eq_bits(b__0, '001100100010') then
+                                                                                                                                                                                                                                                                                        temp_XT_1 = subrange_bits(minstretcfg, xlen - (1), 0);
+                                                                                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                                                                                        if and_bool(eq_bits(b__0, '011100100010'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                                                                            temp_XT_1 = subrange_bits(minstretcfg, 63, 32);
+                                                                                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                                                                                            if eq_bits(b__0, '000101001101') then
+                                                                                                                                                                                                                                                                                                temp_XT_1 = subrange_bits(stimecmp, xlen - (1), 0);
+                                                                                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                                                                                if and_bool(eq_bits(b__0, '000101011101'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                                                                                    temp_XT_1 = subrange_bits(stimecmp, 63, 32);
+                                                                                                                                                                                                                                                                                                else
+                                                                                                                                                                                                                                                                                                    if eq_bits(b__0, '000110000000') then
+                                                                                                                                                                                                                                                                                                        temp_XT_1 = satp;
+                                                                                                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                                                                                                        assert(FALSE);
+    return temp_XT_1;
 
 bits((pow2_int(3)) * (8)) write_CSR(bits(12) b__0, bits((pow2_int(3)) * (8)) value)
+    bits((pow2_int(3)) * (8)) temp_XT_1;
+    if eq_bits(b__0, '001100000001') then
+        misa = legalize_misa(misa, value);
+        temp_XT_1 = misa;
+    else
+        if and_bool(eq_bits(b__0, '001100000000'), eq_int(xlen, 64)) then
+            mstatus = legalize_mstatus(mstatus, value);
+            temp_XT_1 = mstatus;
+        else
+            if and_bool(eq_bits(b__0, '001100000000'), eq_int(xlen, 32)) then
+                mstatus = legalize_mstatus(mstatus, bitvector_concat(subrange_bits(mstatus, 63, 32), value));
+                temp_XT_1 = subrange_bits(mstatus, 31, 0);
+            else
+                if and_bool(eq_bits(b__0, '001100010000'), eq_int(xlen, 32)) then
+                    mstatus = legalize_mstatus(mstatus, bitvector_concat(value, subrange_bits(mstatus, 31, 0)));
+                    temp_XT_1 = subrange_bits(mstatus, 63, 32);
+                else
+                    if and_bool(eq_bits(b__0, '001100001010'), eq_int(xlen, 32)) then
+                        menvcfg = legalize_menvcfg(menvcfg, bitvector_concat(subrange_bits(menvcfg, 63, 32), value));
+                        temp_XT_1 = subrange_bits(menvcfg, 31, 0);
+                    else
+                        if and_bool(eq_bits(b__0, '001100001010'), eq_int(xlen, 64)) then
+                            menvcfg = legalize_menvcfg(menvcfg, value);
+                            temp_XT_1 = menvcfg;
+                        else
+                            if and_bool(eq_bits(b__0, '001100011010'), eq_int(xlen, 32)) then
+                                menvcfg = legalize_menvcfg(menvcfg, bitvector_concat(value, subrange_bits(menvcfg, 31, 0)));
+                                temp_XT_1 = subrange_bits(menvcfg, 63, 32);
+                            else
+                                if eq_bits(b__0, '000100001010') then
+                                    senvcfg = legalize_senvcfg(senvcfg, zero_extend((pow2_int(3)) * (8), value));
+                                    temp_XT_1 = subrange_bits(senvcfg, xlen - (1), 0);
+                                else
+                                    if eq_bits(b__0, '001100000100') then
+                                        mie = legalize_mie(mie, value);
+                                        temp_XT_1 = mie;
+                                    else
+                                        if eq_bits(b__0, '001101000100') then
+                                            mip = legalize_mip(mip, value);
+                                            temp_XT_1 = mip;
+                                        else
+                                            if and_bool(eq_bits(b__0, '001100000010'), eq_int(xlen, 64)) then
+                                                medeleg = legalize_medeleg(medeleg, value);
+                                                temp_XT_1 = medeleg;
+                                            else
+                                                if and_bool(eq_bits(b__0, '001100000010'), eq_int(xlen, 32)) then
+                                                    medeleg = legalize_medeleg(medeleg, bitvector_concat(subrange_bits(medeleg, 63, 32), value));
+                                                    temp_XT_1 = subrange_bits(medeleg, 31, 0);
+                                                else
+                                                    if and_bool(eq_bits(b__0, '001100010010'), eq_int(xlen, 32)) then
+                                                        medeleg = legalize_medeleg(medeleg, bitvector_concat(value, subrange_bits(medeleg, 31, 0)));
+                                                        temp_XT_1 = subrange_bits(medeleg, 63, 32);
+                                                    else
+                                                        if eq_bits(b__0, '001100000011') then
+                                                            mideleg = legalize_mideleg(mideleg, value);
+                                                            temp_XT_1 = mideleg;
+                                                        else
+                                                            if eq_bits(b__0, '001101000010') then
+                                                                mcause = value;
+                                                                temp_XT_1 = mcause;
+                                                            else
+                                                                if eq_bits(b__0, '001101000011') then
+                                                                    mtval = value;
+                                                                    temp_XT_1 = mtval;
+                                                                else
+                                                                    if eq_bits(b__0, '001101000000') then
+                                                                        mscratch = value;
+                                                                        temp_XT_1 = mscratch;
+                                                                    else
+                                                                        if eq_bits(b__0, '000100000110') then
+                                                                            scounteren = legalize_scounteren(scounteren, value);
+                                                                            temp_XT_1 = zero_extend((pow2_int(3)) * (8), scounteren);
+                                                                        else
+                                                                            if eq_bits(b__0, '001100000110') then
+                                                                                mcounteren = legalize_mcounteren(mcounteren, value);
+                                                                                temp_XT_1 = zero_extend((pow2_int(3)) * (8), mcounteren);
+                                                                            else
+                                                                                if eq_bits(b__0, '001100100000') then
+                                                                                    mcountinhibit = legalize_mcountinhibit(mcountinhibit, value);
+                                                                                    temp_XT_1 = zero_extend((pow2_int(3)) * (8), mcountinhibit);
+                                                                                else
+                                                                                    if eq_bits(b__0, '000100000000') then
+                                                                                        mstatus = legalize_sstatus(mstatus, value);
+                                                                                        temp_XT_1 = subrange_bits(lower_mstatus(mstatus), xlen - (1), 0);
+                                                                                    else
+                                                                                        if eq_bits(b__0, '000101000100') then
+                                                                                            mip = legalize_sip(mip, mideleg, value);
+                                                                                            temp_XT_1 = lower_mip(mip, mideleg);
+                                                                                        else
+                                                                                            if eq_bits(b__0, '000100000100') then
+                                                                                                mie = legalize_sie(mie, mideleg, value);
+                                                                                                temp_XT_1 = lower_mie(mie, mideleg);
+                                                                                            else
+                                                                                                if eq_bits(b__0, '000101000000') then
+                                                                                                    sscratch = value;
+                                                                                                    temp_XT_1 = sscratch;
+                                                                                                else
+                                                                                                    if eq_bits(b__0, '000101000010') then
+                                                                                                        scause = value;
+                                                                                                        temp_XT_1 = scause;
+                                                                                                    else
+                                                                                                        if eq_bits(b__0, '000101000011') then
+                                                                                                            stval = value;
+                                                                                                            temp_XT_1 = stval;
+                                                                                                        else
+                                                                                                            if eq_bits(b__0, '011110100000') then
+                                                                                                                tselect = value;
+                                                                                                                temp_XT_1 = tselect;
+                                                                                                            else
+                                                                                                                constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                if and_bool(eq_bits(subrange_bits(b__0, 11, 4), '00111010'), or_bool(eq_bit(bitvector_access(idx, 0), '0'), eq_int(xlen, 32))) then
+                                                                                                                    constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                    constant integer idx = unsigned(idx);
+                                                                                                                    pmpWriteCfgReg(idx, value);
+                                                                                                                    temp_XT_1 = pmpReadCfgReg(idx);
+                                                                                                                else
+                                                                                                                    if eq_bits(subrange_bits(b__0, 11, 4), '00111011') then
+                                                                                                                        constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                        constant integer idx = unsigned(bitvector_concat('00', idx));
+                                                                                                                        pmpWriteAddrReg(idx, value);
+                                                                                                                        temp_XT_1 = pmpReadAddrReg(idx);
+                                                                                                                    else
+                                                                                                                        if eq_bits(subrange_bits(b__0, 11, 4), '00111100') then
+                                                                                                                            constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                            constant integer idx = unsigned(bitvector_concat('01', idx));
+                                                                                                                            pmpWriteAddrReg(idx, value);
+                                                                                                                            temp_XT_1 = pmpReadAddrReg(idx);
+                                                                                                                        else
+                                                                                                                            if eq_bits(subrange_bits(b__0, 11, 4), '00111101') then
+                                                                                                                                constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                                constant integer idx = unsigned(bitvector_concat('10', idx));
+                                                                                                                                pmpWriteAddrReg(idx, value);
+                                                                                                                                temp_XT_1 = pmpReadAddrReg(idx);
+                                                                                                                            else
+                                                                                                                                if eq_bits(subrange_bits(b__0, 11, 4), '00111110') then
+                                                                                                                                    constant bits(4) idx = subrange_bits(b__0, 3, 0);
+                                                                                                                                    constant integer idx = unsigned(bitvector_concat('11', idx));
+                                                                                                                                    pmpWriteAddrReg(idx, value);
+                                                                                                                                    temp_XT_1 = pmpReadAddrReg(idx);
+                                                                                                                                else
+                                                                                                                                    if eq_bits(b__0, '000000001000') then
+                                                                                                                                        set_vstart(subrange_bits(value, 15, 0));
+                                                                                                                                        temp_XT_1 = zero_extend((pow2_int(3)) * (8), vstart);
+                                                                                                                                    else
+                                                                                                                                        if eq_bits(b__0, '000000001001') then
+                                                                                                                                            ext_write_vcsr(_get_Vcsr_vxrm(vcsr), subrange_bits(value, 0, 0));
+                                                                                                                                            temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Vcsr_vxsat(vcsr));
+                                                                                                                                        else
+                                                                                                                                            if eq_bits(b__0, '000000001010') then
+                                                                                                                                                ext_write_vcsr(subrange_bits(value, 1, 0), _get_Vcsr_vxsat(vcsr));
+                                                                                                                                                temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Vcsr_vxrm(vcsr));
+                                                                                                                                            else
+                                                                                                                                                if eq_bits(b__0, '000000001111') then
+                                                                                                                                                    ext_write_vcsr(subrange_bits(value, 2, 1), subrange_bits(value, 0, 0));
+                                                                                                                                                    temp_XT_1 = zero_extend((pow2_int(3)) * (8), vcsr);
+                                                                                                                                                else
+                                                                                                                                                    if eq_bits(b__0, '000100000101') then
+                                                                                                                                                        temp_XT_1 = set_stvec(value);
+                                                                                                                                                    else
+                                                                                                                                                        if eq_bits(b__0, '000101000001') then
+                                                                                                                                                            temp_XT_1 = set_xepc(Supervisor, value);
+                                                                                                                                                        else
+                                                                                                                                                            if eq_bits(b__0, '001100000101') then
+                                                                                                                                                                temp_XT_1 = set_mtvec(value);
+                                                                                                                                                            else
+                                                                                                                                                                if eq_bits(b__0, '001101000001') then
+                                                                                                                                                                    temp_XT_1 = set_xepc(Machine, value);
+                                                                                                                                                                else
+                                                                                                                                                                    constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                    if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '0011001'), gteq_int(unsigned(index), 3)) then
+                                                                                                                                                                        constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                        constant integer index = hpmidx_from_bits(index);
+                                                                                                                                                                        write_mhpmevent(index, value);
+                                                                                                                                                                        temp_XT_1 = read_mhpmevent(index);
+                                                                                                                                                                    else
+                                                                                                                                                                        constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                        if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '1011000'), gteq_int(unsigned(index), 3)) then
+                                                                                                                                                                            constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                            constant integer index = hpmidx_from_bits(index);
+                                                                                                                                                                            write_mhpmcounter(index, value);
+                                                                                                                                                                            temp_XT_1 = read_mhpmcounter(index);
+                                                                                                                                                                        else
+                                                                                                                                                                            constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                            if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '1011100'), and_bool(eq_int(xlen, 32), gteq_int(unsigned(index), 3))) then
+                                                                                                                                                                                constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                constant integer index = hpmidx_from_bits(index);
+                                                                                                                                                                                write_mhpmcounterh(index, value);
+                                                                                                                                                                                temp_XT_1 = read_mhpmcounterh(index);
+                                                                                                                                                                            else
+                                                                                                                                                                                constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                if and_bool(eq_bits(subrange_bits(b__0, 11, 5), '0111001'), and_bool(eq_int(xlen, 32), gteq_int(unsigned(index), 3))) then
+                                                                                                                                                                                    constant bits(5) index = subrange_bits(b__0, 4, 0);
+                                                                                                                                                                                    constant integer index = hpmidx_from_bits(index);
+                                                                                                                                                                                    write_mhpmeventh(index, value);
+                                                                                                                                                                                    temp_XT_1 = read_mhpmeventh(index);
+                                                                                                                                                                                else
+                                                                                                                                                                                    if eq_bits(b__0, '000000010101') then
+                                                                                                                                                                                        temp_XT_1 = write_seed_csr();
+                                                                                                                                                                                    else
+                                                                                                                                                                                        if eq_bits(b__0, '101100000000') then
+                                                                                                                                                                                            mcycle = update_subrange_bits(mcycle, xlen - (1), 0, value);
+                                                                                                                                                                                            temp_XT_1 = value;
+                                                                                                                                                                                        else
+                                                                                                                                                                                            if eq_bits(b__0, '101100000010') then
+                                                                                                                                                                                                minstret = update_subrange_bits(minstret, xlen - (1), 0, value);
+                                                                                                                                                                                                minstret_increment = FALSE;
+                                                                                                                                                                                                temp_XT_1 = value;
+                                                                                                                                                                                            else
+                                                                                                                                                                                                if and_bool(eq_bits(b__0, '101110000000'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                    mcycle = update_subrange_bits(mcycle, 63, 32, value);
+                                                                                                                                                                                                    temp_XT_1 = value;
+                                                                                                                                                                                                else
+                                                                                                                                                                                                    if and_bool(eq_bits(b__0, '101110000010'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                        minstret = update_subrange_bits(minstret, 63, 32, value);
+                                                                                                                                                                                                        minstret_increment = FALSE;
+                                                                                                                                                                                                        temp_XT_1 = value;
+                                                                                                                                                                                                    else
+                                                                                                                                                                                                        if eq_bits(b__0, '000000000001') then
+                                                                                                                                                                                                            write_fcsr(_get_Fcsr_FRM(fcsr), subrange_bits(value, 4, 0));
+                                                                                                                                                                                                            temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Fcsr_FFLAGS(fcsr));
+                                                                                                                                                                                                        else
+                                                                                                                                                                                                            if eq_bits(b__0, '000000000010') then
+                                                                                                                                                                                                                write_fcsr(subrange_bits(value, 2, 0), _get_Fcsr_FFLAGS(fcsr));
+                                                                                                                                                                                                                temp_XT_1 = zero_extend((pow2_int(3)) * (8), _get_Fcsr_FRM(fcsr));
+                                                                                                                                                                                                            else
+                                                                                                                                                                                                                if eq_bits(b__0, '000000000011') then
+                                                                                                                                                                                                                    write_fcsr(subrange_bits(value, 7, 5), subrange_bits(value, 4, 0));
+                                                                                                                                                                                                                    temp_XT_1 = zero_extend((pow2_int(3)) * (8), fcsr);
+                                                                                                                                                                                                                else
+                                                                                                                                                                                                                    if and_bool(eq_bits(b__0, '001100100001'), eq_int(xlen, 64)) then
+                                                                                                                                                                                                                        mcyclecfg = legalize_smcntrpmf(mcyclecfg, value);
+                                                                                                                                                                                                                        temp_XT_1 = mcyclecfg;
+                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                        if and_bool(eq_bits(b__0, '001100100001'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                            mcyclecfg = legalize_smcntrpmf(mcyclecfg, bitvector_concat(subrange_bits(mcyclecfg, 63, 32), value));
+                                                                                                                                                                                                                            temp_XT_1 = subrange_bits(mcyclecfg, xlen - (1), 0);
+                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                            if and_bool(eq_bits(b__0, '011100100001'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                mcyclecfg = legalize_smcntrpmf(mcyclecfg, bitvector_concat(value, subrange_bits(mcyclecfg, 31, 0)));
+                                                                                                                                                                                                                                temp_XT_1 = subrange_bits(mcyclecfg, 63, 32);
+                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                if and_bool(eq_bits(b__0, '001100100010'), eq_int(xlen, 64)) then
+                                                                                                                                                                                                                                    minstretcfg = legalize_smcntrpmf(minstretcfg, value);
+                                                                                                                                                                                                                                    temp_XT_1 = subrange_bits(minstretcfg, xlen - (1), 0);
+                                                                                                                                                                                                                                else
+                                                                                                                                                                                                                                    if and_bool(eq_bits(b__0, '001100100010'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                        minstretcfg = legalize_smcntrpmf(minstretcfg, bitvector_concat(subrange_bits(minstretcfg, 63, 32), value));
+                                                                                                                                                                                                                                        temp_XT_1 = subrange_bits(minstretcfg, xlen - (1), 0);
+                                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                                        if and_bool(eq_bits(b__0, '011100100010'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                            minstretcfg = legalize_smcntrpmf(minstretcfg, bitvector_concat(value, subrange_bits(minstretcfg, 31, 0)));
+                                                                                                                                                                                                                                            temp_XT_1 = subrange_bits(minstretcfg, 63, 32);
+                                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                                            if eq_bits(b__0, '000101001101') then
+                                                                                                                                                                                                                                                stimecmp = update_subrange_bits(stimecmp, xlen - (1), 0, value);
+                                                                                                                                                                                                                                                temp_XT_1 = subrange_bits(stimecmp, xlen - (1), 0);
+                                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                                if and_bool(eq_bits(b__0, '000101011101'), eq_int(xlen, 32)) then
+                                                                                                                                                                                                                                                    stimecmp = update_subrange_bits(stimecmp, 63, 32, value);
+                                                                                                                                                                                                                                                    temp_XT_1 = subrange_bits(stimecmp, 63, 32);
+                                                                                                                                                                                                                                                else
+                                                                                                                                                                                                                                                    if eq_bits(b__0, '000110000000') then
+                                                                                                                                                                                                                                                        satp = legalize_satp(cur_architecture(), satp, value);
+                                                                                                                                                                                                                                                        temp_XT_1 = satp;
+                                                                                                                                                                                                                                                    else
+                                                                                                                                                                                                                                                        assert(FALSE);
+    return temp_XT_1;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) doCSR(bits(12) csr, bits((pow2_int(3)) * (8)) rs1_val, bits(5) rd, csrop op, boolean is_CSR_Write)
     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) temp_XT_1;
@@ -5800,8 +7290,8 @@ bits((pow2_int(3)) * (8)) write_CSR(bits(12) b__0, bits((pow2_int(3)) * (8)) val
             constant bits((pow2_int(3)) * (8)) csr_val = (if is_CSR_Read then read_CSR(csr) else zeros((pow2_int(3)) * (8)));
             if is_CSR_Write then
                 bits((pow2_int(3)) * (8)) temp_XT_43;
-                constant csrop XM_match_311 = op;
-                case XM_match_311 of
+                constant csrop XM_match_369 = op;
+                case XM_match_369 of
                     when CSRRW
                         temp_XT_43 = rs1_val;
                     when CSRRS
@@ -5819,8 +7309,8 @@ bits((pow2_int(3)) * (8)) write_CSR(bits(12) b__0, bits((pow2_int(3)) * (8)) val
 
 bits(3) encdec_rounding_mode_forwards(rounding_mode argXH)
     bits(3) temp_XT_1;
-    constant rounding_mode XM_match_310 = argXH;
-    case XM_match_310 of
+    constant rounding_mode XM_match_368 = argXH;
+    case XM_match_368 of
         when RM_RNE
             temp_XT_1 = '000';
         when RM_RTZ
@@ -5982,10 +7472,10 @@ bits(32) negate_S(bits(32) x32)
     bits(8) e2;
     bits(23) m2;
     (s2, e2, m2) = fsplit_S(v2);
-    constant boolean v1Is0 = or_bool(f_is_neg_zero_S(v1), f_is_pos_zero_S(v1));
-    constant boolean v2Is0 = or_bool(f_is_neg_zero_S(v2), f_is_pos_zero_S(v2));
+    constant boolean v1Is0 = or_bool(f_is_neg_zero_S(v1[31:0]), f_is_pos_zero_S(v1[31:0]));
+    constant boolean v2Is0 = or_bool(f_is_neg_zero_S(v2[31:0]), f_is_pos_zero_S(v2[31:0]));
     constant boolean resultXN = (if and_bool(eq_bits(s1, '0'), eq_bits(s2, '0')) then (if eq_bits(e1, e2) then lteq_int(unsigned(m1), unsigned(m2)) else lt_int(unsigned(e1), unsigned(e2))) else (if and_bool(eq_bits(s1, '0'), eq_bits(s2, '1')) then and_bool(v1Is0, v2Is0) else (if and_bool(eq_bits(s1, '1'), eq_bits(s2, '0')) then TRUE else (if eq_bits(e1, e2) then gteq_int(unsigned(m1), unsigned(m2)) else gt_int(unsigned(e1), unsigned(e2))))));
-    constant bits(5) fflags = (if is_quiet then (if or_bool(f_is_SNaN_S(v1), f_is_SNaN_S(v2)) then nvFlag() else zeros(5)) else (if or_bool(f_is_NaN_S(v1), f_is_NaN_S(v2)) then nvFlag() else zeros(5)));
+    constant bits(5) fflags = (if is_quiet then (if or_bool(f_is_SNaN_S(v1[31:0]), f_is_SNaN_S(v2[31:0])) then nvFlag() else zeros(5)) else (if or_bool(f_is_NaN_S(v1[31:0]), f_is_NaN_S(v2[31:0])) then nvFlag() else zeros(5)));
     return (resultXN, fflags);
 
 boolean haveSingleFPU()
@@ -6091,10 +7581,10 @@ bits(64) negate_D(bits(64) x64)
     bits(11) e2;
     bits(52) m2;
     (s2, e2, m2) = fsplit_D(v2);
-    constant boolean v1Is0 = or_bool(f_is_neg_zero_D(v1), f_is_pos_zero_D(v1));
-    constant boolean v2Is0 = or_bool(f_is_neg_zero_D(v2), f_is_pos_zero_D(v2));
+    constant boolean v1Is0 = or_bool(f_is_neg_zero_D(v1[63:0]), f_is_pos_zero_D(v1[63:0]));
+    constant boolean v2Is0 = or_bool(f_is_neg_zero_D(v2[63:0]), f_is_pos_zero_D(v2[63:0]));
     constant boolean resultXN = (if and_bool(eq_bits(s1, '0'), eq_bits(s2, '0')) then (if eq_bits(e1, e2) then lteq_int(unsigned(m1), unsigned(m2)) else lt_int(unsigned(e1), unsigned(e2))) else (if and_bool(eq_bits(s1, '0'), eq_bits(s2, '1')) then and_bool(v1Is0, v2Is0) else (if and_bool(eq_bits(s1, '1'), eq_bits(s2, '0')) then TRUE else (if eq_bits(e1, e2) then gteq_int(unsigned(m1), unsigned(m2)) else gt_int(unsigned(e1), unsigned(e2))))));
-    constant bits(5) fflags = (if is_quiet then (if or_bool(f_is_SNaN_D(v1), f_is_SNaN_D(v2)) then nvFlag() else zeros(5)) else (if or_bool(f_is_NaN_D(v1), f_is_NaN_D(v2)) then nvFlag() else zeros(5)));
+    constant bits(5) fflags = (if is_quiet then (if or_bool(f_is_SNaN_D(v1[63:0]), f_is_SNaN_D(v2[63:0])) then nvFlag() else zeros(5)) else (if or_bool(f_is_NaN_D(v1[63:0]), f_is_NaN_D(v2[63:0])) then nvFlag() else zeros(5)));
     return (resultXN, fflags);
 
 boolean haveDoubleFPU()
@@ -6203,10 +7693,10 @@ boolean f_is_NaN_H(bits(16) xf16)
     bits(5) e2;
     bits(10) m2;
     (s2, e2, m2) = fsplit_H(v2);
-    constant boolean v1Is0 = or_bool(f_is_neg_zero_H(v1), f_is_pos_zero_H(v1));
-    constant boolean v2Is0 = or_bool(f_is_neg_zero_H(v2), f_is_pos_zero_H(v2));
+    constant boolean v1Is0 = or_bool(f_is_neg_zero_H(v1[15:0]), f_is_pos_zero_H(v1[15:0]));
+    constant boolean v2Is0 = or_bool(f_is_neg_zero_H(v2[15:0]), f_is_pos_zero_H(v2[15:0]));
     constant boolean resultXN = (if and_bool(eq_bits(s1, '0'), eq_bits(s2, '0')) then (if eq_bits(e1, e2) then lteq_int(unsigned(m1), unsigned(m2)) else lt_int(unsigned(e1), unsigned(e2))) else (if and_bool(eq_bits(s1, '0'), eq_bits(s2, '1')) then and_bool(v1Is0, v2Is0) else (if and_bool(eq_bits(s1, '1'), eq_bits(s2, '0')) then TRUE else (if eq_bits(e1, e2) then gteq_int(unsigned(m1), unsigned(m2)) else gt_int(unsigned(e1), unsigned(e2))))));
-    constant bits(5) fflags = (if is_quiet then (if or_bool(f_is_SNaN_H(v1), f_is_SNaN_H(v2)) then nvFlag() else zeros(5)) else (if or_bool(f_is_NaN_H(v1), f_is_NaN_H(v2)) then nvFlag() else zeros(5)));
+    constant bits(5) fflags = (if is_quiet then (if or_bool(f_is_SNaN_H(v1[15:0]), f_is_SNaN_H(v2[15:0])) then nvFlag() else zeros(5)) else (if or_bool(f_is_NaN_H(v1[15:0]), f_is_NaN_H(v2[15:0])) then nvFlag() else zeros(5)));
     return (resultXN, fflags);
 
 boolean haveHalfFPU()
@@ -6343,11 +7833,11 @@ integer get_end_element()
 
 (result, (bits((num_elem) * (SEW)), bits(num_elem))) init_masked_result(integer num_elem, integer SEW, integer LMUL_pow, bits((num_elem) * (SEW)) vd_val, bits(num_elem) vm_val)
     nat temp_XT_2;
-    constant (result, nat) XM_match_309 = get_start_element();
-    case XM_match_309 of
+    constant (result, nat) XM_match_367 = get_start_element();
+    case XM_match_367 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_309;
+            (-, v) = XM_match_367;
             temp_XT_2 = v;
         when (Err, -)
             return (Err, (bits((num_elem) * (SEW)), bits(num_elem)) UNKNOWN);
@@ -6366,8 +7856,8 @@ integer get_end_element()
         else
             if gt_int(i, end_element) then
                 bits(SEW) temp_XT_63;
-                constant agtype XM_match_308 = tail_ag;
-                case XM_match_308 of
+                constant agtype XM_match_366 = tail_ag;
+                case XM_match_366 of
                     when UNDISTURBED
                         temp_XT_63 = plain_vector_access(vd_val, i, num_elem, SEW);
                     when AGNOSTIC
@@ -6377,8 +7867,8 @@ integer get_end_element()
             else
                 if gteq_int(i, real_num_elem) then
                     bits(SEW) temp_XT_81;
-                    constant agtype XM_match_307 = tail_ag;
-                    case XM_match_307 of
+                    constant agtype XM_match_365 = tail_ag;
+                    case XM_match_365 of
                         when UNDISTURBED
                             temp_XT_81 = plain_vector_access(vd_val, i, num_elem, SEW);
                         when AGNOSTIC
@@ -6388,8 +7878,8 @@ integer get_end_element()
                 else
                     if eq_bit(bitvector_access(vm_val, i), '0') then
                         bits(SEW) temp_XT_101;
-                        constant agtype XM_match_306 = mask_ag;
-                        case XM_match_306 of
+                        constant agtype XM_match_364 = mask_ag;
+                        case XM_match_364 of
                             when UNDISTURBED
                                 temp_XT_101 = plain_vector_access(vd_val, i, num_elem, SEW);
                             when AGNOSTIC
@@ -6402,11 +7892,11 @@ integer get_end_element()
 
 (result, bits(num_elem)) init_masked_source(integer num_elem, integer LMUL_pow, bits(num_elem) vm_val)
     nat temp_XT_2;
-    constant (result, nat) XM_match_305 = get_start_element();
-    case XM_match_305 of
+    constant (result, nat) XM_match_363 = get_start_element();
+    case XM_match_363 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_305;
+            (-, v) = XM_match_363;
             temp_XT_2 = v;
         when (Err, -)
             return (Err, bits(num_elem) UNKNOWN);
@@ -6433,11 +7923,11 @@ integer get_end_element()
 
 (result, (bits(num_elem), bits(num_elem))) init_masked_result_carry(integer num_elem, integer SEW, integer LMUL_pow, bits(num_elem) vd_val)
     nat temp_XT_2;
-    constant (result, nat) XM_match_304 = get_start_element();
-    case XM_match_304 of
+    constant (result, nat) XM_match_362 = get_start_element();
+    case XM_match_362 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_304;
+            (-, v) = XM_match_362;
             temp_XT_2 = v;
         when (Err, -)
             return (Err, (bits(num_elem), bits(num_elem)) UNKNOWN);
@@ -6465,11 +7955,11 @@ integer get_end_element()
 
 (result, (bits(num_elem), bits(num_elem))) init_masked_result_cmp(integer num_elem, integer SEW, integer LMUL_pow, bits(num_elem) vd_val, bits(num_elem) vm_val)
     nat temp_XT_2;
-    constant (result, nat) XM_match_303 = get_start_element();
-    case XM_match_303 of
+    constant (result, nat) XM_match_361 = get_start_element();
+    case XM_match_361 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_303;
+            (-, v) = XM_match_361;
             temp_XT_2 = v;
         when (Err, -)
             return (Err, (bits(num_elem), bits(num_elem)) UNKNOWN);
@@ -6495,8 +7985,8 @@ integer get_end_element()
                 else
                     if eq_bit(bitvector_access(vm_val, i), '0') then
                         bit temp_XT_88;
-                        constant agtype XM_match_302 = mask_ag;
-                        case XM_match_302 of
+                        constant agtype XM_match_360 = mask_ag;
+                        case XM_match_360 of
                             when UNDISTURBED
                                 temp_XT_88 = bitvector_access(vd_val, i);
                             when AGNOSTIC
@@ -6585,39 +8075,471 @@ boolean illegal_fp_reduction(integer SEW, bits(3) rm_3b)
 boolean illegal_fp_reduction_widen(integer SEW, bits(3) rm_3b, integer SEW_widen, integer LMUL_pow_widen)
     return or_bool(not(valid_vtype()), or_bool(not(assert_vstart(0)), or_bool(not(valid_fp_op(SEW, rm_3b)), not(valid_eew_emul(SEW_widen, LMUL_pow_widen)))));
 
+boolean f_is_neg_inf(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_359 = m;
+    case XM_match_359 of
+        when 16
+            temp_XT_1 = f_is_neg_inf_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_neg_inf_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_neg_inf_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_neg_norm(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_358 = m;
+    case XM_match_358 of
+        when 16
+            temp_XT_1 = f_is_neg_norm_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_neg_norm_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_neg_norm_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_neg_subnorm(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_357 = m;
+    case XM_match_357 of
+        when 16
+            temp_XT_1 = f_is_neg_subnorm_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_neg_subnorm_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_neg_subnorm_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_neg_zero(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_356 = m;
+    case XM_match_356 of
+        when 16
+            temp_XT_1 = f_is_neg_zero_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_neg_zero_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_neg_zero_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_pos_zero(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_355 = m;
+    case XM_match_355 of
+        when 16
+            temp_XT_1 = f_is_pos_zero_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_pos_zero_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_pos_zero_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_pos_subnorm(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_354 = m;
+    case XM_match_354 of
+        when 16
+            temp_XT_1 = f_is_pos_subnorm_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_pos_subnorm_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_pos_subnorm_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_pos_norm(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_353 = m;
+    case XM_match_353 of
+        when 16
+            temp_XT_1 = f_is_pos_norm_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_pos_norm_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_pos_norm_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_pos_inf(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_352 = m;
+    case XM_match_352 of
+        when 16
+            temp_XT_1 = f_is_pos_inf_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_pos_inf_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_pos_inf_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_SNaN(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_351 = m;
+    case XM_match_351 of
+        when 16
+            temp_XT_1 = f_is_SNaN_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_SNaN_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_SNaN_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_QNaN(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_350 = m;
+    case XM_match_350 of
+        when 16
+            temp_XT_1 = f_is_QNaN_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_QNaN_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_QNaN_D(xf[63:0]);
+    return temp_XT_1;
+
+boolean f_is_NaN(bits(m) xf)
+    boolean temp_XT_1;
+    constant integer XM_match_349 = m;
+    case XM_match_349 of
+        when 16
+            temp_XT_1 = f_is_NaN_H(xf[15:0]);
+        when 32
+            temp_XT_1 = f_is_NaN_S(xf[31:0]);
+        when 64
+            temp_XT_1 = f_is_NaN_D(xf[63:0]);
+    return temp_XT_1;
+
 bits(SEW) get_scalar_fp(bits(5) rs1, integer SEW)
+    bits(SEW) temp_XT_1;
+    assert(gteq_int(flen, SEW));
+    constant integer XM_match_348 = SEW;
+    case XM_match_348 of
+        when 16
+            temp_XT_1 = rF_H(rs1);
+        when 32
+            temp_XT_1 = rF_S(rs1);
+        when 64
+            temp_XT_1 = rF_D(rs1);
+    return temp_XT_1;
+
+bits(m) negate_fp(bits(m) xf)
+    bits(m) temp_XT_1;
+    constant integer XM_match_347 = m;
+    case XM_match_347 of
+        when 16
+            temp_XT_1 = negate_H(xf[15:0]);
+        when 32
+            temp_XT_1 = negate_S(xf[31:0]);
+        when 64
+            temp_XT_1 = negate_D(xf[63:0]);
+    return temp_XT_1;
 
 bits(m) fp_add(bits(3) rm_3b, bits(m) op1, bits(m) op2)
+    (bits(5), bits(m)) temp_XT_2;
+    constant integer XM_match_346 = m;
+    case XM_match_346 of
+        when 16
+            temp_XT_2 = riscv_f16Add(rm_3b, op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Add(rm_3b, op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Add(rm_3b, op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_sub(bits(3) rm_3b, bits(m) op1, bits(m) op2)
+    (bits(5), bits(m)) temp_XT_2;
+    constant integer XM_match_345 = m;
+    case XM_match_345 of
+        when 16
+            temp_XT_2 = riscv_f16Sub(rm_3b, op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Sub(rm_3b, op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Sub(rm_3b, op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_min(bits(m) op1, bits(m) op2)
+    (bits(5), boolean) temp_XT_2;
+    constant integer XM_match_344 = m;
+    case XM_match_344 of
+        when 16
+            temp_XT_2 = riscv_f16Lt_quiet(op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Lt_quiet(op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Lt_quiet(op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    boolean op1_lt_op2;
+    (fflags, op1_lt_op2) = temp_XT_2;
+    constant bits(m) result_val = (if and_bool(f_is_NaN(op1), f_is_NaN(op2)) then canonical_NaN(m) else (if f_is_NaN(op1) then op2 else (if f_is_NaN(op2) then op1 else (if and_bool(f_is_neg_zero(op1), f_is_pos_zero(op2)) then op1 else (if and_bool(f_is_neg_zero(op2), f_is_pos_zero(op1)) then op2 else (if op1_lt_op2 then op1 else op2))))));
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_max(bits(m) op1, bits(m) op2)
+    (bits(5), boolean) temp_XT_2;
+    constant integer XM_match_343 = m;
+    case XM_match_343 of
+        when 16
+            temp_XT_2 = riscv_f16Lt_quiet(op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Lt_quiet(op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Lt_quiet(op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    boolean op1_lt_op2;
+    (fflags, op1_lt_op2) = temp_XT_2;
+    constant bits(m) result_val = (if and_bool(f_is_NaN(op1), f_is_NaN(op2)) then canonical_NaN(m) else (if f_is_NaN(op1) then op2 else (if f_is_NaN(op2) then op1 else (if and_bool(f_is_neg_zero(op1), f_is_pos_zero(op2)) then op2 else (if and_bool(f_is_neg_zero(op2), f_is_pos_zero(op1)) then op1 else (if op1_lt_op2 then op2 else op1))))));
+    accrue_fflags(fflags);
+    return result_val;
 
 boolean fp_eq(bits(m) op1, bits(m) op2)
+    (bits(5), boolean) temp_XT_2;
+    constant integer XM_match_342 = m;
+    case XM_match_342 of
+        when 16
+            temp_XT_2 = riscv_f16Eq(op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Eq(op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Eq(op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    boolean result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 boolean fp_gt(bits(m) op1, bits(m) op2)
+    (bits(5), boolean) temp_XT_2;
+    constant integer XM_match_341 = m;
+    case XM_match_341 of
+        when 16
+            temp_XT_2 = riscv_f16Le(op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Le(op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Le(op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    boolean temp_val;
+    (fflags, temp_val) = temp_XT_2;
+    constant boolean result_val = (if eq_bits(fflags, '10000') then FALSE else not(temp_val));
+    accrue_fflags(fflags);
+    return result_val;
 
 boolean fp_ge(bits(m) op1, bits(m) op2)
+    (bits(5), boolean) temp_XT_2;
+    constant integer XM_match_340 = m;
+    case XM_match_340 of
+        when 16
+            temp_XT_2 = riscv_f16Lt(op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Lt(op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Lt(op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    boolean temp_val;
+    (fflags, temp_val) = temp_XT_2;
+    constant boolean result_val = (if eq_bits(fflags, '10000') then FALSE else not(temp_val));
+    accrue_fflags(fflags);
+    return result_val;
 
 boolean fp_lt(bits(m) op1, bits(m) op2)
+    (bits(5), boolean) temp_XT_2;
+    constant integer XM_match_339 = m;
+    case XM_match_339 of
+        when 16
+            temp_XT_2 = riscv_f16Lt(op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Lt(op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Lt(op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    boolean result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 boolean fp_le(bits(m) op1, bits(m) op2)
+    (bits(5), boolean) temp_XT_2;
+    constant integer XM_match_338 = m;
+    case XM_match_338 of
+        when 16
+            temp_XT_2 = riscv_f16Le(op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Le(op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Le(op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    boolean result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_mul(bits(3) rm_3b, bits(m) op1, bits(m) op2)
+    (bits(5), bits(m)) temp_XT_2;
+    constant integer XM_match_337 = m;
+    case XM_match_337 of
+        when 16
+            temp_XT_2 = riscv_f16Mul(rm_3b, op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Mul(rm_3b, op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Mul(rm_3b, op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_div(bits(3) rm_3b, bits(m) op1, bits(m) op2)
+    (bits(5), bits(m)) temp_XT_2;
+    constant integer XM_match_336 = m;
+    case XM_match_336 of
+        when 16
+            temp_XT_2 = riscv_f16Div(rm_3b, op1[15:0], op2[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32Div(rm_3b, op1[31:0], op2[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64Div(rm_3b, op1[63:0], op2[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_muladd(bits(3) rm_3b, bits(m) op1, bits(m) op2, bits(m) opadd)
+    (bits(5), bits(m)) temp_XT_2;
+    constant integer XM_match_335 = m;
+    case XM_match_335 of
+        when 16
+            temp_XT_2 = riscv_f16MulAdd(rm_3b, op1[15:0], op2[15:0], opadd[15:0]);
+        when 32
+            temp_XT_2 = riscv_f32MulAdd(rm_3b, op1[31:0], op2[31:0], opadd[31:0]);
+        when 64
+            temp_XT_2 = riscv_f64MulAdd(rm_3b, op1[63:0], op2[63:0], opadd[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_2;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_nmuladd(bits(3) rm_3b, bits(m) op1, bits(m) op2, bits(m) opadd)
+    constant bits(m) op1 = negate_fp(op1);
+    (bits(5), bits(m)) temp_XT_4;
+    constant integer XM_match_334 = m;
+    case XM_match_334 of
+        when 16
+            temp_XT_4 = riscv_f16MulAdd(rm_3b, op1[15:0], op2[15:0], opadd[15:0]);
+        when 32
+            temp_XT_4 = riscv_f32MulAdd(rm_3b, op1[31:0], op2[31:0], opadd[31:0]);
+        when 64
+            temp_XT_4 = riscv_f64MulAdd(rm_3b, op1[63:0], op2[63:0], opadd[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_4;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_mulsub(bits(3) rm_3b, bits(m) op1, bits(m) op2, bits(m) opsub)
+    constant bits(m) opsub = negate_fp(opsub);
+    (bits(5), bits(m)) temp_XT_4;
+    constant integer XM_match_333 = m;
+    case XM_match_333 of
+        when 16
+            temp_XT_4 = riscv_f16MulAdd(rm_3b, op1[15:0], op2[15:0], opsub[15:0]);
+        when 32
+            temp_XT_4 = riscv_f32MulAdd(rm_3b, op1[31:0], op2[31:0], opsub[31:0]);
+        when 64
+            temp_XT_4 = riscv_f64MulAdd(rm_3b, op1[63:0], op2[63:0], opsub[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_4;
+    accrue_fflags(fflags);
+    return result_val;
 
 bits(m) fp_nmulsub(bits(3) rm_3b, bits(m) op1, bits(m) op2, bits(m) opsub)
+    constant bits(m) opsub = negate_fp(opsub);
+    constant bits(m) op1 = negate_fp(op1);
+    (bits(5), bits(m)) temp_XT_6;
+    constant integer XM_match_332 = m;
+    case XM_match_332 of
+        when 16
+            temp_XT_6 = riscv_f16MulAdd(rm_3b, op1[15:0], op2[15:0], opsub[15:0]);
+        when 32
+            temp_XT_6 = riscv_f32MulAdd(rm_3b, op1[31:0], op2[31:0], opsub[31:0]);
+        when 64
+            temp_XT_6 = riscv_f64MulAdd(rm_3b, op1[63:0], op2[63:0], opsub[63:0]);
+    bits(5) fflags;
+    bits(m) result_val;
+    (fflags, result_val) = temp_XT_6;
+    accrue_fflags(fflags);
+    return result_val;
+
+bits(m) fp_class(bits(m) xf)
+    constant bits(10) result_val_10b = (if f_is_neg_inf(xf) then '0000000001' else (if f_is_neg_norm(xf) then '0000000010' else (if f_is_neg_subnorm(xf) then '0000000100' else (if f_is_neg_zero(xf) then '0000001000' else (if f_is_pos_zero(xf) then '0000010000' else (if f_is_pos_subnorm(xf) then '0000100000' else (if f_is_pos_norm(xf) then '0001000000' else (if f_is_pos_inf(xf) then '0010000000' else (if f_is_SNaN(xf) then '0100000000' else (if f_is_QNaN(xf) then '1000000000' else zeros(10)))))))))));
+    return zero_extend(m, result_val_10b);
 
 bits((m) * (2)) fp_widen(bits(m) nval)
+    constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
+    (bits(5), bits((m) * (2))) temp_XT_4;
+    constant integer XM_match_331 = m;
+    case XM_match_331 of
+        when 16
+            temp_XT_4 = riscv_f16ToF32(rm_3b, nval[15:0]);
+        when 32
+            temp_XT_4 = riscv_f32ToF64(rm_3b, nval[31:0]);
+    bits(5) fflags;
+    bits((m) * (2)) wval;
+    (fflags, wval) = temp_XT_4;
+    accrue_fflags(fflags);
+    return wval;
+
+(bits(5), bits(16)) riscv_f16ToI16(bits(3) rm, bits(16) v)
+    bits(32) sig32;
+    (-, sig32) = riscv_f16ToI32(rm, v);
+    return (if gt_int(signed(sig32), signed(bitvector_concat('0', ones(15)))) then (nvFlag(), bitvector_concat('0', ones(15))) else (if lt_int(signed(sig32), signed(bitvector_concat('1', zeros(15)))) then (nvFlag(), bitvector_concat('1', zeros(15))) else (zeros(5), subrange_bits(sig32, 15, 0))));
+
+(bits(5), bits(8)) riscv_f16ToI8(bits(3) rm, bits(16) v)
+    bits(32) sig32;
+    (-, sig32) = riscv_f16ToI32(rm, v);
+    return (if gt_int(signed(sig32), signed(bitvector_concat('0', ones(7)))) then (nvFlag(), bitvector_concat('0', ones(7))) else (if lt_int(signed(sig32), signed(bitvector_concat('1', zeros(7)))) then (nvFlag(), bitvector_concat('1', zeros(7))) else (zeros(5), subrange_bits(sig32, 7, 0))));
+
+(bits(5), bits(16)) riscv_f32ToI16(bits(3) rm, bits(32) v)
+    bits(32) sig32;
+    (-, sig32) = riscv_f32ToI32(rm, v);
+    return (if gt_int(signed(sig32), signed(bitvector_concat('0', ones(15)))) then (nvFlag(), bitvector_concat('0', ones(15))) else (if lt_int(signed(sig32), signed(bitvector_concat('1', zeros(15)))) then (nvFlag(), bitvector_concat('1', zeros(15))) else (zeros(5), subrange_bits(sig32, 15, 0))));
+
+(bits(5), bits(16)) riscv_f16ToUi16(bits(3) rm, bits(16) v)
+    bits(32) sig32;
+    (-, sig32) = riscv_f16ToUi32(rm, v);
+    return (if gt_int(unsigned(sig32), unsigned(ones(16))) then (nvFlag(), ones(16)) else (zeros(5), subrange_bits(sig32, 15, 0)));
+
+(bits(5), bits(8)) riscv_f16ToUi8(bits(3) rm, bits(16) v)
+    bits(32) sig32;
+    (-, sig32) = riscv_f16ToUi32(rm, v);
+    return (if gt_int(unsigned(sig32), unsigned(ones(8))) then (nvFlag(), ones(8)) else (zeros(5), subrange_bits(sig32, 7, 0)));
+
+(bits(5), bits(16)) riscv_f32ToUi16(bits(3) rm, bits(32) v)
+    bits(32) sig32;
+    (-, sig32) = riscv_f32ToUi32(rm, v);
+    return (if gt_int(unsigned(sig32), unsigned(ones(16))) then (nvFlag(), ones(16)) else (zeros(5), subrange_bits(sig32, 15, 0)));
+
+(bits(5), bits(16)) riscv_f16Rsqrte7(bits(3) rm, bits(16) v)
+
+(bits(5), bits(32)) riscv_f32Rsqrte7(bits(3) rm, bits(32) v)
+
+(bits(5), bits(64)) riscv_f64Rsqrte7(bits(3) rm, bits(64) v)
+
+(bits(5), bits(16)) riscv_f16Recip7(bits(3) rm, bits(16) v)
+
+(bits(5), bits(32)) riscv_f32Recip7(bits(3) rm, bits(32) v)
+
+(bits(5), bits(64)) riscv_f64Recip7(bits(3) rm, bits(64) v)
 
 () handle_illegal_vtype()
     vtype = bitvector_concat('1', zeros(xlen - (1)));
@@ -7764,8 +9686,8 @@ boolean encdec_vlewidth_backwards_matches(bits(3) argXH)
 
 integer vlewidth_bytesnumber_forwards(vlewidth argXH)
     integer temp_XT_1;
-    constant vlewidth XM_match_301 = argXH;
-    case XM_match_301 of
+    constant vlewidth XM_match_326 = argXH;
+    case XM_match_326 of
         when VLE8
             temp_XT_1 = 1;
         when VLE16
@@ -7778,8 +9700,8 @@ integer vlewidth_bytesnumber_forwards(vlewidth argXH)
 
 integer vlewidth_pow_forwards(vlewidth argXH)
     integer temp_XT_1;
-    constant vlewidth XM_match_300 = argXH;
-    case XM_match_300 of
+    constant vlewidth XM_match_325 = argXH;
+    case XM_match_325 of
         when VLE8
             temp_XT_1 = 3;
         when VLE16
@@ -7797,11 +9719,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
     constant bits((num_elem) * (((nf) * (load_width_bytes)) * (8))) vd_seg = read_vreg_seg(num_elem, (load_width_bytes) * (8), EMUL_pow, nf, vd);
     constant integer m = ((nf) * (load_width_bytes)) * (8);
     (bits((num_elem) * (m)), bits(num_elem)) temp_XT_26;
-    constant (result, (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem))) XM_match_299 = init_masked_result(num_elem, ((nf) * (load_width_bytes)) * (8), EMUL_pow, vd_seg, vm_val);
-    case XM_match_299 of
+    constant (result, (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem))) XM_match_324 = init_masked_result(num_elem, ((nf) * (load_width_bytes)) * (8), EMUL_pow, vd_seg, vm_val);
+    case XM_match_324 of
         when (Ok, -)
             (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem)) v;
-            (-, v) = XM_match_299;
+            (-, v) = XM_match_324;
             temp_XT_26 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -7813,15 +9735,15 @@ integer vlewidth_pow_forwards(vlewidth argXH)
             set_vstart(to_bits_unsafe(16, i));
             for j = 0 to nf - (1)
                 constant integer elem_offset = ((i) * (nf) + j) * (load_width_bytes);
-                constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_298 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
-                case XM_match_298 of
+                constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_323 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
+                case XM_match_323 of
                     when (Ok, -, -)
                         bits((8) * (load_width_bytes)) elem;
-                        (-, elem, -) = XM_match_298;
+                        (-, elem, -) = XM_match_323;
                         write_single_element((load_width_bytes) * (8), i, vregidx_offset(vd, to_bits_unsafe(5, (j) * (EMUL_reg))), elem);
                     when (Err, -, -)
                         (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                        (-, -, e) = XM_match_298;
+                        (-, -, e) = XM_match_323;
                         return e;
         else
             for j = 0 to nf - (1)
@@ -7838,11 +9760,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
     constant agtype tail_ag = get_vtype_vta();
     constant integer m = ((nf) * (load_width_bytes)) * (8);
     (bits((num_elem) * (m)), bits(num_elem)) temp_XT_28;
-    constant (result, (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem))) XM_match_297 = init_masked_result(num_elem, ((nf) * (load_width_bytes)) * (8), EMUL_pow, vd_seg, vm_val);
-    case XM_match_297 of
+    constant (result, (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem))) XM_match_322 = init_masked_result(num_elem, ((nf) * (load_width_bytes)) * (8), EMUL_pow, vd_seg, vm_val);
+    case XM_match_322 of
         when (Ok, -)
             (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem)) v;
-            (-, v) = XM_match_297;
+            (-, v) = XM_match_322;
             temp_XT_28 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -7855,15 +9777,15 @@ integer vlewidth_pow_forwards(vlewidth argXH)
             if eq_bit(bitvector_access(mask, i), '1') then
                 for j = 0 to nf - (1)
                     constant integer elem_offset = ((i) * (nf) + j) * (load_width_bytes);
-                    constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_296 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
-                    case XM_match_296 of
+                    constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_321 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
+                    case XM_match_321 of
                         when (Ok, -, -)
                             bits((8) * (load_width_bytes)) elem;
-                            (-, elem, -) = XM_match_296;
+                            (-, elem, -) = XM_match_321;
                             write_single_element((load_width_bytes) * (8), i, vregidx_offset(vd, to_bits_unsafe(5, (j) * (EMUL_reg))), elem);
                         when (Err, -, -)
                             (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                            (-, -, e) = XM_match_296;
+                            (-, -, e) = XM_match_321;
                             if eq_int(i, 0) then
                                 return e;
                             else
@@ -7888,11 +9810,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
     constant bits(num_elem) vm_val = read_vmask(num_elem, vm, zvreg);
     constant bits((num_elem) * (((nf) * (load_width_bytes)) * (8))) vs3_seg = read_vreg_seg(num_elem, (load_width_bytes) * (8), EMUL_pow, nf, vs3);
     bits(num_elem) temp_XT_21;
-    constant (result, bits(num_elem)) XM_match_295 = init_masked_source(num_elem, EMUL_pow, vm_val);
-    case XM_match_295 of
+    constant (result, bits(num_elem)) XM_match_320 = init_masked_source(num_elem, EMUL_pow, vm_val);
+    case XM_match_320 of
         when (Ok, -)
             bits(num_elem) v;
-            (-, v) = XM_match_295;
+            (-, v) = XM_match_320;
             temp_XT_21 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -7904,16 +9826,26 @@ integer vlewidth_pow_forwards(vlewidth argXH)
                 constant integer elem_offset = ((i) * (nf) + j) * (load_width_bytes);
                 constant bits(5) vs = vregidx_offset(vs3, to_bits_unsafe(5, (j) * (EMUL_reg)));
                 constant bits((load_width_bytes) * (8)) data = read_single_element((load_width_bytes) * (8), i, vs);
-                constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_294 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, data, Write, FALSE, FALSE, FALSE);
-                case XM_match_294 of
-                    when (Ok, TRUE, -)
+                constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_319 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, data, Write, FALSE, FALSE, FALSE);
+                case XM_match_319 of
+                    when (Ok, -, -)
+                        boolean p0XH;
+                        (-, p0XH, -) = XM_match_319;
+                        if eq_bool(p0XH, TRUE) then
 
-                    when (Ok, FALSE, -)
-                        assert(FALSE);
+                        else
+                            if eq_bool(p0XH, FALSE) then
+                                assert(FALSE);
+                            else
+                                assert(FALSE);
+                                exit();
                     when (Err, -, -)
                         (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                        (-, -, e) = XM_match_294;
+                        (-, -, e) = XM_match_319;
                         return e;
+                    when -
+                        assert(FALSE);
+                        exit();
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
 
@@ -7925,11 +9857,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
     constant integer rs2_val = unsigned(get_scalar(rs2, xlen));
     constant integer m = ((nf) * (load_width_bytes)) * (8);
     (bits((num_elem) * (m)), bits(num_elem)) temp_XT_30;
-    constant (result, (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem))) XM_match_293 = init_masked_result(num_elem, ((nf) * (load_width_bytes)) * (8), EMUL_pow, vd_seg, vm_val);
-    case XM_match_293 of
+    constant (result, (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem))) XM_match_318 = init_masked_result(num_elem, ((nf) * (load_width_bytes)) * (8), EMUL_pow, vd_seg, vm_val);
+    case XM_match_318 of
         when (Ok, -)
             (bits((num_elem) * (((nf) * (load_width_bytes)) * (8))), bits(num_elem)) v;
-            (-, v) = XM_match_293;
+            (-, v) = XM_match_318;
             temp_XT_30 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -7941,15 +9873,15 @@ integer vlewidth_pow_forwards(vlewidth argXH)
             set_vstart(to_bits_unsafe(16, i));
             for j = 0 to nf - (1)
                 constant integer elem_offset = (i) * (rs2_val) + (j) * (load_width_bytes);
-                constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_292 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
-                case XM_match_292 of
+                constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_317 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
+                case XM_match_317 of
                     when (Ok, -, -)
                         bits((8) * (load_width_bytes)) elem;
-                        (-, elem, -) = XM_match_292;
+                        (-, elem, -) = XM_match_317;
                         write_single_element((load_width_bytes) * (8), i, vregidx_offset(vd, to_bits_unsafe(5, (j) * (EMUL_reg))), elem);
                     when (Err, -, -)
                         (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                        (-, -, e) = XM_match_292;
+                        (-, -, e) = XM_match_317;
                         return e;
         else
             for j = 0 to nf - (1)
@@ -7965,11 +9897,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
     constant bits((num_elem) * (((nf) * (load_width_bytes)) * (8))) vs3_seg = read_vreg_seg(num_elem, (load_width_bytes) * (8), EMUL_pow, nf, vs3);
     constant integer rs2_val = unsigned(get_scalar(rs2, xlen));
     bits(num_elem) temp_XT_25;
-    constant (result, bits(num_elem)) XM_match_291 = init_masked_source(num_elem, EMUL_pow, vm_val);
-    case XM_match_291 of
+    constant (result, bits(num_elem)) XM_match_316 = init_masked_source(num_elem, EMUL_pow, vm_val);
+    case XM_match_316 of
         when (Ok, -)
             bits(num_elem) v;
-            (-, v) = XM_match_291;
+            (-, v) = XM_match_316;
             temp_XT_25 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -7981,16 +9913,26 @@ integer vlewidth_pow_forwards(vlewidth argXH)
                 constant integer elem_offset = (i) * (rs2_val) + (j) * (load_width_bytes);
                 constant bits(5) vs = vregidx_offset(vs3, to_bits_unsafe(5, (j) * (EMUL_reg)));
                 constant bits((load_width_bytes) * (8)) data = read_single_element((load_width_bytes) * (8), i, vs);
-                constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_290 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, data, Write, FALSE, FALSE, FALSE);
-                case XM_match_290 of
-                    when (Ok, TRUE, -)
+                constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_315 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, data, Write, FALSE, FALSE, FALSE);
+                case XM_match_315 of
+                    when (Ok, -, -)
+                        boolean p0XH;
+                        (-, p0XH, -) = XM_match_315;
+                        if eq_bool(p0XH, TRUE) then
 
-                    when (Ok, FALSE, -)
-                        assert(FALSE);
+                        else
+                            if eq_bool(p0XH, FALSE) then
+                                assert(FALSE);
+                            else
+                                assert(FALSE);
+                                exit();
                     when (Err, -, -)
                         (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                        (-, -, e) = XM_match_290;
+                        (-, -, e) = XM_match_315;
                         return e;
+                    when -
+                        assert(FALSE);
+                        exit();
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
 
@@ -8002,11 +9944,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
     constant bits((num_elem) * ((EEW_index_bytes) * (8))) vs2_val = read_vreg(num_elem, (EEW_index_bytes) * (8), EMUL_index_pow, vs2);
     constant integer m = ((nf) * (EEW_data_bytes)) * (8);
     (bits((num_elem) * (m)), bits(num_elem)) temp_XT_33;
-    constant (result, (bits((num_elem) * (((nf) * (EEW_data_bytes)) * (8))), bits(num_elem))) XM_match_289 = init_masked_result(num_elem, ((nf) * (EEW_data_bytes)) * (8), EMUL_data_pow, vd_seg, vm_val);
-    case XM_match_289 of
+    constant (result, (bits((num_elem) * (((nf) * (EEW_data_bytes)) * (8))), bits(num_elem))) XM_match_314 = init_masked_result(num_elem, ((nf) * (EEW_data_bytes)) * (8), EMUL_data_pow, vd_seg, vm_val);
+    case XM_match_314 of
         when (Ok, -)
             (bits((num_elem) * (((nf) * (EEW_data_bytes)) * (8))), bits(num_elem)) v;
-            (-, v) = XM_match_289;
+            (-, v) = XM_match_314;
             temp_XT_33 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -8018,15 +9960,15 @@ integer vlewidth_pow_forwards(vlewidth argXH)
             set_vstart(to_bits_unsafe(16, i));
             for j = 0 to nf - (1)
                 constant integer elem_offset = unsigned(plain_vector_access(vs2_val, i, num_elem, (EEW_index_bytes) * (8))) + (j) * (EEW_data_bytes);
-                constant (result, bits((8) * (EEW_data_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_288 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), EEW_data_bytes, Read, FALSE, FALSE, FALSE);
-                case XM_match_288 of
+                constant (result, bits((8) * (EEW_data_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_313 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), EEW_data_bytes, Read, FALSE, FALSE, FALSE);
+                case XM_match_313 of
                     when (Ok, -, -)
                         bits((8) * (EEW_data_bytes)) elem;
-                        (-, elem, -) = XM_match_288;
+                        (-, elem, -) = XM_match_313;
                         write_single_element((EEW_data_bytes) * (8), i, vregidx_offset(vd, to_bits_unsafe(5, (j) * (EMUL_data_reg))), elem);
                     when (Err, -, -)
                         (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                        (-, -, e) = XM_match_288;
+                        (-, -, e) = XM_match_313;
                         return e;
         else
             for j = 0 to nf - (1)
@@ -8042,11 +9984,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
     constant bits((num_elem) * (((nf) * (EEW_data_bytes)) * (8))) vs3_seg = read_vreg_seg(num_elem, (EEW_data_bytes) * (8), EMUL_data_pow, nf, vs3);
     constant bits((num_elem) * ((EEW_index_bytes) * (8))) vs2_val = read_vreg(num_elem, (EEW_index_bytes) * (8), EMUL_index_pow, vs2);
     bits(num_elem) temp_XT_28;
-    constant (result, bits(num_elem)) XM_match_287 = init_masked_source(num_elem, EMUL_data_pow, vm_val);
-    case XM_match_287 of
+    constant (result, bits(num_elem)) XM_match_312 = init_masked_source(num_elem, EMUL_data_pow, vm_val);
+    case XM_match_312 of
         when (Ok, -)
             bits(num_elem) v;
-            (-, v) = XM_match_287;
+            (-, v) = XM_match_312;
             temp_XT_28 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -8058,27 +10000,37 @@ integer vlewidth_pow_forwards(vlewidth argXH)
                 constant integer elem_offset = unsigned(plain_vector_access(vs2_val, i, num_elem, (EEW_index_bytes) * (8))) + (j) * (EEW_data_bytes);
                 constant bits(5) vs = vregidx_offset(vs3, to_bits_unsafe(5, (j) * (EMUL_data_reg)));
                 constant bits((EEW_data_bytes) * (8)) data = read_single_element((EEW_data_bytes) * (8), i, vs);
-                constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_286 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), EEW_data_bytes, data, Write, FALSE, FALSE, FALSE);
-                case XM_match_286 of
-                    when (Ok, TRUE, -)
+                constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_311 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), EEW_data_bytes, data, Write, FALSE, FALSE, FALSE);
+                case XM_match_311 of
+                    when (Ok, -, -)
+                        boolean p0XH;
+                        (-, p0XH, -) = XM_match_311;
+                        if eq_bool(p0XH, TRUE) then
 
-                    when (Ok, FALSE, -)
-                        assert(FALSE);
+                        else
+                            if eq_bool(p0XH, FALSE) then
+                                assert(FALSE);
+                            else
+                                assert(FALSE);
+                                exit();
                     when (Err, -, -)
                         (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                        (-, -, e) = XM_match_286;
+                        (-, -, e) = XM_match_311;
                         return e;
+                    when -
+                        assert(FALSE);
+                        exit();
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) process_vlre(integer nf, bits(5) vd, integer load_width_bytes, bits(5) rs1, integer elem_per_reg)
     constant word_width width_type = size_bytes_backwards(load_width_bytes);
     nat temp_XT_4;
-    constant (result, nat) XM_match_285 = get_start_element();
-    case XM_match_285 of
+    constant (result, nat) XM_match_310 = get_start_element();
+    case XM_match_310 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_285;
+            (-, v) = XM_match_310;
             temp_XT_4 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -8092,15 +10044,15 @@ integer vlewidth_pow_forwards(vlewidth argXH)
         for i = elem_to_align to elem_per_reg - (1)
             set_vstart(to_bits_unsafe(16, cur_elem));
             constant integer elem_offset = (cur_elem) * (load_width_bytes);
-            constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_283 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
-            case XM_match_283 of
+            constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_308 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
+            case XM_match_308 of
                 when (Ok, -, -)
                     bits((8) * (load_width_bytes)) elem;
-                    (-, elem, -) = XM_match_283;
+                    (-, elem, -) = XM_match_308;
                     write_single_element((load_width_bytes) * (8), i, vregidx_offset(vd, to_bits_unsafe(5, cur_field)), elem);
                 when (Err, -, -)
                     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                    (-, -, e) = XM_match_283;
+                    (-, -, e) = XM_match_308;
                     return e;
             cur_elem = cur_elem + 1;
         cur_field = cur_field + 1;
@@ -8108,15 +10060,15 @@ integer vlewidth_pow_forwards(vlewidth argXH)
         for i = 0 to elem_per_reg - (1)
             set_vstart(to_bits_unsafe(16, cur_elem));
             constant integer elem_offset = (cur_elem) * (load_width_bytes);
-            constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_284 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
-            case XM_match_284 of
+            constant (result, bits((8) * (load_width_bytes)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_309 = vmem_read(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, Read, FALSE, FALSE, FALSE);
+            case XM_match_309 of
                 when (Ok, -, -)
                     bits((8) * (load_width_bytes)) elem;
-                    (-, elem, -) = XM_match_284;
+                    (-, elem, -) = XM_match_309;
                     write_single_element((load_width_bytes) * (8), i, vregidx_offset(vd, to_bits_unsafe(5, j)), elem);
                 when (Err, -, -)
                     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                    (-, -, e) = XM_match_284;
+                    (-, -, e) = XM_match_309;
                     return e;
             cur_elem = cur_elem + 1;
     set_vstart(zeros(16));
@@ -8125,11 +10077,11 @@ integer vlewidth_pow_forwards(vlewidth argXH)
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) process_vsre(integer nf, integer load_width_bytes, bits(5) rs1, bits(5) vs3, integer elem_per_reg)
     constant word_width width_type = BYTE;
     nat temp_XT_3;
-    constant (result, nat) XM_match_282 = get_start_element();
-    case XM_match_282 of
+    constant (result, nat) XM_match_307 = get_start_element();
+    case XM_match_307 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_282;
+            (-, v) = XM_match_307;
             temp_XT_3 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -8145,16 +10097,26 @@ integer vlewidth_pow_forwards(vlewidth argXH)
             constant integer elem_offset = (cur_elem) * (load_width_bytes);
             constant bits(5) vs = vregidx_offset(vs3, to_bits_unsafe(5, cur_field));
             constant bits((load_width_bytes) * (8)) data = read_single_element((load_width_bytes) * (8), i, vs);
-            constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_280 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, data, Write, FALSE, FALSE, FALSE);
-            case XM_match_280 of
-                when (Ok, TRUE, -)
+            constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_305 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, data, Write, FALSE, FALSE, FALSE);
+            case XM_match_305 of
+                when (Ok, -, -)
+                    boolean p0XH;
+                    (-, p0XH, -) = XM_match_305;
+                    if eq_bool(p0XH, TRUE) then
 
-                when (Ok, FALSE, -)
-                    assert(FALSE);
+                    else
+                        if eq_bool(p0XH, FALSE) then
+                            assert(FALSE);
+                        else
+                            assert(FALSE);
+                            exit();
                 when (Err, -, -)
                     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                    (-, -, e) = XM_match_280;
+                    (-, -, e) = XM_match_305;
                     return e;
+                when -
+                    assert(FALSE);
+                    exit();
             cur_elem = cur_elem + 1;
         cur_field = cur_field + 1;
     for j = cur_field to nf - (1)
@@ -8162,16 +10124,26 @@ integer vlewidth_pow_forwards(vlewidth argXH)
         for i = 0 to elem_per_reg - (1)
             set_vstart(to_bits_unsafe(16, cur_elem));
             constant integer elem_offset = (cur_elem) * (load_width_bytes);
-            constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_281 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, plain_vector_access(vs3_val, i, elem_per_reg, (load_width_bytes) * (8)), Write, FALSE, FALSE, FALSE);
-            case XM_match_281 of
-                when (Ok, TRUE, -)
+            constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_306 = vmem_write(rs1, to_bits_unsafe(xlen, elem_offset), load_width_bytes, plain_vector_access(vs3_val, i, elem_per_reg, (load_width_bytes) * (8)), Write, FALSE, FALSE, FALSE);
+            case XM_match_306 of
+                when (Ok, -, -)
+                    boolean p0XH;
+                    (-, p0XH, -) = XM_match_306;
+                    if eq_bool(p0XH, TRUE) then
 
-                when (Ok, FALSE, -)
-                    assert(FALSE);
+                    else
+                        if eq_bool(p0XH, FALSE) then
+                            assert(FALSE);
+                        else
+                            assert(FALSE);
+                            exit();
                 when (Err, -, -)
                     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                    (-, -, e) = XM_match_281;
+                    (-, -, e) = XM_match_306;
                     return e;
+                when -
+                    assert(FALSE);
+                    exit();
             cur_elem = cur_elem + 1;
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -8196,11 +10168,11 @@ boolean encdec_lsop_backwards_matches(bits(7) argXH)
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) process_vm(bits(5) vd_or_vs3, bits(5) rs1, integer num_elem, integer evl, vmlsop op)
     constant word_width width_type = BYTE;
     nat temp_XT_3;
-    constant (result, nat) XM_match_279 = get_start_element();
-    case XM_match_279 of
+    constant (result, nat) XM_match_304 = get_start_element();
+    case XM_match_304 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_279;
+            (-, v) = XM_match_304;
             temp_XT_3 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -8210,28 +10182,38 @@ boolean encdec_lsop_backwards_matches(bits(7) argXH)
         if lt_int(i, evl) then
             set_vstart(to_bits_unsafe(16, i));
             if op == VLM then
-                constant (result, bits((8) * (1)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_278 = vmem_read(rs1, to_bits_unsafe(xlen, i), 1, Read, FALSE, FALSE, FALSE);
-                case XM_match_278 of
+                constant (result, bits((8) * (1)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_303 = vmem_read(rs1, to_bits_unsafe(xlen, i), 1, Read, FALSE, FALSE, FALSE);
+                case XM_match_303 of
                     when (Ok, -, -)
                         bits((8) * (1)) elem;
-                        (-, elem, -) = XM_match_278;
+                        (-, elem, -) = XM_match_303;
                         write_single_element(8, i, vd_or_vs3, elem);
                     when (Err, -, -)
                         (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                        (-, -, e) = XM_match_278;
+                        (-, -, e) = XM_match_303;
                         return e;
             else
                 if op == VSM then
-                    constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_277 = vmem_write(rs1, to_bits_unsafe(xlen, i), 1, plain_vector_access(vd_or_vs3_val, i, num_elem, 8), Write, FALSE, FALSE, FALSE);
-                    case XM_match_277 of
-                        when (Ok, TRUE, -)
+                    constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_302 = vmem_write(rs1, to_bits_unsafe(xlen, i), 1, plain_vector_access(vd_or_vs3_val, i, num_elem, 8), Write, FALSE, FALSE, FALSE);
+                    case XM_match_302 of
+                        when (Ok, -, -)
+                            boolean p0XH;
+                            (-, p0XH, -) = XM_match_302;
+                            if eq_bool(p0XH, TRUE) then
 
-                        when (Ok, FALSE, -)
-                            assert(FALSE);
+                            else
+                                if eq_bool(p0XH, FALSE) then
+                                    assert(FALSE);
+                                else
+                                    assert(FALSE);
+                                    exit();
                         when (Err, -, -)
                             (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
-                            (-, -, e) = XM_match_277;
+                            (-, -, e) = XM_match_302;
                             return e;
+                        when -
+                            assert(FALSE);
+                            exit();
         else
             if op == VLM then
                 write_single_element(8, i, vd_or_vs3, plain_vector_access(vd_or_vs3_val, i, num_elem, 8));
@@ -8658,11 +10640,11 @@ boolean encdec_rfvvfunct6_backwards_matches(bits(6) argXH)
     constant bits((d) * (m)) vd_val = read_vreg(num_elem_vd, SEW, 0, vd);
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem_vs, SEW, LMUL_pow, vs2);
     bits(n) temp_XT_46;
-    constant (result, bits(n)) XM_match_276 = init_masked_source(num_elem_vs, LMUL_pow, vm_val);
-    case XM_match_276 of
+    constant (result, bits(n)) XM_match_301 = init_masked_source(num_elem_vs, LMUL_pow, vm_val);
+    case XM_match_301 of
         when (Ok, -)
             bits(n) v;
-            (-, v) = XM_match_276;
+            (-, v) = XM_match_301;
             temp_XT_46 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -8671,8 +10653,8 @@ boolean encdec_rfvvfunct6_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem_vs - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_76;
-            constant rfvvfunct6 XM_match_275 = funct6;
-            case XM_match_275 of
+            constant rfvvfunct6 XM_match_300 = funct6;
+            case XM_match_300 of
                 when FVV_VFREDOSUM
                     temp_XT_76 = fp_add(rm_3b, sum, plain_vector_access(vs2_val, i, n, m));
                 when FVV_VFREDUSUM
@@ -8706,11 +10688,11 @@ boolean encdec_rfvvfunct6_backwards_matches(bits(6) argXH)
     constant bits((d) * (o)) vd_val = read_vreg(num_elem_vd, SEW_widen, 0, vd);
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem_vs, SEW, LMUL_pow, vs2);
     bits(n) temp_XT_59;
-    constant (result, bits(n)) XM_match_274 = init_masked_source(num_elem_vs, LMUL_pow, vm_val);
-    case XM_match_274 of
+    constant (result, bits(n)) XM_match_299 = init_masked_source(num_elem_vs, LMUL_pow, vm_val);
+    case XM_match_299 of
         when (Ok, -)
             bits(n) v;
-            (-, v) = XM_match_274;
+            (-, v) = XM_match_299;
             temp_XT_59 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -8778,8 +10760,8 @@ checked_cbop cbop_priv_check(Privilege p)
     checked_cbop temp_XT_1;
     constant cbie mCBIE = encdec_cbie_backwards(_get_MEnvcfg_CBIE(menvcfg));
     constant cbie sCBIE = (if currentlyEnabled(Ext_S) then encdec_cbie_backwards(_get_SEnvcfg_CBIE(senvcfg)) else encdec_cbie_backwards(_get_MEnvcfg_CBIE(menvcfg)));
-    constant (Privilege, cbie, cbie) XM_match_273 = (p, mCBIE, sCBIE);
-    case XM_match_273 of
+    constant (Privilege, cbie, cbie) XM_match_298 = (p, mCBIE, sCBIE);
+    case XM_match_298 of
         when (Machine, -, -)
             temp_XT_1 = CBOP_INVAL_INVAL;
         when (-, CBIE_ILLEGAL, -)
@@ -8799,47 +10781,47 @@ checked_cbop cbop_priv_check(Privilege p)
     constant bits((pow2_int(3)) * (8)) rs1_val = rX_bits(rs1);
     constant integer cache_block_size = pow2_int(plat_cache_block_size_exp);
     constant bits((pow2_int(3)) * (8)) negative_offset = sub_vec(and_vec(rs1_val, not_vec(zero_extend((pow2_int(3)) * (8), ones(plat_cache_block_size_exp)))), rs1_val);
-    constant (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) XM_match_272 = ext_data_get_addr(rs1, negative_offset, Read, cache_block_size);
-    case XM_match_272 of
+    constant (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) XM_match_297 = ext_data_get_addr(rs1, negative_offset, Read, cache_block_size);
+    case XM_match_297 of
         when (Ext_DataAddr_Error, -)
-            (-, -) = XM_match_272;
+            (-, -) = XM_match_297;
             temp_XT_1 = (Ext_DataAddr_Check_Failure, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
         when (Ext_DataAddr_OK, -)
             bits((pow2_int(3)) * (8)) vaddr;
-            (-, vaddr) = XM_match_272;
+            (-, vaddr) = XM_match_297;
             (option, ExceptionType) temp_XT_33;
-            constant (result, bits(64), ExceptionType) XM_match_271 = translateAddr(vaddr, Read);
-            case XM_match_271 of
+            constant (result, bits(64), ExceptionType) XM_match_296 = translateAddr(vaddr, Read);
+            case XM_match_296 of
                 when (Ok, -, -)
                     bits(64) paddr;
-                    (-, paddr, -) = XM_match_271;
+                    (-, paddr, -) = XM_match_296;
                     constant Privilege ep = effectivePrivilege(Read, mstatus, cur_privilege);
                     constant (option, ExceptionType) exc_read = phys_access_check(Read, ep, paddr, cache_block_size);
                     constant (option, ExceptionType) exc_write = phys_access_check(Write, ep, paddr, cache_block_size);
-                    constant ((option, ExceptionType), (option, ExceptionType)) XM_match_270 = (exc_read, exc_write);
-                    case XM_match_270 of
+                    constant ((option, ExceptionType), (option, ExceptionType)) XM_match_295 = (exc_read, exc_write);
+                    case XM_match_295 of
                         when ((Some, -), (Some, -))
                             ExceptionType exc_read;
                             ExceptionType exc_write;
-                            ((-, exc_read), (-, exc_write)) = XM_match_270;
+                            ((-, exc_read), (-, exc_write)) = XM_match_295;
                             temp_XT_33 = (Some, exc_write);
                         when -
                             temp_XT_33 = (None, ExceptionType UNKNOWN);
                 when (Err, -, -)
                     ExceptionType e;
-                    (-, -, e) = XM_match_271;
+                    (-, -, e) = XM_match_296;
                     temp_XT_33 = (Some, e);
             constant (option, ExceptionType) res = temp_XT_33;
-            constant (option, ExceptionType) XM_match_269 = res;
-            case XM_match_269 of
+            constant (option, ExceptionType) XM_match_294 = res;
+            case XM_match_294 of
                 when (None, -)
                     temp_XT_1 = RETIRE_SUCCESS;
                 when (Some, -)
                     ExceptionType e;
-                    (-, e) = XM_match_269;
+                    (-, e) = XM_match_294;
                     ExceptionType temp_XT_68;
-                    constant ExceptionType XM_match_268 = e;
-                    case XM_match_268 of
+                    constant ExceptionType XM_match_293 = e;
+                    case XM_match_293 of
                         when E_Load_Access_Fault
                             temp_XT_68 = E_SAMO_Access_Fault;
                         when E_SAMO_Access_Fault
@@ -9050,13 +11032,13 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_ZICOND_RTYPE(bits(5) merge_var0, bits(5) merge_var1, bits(5) merge_var2, zicondop merge_var3)
     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) temp_XT_1;
-    constant (bits(5), bits(5), bits(5), zicondop) XM_match_267 = (merge_var0, merge_var1, merge_var2, merge_var3);
-    case XM_match_267 of
+    constant (bits(5), bits(5), bits(5), zicondop) XM_match_292 = (merge_var0, merge_var1, merge_var2, merge_var3);
+    case XM_match_292 of
         when (-, -, -, CZERO_EQZ)
             bits(5) rs2;
             bits(5) rs1;
             bits(5) rd;
-            (rs2, rs1, rd, -) = XM_match_267;
+            (rs2, rs1, rd, -) = XM_match_292;
             constant bits((pow2_int(3)) * (8)) value = rX_bits(rs1);
             constant bits((pow2_int(3)) * (8)) condition = rX_bits(rs2);
             constant bits((pow2_int(3)) * (8)) resultXN = (if eq_bits(condition, zeros((pow2_int(3)) * (8))) then zeros((pow2_int(3)) * (8)) else value);
@@ -9066,7 +11048,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             bits(5) rs2;
             bits(5) rs1;
             bits(5) rd;
-            (rs2, rs1, rd, -) = XM_match_267;
+            (rs2, rs1, rd, -) = XM_match_292;
             constant bits((pow2_int(3)) * (8)) value = rX_bits(rs1);
             constant bits((pow2_int(3)) * (8)) condition = rX_bits(rs2);
             constant bits((pow2_int(3)) * (8)) resultXN = (if neq_bits(condition, zeros((pow2_int(3)) * (8))) then zeros((pow2_int(3)) * (8)) else value);
@@ -9080,61 +11062,71 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
         constant bits((pow2_int(3)) * (8)) rs1_val = rX_bits(rs1);
         constant integer cache_block_size = pow2_int(plat_cache_block_size_exp);
         constant bits((pow2_int(3)) * (8)) negative_offset = sub_vec(and_vec(rs1_val, not_vec(zero_extend((pow2_int(3)) * (8), ones(plat_cache_block_size_exp)))), rs1_val);
-        constant (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) XM_match_266 = ext_data_get_addr(rs1, negative_offset, Write, cache_block_size);
-        case XM_match_266 of
+        constant (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) XM_match_291 = ext_data_get_addr(rs1, negative_offset, Write, cache_block_size);
+        case XM_match_291 of
             when (Ext_DataAddr_Error, -)
-                (-, -) = XM_match_266;
+                (-, -) = XM_match_291;
                 temp_XT_1 = (Ext_DataAddr_Check_Failure, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
             when (Ext_DataAddr_OK, -)
                 bits((pow2_int(3)) * (8)) vaddr;
-                (-, vaddr) = XM_match_266;
-                constant (result, bits(64), ExceptionType) XM_match_265 = translateAddr(vaddr, Write);
-                case XM_match_265 of
+                (-, vaddr) = XM_match_291;
+                constant (result, bits(64), ExceptionType) XM_match_290 = translateAddr(vaddr, Write);
+                case XM_match_290 of
                     when (Err, -, -)
                         ExceptionType e;
-                        (-, -, e) = XM_match_265;
+                        (-, -, e) = XM_match_290;
                         temp_XT_1 = (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, sub_virtaddr_xlenbits(vaddr, negative_offset), e);
                     when (Ok, -, -)
                         bits(64) paddr;
-                        (-, paddr, -) = XM_match_265;
-                        constant (result, ExceptionType) XM_match_264 = mem_write_ea(paddr, cache_block_size, FALSE, FALSE, FALSE);
-                        case XM_match_264 of
+                        (-, paddr, -) = XM_match_290;
+                        constant (result, ExceptionType) XM_match_289 = mem_write_ea(paddr, cache_block_size, FALSE, FALSE, FALSE);
+                        case XM_match_289 of
                             when (Err, -)
                                 ExceptionType e;
-                                (-, e) = XM_match_264;
+                                (-, e) = XM_match_289;
                                 temp_XT_1 = (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, sub_virtaddr_xlenbits(vaddr, negative_offset), e);
                             when (Ok, -)
-                                constant (result, boolean, ExceptionType) XM_match_263 = mem_write_value(paddr, cache_block_size, zeros((8) * (pow2_int(plat_cache_block_size_exp))), FALSE, FALSE, FALSE);
-                                case XM_match_263 of
-                                    when (Ok, TRUE, -)
-                                        temp_XT_1 = RETIRE_SUCCESS;
-                                    when (Ok, FALSE, -)
-                                        assert(FALSE);
+                                constant (result, boolean, ExceptionType) XM_match_288 = mem_write_value(paddr, cache_block_size, zeros((8) * (pow2_int(plat_cache_block_size_exp))), FALSE, FALSE, FALSE);
+                                case XM_match_288 of
+                                    when (Ok, -, -)
+                                        boolean p0XH;
+                                        (-, p0XH, -) = XM_match_288;
+                                        if eq_bool(p0XH, TRUE) then
+                                            temp_XT_1 = RETIRE_SUCCESS;
+                                        else
+                                            if eq_bool(p0XH, FALSE) then
+                                                assert(FALSE);
+                                            else
+                                                assert(FALSE);
+                                                exit();
                                     when (Err, -, -)
                                         ExceptionType e;
-                                        (-, -, e) = XM_match_263;
+                                        (-, -, e) = XM_match_288;
                                         temp_XT_1 = (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, sub_virtaddr_xlenbits(vaddr, negative_offset), e);
+                                    when -
+                                        assert(FALSE);
+                                        exit();
     else
         temp_XT_1 = (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
     return temp_XT_1;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_ZICBOM(cbop_zicbom merge_var0, bits(5) merge_var1)
     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) temp_XT_1;
-    constant (cbop_zicbom, bits(5)) XM_match_262 = (merge_var0, merge_var1);
-    case XM_match_262 of
+    constant (cbop_zicbom, bits(5)) XM_match_287 = (merge_var0, merge_var1);
+    case XM_match_287 of
         when (CBO_CLEAN, -)
             bits(5) rs1;
-            (-, rs1) = XM_match_262;
+            (-, rs1) = XM_match_287;
             temp_XT_1 = (if cbo_clean_flush_enabled(cur_privilege) then process_clean_inval(rs1, CBO_CLEAN) else (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN));
         when (CBO_FLUSH, -)
             bits(5) rs1;
-            (-, rs1) = XM_match_262;
+            (-, rs1) = XM_match_287;
             temp_XT_1 = (if cbo_clean_flush_enabled(cur_privilege) then process_clean_inval(rs1, CBO_FLUSH) else (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN));
         when (CBO_INVAL, -)
             bits(5) rs1;
-            (-, rs1) = XM_match_262;
-            constant checked_cbop XM_match_261 = cbop_priv_check(cur_privilege);
-            case XM_match_261 of
+            (-, rs1) = XM_match_287;
+            constant checked_cbop XM_match_286 = cbop_priv_check(cur_privilege);
+            case XM_match_286 of
                 when CBOP_ILLEGAL
                     temp_XT_1 = (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
                 when CBOP_ILLEGAL_VIRTUAL
@@ -9150,8 +11142,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((pow2_int(3)) * (8)) rs2_val = rX_bits(rs2);
     constant bits((pow2_int(3)) * (8)) mask = shift_bits_left(zero_extend((pow2_int(3)) * (8), '1'), subrange_bits(rs2_val, 5, 0));
     bits((pow2_int(3)) * (8)) temp_XT_17;
-    constant brop_zbs XM_match_260 = op;
-    case XM_match_260 of
+    constant brop_zbs XM_match_285 = op;
+    case XM_match_285 of
         when BCLR
             temp_XT_17 = and_vec(rs1_val, not_vec(mask));
         when BEXXT
@@ -9168,8 +11160,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((pow2_int(3)) * (8)) rs1_val = rX_bits(rs1);
     constant bits((pow2_int(3)) * (8)) mask = shift_bits_left(zero_extend((pow2_int(3)) * (8), '1'), shamt);
     bits((pow2_int(3)) * (8)) temp_XT_12;
-    constant biop_zbs XM_match_259 = op;
-    case XM_match_259 of
+    constant biop_zbs XM_match_284 = op;
+    case XM_match_284 of
         when BCLRI
             temp_XT_12 = and_vec(rs1_val, not_vec(mask));
         when BEXXTI
@@ -9186,8 +11178,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((pow2_int(3)) * (8)) rs1_val = rX_bits(rs1);
     constant bits((pow2_int(3)) * (8)) rs2_val = rX_bits(rs2);
     bits((pow2_int(3)) * (8)) temp_XT_6;
-    constant brop_zbkb XM_match_258 = op;
-    case XM_match_258 of
+    constant brop_zbkb XM_match_283 = op;
+    case XM_match_283 of
         when PACK
             temp_XT_6 = bitvector_concat(subrange_bits(rs2_val, (xlen_bytes) * (4) - (1), 0), subrange_bits(rs1_val, (xlen_bytes) * (4) - (1), 0));
         when PACKH
@@ -9208,8 +11200,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(((31) - (0)) + (1)) rs1_val = subrange_bits(rX_bits(rs1), 31, 0);
     constant bits(((4) - (0)) + (1)) shamt = subrange_bits(rX_bits(rs2), 4, 0);
     bits(32) temp_XT_12;
-    constant bropw_zbb XM_match_257 = op;
-    case XM_match_257 of
+    constant bropw_zbb XM_match_282 = op;
+    case XM_match_282 of
         when ROLW
             temp_XT_12 = rotate_bits_left(rs1_val, shamt);
         when RORW
@@ -9222,8 +11214,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((pow2_int(3)) * (8)) rs1_val = rX_bits(rs1);
     constant bits((pow2_int(3)) * (8)) rs2_val = rX_bits(rs2);
     bits((pow2_int(3)) * (8)) temp_XT_6;
-    constant brop_zbb XM_match_256 = op;
-    case XM_match_256 of
+    constant brop_zbb XM_match_281 = op;
+    case XM_match_281 of
         when ANDN
             temp_XT_6 = and_vec(rs1_val, not_vec(rs2_val));
         when ORN
@@ -9249,8 +11241,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_ZBB_EXTOP(bits(5) rs1, bits(5) rd, extop_zbb op)
     constant bits((pow2_int(3)) * (8)) rs1_val = rX_bits(rs1);
     bits((pow2_int(3)) * (8)) temp_XT_4;
-    constant extop_zbb XM_match_255 = op;
-    case XM_match_255 of
+    constant extop_zbb XM_match_280 = op;
+    case XM_match_280 of
         when SEXXTB
             temp_XT_4 = sign_extend((pow2_int(3)) * (8), subrange_bits(rs1_val, 7, 0));
         when SEXXTH
@@ -9263,8 +11255,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_ZBA_RTYPEUW(bits(5) rs2, bits(5) rs1, bits(5) rd, bropw_zba op)
     bits(2) temp_XT_2;
-    constant bropw_zba XM_match_254 = op;
-    case XM_match_254 of
+    constant bropw_zba XM_match_279 = op;
+    case XM_match_279 of
         when ADDUW
             temp_XT_2 = '00';
         when SH1ADDUW
@@ -9279,8 +11271,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_ZBA_RTYPE(bits(5) rs2, bits(5) rs1, bits(5) rd, brop_zba op)
     bits(2) temp_XT_2;
-    constant brop_zba XM_match_253 = op;
-    case XM_match_253 of
+    constant brop_zba XM_match_278 = op;
+    case XM_match_278 of
         when SH1ADD
             temp_XT_2 = '01';
         when SH2ADD
@@ -9332,11 +11324,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(m) rs1_val = get_scalar(rs1, SEW);
     constant bits((n) * (o)) vs2_val = read_vreg(num_elem, SEW_widen, LMUL_pow_widen, vs2);
     (bits((n) * (o)), bits(n)) temp_XT_53;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_252 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_252 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_277 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_277 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_252;
+            (-, v) = XM_match_277;
             temp_XT_53 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9347,8 +11339,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(o) temp_XT_85;
-            constant wxfunct6 XM_match_251 = funct6;
-            case XM_match_251 of
+            constant wxfunct6 XM_match_276 = funct6;
+            case XM_match_276 of
                 when WXX_VADD
                     temp_XT_85 = to_bits_unsafe(SEW_widen, signed(plain_vector_access(vs2_val, i, n, o)) + signed(rs1_val));
                 when WXX_VSUB
@@ -9379,11 +11371,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(m) rs1_val = get_scalar(rs1, SEW);
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     (bits((n) * (o)), bits(n)) temp_XT_60;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_250 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_250 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_275 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_275 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_250;
+            (-, v) = XM_match_275;
             temp_XT_60 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9394,8 +11386,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(o) temp_XT_92;
-            constant wvxfunct6 XM_match_249 = funct6;
-            case XM_match_249 of
+            constant wvxfunct6 XM_match_274 = funct6;
+            case XM_match_274 of
                 when WVXX_VADD
                     temp_XT_92 = to_bits_unsafe(SEW_widen, signed(plain_vector_access(vs2_val, i, n, m)) + signed(rs1_val));
                 when WVXX_VSUB
@@ -9432,11 +11424,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs1_val = read_vreg(num_elem, SEW, LMUL_pow, vs1);
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     (bits((n) * (o)), bits(n)) temp_XT_69;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_248 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_248 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_273 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_273 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_248;
+            (-, v) = XM_match_273;
             temp_XT_69 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9447,8 +11439,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(o) temp_XT_101;
-            constant wvvfunct6 XM_match_247 = funct6;
-            case XM_match_247 of
+            constant wvvfunct6 XM_match_272 = funct6;
+            case XM_match_272 of
                 when WVV_VADD
                     temp_XT_101 = to_bits_unsafe(SEW_widen, signed(plain_vector_access(vs2_val, i, n, m)) + signed(plain_vector_access(vs1_val, i, n, m)));
                 when WVV_VSUB
@@ -9485,11 +11477,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs1_val = read_vreg(num_elem, SEW, LMUL_pow, vs1);
     constant bits((n) * (o)) vs2_val = read_vreg(num_elem, SEW_widen, LMUL_pow_widen, vs2);
     (bits((n) * (o)), bits(n)) temp_XT_62;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_246 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_246 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_271 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_271 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_246;
+            (-, v) = XM_match_271;
             temp_XT_62 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9500,8 +11492,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(o) temp_XT_94;
-            constant wvfunct6 XM_match_245 = funct6;
-            case XM_match_245 of
+            constant wvfunct6 XM_match_270 = funct6;
+            case XM_match_270 of
                 when WV_VADD
                     temp_XT_94 = to_bits_unsafe(SEW_widen, signed(plain_vector_access(vs2_val, i, n, o)) + signed(plain_vector_access(vs1_val, i, n, m)));
                 when WV_VSUB
@@ -9517,8 +11509,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_WRS(wrsop merge_var)
     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) temp_XT_1;
-    constant wrsop XM_match_244 = merge_var;
-    case XM_match_244 of
+    constant wrsop XM_match_269 = merge_var;
+    case XM_match_269 of
         when WRS_STO
             temp_XT_1 = (Enter_Wait, WAIT_WRS_STO, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
         when WRS_NTO
@@ -9542,11 +11534,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(m) rs1_val = get_scalar(rs1, SEW);
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     (bits((n) * (o)), bits(n)) temp_XT_60;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_243 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_243 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_268 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_268 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_243;
+            (-, v) = XM_match_268;
             temp_XT_60 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9557,8 +11549,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(o) temp_XT_92;
-            constant wmvxfunct6 XM_match_242 = funct6;
-            case XM_match_242 of
+            constant wmvxfunct6 XM_match_267 = funct6;
+            case XM_match_267 of
                 when WMVXX_VWMACCU
                     temp_XT_92 = add_bits(to_bits_unsafe(SEW_widen, (unsigned(rs1_val)) * (unsigned(plain_vector_access(vs2_val, i, n, m)))), plain_vector_access(vd_val, i, n, o));
                 when WMVXX_VWMACC
@@ -9589,11 +11581,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs1_val = read_vreg(num_elem, SEW, LMUL_pow, vs1);
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     (bits((n) * (o)), bits(n)) temp_XT_69;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_241 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_241 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_266 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_266 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_241;
+            (-, v) = XM_match_266;
             temp_XT_69 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9604,8 +11596,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(o) temp_XT_101;
-            constant wmvvfunct6 XM_match_240 = funct6;
-            case XM_match_240 of
+            constant wmvvfunct6 XM_match_265 = funct6;
+            case XM_match_265 of
                 when WMVV_VWMACC
                     temp_XT_101 = add_bits(to_bits_unsafe(SEW_widen, (signed(plain_vector_access(vs1_val, i, n, m))) * (signed(plain_vector_access(vs2_val, i, n, m)))), plain_vector_access(vd_val, i, n, o));
                 when WMVV_VWMACCU
@@ -9619,8 +11611,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_WFI()
     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) temp_XT_1;
-    constant Privilege XM_match_239 = cur_privilege;
-    case XM_match_239 of
+    constant Privilege XM_match_264 = cur_privilege;
+    case XM_match_264 of
         when Machine
             temp_XT_1 = (Enter_Wait, WAIT_WFI, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
         when Supervisor
@@ -9642,11 +11634,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_40;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_238 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_238 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_263 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_263 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_238;
+            (-, v) = XM_match_263;
             temp_XT_40 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9657,8 +11649,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_72;
-            constant vxfunct6 XM_match_237 = funct6;
-            case XM_match_237 of
+            constant vxfunct6 XM_match_262 = funct6;
+            case XM_match_262 of
                 when VXX_VADD
                     temp_XT_72 = add_bits(plain_vector_access(vs2_val, i, n, m), rs1_val);
                 when VXX_VSUB
@@ -9730,11 +11722,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_42;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_236 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_236 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_261 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_261 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_236;
+            (-, v) = XM_match_261;
             temp_XT_42 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9745,8 +11737,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_74;
-            constant vxsgfunct6 XM_match_235 = funct6;
-            case XM_match_235 of
+            constant vxsgfunct6 XM_match_260 = funct6;
+            case XM_match_260 of
                 when VXX_VSLIDEUP
                     if vs2 == vd then
                         return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9779,11 +11771,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_38;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_234 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
-    case XM_match_234 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_259 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
+    case XM_match_259 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_234;
+            (-, v) = XM_match_259;
             temp_XT_38 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9794,8 +11786,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             boolean temp_XT_66;
-            constant vxmfunct6 XM_match_233 = funct6;
-            case XM_match_233 of
+            constant vxmfunct6 XM_match_258 = funct6;
+            case XM_match_258 of
                 when VXXM_VMADC
                     temp_XT_66 = gt_int(unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(rs1_val) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0), pow2_int(SEW) - (1));
                 when VXXM_VMSBC
@@ -9820,11 +11812,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_42;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_232 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vec_trues);
-    case XM_match_232 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_257 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vec_trues);
+    case XM_match_257 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_232;
+            (-, v) = XM_match_257;
             temp_XT_42 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9835,8 +11827,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_74;
-            constant vxmsfunct6 XM_match_231 = funct6;
-            case XM_match_231 of
+            constant vxmsfunct6 XM_match_256 = funct6;
+            case XM_match_256 of
                 when VXXMS_VADC
                     temp_XT_74 = to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(rs1_val) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0));
                 when VXXMS_VSBC
@@ -9858,11 +11850,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_34;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_230 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
-    case XM_match_230 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_255 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
+    case XM_match_255 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_230;
+            (-, v) = XM_match_255;
             temp_XT_34 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9873,8 +11865,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             boolean temp_XT_62;
-            constant vxmcfunct6 XM_match_229 = funct6;
-            case XM_match_229 of
+            constant vxmcfunct6 XM_match_254 = funct6;
+            case XM_match_254 of
                 when VXXMC_VMADC
                     temp_XT_62 = gt_int(unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(rs1_val), pow2_int(SEW) - (1));
                 when VXXMC_VMSBC
@@ -9898,11 +11890,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_38;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_228 = init_masked_result_cmp(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_228 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_253 = init_masked_result_cmp(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_253 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_228;
+            (-, v) = XM_match_253;
             temp_XT_38 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9913,8 +11905,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             boolean temp_XT_67;
-            constant vxcmpfunct6 XM_match_227 = funct6;
-            case XM_match_227 of
+            constant vxcmpfunct6 XM_match_252 = funct6;
+            case XM_match_252 of
                 when VXXCMP_VMSEQ
                     temp_XT_67 = eq_bits(plain_vector_access(vs2_val, i, n, m), rs1_val);
                 when VXXCMP_VMSNE
@@ -9955,11 +11947,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (o)) vd_val = read_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd);
     constant bits((SEW) * (2)) SEW_widen_bits = to_bits_unsafe(SEW_widen, o);
     (bits((n) * (o)), bits(n)) temp_XT_58;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_226 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_226 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_251 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_251 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_226;
+            (-, v) = XM_match_251;
             temp_XT_58 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -9993,11 +11985,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (o)) vd_val = read_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd);
     constant bits((SEW) * (2)) SEW_widen_bits = to_bits_unsafe(SEW_widen, o);
     (bits((n) * (o)), bits(n)) temp_XT_57;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_225 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_225 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_250 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_250 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_225;
+            (-, v) = XM_match_250;
             temp_XT_57 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10032,11 +12024,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (o)) vd_val = read_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd);
     constant bits((SEW) * (2)) SEW_widen_bits = to_bits_unsafe(SEW_widen, o);
     (bits((n) * (o)), bits(n)) temp_XT_56;
-    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_224 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
-    case XM_match_224 of
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_249 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_249 of
         when (Ok, -)
             (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
-            (-, v) = XM_match_224;
+            (-, v) = XM_match_249;
             temp_XT_56 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10066,11 +12058,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_44;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_223 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_223 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_248 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_248 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_223;
+            (-, v) = XM_match_248;
             temp_XT_44 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10081,8 +12073,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_76;
-            constant vvfunct6 XM_match_222 = funct6;
-            case XM_match_222 of
+            constant vvfunct6 XM_match_247 = funct6;
+            case XM_match_247 of
                 when VV_VADD
                     temp_XT_76 = add_bits(plain_vector_access(vs2_val, i, n, m), plain_vector_access(vs1_val, i, n, m));
                 when VV_VSUB
@@ -10166,11 +12158,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_40;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_221 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
-    case XM_match_221 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_246 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
+    case XM_match_246 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_221;
+            (-, v) = XM_match_246;
             temp_XT_40 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10181,8 +12173,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             boolean temp_XT_68;
-            constant vvmfunct6 XM_match_220 = funct6;
-            case XM_match_220 of
+            constant vvmfunct6 XM_match_245 = funct6;
+            case XM_match_245 of
                 when VVM_VMADC
                     temp_XT_68 = gt_int(unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(plain_vector_access(vs1_val, i, n, m)) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0), pow2_int(SEW) - (1));
                 when VVM_VMSBC
@@ -10207,11 +12199,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_44;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_219 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vec_trues);
-    case XM_match_219 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_244 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vec_trues);
+    case XM_match_244 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_219;
+            (-, v) = XM_match_244;
             temp_XT_44 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10222,8 +12214,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_76;
-            constant vvmsfunct6 XM_match_218 = funct6;
-            case XM_match_218 of
+            constant vvmsfunct6 XM_match_243 = funct6;
+            case XM_match_243 of
                 when VVMS_VADC
                     temp_XT_76 = to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(plain_vector_access(vs1_val, i, n, m)) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0));
                 when VVMS_VSBC
@@ -10245,11 +12237,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_36;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_217 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
-    case XM_match_217 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_242 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
+    case XM_match_242 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_217;
+            (-, v) = XM_match_242;
             temp_XT_36 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10260,8 +12252,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             boolean temp_XT_64;
-            constant vvmcfunct6 XM_match_216 = funct6;
-            case XM_match_216 of
+            constant vvmcfunct6 XM_match_241 = funct6;
+            case XM_match_241 of
                 when VVMC_VMADC
                     temp_XT_64 = gt_int(unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(plain_vector_access(vs1_val, i, n, m)), pow2_int(SEW) - (1));
                 when VVMC_VMSBC
@@ -10285,11 +12277,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_40;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_215 = init_masked_result_cmp(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_215 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_240 = init_masked_result_cmp(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_240 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_215;
+            (-, v) = XM_match_240;
             temp_XT_40 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10300,8 +12292,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             boolean temp_XT_69;
-            constant vvcmpfunct6 XM_match_214 = funct6;
-            case XM_match_214 of
+            constant vvcmpfunct6 XM_match_239 = funct6;
+            case XM_match_239 of
                 when VVCMP_VMSEQ
                     temp_XT_69 = eq_bits(plain_vector_access(vs2_val, i, n, m), plain_vector_access(vs1_val, i, n, m));
                 when VVCMP_VMSNE
@@ -10575,11 +12567,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_30;
-    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_213 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_213 of
+    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_238 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_238 of
         when (Ok, -)
             (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem)) v;
-            (-, v) = XM_match_213;
+            (-, v) = XM_match_238;
             temp_XT_30 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10606,11 +12598,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_32;
-    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_212 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_212 of
+    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_237 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_237 of
         when (Ok, -)
             (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem)) v;
-            (-, v) = XM_match_212;
+            (-, v) = XM_match_237;
             temp_XT_32 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10637,11 +12629,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_31;
-    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_211 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_211 of
+    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_236 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_236 of
         when (Ok, -)
             (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem)) v;
-            (-, v) = XM_match_211;
+            (-, v) = XM_match_236;
             temp_XT_31 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10668,11 +12660,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_30;
-    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_210 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_210 of
+    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_235 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_235 of
         when (Ok, -)
             (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem)) v;
-            (-, v) = XM_match_210;
+            (-, v) = XM_match_235;
             temp_XT_30 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10699,11 +12691,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_32;
-    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_209 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_209 of
+    constant (result, (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem))) XM_match_234 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_234 of
         when (Ok, -)
             (bits((num_elem) * (pow2_int(SEW_pow))), bits(num_elem)) v;
-            (-, v) = XM_match_209;
+            (-, v) = XM_match_234;
             temp_XT_32 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10728,11 +12720,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_25;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_208 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_208 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_233 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_233 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_208;
+            (-, v) = XM_match_233;
             temp_XT_25 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10748,6 +12740,18 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VMVXS(bits(5) vs2, bits(5) rd)
+    constant integer SEW = get_sew();
+    assert(or_bool(eq_int(SEW, 16), or_bool(eq_int(SEW, 32), or_bool(eq_int(SEW, 64), eq_int(SEW, 8)))));
+    constant integer num_elem = get_num_elem(0, SEW);
+    if illegal_vd_unmasked() then
+        return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    assert(gt_int(num_elem, 0));
+    constant integer n = num_elem;
+    constant integer m = SEW;
+    constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, 0, vs2);
+    wX_bits(rd, (if gt_int(xlen, SEW) then sign_extend((pow2_int(3)) * (8), plain_vector_access(vs2_val, 0, n, m)) else plain_vector_access(vs2_val, 0, n, m)));
+    set_vstart(zeros(16));
+    return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VMVSX(bits(5) rs1, bits(5) vd)
     constant integer SEW = get_sew();
@@ -10761,11 +12765,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(m) rs1_val = get_scalar(rs1, m);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, 0, vd);
     (bits((n) * (m)), bits(n)) temp_XT_37;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_207 = init_masked_result(num_elem, SEW, 0, vd_val, vm_val);
-    case XM_match_207 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_232 = init_masked_result(num_elem, SEW, 0, vd_val, vm_val);
+    case XM_match_232 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_207;
+            (-, v) = XM_match_232;
             temp_XT_37 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10778,8 +12782,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant agtype tail_ag = get_vtype_vta();
     for i = 1 to num_elem - (1)
         bits(m) temp_XT_76;
-        constant agtype XM_match_206 = tail_ag;
-        case XM_match_206 of
+        constant agtype XM_match_231 = tail_ag;
+        case XM_match_231 of
             when UNDISTURBED
                 temp_XT_76 = plain_vector_access(vd_val, i, n, m);
             when AGNOSTIC
@@ -10791,11 +12795,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VMVRTYPE(bits(5) vs2, integer nreg, bits(5) vd)
     nat temp_XT_2;
-    constant (result, nat) XM_match_205 = get_start_element();
-    case XM_match_205 of
+    constant (result, nat) XM_match_230 = get_start_element();
+    case XM_match_230 of
         when (Ok, -)
             integer v;
-            (-, v) = XM_match_205;
+            (-, v) = XM_match_230;
             temp_XT_2 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10839,11 +12843,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(n) vs2_val = read_vmask(num_elem, '0', vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_41;
-    constant (result, (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow)))) XM_match_204 = init_masked_result_cmp(num_elem, SEW, 0, vd_val, vm_val);
-    case XM_match_204 of
+    constant (result, (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow)))) XM_match_229 = init_masked_result_cmp(num_elem, SEW, 0, vd_val, vm_val);
+    case XM_match_229 of
         when (Ok, -)
             (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow))) v;
-            (-, v) = XM_match_204;
+            (-, v) = XM_match_229;
             temp_XT_41 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10875,11 +12879,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(n) vs2_val = read_vmask(num_elem, '0', vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_41;
-    constant (result, (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow)))) XM_match_203 = init_masked_result_cmp(num_elem, SEW, 0, vd_val, vm_val);
-    case XM_match_203 of
+    constant (result, (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow)))) XM_match_228 = init_masked_result_cmp(num_elem, SEW, 0, vd_val, vm_val);
+    case XM_match_228 of
         when (Ok, -)
             (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow))) v;
-            (-, v) = XM_match_203;
+            (-, v) = XM_match_228;
             temp_XT_41 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -10909,11 +12913,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(n) vs2_val = read_vmask(num_elem, '0', vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_41;
-    constant (result, (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow)))) XM_match_202 = init_masked_result_cmp(num_elem, SEW, 0, vd_val, vm_val);
-    case XM_match_202 of
+    constant (result, (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow)))) XM_match_227 = init_masked_result_cmp(num_elem, SEW, 0, vd_val, vm_val);
+    case XM_match_227 of
         when (Ok, -)
             (bits(pow2_int(VLEN_pow)), bits(pow2_int(VLEN_pow))) v;
-            (-, v) = XM_match_202;
+            (-, v) = XM_match_227;
             temp_XT_41 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11024,11 +13028,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_41;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_201 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_201 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_226 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_226 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_201;
+            (-, v) = XM_match_226;
             temp_XT_41 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11039,8 +13043,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_73;
-            constant vifunct6 XM_match_200 = funct6;
-            case XM_match_200 of
+            constant vifunct6 XM_match_225 = funct6;
+            case XM_match_225 of
                 when VI_VADD
                     temp_XT_73 = add_bits(plain_vector_access(vs2_val, i, n, m), imm_val);
                 when VI_VRSUB
@@ -11093,11 +13097,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_43;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_199 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_199 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_224 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_224 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_199;
+            (-, v) = XM_match_224;
             temp_XT_43 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11108,8 +13112,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             bits(m) temp_XT_75;
-            constant visgfunct6 XM_match_198 = funct6;
-            case XM_match_198 of
+            constant visgfunct6 XM_match_223 = funct6;
+            case XM_match_223 of
                 when VI_VSLIDEUP
                     if vs2 == vd then
                         return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11141,11 +13145,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(n) vs2_val = read_vmask(num_elem, '0', vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_44;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_197 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_197 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_222 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_222 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_197;
+            (-, v) = XM_match_222;
             temp_XT_44 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11176,11 +13180,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_39;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_196 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
-    case XM_match_196 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_221 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
+    case XM_match_221 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_196;
+            (-, v) = XM_match_221;
             temp_XT_39 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11211,11 +13215,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_43;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_195 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vec_trues);
-    case XM_match_195 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_220 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vec_trues);
+    case XM_match_220 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_195;
+            (-, v) = XM_match_220;
             temp_XT_43 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11243,11 +13247,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_35;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_194 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
-    case XM_match_194 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_219 = init_masked_result_carry(num_elem, SEW, LMUL_pow, vd_val);
+    case XM_match_219 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_194;
+            (-, v) = XM_match_219;
             temp_XT_35 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11275,11 +13279,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(n) vm_val = read_vmask(num_elem, vm, zvreg);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
     (bits((n) * (m)), bits(n)) temp_XT_32;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_193 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_193 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_218 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_218 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_193;
+            (-, v) = XM_match_218;
             temp_XT_32 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11307,11 +13311,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
     constant bits(n) vd_val = read_vmask(num_elem, '0', vd);
     (bits(n), bits(n)) temp_XT_39;
-    constant (result, (bits(num_elem), bits(num_elem))) XM_match_192 = init_masked_result_cmp(num_elem, SEW, LMUL_pow, vd_val, vm_val);
-    case XM_match_192 of
+    constant (result, (bits(num_elem), bits(num_elem))) XM_match_217 = init_masked_result_cmp(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_217 of
         when (Ok, -)
             (bits(num_elem), bits(num_elem)) v;
-            (-, v) = XM_match_192;
+            (-, v) = XM_match_217;
             temp_XT_39 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11322,8 +13326,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             boolean temp_XT_68;
-            constant vicmpfunct6 XM_match_191 = funct6;
-            case XM_match_191 of
+            constant vicmpfunct6 XM_match_216 = funct6;
+            case XM_match_216 of
                 when VICMP_VMSEQ
                     temp_XT_68 = eq_bits(plain_vector_access(vs2_val, i, n, m), imm_val);
                 when VICMP_VMSNE
@@ -11396,12 +13400,516 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VFWUNARY0(bits(1) vm, bits(5) vs2, vfwunary0 vfwunary0XN, bits(5) vd)
+    constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
+    constant integer SEW = get_sew();
+    constant integer LMUL_pow = get_lmul_pow();
+    constant integer num_elem = get_num_elem(LMUL_pow, SEW);
+    constant integer SEW_widen = (SEW) * (2);
+    constant integer LMUL_pow_widen = LMUL_pow + 1;
+    if or_bool(illegal_fp_variable_width(vd, vm, SEW, rm_3b, SEW_widen, LMUL_pow_widen), not(valid_reg_overlap(vs2, vd, LMUL_pow, LMUL_pow_widen))) then
+        return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    assert(and_bool(gteq_int(SEW, 8), lteq_int(SEW_widen, 64)));
+    constant integer n = num_elem;
+    constant integer m = SEW;
+    constant integer o = SEW_widen;
+    constant bits(n) vm_val = read_vmask(num_elem, vm, zvreg);
+    constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
+    constant bits((n) * (o)) vd_val = read_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd);
+    (bits((n) * (o)), bits(n)) temp_XT_65;
+    constant (result, (bits((num_elem) * ((SEW) * (2))), bits(num_elem))) XM_match_215 = init_masked_result(num_elem, SEW_widen, LMUL_pow_widen, vd_val, vm_val);
+    case XM_match_215 of
+        when (Ok, -)
+            (bits((num_elem) * ((SEW) * (2))), bits(num_elem)) v;
+            (-, v) = XM_match_215;
+            temp_XT_65 = v;
+        when (Err, -)
+            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    bits((n) * (o)) initial_result;
+    bits(n) mask;
+    (initial_result, mask) = temp_XT_65;
+    bits((n) * (o)) resultXN = initial_result;
+    for i = 0 to num_elem - (1)
+        if eq_bit(bitvector_access(mask, i), '1') then
+            bits(o) temp_XT_97;
+            constant vfwunary0 XM_match_214 = vfwunary0XN;
+            case XM_match_214 of
+                when FWV_CVT_XXU_F
+                    (bits(5), bits(o)) temp_XT_100;
+                    constant integer XM_match_207 = m;
+                    case XM_match_207 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_100 = riscv_f16ToUi32(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_207));
+                        when 32
+                            temp_XT_100 = riscv_f32ToUi64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_207));
+                    bits(5) fflags;
+                    bits(o) elem;
+                    (fflags, elem) = temp_XT_100;
+                    accrue_fflags(fflags);
+                    temp_XT_97 = elem;
+                when FWV_CVT_XX_F
+                    (bits(5), bits(o)) temp_XT_122;
+                    constant integer XM_match_208 = m;
+                    case XM_match_208 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_122 = riscv_f16ToI32(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_208));
+                        when 32
+                            temp_XT_122 = riscv_f32ToI64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_208));
+                    bits(5) fflags;
+                    bits(o) elem;
+                    (fflags, elem) = temp_XT_122;
+                    accrue_fflags(fflags);
+                    temp_XT_97 = elem;
+                when FWV_CVT_F_XXU
+                    (bits(5), bits(o)) temp_XT_144;
+                    constant integer XM_match_209 = m;
+                    case XM_match_209 of
+                        when 8
+                            temp_XT_144 = riscv_ui32ToF16(rm_3b, zero_extend(32, plain_vector_access(vs2_val, i, n, XM_match_209)));
+                        when 16
+                            temp_XT_144 = riscv_ui32ToF32(rm_3b, zero_extend(32, plain_vector_access(vs2_val, i, n, XM_match_209)));
+                        when 32
+                            temp_XT_144 = riscv_ui32ToF64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_209));
+                    bits(5) fflags;
+                    bits(o) elem;
+                    (fflags, elem) = temp_XT_144;
+                    accrue_fflags(fflags);
+                    temp_XT_97 = elem;
+                when FWV_CVT_F_XX
+                    (bits(5), bits(o)) temp_XT_166;
+                    constant integer XM_match_210 = m;
+                    case XM_match_210 of
+                        when 8
+                            temp_XT_166 = riscv_i32ToF16(rm_3b, sign_extend(32, plain_vector_access(vs2_val, i, n, XM_match_210)));
+                        when 16
+                            temp_XT_166 = riscv_i32ToF32(rm_3b, sign_extend(32, plain_vector_access(vs2_val, i, n, XM_match_210)));
+                        when 32
+                            temp_XT_166 = riscv_i32ToF64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_210));
+                    bits(5) fflags;
+                    bits(o) elem;
+                    (fflags, elem) = temp_XT_166;
+                    accrue_fflags(fflags);
+                    temp_XT_97 = elem;
+                when FWV_CVT_F_F
+                    (bits(5), bits(o)) temp_XT_188;
+                    constant integer XM_match_211 = m;
+                    case XM_match_211 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_188 = riscv_f16ToF32(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_211)[15:0]);
+                        when 32
+                            temp_XT_188 = riscv_f32ToF64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_211)[31:0]);
+                    bits(5) fflags;
+                    bits(o) elem;
+                    (fflags, elem) = temp_XT_188;
+                    accrue_fflags(fflags);
+                    temp_XT_97 = elem;
+                when FWV_CVT_RTZ_XXU_F
+                    (bits(5), bits(o)) temp_XT_210;
+                    constant integer XM_match_212 = m;
+                    case XM_match_212 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_210 = riscv_f16ToUi32('001', plain_vector_access(vs2_val, i, n, XM_match_212));
+                        when 32
+                            temp_XT_210 = riscv_f32ToUi64('001', plain_vector_access(vs2_val, i, n, XM_match_212));
+                    bits(5) fflags;
+                    bits(o) elem;
+                    (fflags, elem) = temp_XT_210;
+                    accrue_fflags(fflags);
+                    temp_XT_97 = elem;
+                when FWV_CVT_RTZ_XX_F
+                    (bits(5), bits(o)) temp_XT_232;
+                    constant integer XM_match_213 = m;
+                    case XM_match_213 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_232 = riscv_f16ToI32('001', plain_vector_access(vs2_val, i, n, XM_match_213));
+                        when 32
+                            temp_XT_232 = riscv_f32ToI64('001', plain_vector_access(vs2_val, i, n, XM_match_213));
+                    bits(5) fflags;
+                    bits(o) elem;
+                    (fflags, elem) = temp_XT_232;
+                    accrue_fflags(fflags);
+                    temp_XT_97 = elem;
+            resultXN = plain_vector_update(resultXN, i, temp_XT_97);
+    write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
+    set_vstart(zeros(16));
+    return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VFUNARY1(bits(1) vm, bits(5) vs2, vfunary1 vfunary1XN, bits(5) vd)
+    constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
+    constant integer SEW = get_sew();
+    constant integer LMUL_pow = get_lmul_pow();
+    constant integer num_elem = get_num_elem(LMUL_pow, SEW);
+    if illegal_fp_normal(vd, vm, SEW, rm_3b) then
+        return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    assert(neq_int(SEW, 8));
+    constant integer n = num_elem;
+    constant integer m = SEW;
+    constant bits(n) vm_val = read_vmask(num_elem, vm, zvreg);
+    constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
+    constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
+    (bits((n) * (m)), bits(n)) temp_XT_45;
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_206 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_206 of
+        when (Ok, -)
+            (bits((num_elem) * (SEW)), bits(num_elem)) v;
+            (-, v) = XM_match_206;
+            temp_XT_45 = v;
+        when (Err, -)
+            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    bits((n) * (m)) initial_result;
+    bits(n) mask;
+    (initial_result, mask) = temp_XT_45;
+    bits((n) * (m)) resultXN = initial_result;
+    for i = 0 to num_elem - (1)
+        if eq_bit(bitvector_access(mask, i), '1') then
+            bits(m) temp_XT_77;
+            constant vfunary1 XM_match_205 = vfunary1XN;
+            case XM_match_205 of
+                when FVV_VSQRT
+                    (bits(5), bits(m)) temp_XT_80;
+                    constant integer XM_match_202 = m;
+                    case XM_match_202 of
+                        when 16
+                            temp_XT_80 = riscv_f16Sqrt(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_202)[15:0]);
+                        when 32
+                            temp_XT_80 = riscv_f32Sqrt(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_202)[31:0]);
+                        when 64
+                            temp_XT_80 = riscv_f64Sqrt(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_202)[63:0]);
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_80;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FVV_VRSQRT7
+                    (bits(5), bits(m)) temp_XT_98;
+                    constant integer XM_match_203 = m;
+                    case XM_match_203 of
+                        when 16
+                            temp_XT_98 = riscv_f16Rsqrte7(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_203)[15:0]);
+                        when 32
+                            temp_XT_98 = riscv_f32Rsqrte7(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_203)[31:0]);
+                        when 64
+                            temp_XT_98 = riscv_f64Rsqrte7(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_203)[63:0]);
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_98;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FVV_VREC7
+                    (bits(5), bits(m)) temp_XT_116;
+                    constant integer XM_match_204 = m;
+                    case XM_match_204 of
+                        when 16
+                            temp_XT_116 = riscv_f16Recip7(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_204)[15:0]);
+                        when 32
+                            temp_XT_116 = riscv_f32Recip7(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_204)[31:0]);
+                        when 64
+                            temp_XT_116 = riscv_f64Recip7(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_204)[63:0]);
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_116;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FVV_VCLASS
+                    temp_XT_77 = fp_class(plain_vector_access(vs2_val, i, n, m));
+            resultXN = plain_vector_update(resultXN, i, temp_XT_77);
+    write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
+    set_vstart(zeros(16));
+    return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VFUNARY0(bits(1) vm, bits(5) vs2, vfunary0 vfunary0XN, bits(5) vd)
+    constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
+    constant integer SEW = get_sew();
+    constant integer LMUL_pow = get_lmul_pow();
+    constant integer num_elem = get_num_elem(LMUL_pow, SEW);
+    if illegal_fp_normal(vd, vm, SEW, rm_3b) then
+        return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    assert(neq_int(SEW, 8));
+    constant integer n = num_elem;
+    constant integer m = SEW;
+    constant bits(n) vm_val = read_vmask(num_elem, vm, zvreg);
+    constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, LMUL_pow, vs2);
+    constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
+    (bits((n) * (m)), bits(n)) temp_XT_45;
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_201 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_201 of
+        when (Ok, -)
+            (bits((num_elem) * (SEW)), bits(num_elem)) v;
+            (-, v) = XM_match_201;
+            temp_XT_45 = v;
+        when (Err, -)
+            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    bits((n) * (m)) initial_result;
+    bits(n) mask;
+    (initial_result, mask) = temp_XT_45;
+    bits((n) * (m)) resultXN = initial_result;
+    for i = 0 to num_elem - (1)
+        if eq_bit(bitvector_access(mask, i), '1') then
+            bits(m) temp_XT_77;
+            constant vfunary0 XM_match_200 = vfunary0XN;
+            case XM_match_200 of
+                when FV_CVT_XXU_F
+                    (bits(5), bits(m)) temp_XT_80;
+                    constant integer XM_match_194 = m;
+                    case XM_match_194 of
+                        when 16
+                            temp_XT_80 = riscv_f16ToUi16(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_194));
+                        when 32
+                            temp_XT_80 = riscv_f32ToUi32(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_194));
+                        when 64
+                            temp_XT_80 = riscv_f64ToUi64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_194));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_80;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FV_CVT_XX_F
+                    (bits(5), bits(m)) temp_XT_98;
+                    constant integer XM_match_195 = m;
+                    case XM_match_195 of
+                        when 16
+                            temp_XT_98 = riscv_f16ToI16(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_195));
+                        when 32
+                            temp_XT_98 = riscv_f32ToI32(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_195));
+                        when 64
+                            temp_XT_98 = riscv_f64ToI64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_195));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_98;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FV_CVT_F_XXU
+                    (bits(5), bits(m)) temp_XT_116;
+                    constant integer XM_match_196 = m;
+                    case XM_match_196 of
+                        when 16
+                            temp_XT_116 = riscv_ui32ToF16(rm_3b, zero_extend(32, plain_vector_access(vs2_val, i, n, XM_match_196)));
+                        when 32
+                            temp_XT_116 = riscv_ui32ToF32(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_196));
+                        when 64
+                            temp_XT_116 = riscv_ui64ToF64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_196));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_116;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FV_CVT_F_XX
+                    (bits(5), bits(m)) temp_XT_136;
+                    constant integer XM_match_197 = m;
+                    case XM_match_197 of
+                        when 16
+                            temp_XT_136 = riscv_i32ToF16(rm_3b, sign_extend(32, plain_vector_access(vs2_val, i, n, XM_match_197)));
+                        when 32
+                            temp_XT_136 = riscv_i32ToF32(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_197));
+                        when 64
+                            temp_XT_136 = riscv_i64ToF64(rm_3b, plain_vector_access(vs2_val, i, n, XM_match_197));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_136;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FV_CVT_RTZ_XXU_F
+                    (bits(5), bits(m)) temp_XT_156;
+                    constant integer XM_match_198 = m;
+                    case XM_match_198 of
+                        when 16
+                            temp_XT_156 = riscv_f16ToUi16('001', plain_vector_access(vs2_val, i, n, XM_match_198));
+                        when 32
+                            temp_XT_156 = riscv_f32ToUi32('001', plain_vector_access(vs2_val, i, n, XM_match_198));
+                        when 64
+                            temp_XT_156 = riscv_f64ToUi64('001', plain_vector_access(vs2_val, i, n, XM_match_198));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_156;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+                when FV_CVT_RTZ_XX_F
+                    (bits(5), bits(m)) temp_XT_174;
+                    constant integer XM_match_199 = m;
+                    case XM_match_199 of
+                        when 16
+                            temp_XT_174 = riscv_f16ToI16('001', plain_vector_access(vs2_val, i, n, XM_match_199));
+                        when 32
+                            temp_XT_174 = riscv_f32ToI32('001', plain_vector_access(vs2_val, i, n, XM_match_199));
+                        when 64
+                            temp_XT_174 = riscv_f64ToI64('001', plain_vector_access(vs2_val, i, n, XM_match_199));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_174;
+                    accrue_fflags(fflags);
+                    temp_XT_77 = elem;
+            resultXN = plain_vector_update(resultXN, i, temp_XT_77);
+    write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
+    set_vstart(zeros(16));
+    return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VFNUNARY0(bits(1) vm, bits(5) vs2, vfnunary0 vfnunary0XN, bits(5) vd)
+    constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
+    constant integer SEW = get_sew();
+    constant integer LMUL_pow = get_lmul_pow();
+    constant integer num_elem = get_num_elem(LMUL_pow, SEW);
+    constant integer SEW_widen = (SEW) * (2);
+    constant integer LMUL_pow_widen = LMUL_pow + 1;
+    if or_bool(illegal_fp_variable_width(vd, vm, SEW, rm_3b, SEW_widen, LMUL_pow_widen), not(valid_reg_overlap(vs2, vd, LMUL_pow_widen, LMUL_pow))) then
+        return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    assert(neq_int(SEW, 64));
+    constant integer n = num_elem;
+    constant integer m = SEW;
+    constant integer o = SEW_widen;
+    constant bits(n) vm_val = read_vmask(num_elem, vm, zvreg);
+    constant bits((n) * (o)) vs2_val = read_vreg(num_elem, SEW_widen, LMUL_pow_widen, vs2);
+    constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, LMUL_pow, vd);
+    (bits((n) * (m)), bits(n)) temp_XT_61;
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_193 = init_masked_result(num_elem, SEW, LMUL_pow, vd_val, vm_val);
+    case XM_match_193 of
+        when (Ok, -)
+            (bits((num_elem) * (SEW)), bits(num_elem)) v;
+            (-, v) = XM_match_193;
+            temp_XT_61 = v;
+        when (Err, -)
+            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    bits((n) * (m)) initial_result;
+    bits(n) mask;
+    (initial_result, mask) = temp_XT_61;
+    bits((n) * (m)) resultXN = initial_result;
+    for i = 0 to num_elem - (1)
+        if eq_bit(bitvector_access(mask, i), '1') then
+            bits(m) temp_XT_93;
+            constant vfnunary0 XM_match_192 = vfnunary0XN;
+            case XM_match_192 of
+                when FNV_CVT_XXU_F
+                    (bits(5), bits(m)) temp_XT_96;
+                    constant integer XM_match_184 = m;
+                    case XM_match_184 of
+                        when 8
+                            temp_XT_96 = riscv_f16ToUi8(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                        when 16
+                            temp_XT_96 = riscv_f32ToUi16(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_96 = riscv_f64ToUi32(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_96;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+                when FNV_CVT_XX_F
+                    (bits(5), bits(m)) temp_XT_114;
+                    constant integer XM_match_185 = m;
+                    case XM_match_185 of
+                        when 8
+                            temp_XT_114 = riscv_f16ToI8(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                        when 16
+                            temp_XT_114 = riscv_f32ToI16(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_114 = riscv_f64ToI32(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_114;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+                when FNV_CVT_F_XXU
+                    (bits(5), bits(m)) temp_XT_132;
+                    constant integer XM_match_186 = m;
+                    case XM_match_186 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_132 = riscv_ui32ToF16(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_132 = riscv_ui64ToF32(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_132;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+                when FNV_CVT_F_XX
+                    (bits(5), bits(m)) temp_XT_154;
+                    constant integer XM_match_187 = m;
+                    case XM_match_187 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_154 = riscv_i32ToF16(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_154 = riscv_i64ToF32(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_154;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+                when FNV_CVT_F_F
+                    (bits(5), bits(m)) temp_XT_176;
+                    constant integer XM_match_188 = m;
+                    case XM_match_188 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_176 = riscv_f32ToF16(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_176 = riscv_f64ToF32(rm_3b, plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_176;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+                when FNV_CVT_ROD_F_F
+                    (bits(5), bits(m)) temp_XT_198;
+                    constant integer XM_match_189 = m;
+                    case XM_match_189 of
+                        when 8
+                            return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+                        when 16
+                            temp_XT_198 = riscv_f32ToF16('110', plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_198 = riscv_f64ToF32('110', plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_198;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+                when FNV_CVT_RTZ_XXU_F
+                    (bits(5), bits(m)) temp_XT_220;
+                    constant integer XM_match_190 = m;
+                    case XM_match_190 of
+                        when 8
+                            temp_XT_220 = riscv_f16ToUi8('001', plain_vector_access(vs2_val, i, n, o));
+                        when 16
+                            temp_XT_220 = riscv_f32ToUi16('001', plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_220 = riscv_f64ToUi32('001', plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_220;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+                when FNV_CVT_RTZ_XX_F
+                    (bits(5), bits(m)) temp_XT_238;
+                    constant integer XM_match_191 = m;
+                    case XM_match_191 of
+                        when 8
+                            temp_XT_238 = riscv_f16ToI8('001', plain_vector_access(vs2_val, i, n, o));
+                        when 16
+                            temp_XT_238 = riscv_f32ToI16('001', plain_vector_access(vs2_val, i, n, o));
+                        when 32
+                            temp_XT_238 = riscv_f64ToI32('001', plain_vector_access(vs2_val, i, n, o));
+                    bits(5) fflags;
+                    bits(m) elem;
+                    (fflags, elem) = temp_XT_238;
+                    accrue_fflags(fflags);
+                    temp_XT_93 = elem;
+            resultXN = plain_vector_update(resultXN, i, temp_XT_93);
+    write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
+    set_vstart(zeros(16));
+    return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VFMVSF(bits(5) rs1, bits(5) vd)
     constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
@@ -11416,11 +13924,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(m) rs1_val = get_scalar_fp(rs1, m);
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, 0, vd);
     (bits((n) * (m)), bits(n)) temp_XT_44;
-    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_182 = init_masked_result(num_elem, SEW, 0, vd_val, vm_val);
-    case XM_match_182 of
+    constant (result, (bits((num_elem) * (SEW)), bits(num_elem))) XM_match_183 = init_masked_result(num_elem, SEW, 0, vd_val, vm_val);
+    case XM_match_183 of
         when (Ok, -)
             (bits((num_elem) * (SEW)), bits(num_elem)) v;
-            (-, v) = XM_match_182;
+            (-, v) = XM_match_183;
             temp_XT_44 = v;
         when (Err, -)
             return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -11433,8 +13941,8 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant agtype tail_ag = get_vtype_vta();
     for i = 1 to num_elem - (1)
         bits(m) temp_XT_83;
-        constant agtype XM_match_181 = tail_ag;
-        case XM_match_181 of
+        constant agtype XM_match_182 = tail_ag;
+        case XM_match_182 of
             when UNDISTURBED
                 temp_XT_83 = plain_vector_access(vd_val, i, n, m);
             when AGNOSTIC
@@ -11445,6 +13953,25 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VFMVFS(bits(5) vs2, bits(5) rd)
+    constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
+    constant integer SEW = get_sew();
+    constant integer num_elem = get_num_elem(0, SEW);
+    if or_bool(illegal_fp_vd_unmasked(SEW, rm_3b), gt_int(SEW, flen)) then
+        return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+    assert(and_bool(gt_int(num_elem, 0), neq_int(SEW, 8)));
+    constant integer n = num_elem;
+    constant integer m = SEW;
+    constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, 0, vs2);
+    constant integer XM_match_181 = m;
+    case XM_match_181 of
+        when 16
+            wF_H(rd, plain_vector_access(vs2_val, 0, n, XM_match_181));
+        when 32
+            wF_S(rd, plain_vector_access(vs2_val, 0, n, XM_match_181));
+        when 64
+            wF_D(rd, plain_vector_access(vs2_val, 0, n, XM_match_181));
+    set_vstart(zeros(16));
+    return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VFMV(bits(5) rs1, bits(5) vd)
     constant bits(3) rm_3b = _get_Fcsr_FRM(fcsr);
@@ -12246,14 +14773,24 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(((((width_bytes) * (8)) - (1)) - (0)) + (1)) data = subrange_bits(rF_bits(rs2), (width_bytes) * (8) - (1), 0);
     constant (result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) XM_match_153 = vmem_write(rs1, offset, width_bytes, data, Write, FALSE, FALSE, FALSE);
     case XM_match_153 of
-        when (Ok, TRUE, -)
-            temp_XT_1 = RETIRE_SUCCESS;
-        when (Ok, FALSE, -)
-            assert(FALSE);
+        when (Ok, -, -)
+            boolean p0XH;
+            (-, p0XH, -) = XM_match_153;
+            if eq_bool(p0XH, TRUE) then
+                temp_XT_1 = RETIRE_SUCCESS;
+            else
+                if eq_bool(p0XH, FALSE) then
+                    assert(FALSE);
+                else
+                    assert(FALSE);
+                    exit();
         when (Err, -, -)
             (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) e;
             (-, -, e) = XM_match_153;
             temp_XT_1 = e;
+        when -
+            assert(FALSE);
+            exit();
     return temp_XT_1;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_STORECON(boolean aq, boolean rl, bits(5) rs2, bits(5) rs1, word_width width, bits(5) rd)
@@ -13697,7 +16234,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             bits(5) rd;
             (rs1, rd, -) = XM_match_101;
             constant bits(16) rs1_val_H = rF_or_X_H(rs1);
-            constant bits(10) rd_val_10b = (if f_is_neg_inf_H(rs1_val_H) then '0000000001' else (if f_is_neg_norm_H(rs1_val_H) then '0000000010' else (if f_is_neg_subnorm_H(rs1_val_H) then '0000000100' else (if f_is_neg_zero_H(rs1_val_H) then '0000001000' else (if f_is_pos_zero_H(rs1_val_H) then '0000010000' else (if f_is_pos_subnorm_H(rs1_val_H) then '0000100000' else (if f_is_pos_norm_H(rs1_val_H) then '0001000000' else (if f_is_pos_inf_H(rs1_val_H) then '0010000000' else (if f_is_SNaN_H(rs1_val_H) then '0100000000' else (if f_is_QNaN_H(rs1_val_H) then '1000000000' else zeros(10)))))))))));
+            constant bits(10) rd_val_10b = (if f_is_neg_inf_H(rs1_val_H[15:0]) then '0000000001' else (if f_is_neg_norm_H(rs1_val_H[15:0]) then '0000000010' else (if f_is_neg_subnorm_H(rs1_val_H[15:0]) then '0000000100' else (if f_is_neg_zero_H(rs1_val_H[15:0]) then '0000001000' else (if f_is_pos_zero_H(rs1_val_H[15:0]) then '0000010000' else (if f_is_pos_subnorm_H(rs1_val_H[15:0]) then '0000100000' else (if f_is_pos_norm_H(rs1_val_H[15:0]) then '0001000000' else (if f_is_pos_inf_H(rs1_val_H[15:0]) then '0010000000' else (if f_is_SNaN_H(rs1_val_H[15:0]) then '0100000000' else (if f_is_QNaN_H(rs1_val_H[15:0]) then '1000000000' else zeros(10)))))))))));
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), rd_val_10b));
             temp_XT_1 = RETIRE_SUCCESS;
         when (-, -, FMV_XX_H)
@@ -13719,7 +16256,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             bits(5) rd;
             (rs1, rd, -) = XM_match_100;
             constant bits(64) rs1_val_D = rF_or_X_D(rs1);
-            constant bits(10) rd_val_10b = (if f_is_neg_inf_D(rs1_val_D) then '0000000001' else (if f_is_neg_norm_D(rs1_val_D) then '0000000010' else (if f_is_neg_subnorm_D(rs1_val_D) then '0000000100' else (if f_is_neg_zero_D(rs1_val_D) then '0000001000' else (if f_is_pos_zero_D(rs1_val_D) then '0000010000' else (if f_is_pos_subnorm_D(rs1_val_D) then '0000100000' else (if f_is_pos_norm_D(rs1_val_D) then '0001000000' else (if f_is_pos_inf_D(rs1_val_D) then '0010000000' else (if f_is_SNaN_D(rs1_val_D) then '0100000000' else (if f_is_QNaN_D(rs1_val_D) then '1000000000' else zeros(10)))))))))));
+            constant bits(10) rd_val_10b = (if f_is_neg_inf_D(rs1_val_D[63:0]) then '0000000001' else (if f_is_neg_norm_D(rs1_val_D[63:0]) then '0000000010' else (if f_is_neg_subnorm_D(rs1_val_D[63:0]) then '0000000100' else (if f_is_neg_zero_D(rs1_val_D[63:0]) then '0000001000' else (if f_is_pos_zero_D(rs1_val_D[63:0]) then '0000010000' else (if f_is_pos_subnorm_D(rs1_val_D[63:0]) then '0000100000' else (if f_is_pos_norm_D(rs1_val_D[63:0]) then '0001000000' else (if f_is_pos_inf_D(rs1_val_D[63:0]) then '0010000000' else (if f_is_SNaN_D(rs1_val_D[63:0]) then '0100000000' else (if f_is_QNaN_D(rs1_val_D[63:0]) then '1000000000' else zeros(10)))))))))));
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), rd_val_10b));
             temp_XT_1 = RETIRE_SUCCESS;
         when (-, -, FMV_XX_D)
@@ -13740,7 +16277,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             bits(5) rd;
             (rs1, rd, -) = XM_match_99;
             constant bits(32) rs1_val_S = rF_or_X_S(rs1);
-            constant bits(10) rd_val_10b = (if f_is_neg_inf_S(rs1_val_S) then '0000000001' else (if f_is_neg_norm_S(rs1_val_S) then '0000000010' else (if f_is_neg_subnorm_S(rs1_val_S) then '0000000100' else (if f_is_neg_zero_S(rs1_val_S) then '0000001000' else (if f_is_pos_zero_S(rs1_val_S) then '0000010000' else (if f_is_pos_subnorm_S(rs1_val_S) then '0000100000' else (if f_is_pos_norm_S(rs1_val_S) then '0001000000' else (if f_is_pos_inf_S(rs1_val_S) then '0010000000' else (if f_is_SNaN_S(rs1_val_S) then '0100000000' else (if f_is_QNaN_S(rs1_val_S) then '1000000000' else zeros(10)))))))))));
+            constant bits(10) rd_val_10b = (if f_is_neg_inf_S(rs1_val_S[31:0]) then '0000000001' else (if f_is_neg_norm_S(rs1_val_S[31:0]) then '0000000010' else (if f_is_neg_subnorm_S(rs1_val_S[31:0]) then '0000000100' else (if f_is_neg_zero_S(rs1_val_S[31:0]) then '0000001000' else (if f_is_pos_zero_S(rs1_val_S[31:0]) then '0000010000' else (if f_is_pos_subnorm_S(rs1_val_S[31:0]) then '0000100000' else (if f_is_pos_norm_S(rs1_val_S[31:0]) then '0001000000' else (if f_is_pos_inf_S(rs1_val_S[31:0]) then '0010000000' else (if f_is_SNaN_S(rs1_val_S[31:0]) then '0100000000' else (if f_is_QNaN_S(rs1_val_S[31:0]) then '1000000000' else zeros(10)))))))))));
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), rd_val_10b));
             temp_XT_1 = RETIRE_SUCCESS;
         when (-, -, FMV_XX_W)
@@ -14296,7 +16833,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(3) rm_3b = encdec_rounding_mode_forwards(rmXQ);
             bits(5) fflags;
             bits(32) rd_val_S;
-            (fflags, rd_val_S) = riscv_f32Sqrt(rm_3b, rs1_val_S);
+            (fflags, rd_val_S) = riscv_f32Sqrt(rm_3b, rs1_val_S[31:0]);
             accrue_fflags(fflags);
             wF_or_X_S(rd, rd_val_S);
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14322,7 +16859,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits(3) rm_3b = encdec_rounding_mode_forwards(rmXQ);
                     bits(5) fflags;
                     bits(16) rd_val_H;
-                    (fflags, rd_val_H) = riscv_f16Sqrt(rm_3b, rs1_val_H);
+                    (fflags, rd_val_H) = riscv_f16Sqrt(rm_3b, rs1_val_H[15:0]);
                     accrue_fflags(fflags);
                     wF_or_X_H(rd, rd_val_H);
                     temp_XT_1 = RETIRE_SUCCESS;
@@ -14382,7 +16919,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits(3) rm_3b = encdec_rounding_mode_forwards(rmXQ);
                     bits(5) fflags;
                     bits(32) rd_val_S;
-                    (fflags, rd_val_S) = riscv_f16ToF32(rm_3b, rs1_val_H);
+                    (fflags, rd_val_S) = riscv_f16ToF32(rm_3b, rs1_val_H[15:0]);
                     accrue_fflags(fflags);
                     wF_or_X_S(rd, rd_val_S);
                     temp_XT_1 = RETIRE_SUCCESS;
@@ -14428,7 +16965,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits(3) rm_3b = encdec_rounding_mode_forwards(rmXQ);
                     bits(5) fflags;
                     bits(64) rd_val_D;
-                    (fflags, rd_val_D) = riscv_f64Sqrt(rm_3b, rs1_val_D);
+                    (fflags, rd_val_D) = riscv_f64Sqrt(rm_3b, rs1_val_D[63:0]);
                     accrue_fflags(fflags);
                     wF_or_X_D(rd, rd_val_D);
                     temp_XT_1 = RETIRE_SUCCESS;
@@ -14468,7 +17005,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits(3) rm_3b = encdec_rounding_mode_forwards(rmXQ);
                     bits(5) fflags;
                     bits(64) rd_val_D;
-                    (fflags, rd_val_D) = riscv_f32ToF64(rm_3b, rs1_val_S);
+                    (fflags, rd_val_D) = riscv_f32ToF64(rm_3b, rs1_val_S[31:0]);
                     accrue_fflags(fflags);
                     wF_or_X_D(rd, rd_val_D);
                     temp_XT_1 = RETIRE_SUCCESS;
@@ -14502,13 +17039,13 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant f_madd_op_S XM_match_56 = op;
             case XM_match_56 of
                 when FMADD_S
-                    temp_XT_21 = riscv_f32MulAdd(rm_3b, rs1_val_32b, rs2_val_32b, rs3_val_32b);
+                    temp_XT_21 = riscv_f32MulAdd(rm_3b, rs1_val_32b[31:0], rs2_val_32b[31:0], rs3_val_32b[31:0]);
                 when FMSUB_S
-                    temp_XT_21 = riscv_f32MulAdd(rm_3b, rs1_val_32b, rs2_val_32b, negate_S(rs3_val_32b));
+                    temp_XT_21 = riscv_f32MulAdd(rm_3b, rs1_val_32b[31:0], rs2_val_32b[31:0], negate_S(rs3_val_32b[31:0])[31:0]);
                 when FNMSUB_S
-                    temp_XT_21 = riscv_f32MulAdd(rm_3b, negate_S(rs1_val_32b), rs2_val_32b, rs3_val_32b);
+                    temp_XT_21 = riscv_f32MulAdd(rm_3b, negate_S(rs1_val_32b[31:0])[31:0], rs2_val_32b[31:0], rs3_val_32b[31:0]);
                 when FNMADD_S
-                    temp_XT_21 = riscv_f32MulAdd(rm_3b, negate_S(rs1_val_32b), rs2_val_32b, negate_S(rs3_val_32b));
+                    temp_XT_21 = riscv_f32MulAdd(rm_3b, negate_S(rs1_val_32b[31:0])[31:0], rs2_val_32b[31:0], negate_S(rs3_val_32b[31:0])[31:0]);
             bits(5) fflags;
             bits(32) rd_val_32b;
             (fflags, rd_val_32b) = temp_XT_21;
@@ -14534,13 +17071,13 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant f_madd_op_H XM_match_54 = op;
             case XM_match_54 of
                 when FMADD_H
-                    temp_XT_21 = riscv_f16MulAdd(rm_3b, rs1_val_16b, rs2_val_16b, rs3_val_16b);
+                    temp_XT_21 = riscv_f16MulAdd(rm_3b, rs1_val_16b[15:0], rs2_val_16b[15:0], rs3_val_16b[15:0]);
                 when FMSUB_H
-                    temp_XT_21 = riscv_f16MulAdd(rm_3b, rs1_val_16b, rs2_val_16b, negate_H(rs3_val_16b));
+                    temp_XT_21 = riscv_f16MulAdd(rm_3b, rs1_val_16b[15:0], rs2_val_16b[15:0], negate_H(rs3_val_16b[15:0])[15:0]);
                 when FNMSUB_H
-                    temp_XT_21 = riscv_f16MulAdd(rm_3b, negate_H(rs1_val_16b), rs2_val_16b, rs3_val_16b);
+                    temp_XT_21 = riscv_f16MulAdd(rm_3b, negate_H(rs1_val_16b[15:0])[15:0], rs2_val_16b[15:0], rs3_val_16b[15:0]);
                 when FNMADD_H
-                    temp_XT_21 = riscv_f16MulAdd(rm_3b, negate_H(rs1_val_16b), rs2_val_16b, negate_H(rs3_val_16b));
+                    temp_XT_21 = riscv_f16MulAdd(rm_3b, negate_H(rs1_val_16b[15:0])[15:0], rs2_val_16b[15:0], negate_H(rs3_val_16b[15:0])[15:0]);
             bits(5) fflags;
             bits(16) rd_val_16b;
             (fflags, rd_val_16b) = temp_XT_21;
@@ -14566,13 +17103,13 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant f_madd_op_D XM_match_52 = op;
             case XM_match_52 of
                 when FMADD_D
-                    temp_XT_21 = riscv_f64MulAdd(rm_3b, rs1_val_64b, rs2_val_64b, rs3_val_64b);
+                    temp_XT_21 = riscv_f64MulAdd(rm_3b, rs1_val_64b[63:0], rs2_val_64b[63:0], rs3_val_64b[63:0]);
                 when FMSUB_D
-                    temp_XT_21 = riscv_f64MulAdd(rm_3b, rs1_val_64b, rs2_val_64b, negate_D(rs3_val_64b));
+                    temp_XT_21 = riscv_f64MulAdd(rm_3b, rs1_val_64b[63:0], rs2_val_64b[63:0], negate_D(rs3_val_64b[63:0])[63:0]);
                 when FNMSUB_D
-                    temp_XT_21 = riscv_f64MulAdd(rm_3b, negate_D(rs1_val_64b), rs2_val_64b, rs3_val_64b);
+                    temp_XT_21 = riscv_f64MulAdd(rm_3b, negate_D(rs1_val_64b[63:0])[63:0], rs2_val_64b[63:0], rs3_val_64b[63:0]);
                 when FNMADD_D
-                    temp_XT_21 = riscv_f64MulAdd(rm_3b, negate_D(rs1_val_64b), rs2_val_64b, negate_D(rs3_val_64b));
+                    temp_XT_21 = riscv_f64MulAdd(rm_3b, negate_D(rs1_val_64b[63:0])[63:0], rs2_val_64b[63:0], negate_D(rs3_val_64b[63:0])[63:0]);
             bits(5) fflags;
             bits(64) rd_val_64b;
             (fflags, rd_val_64b) = temp_XT_21;
@@ -14594,7 +17131,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(16) rs2_val_H = rF_or_X_H(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f16Eq(rs1_val_H, rs2_val_H);
+            (fflags, rd_val) = riscv_f16Eq(rs1_val_H[15:0], rs2_val_H[15:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14607,7 +17144,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(16) rs2_val_H = rF_or_X_H(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f16Lt(rs1_val_H, rs2_val_H);
+            (fflags, rd_val) = riscv_f16Lt(rs1_val_H[15:0], rs2_val_H[15:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14620,7 +17157,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(16) rs2_val_H = rF_or_X_H(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f16Le(rs1_val_H, rs2_val_H);
+            (fflags, rd_val) = riscv_f16Le(rs1_val_H[15:0], rs2_val_H[15:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14639,7 +17176,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(64) rs2_val_D = rF_or_X_D(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f64Eq(rs1_val_D, rs2_val_D);
+            (fflags, rd_val) = riscv_f64Eq(rs1_val_D[63:0], rs2_val_D[63:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14652,7 +17189,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(64) rs2_val_D = rF_or_X_D(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f64Lt(rs1_val_D, rs2_val_D);
+            (fflags, rd_val) = riscv_f64Lt(rs1_val_D[63:0], rs2_val_D[63:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14665,7 +17202,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(64) rs2_val_D = rF_or_X_D(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f64Le(rs1_val_D, rs2_val_D);
+            (fflags, rd_val) = riscv_f64Le(rs1_val_D[63:0], rs2_val_D[63:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14684,7 +17221,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(32) rs2_val_S = rF_or_X_S(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f32Eq(rs1_val_S, rs2_val_S);
+            (fflags, rd_val) = riscv_f32Eq(rs1_val_S[31:0], rs2_val_S[31:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14697,7 +17234,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(32) rs2_val_S = rF_or_X_S(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f32Lt(rs1_val_S, rs2_val_S);
+            (fflags, rd_val) = riscv_f32Lt(rs1_val_S[31:0], rs2_val_S[31:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14710,7 +17247,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant bits(32) rs2_val_S = rF_or_X_S(rs2);
             bits(5) fflags;
             boolean rd_val;
-            (fflags, rd_val) = riscv_f32Le(rs1_val_S, rs2_val_S);
+            (fflags, rd_val) = riscv_f32Le(rs1_val_S[31:0], rs2_val_S[31:0]);
             accrue_fflags(fflags);
             wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14785,7 +17322,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             boolean rs1_lt_rs2;
             bits(5) fflags;
             (rs1_lt_rs2, fflags) = fle_S(rs1_val_S, rs2_val_S, is_quiet);
-            constant bits(32) rd_val_S = (if and_bool(f_is_NaN_S(rs1_val_S), f_is_NaN_S(rs2_val_S)) then canonical_NaN_S() else (if f_is_NaN_S(rs1_val_S) then rs2_val_S else (if f_is_NaN_S(rs2_val_S) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs1_val_S), f_is_pos_zero_S(rs2_val_S)) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S), f_is_pos_zero_S(rs1_val_S)) then rs2_val_S else (if rs1_lt_rs2 then rs1_val_S else rs2_val_S))))));
+            constant bits(32) rd_val_S = (if and_bool(f_is_NaN_S(rs1_val_S[31:0]), f_is_NaN_S(rs2_val_S[31:0])) then canonical_NaN_S() else (if f_is_NaN_S(rs1_val_S[31:0]) then rs2_val_S else (if f_is_NaN_S(rs2_val_S[31:0]) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs1_val_S[31:0]), f_is_pos_zero_S(rs2_val_S[31:0])) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S[31:0]), f_is_pos_zero_S(rs1_val_S[31:0])) then rs2_val_S else (if rs1_lt_rs2 then rs1_val_S else rs2_val_S))))));
             accrue_fflags(fflags);
             wF_or_X_S(rd, rd_val_S);
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14800,7 +17337,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             boolean rs2_lt_rs1;
             bits(5) fflags;
             (rs2_lt_rs1, fflags) = fle_S(rs2_val_S, rs1_val_S, is_quiet);
-            constant bits(32) rd_val_S = (if and_bool(f_is_NaN_S(rs1_val_S), f_is_NaN_S(rs2_val_S)) then canonical_NaN_S() else (if f_is_NaN_S(rs1_val_S) then rs2_val_S else (if f_is_NaN_S(rs2_val_S) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs1_val_S), f_is_pos_zero_S(rs2_val_S)) then rs2_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S), f_is_pos_zero_S(rs1_val_S)) then rs1_val_S else (if rs2_lt_rs1 then rs1_val_S else rs2_val_S))))));
+            constant bits(32) rd_val_S = (if and_bool(f_is_NaN_S(rs1_val_S[31:0]), f_is_NaN_S(rs2_val_S[31:0])) then canonical_NaN_S() else (if f_is_NaN_S(rs1_val_S[31:0]) then rs2_val_S else (if f_is_NaN_S(rs2_val_S[31:0]) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs1_val_S[31:0]), f_is_pos_zero_S(rs2_val_S[31:0])) then rs2_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S[31:0]), f_is_pos_zero_S(rs1_val_S[31:0])) then rs1_val_S else (if rs2_lt_rs1 then rs1_val_S else rs2_val_S))))));
             accrue_fflags(fflags);
             wF_or_X_S(rd, rd_val_S);
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14822,13 +17359,13 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant f_bin_rm_op_S XM_match_46 = op;
             case XM_match_46 of
                 when FADD_S
-                    temp_XT_19 = riscv_f32Add(rm_3b, rs1_val_32b, rs2_val_32b);
+                    temp_XT_19 = riscv_f32Add(rm_3b, rs1_val_32b[31:0], rs2_val_32b[31:0]);
                 when FSUB_S
-                    temp_XT_19 = riscv_f32Sub(rm_3b, rs1_val_32b, rs2_val_32b);
+                    temp_XT_19 = riscv_f32Sub(rm_3b, rs1_val_32b[31:0], rs2_val_32b[31:0]);
                 when FMUL_S
-                    temp_XT_19 = riscv_f32Mul(rm_3b, rs1_val_32b, rs2_val_32b);
+                    temp_XT_19 = riscv_f32Mul(rm_3b, rs1_val_32b[31:0], rs2_val_32b[31:0]);
                 when FDIV_S
-                    temp_XT_19 = riscv_f32Div(rm_3b, rs1_val_32b, rs2_val_32b);
+                    temp_XT_19 = riscv_f32Div(rm_3b, rs1_val_32b[31:0], rs2_val_32b[31:0]);
             bits(5) fflags;
             bits(32) rd_val_32b;
             (fflags, rd_val_32b) = temp_XT_19;
@@ -14853,13 +17390,13 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant f_bin_rm_op_H XM_match_44 = op;
             case XM_match_44 of
                 when FADD_H
-                    temp_XT_20 = riscv_f16Add(rm_3b, rs1_val_16b, rs2_val_16b);
+                    temp_XT_20 = riscv_f16Add(rm_3b, rs1_val_16b[15:0], rs2_val_16b[15:0]);
                 when FSUB_H
-                    temp_XT_20 = riscv_f16Sub(rm_3b, rs1_val_16b, rs2_val_16b);
+                    temp_XT_20 = riscv_f16Sub(rm_3b, rs1_val_16b[15:0], rs2_val_16b[15:0]);
                 when FMUL_H
-                    temp_XT_20 = riscv_f16Mul(rm_3b, rs1_val_16b, rs2_val_16b);
+                    temp_XT_20 = riscv_f16Mul(rm_3b, rs1_val_16b[15:0], rs2_val_16b[15:0]);
                 when FDIV_H
-                    temp_XT_20 = riscv_f16Div(rm_3b, rs1_val_16b, rs2_val_16b);
+                    temp_XT_20 = riscv_f16Div(rm_3b, rs1_val_16b[15:0], rs2_val_16b[15:0]);
             bits(5) fflags;
             bits(16) rd_val_16b;
             (fflags, rd_val_16b) = temp_XT_20;
@@ -14884,13 +17421,13 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             constant f_bin_rm_op_D XM_match_42 = op;
             case XM_match_42 of
                 when FADD_D
-                    temp_XT_19 = riscv_f64Add(rm_3b, rs1_val_64b, rs2_val_64b);
+                    temp_XT_19 = riscv_f64Add(rm_3b, rs1_val_64b[63:0], rs2_val_64b[63:0]);
                 when FSUB_D
-                    temp_XT_19 = riscv_f64Sub(rm_3b, rs1_val_64b, rs2_val_64b);
+                    temp_XT_19 = riscv_f64Sub(rm_3b, rs1_val_64b[63:0], rs2_val_64b[63:0]);
                 when FMUL_D
-                    temp_XT_19 = riscv_f64Mul(rm_3b, rs1_val_64b, rs2_val_64b);
+                    temp_XT_19 = riscv_f64Mul(rm_3b, rs1_val_64b[63:0], rs2_val_64b[63:0]);
                 when FDIV_D
-                    temp_XT_19 = riscv_f64Div(rm_3b, rs1_val_64b, rs2_val_64b);
+                    temp_XT_19 = riscv_f64Div(rm_3b, rs1_val_64b[63:0], rs2_val_64b[63:0]);
             bits(5) fflags;
             bits(64) rd_val_64b;
             (fflags, rd_val_64b) = temp_XT_19;
@@ -14968,7 +17505,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             boolean rs1_lt_rs2;
             bits(5) fflags;
             (rs1_lt_rs2, fflags) = fle_H(rs1_val_H, rs2_val_H, is_quiet);
-            constant bits(16) rd_val_H = (if and_bool(f_is_NaN_H(rs1_val_H), f_is_NaN_H(rs2_val_H)) then canonical_NaN_H() else (if f_is_NaN_H(rs1_val_H) then rs2_val_H else (if f_is_NaN_H(rs2_val_H) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs1_val_H), f_is_pos_zero_H(rs2_val_H)) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H), f_is_pos_zero_H(rs1_val_H)) then rs2_val_H else (if rs1_lt_rs2 then rs1_val_H else rs2_val_H))))));
+            constant bits(16) rd_val_H = (if and_bool(f_is_NaN_H(rs1_val_H[15:0]), f_is_NaN_H(rs2_val_H[15:0])) then canonical_NaN_H() else (if f_is_NaN_H(rs1_val_H[15:0]) then rs2_val_H else (if f_is_NaN_H(rs2_val_H[15:0]) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs1_val_H[15:0]), f_is_pos_zero_H(rs2_val_H[15:0])) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H[15:0]), f_is_pos_zero_H(rs1_val_H[15:0])) then rs2_val_H else (if rs1_lt_rs2 then rs1_val_H else rs2_val_H))))));
             accrue_fflags(fflags);
             wF_or_X_H(rd, rd_val_H);
             temp_XT_1 = RETIRE_SUCCESS;
@@ -14983,7 +17520,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             boolean rs2_lt_rs1;
             bits(5) fflags;
             (rs2_lt_rs1, fflags) = fle_H(rs2_val_H, rs1_val_H, is_quiet);
-            constant bits(16) rd_val_H = (if and_bool(f_is_NaN_H(rs1_val_H), f_is_NaN_H(rs2_val_H)) then canonical_NaN_H() else (if f_is_NaN_H(rs1_val_H) then rs2_val_H else (if f_is_NaN_H(rs2_val_H) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs1_val_H), f_is_pos_zero_H(rs2_val_H)) then rs2_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H), f_is_pos_zero_H(rs1_val_H)) then rs1_val_H else (if rs2_lt_rs1 then rs1_val_H else rs2_val_H))))));
+            constant bits(16) rd_val_H = (if and_bool(f_is_NaN_H(rs1_val_H[15:0]), f_is_NaN_H(rs2_val_H[15:0])) then canonical_NaN_H() else (if f_is_NaN_H(rs1_val_H[15:0]) then rs2_val_H else (if f_is_NaN_H(rs2_val_H[15:0]) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs1_val_H[15:0]), f_is_pos_zero_H(rs2_val_H[15:0])) then rs2_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H[15:0]), f_is_pos_zero_H(rs1_val_H[15:0])) then rs1_val_H else (if rs2_lt_rs1 then rs1_val_H else rs2_val_H))))));
             accrue_fflags(fflags);
             wF_or_X_H(rd, rd_val_H);
             temp_XT_1 = RETIRE_SUCCESS;
@@ -15058,7 +17595,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             boolean rs1_lt_rs2;
             bits(5) fflags;
             (rs1_lt_rs2, fflags) = fle_D(rs1_val_D, rs2_val_D, is_quiet);
-            constant bits(64) rd_val_D = (if and_bool(f_is_NaN_D(rs1_val_D), f_is_NaN_D(rs2_val_D)) then canonical_NaN_D() else (if f_is_NaN_D(rs1_val_D) then rs2_val_D else (if f_is_NaN_D(rs2_val_D) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs1_val_D), f_is_pos_zero_D(rs2_val_D)) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D), f_is_pos_zero_D(rs1_val_D)) then rs2_val_D else (if rs1_lt_rs2 then rs1_val_D else rs2_val_D))))));
+            constant bits(64) rd_val_D = (if and_bool(f_is_NaN_D(rs1_val_D[63:0]), f_is_NaN_D(rs2_val_D[63:0])) then canonical_NaN_D() else (if f_is_NaN_D(rs1_val_D[63:0]) then rs2_val_D else (if f_is_NaN_D(rs2_val_D[63:0]) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs1_val_D[63:0]), f_is_pos_zero_D(rs2_val_D[63:0])) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D[63:0]), f_is_pos_zero_D(rs1_val_D[63:0])) then rs2_val_D else (if rs1_lt_rs2 then rs1_val_D else rs2_val_D))))));
             accrue_fflags(fflags);
             wF_or_X_D(rd, rd_val_D);
             temp_XT_1 = RETIRE_SUCCESS;
@@ -15073,7 +17610,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             boolean rs2_lt_rs1;
             bits(5) fflags;
             (rs2_lt_rs1, fflags) = fle_D(rs2_val_D, rs1_val_D, is_quiet);
-            constant bits(64) rd_val_D = (if and_bool(f_is_NaN_D(rs1_val_D), f_is_NaN_D(rs2_val_D)) then canonical_NaN_D() else (if f_is_NaN_D(rs1_val_D) then rs2_val_D else (if f_is_NaN_D(rs2_val_D) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs1_val_D), f_is_pos_zero_D(rs2_val_D)) then rs2_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D), f_is_pos_zero_D(rs1_val_D)) then rs1_val_D else (if rs2_lt_rs1 then rs1_val_D else rs2_val_D))))));
+            constant bits(64) rd_val_D = (if and_bool(f_is_NaN_D(rs1_val_D[63:0]), f_is_NaN_D(rs2_val_D[63:0])) then canonical_NaN_D() else (if f_is_NaN_D(rs1_val_D[63:0]) then rs2_val_D else (if f_is_NaN_D(rs2_val_D[63:0]) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs1_val_D[63:0]), f_is_pos_zero_D(rs2_val_D[63:0])) then rs2_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D[63:0]), f_is_pos_zero_D(rs1_val_D[63:0])) then rs1_val_D else (if rs2_lt_rs1 then rs1_val_D else rs2_val_D))))));
             accrue_fflags(fflags);
             wF_or_X_D(rd, rd_val_D);
             temp_XT_1 = RETIRE_SUCCESS;
@@ -15813,7 +18350,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     boolean rs1_lt_rs2;
     bits(5) fflags;
     (rs1_lt_rs2, fflags) = fle_S(rs1_val_S, rs2_val_S, is_quiet);
-    constant bits(32) rd_val_S = (if or_bool(f_is_NaN_S(rs1_val_S), f_is_NaN_S(rs2_val_S)) then canonical_NaN_S() else (if and_bool(f_is_neg_zero_S(rs1_val_S), f_is_pos_zero_S(rs2_val_S)) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S), f_is_pos_zero_S(rs1_val_S)) then rs2_val_S else (if rs1_lt_rs2 then rs1_val_S else rs2_val_S))));
+    constant bits(32) rd_val_S = (if or_bool(f_is_NaN_S(rs1_val_S[31:0]), f_is_NaN_S(rs2_val_S[31:0])) then canonical_NaN_S() else (if and_bool(f_is_neg_zero_S(rs1_val_S[31:0]), f_is_pos_zero_S(rs2_val_S[31:0])) then rs1_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S[31:0]), f_is_pos_zero_S(rs1_val_S[31:0])) then rs2_val_S else (if rs1_lt_rs2 then rs1_val_S else rs2_val_S))));
     accrue_fflags(fflags);
     wF_S(rd, rd_val_S);
     return RETIRE_SUCCESS;
@@ -15825,7 +18362,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     boolean rs1_lt_rs2;
     bits(5) fflags;
     (rs1_lt_rs2, fflags) = fle_H(rs1_val_H, rs2_val_H, is_quiet);
-    constant bits(16) rd_val_H = (if or_bool(f_is_NaN_H(rs1_val_H), f_is_NaN_H(rs2_val_H)) then canonical_NaN_H() else (if and_bool(f_is_neg_zero_H(rs1_val_H), f_is_pos_zero_H(rs2_val_H)) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H), f_is_pos_zero_H(rs1_val_H)) then rs2_val_H else (if rs1_lt_rs2 then rs1_val_H else rs2_val_H))));
+    constant bits(16) rd_val_H = (if or_bool(f_is_NaN_H(rs1_val_H[15:0]), f_is_NaN_H(rs2_val_H[15:0])) then canonical_NaN_H() else (if and_bool(f_is_neg_zero_H(rs1_val_H[15:0]), f_is_pos_zero_H(rs2_val_H[15:0])) then rs1_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H[15:0]), f_is_pos_zero_H(rs1_val_H[15:0])) then rs2_val_H else (if rs1_lt_rs2 then rs1_val_H else rs2_val_H))));
     accrue_fflags(fflags);
     wF_H(rd, rd_val_H);
     return RETIRE_SUCCESS;
@@ -15837,7 +18374,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     boolean rs1_lt_rs2;
     bits(5) fflags;
     (rs1_lt_rs2, fflags) = fle_D(rs1_val_D, rs2_val_D, is_quiet);
-    constant bits(64) rd_val_D = (if or_bool(f_is_NaN_D(rs1_val_D), f_is_NaN_D(rs2_val_D)) then canonical_NaN_D() else (if and_bool(f_is_neg_zero_D(rs1_val_D), f_is_pos_zero_D(rs2_val_D)) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D), f_is_pos_zero_D(rs1_val_D)) then rs2_val_D else (if rs1_lt_rs2 then rs1_val_D else rs2_val_D))));
+    constant bits(64) rd_val_D = (if or_bool(f_is_NaN_D(rs1_val_D[63:0]), f_is_NaN_D(rs2_val_D[63:0])) then canonical_NaN_D() else (if and_bool(f_is_neg_zero_D(rs1_val_D[63:0]), f_is_pos_zero_D(rs2_val_D[63:0])) then rs1_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D[63:0]), f_is_pos_zero_D(rs1_val_D[63:0])) then rs2_val_D else (if rs1_lt_rs2 then rs1_val_D else rs2_val_D))));
     accrue_fflags(fflags);
     wF_D(rd, rd_val_D);
     return RETIRE_SUCCESS;
@@ -15849,7 +18386,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     boolean rs2_lt_rs1;
     bits(5) fflags;
     (rs2_lt_rs1, fflags) = fle_S(rs2_val_S, rs1_val_S, is_quiet);
-    constant bits(32) rd_val_S = (if or_bool(f_is_NaN_S(rs1_val_S), f_is_NaN_S(rs2_val_S)) then canonical_NaN_S() else (if and_bool(f_is_neg_zero_S(rs1_val_S), f_is_pos_zero_S(rs2_val_S)) then rs2_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S), f_is_pos_zero_S(rs1_val_S)) then rs1_val_S else (if rs2_lt_rs1 then rs1_val_S else rs2_val_S))));
+    constant bits(32) rd_val_S = (if or_bool(f_is_NaN_S(rs1_val_S[31:0]), f_is_NaN_S(rs2_val_S[31:0])) then canonical_NaN_S() else (if and_bool(f_is_neg_zero_S(rs1_val_S[31:0]), f_is_pos_zero_S(rs2_val_S[31:0])) then rs2_val_S else (if and_bool(f_is_neg_zero_S(rs2_val_S[31:0]), f_is_pos_zero_S(rs1_val_S[31:0])) then rs1_val_S else (if rs2_lt_rs1 then rs1_val_S else rs2_val_S))));
     accrue_fflags(fflags);
     wF_S(rd, rd_val_S);
     return RETIRE_SUCCESS;
@@ -15861,7 +18398,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     boolean rs2_lt_rs1;
     bits(5) fflags;
     (rs2_lt_rs1, fflags) = fle_H(rs2_val_H, rs1_val_H, is_quiet);
-    constant bits(16) rd_val_H = (if or_bool(f_is_NaN_H(rs1_val_H), f_is_NaN_H(rs2_val_H)) then canonical_NaN_H() else (if and_bool(f_is_neg_zero_H(rs1_val_H), f_is_pos_zero_H(rs2_val_H)) then rs2_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H), f_is_pos_zero_H(rs1_val_H)) then rs1_val_H else (if rs2_lt_rs1 then rs1_val_H else rs2_val_H))));
+    constant bits(16) rd_val_H = (if or_bool(f_is_NaN_H(rs1_val_H[15:0]), f_is_NaN_H(rs2_val_H[15:0])) then canonical_NaN_H() else (if and_bool(f_is_neg_zero_H(rs1_val_H[15:0]), f_is_pos_zero_H(rs2_val_H[15:0])) then rs2_val_H else (if and_bool(f_is_neg_zero_H(rs2_val_H[15:0]), f_is_pos_zero_H(rs1_val_H[15:0])) then rs1_val_H else (if rs2_lt_rs1 then rs1_val_H else rs2_val_H))));
     accrue_fflags(fflags);
     wF_H(rd, rd_val_H);
     return RETIRE_SUCCESS;
@@ -15873,7 +18410,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     boolean rs2_lt_rs1;
     bits(5) fflags;
     (rs2_lt_rs1, fflags) = fle_D(rs2_val_D, rs1_val_D, is_quiet);
-    constant bits(64) rd_val_D = (if or_bool(f_is_NaN_D(rs1_val_D), f_is_NaN_D(rs2_val_D)) then canonical_NaN_D() else (if and_bool(f_is_neg_zero_D(rs1_val_D), f_is_pos_zero_D(rs2_val_D)) then rs2_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D), f_is_pos_zero_D(rs1_val_D)) then rs1_val_D else (if rs2_lt_rs1 then rs1_val_D else rs2_val_D))));
+    constant bits(64) rd_val_D = (if or_bool(f_is_NaN_D(rs1_val_D[63:0]), f_is_NaN_D(rs2_val_D[63:0])) then canonical_NaN_D() else (if and_bool(f_is_neg_zero_D(rs1_val_D[63:0]), f_is_pos_zero_D(rs2_val_D[63:0])) then rs2_val_D else (if and_bool(f_is_neg_zero_D(rs2_val_D[63:0]), f_is_pos_zero_D(rs1_val_D[63:0])) then rs1_val_D else (if rs2_lt_rs1 then rs1_val_D else rs2_val_D))));
     accrue_fflags(fflags);
     wF_D(rd, rd_val_D);
     return RETIRE_SUCCESS;
@@ -15883,7 +18420,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(32) rs2_val_S = rF_S(rs2);
     bits(5) fflags;
     boolean rd_val;
-    (fflags, rd_val) = riscv_f32Lt_quiet(rs1_val_S, rs2_val_S);
+    (fflags, rd_val) = riscv_f32Lt_quiet(rs1_val_S[31:0], rs2_val_S[31:0]);
     accrue_fflags(fflags);
     wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
     return RETIRE_SUCCESS;
@@ -15893,7 +18430,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(16) rs2_val_H = rF_H(rs2);
     bits(5) fflags;
     boolean rd_val;
-    (fflags, rd_val) = riscv_f16Lt_quiet(rs1_val_H, rs2_val_H);
+    (fflags, rd_val) = riscv_f16Lt_quiet(rs1_val_H[15:0], rs2_val_H[15:0]);
     accrue_fflags(fflags);
     wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
     return RETIRE_SUCCESS;
@@ -15903,7 +18440,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits(64) rs2_val_D = rF_D(rs2);
     bits(5) fflags;
     boolean rd_val;
-    (fflags, rd_val) = riscv_f64Lt_quiet(rs1_val_D, rs2_val_D);
+    (fflags, rd_val) = riscv_f64Lt_quiet(rs1_val_D[63:0], rs2_val_D[63:0]);
     accrue_fflags(fflags);
     wX_bits(rd, zero_extend((pow2_int(3)) * (8), bool_to_bits(rd_val)));
     return RETIRE_SUCCESS;
@@ -16213,15 +18750,25 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                                         constant bits((width_bytes) * (8)) resultXN = temp_XT_97;
                                         constant (result, boolean, ExceptionType) XM_match_1 = mem_write_value(addr, width_bytes, sign_extend((8) * (width_bytes), resultXN), and_bool(aq, rl), rl, TRUE);
                                         case XM_match_1 of
-                                            when (Ok, TRUE, -)
-                                                wX_bits(rd, sign_extend((pow2_int(3)) * (8), loaded));
-                                                temp_XT_1 = RETIRE_SUCCESS;
-                                            when (Ok, FALSE, -)
-                                                assert(FALSE);
+                                            when (Ok, -, -)
+                                                boolean p0XH;
+                                                (-, p0XH, -) = XM_match_1;
+                                                if eq_bool(p0XH, TRUE) then
+                                                    wX_bits(rd, sign_extend((pow2_int(3)) * (8), loaded));
+                                                    temp_XT_1 = RETIRE_SUCCESS;
+                                                else
+                                                    if eq_bool(p0XH, FALSE) then
+                                                        assert(FALSE);
+                                                    else
+                                                        assert(FALSE);
+                                                        exit();
                                             when (Err, -, -)
                                                 ExceptionType e;
                                                 (-, -, e) = XM_match_1;
                                                 temp_XT_1 = (Memory_Exception, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, vaddr, e);
+                                            when -
+                                                assert(FALSE);
+                                                exit();
     return temp_XT_1;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_AES64KS2(bits(5) rs2, bits(5) rs1, bits(5) rd)
