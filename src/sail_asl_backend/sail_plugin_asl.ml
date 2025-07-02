@@ -109,7 +109,7 @@ let lowering_rewrites2 =
     ("simple_assignments", []);
     ("remove_vector_concat", []);
     ("remove_bitvector_pats", []);
-    ("pattern_literals", [Literal_arg "asl"]); 
+    ("pattern_literals", [Literal_arg "asl"]);
     ("guarded_pats", []);
     (* ("register_ref_writes", rewrite_register_ref_writes); *)
     ("nexp_ids", []);
@@ -175,17 +175,17 @@ let asl_target out_file ictx =
     (* Do the rest of the lowering *)
     |> run_rewrites "Rewrites2" lowering_rewrites2
 
-    |> _dump_ast "rewrites"
-
     (* Early deadcode to simplify elimination *)
     |> run_ast_transform "Deadcode1" (eliminate_dead_code false)
     |> run_rewrites "Deadcode1_TC" [("recheck_defs", [])]
 
-    (* Cleanup: eliminate newtypes, unions, strided for loops, match expressions *)
+    (* Cleanup: eliminate newtypes, unions, records, strided for loops, match expressions *)
     |> run_ast_transform "NewtypeElim" eliminate_newtypes
     |> run_rewrites "NewtypeElim_TC" [("recheck_defs", [])]
     |> run_ast_transform "UnionElim" eliminate_unions
     |> run_rewrites "UnionElim_TC" [("recheck_defs", [])]
+    |> run_ast_transform "RecordElim" eliminate_records
+    |> run_rewrites "RecordElim_TC" [("recheck_defs", [])]
     |> run_ast_transform "MatchBindElim" eliminate_match_expressions
     |> run_rewrites "MatchBindElim_TC" [("recheck_defs", [])]
     |> run_info_ast_transform "TypeAliasElim" eliminate_type_aliases

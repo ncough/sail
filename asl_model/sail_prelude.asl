@@ -129,7 +129,6 @@ bits(m) shift_bits_right(bits(m) a, bits(n) b)
 
 string bits_str(bits(n) a)
 string hex_str(integer i)
-string hex_bits_str(bits(n) a)
 string concat_str(string a, string b)
 bits(n) hex_bits_backwards((integer, string) t)
 boolean eq_string(string a, string b)
@@ -179,6 +178,17 @@ bits(n * m) undefined_vector(integer n, bits(m) b)
 
 bits(vec DIV elems) plain_vector_access(bits(vec) b, integer pos, integer elems, integer width)
     return b[pos * (vec DIV elems) +: (vec DIV elems)];
+
+type TLB_Entry;
+type option;
+
+array [0 .. N] of (option,TLB_Entry) plain_vector_update(array [0 .. N] of (option,TLB_Entry) vec, integer pos, (option,TLB_Entry) var)
+
+(option,TLB_Entry) plain_vector_access(array [0 .. N] of (option,TLB_Entry) vec, integer pos, integer N)
+
+integer vector_length(array [0 .. N] of (option,TLB_Entry) vec, integer N)
+    return N;
+
 
 bits(m) plain_vector_update(bits(m) b, integer pos, bits(n) a)
     b[pos * n +: n] = a;

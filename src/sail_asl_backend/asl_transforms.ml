@@ -587,6 +587,168 @@ let eliminate_unions ast =
   eliminate_trivial_matches ast
 
 (****************************************************************************
+ * Record Elimination Transform
+ *
+ * Eliminates poly records by converting them to tuples with fixed field ordering.
+ * Similar to union elimination but for record types.
+ *****************************************************************************)
+
+(* Information about a record field *)
+type record_field_info = {
+  field_id: id;
+  field_typ: typ;
+  field_pos: int;  (* Position in the tuple *)
+}
+
+(* Information about a record type *)
+type record_type_info = {
+  record_id: id;
+  typquant: typquant;
+  fields: record_field_info list;
+  field_types: typ list;  (* Types in field order *)
+}
+
+(* Check if a record should be transformed (only poly records) *)
+let should_transform_record record_info = 
+  let params = quant_kopts record_info.typquant in
+  List.length params > 0
+
+(* Collect record information from a record definition *)
+let collect_record_info record_id typquant fields =
+  let field_infos = List.mapi (fun i (field_typ, field_id) ->
+    { field_id; field_typ; field_pos = i }
+  ) fields in
+  let field_types = List.map fst fields in
+  { record_id; typquant; fields = field_infos; field_types }
+
+(* Transform record type to tuple type *)
+let record_to_tuple_type record_info substs =
+  let substituted_types = List.map (typ_substs substs) record_info.field_types in
+  match substituted_types with
+  | [] -> Typ_aux (Typ_id (mk_id "unit"), Unknown)
+  | [single_typ] -> single_typ
+  | _ -> Typ_aux (Typ_tuple substituted_types, Unknown)
+
+(* Build record construction as tuple construction *)
+let build_record_expression record_info field_exps substs =
+  (* Sort field expressions by field position *)
+  let sorted_fields = List.sort (fun (_, _, pos1) (_, _, pos2) -> compare pos1 pos2) 
+    (List.map (fun (FE_aux (FE_fexp (field_id, exp), _)) ->
+      let field_info = List.find (fun f -> Id.compare f.field_id field_id = 0) record_info.fields in
+      (field_id, exp, field_info.field_pos)
+    ) field_exps) in
+  let ordered_exps = List.map (fun (_, exp, _) -> exp) sorted_fields in
+  match ordered_exps with
+  | [] -> E_aux (E_lit (L_aux (L_unit, Unknown)), eannot)
+  | [single_exp] -> single_exp
+  | _ -> E_aux (E_tuple ordered_exps, eannot)
+
+(* Build record pattern as tuple pattern *)
+let build_record_pattern record_info field_pats =
+  (* Create array to hold patterns in correct order *)
+  let pattern_array = Array.make (List.length record_info.fields) (P_aux (P_wild, eannot)) in
+  (* Fill in provided patterns *)
+  List.iter (fun (field_id, pat) ->
+    let field_info = List.find (fun f -> Id.compare f.field_id field_id = 0) record_info.fields in
+    pattern_array.(field_info.field_pos) <- pat
+  ) field_pats;
+  let ordered_pats = Array.to_list pattern_array in
+  match ordered_pats with
+  | [] -> P_aux (P_lit (L_aux (L_unit, Unknown)), eannot)
+  | [single_pat] -> single_pat
+  | _ -> P_aux (P_tuple ordered_pats, eannot)
+
+(* Get type substitutions for a record instantiation *)
+let get_record_substs record_info typ =
+  try
+    match typ, record_info.typquant with
+    | Typ_aux (Typ_app (record_typ_id, actual_args), _), TypQ_aux (TypQ_tq quant_items, _)
+          when Id.compare record_typ_id record_info.record_id = 0 ->
+        let type_params = List.filter_map (function
+        | QI_aux (QI_id (KOpt_aux (KOpt_kind (_, kid), _)), _) -> Some kid
+        | _ -> None ) quant_items in
+        List.fold_left2 (fun acc param arg ->
+          match arg with
+          | A_aux (A_typ arg_typ, _) -> (param, arg) :: acc
+          | _ -> acc) [] type_params actual_args
+    | _ -> []
+  with _ -> []
+
+(* Helper to transform types - handles record to tuple conversion *)
+let transform_record_type records typ =
+  match typ with
+  | Typ_aux (Typ_id type_id, annot) ->
+      (match Bindings.find_opt type_id records with
+      | Some record_info when should_transform_record record_info ->
+          (* Non-parametric record - shouldn't happen for poly records *)
+          record_to_tuple_type record_info []
+      | _ -> typ)
+  | Typ_aux (Typ_app (id, typ_args), annot) ->
+      (match Bindings.find_opt id records with
+      | Some record_info when should_transform_record record_info ->
+          let type_params = quant_kopts record_info.typquant in
+          let substs = List.map2 (fun param arg -> kopt_kid param, arg) type_params typ_args in
+          record_to_tuple_type record_info substs
+      | _ -> typ)
+  | _ -> typ
+
+(* Helper to find record info by id *)
+let find_record_info records record_id =
+  Bindings.find_opt record_id records
+
+let eliminate_records ast =
+  (* Collect all poly records *)
+  let record_info_map = ref Bindings.empty in
+  let defs = List.filter_map (fun def ->
+    match def with
+    | DEF_aux (DEF_type (TD_aux (TD_record (record_id, typquant, fields, _), td_annot)), def_annot) ->
+        let record_info = collect_record_info record_id typquant fields in
+        if should_transform_record record_info then (
+          record_info_map := Bindings.add record_id record_info !record_info_map;
+          None  (* Remove the record definition *)
+        ) else
+          Some def  (* Keep non-poly records *)
+    | _ -> Some def
+  ) ast.defs in
+  let ast = { ast with defs } in
+
+  (* Apply expression & pattern transform *)
+  let exp_alg = {
+    id_exp_alg with
+    e_aux = (fun (exp_aux, (l, tannot)) ->
+      match exp_aux with
+      | E_struct (SN_id record_id, field_exps) ->
+          (match find_record_info !record_info_map record_id with
+          | Some record_info when should_transform_record record_info ->
+              let expr_typ = typ_of_tannot tannot in
+              let substs = get_record_substs record_info expr_typ in
+              let new_exp = build_record_expression record_info field_exps substs in
+              E_aux (unaux_exp new_exp, (l, tannot))
+          | _ ->
+              E_aux (exp_aux, (l, tannot)))
+      | _ -> E_aux (exp_aux, (l, tannot)));
+  } in
+  let pat_alg = {
+    id_pat_alg with
+    p_aux = (fun (pat_aux, (l, tannot)) ->
+      match pat_aux with
+      | P_struct (SN_id record_id, field_pats, _) ->
+          (match find_record_info !record_info_map record_id with
+          | Some record_info when should_transform_record record_info ->
+              let new_pat = build_record_pattern record_info field_pats in
+              P_aux (unaux_pat new_pat, (l, tannot))
+          | _ ->
+              P_aux (pat_aux, (l, tannot)))
+      | _ -> P_aux (pat_aux, (l, tannot)));
+  } in
+  let ast = rewrite_exp_pat exp_alg pat_alg ast in
+
+  (* Apply type transform *)
+  let ast = transform_ast_types (transform_record_type !record_info_map) ast in
+
+  ast
+
+(****************************************************************************
  * Variable-Type Name Collision Avoidance Transform
  *****************************************************************************)
 
@@ -813,36 +975,62 @@ let eliminate_match_expressions ast =
 (****************************************************************************
  * Type Alias Elimination Transform
  *
- * Substitutes type aliases (TD_abbrev) for Typ_id cases only.
+ * Substitutes type aliases (TD_abbrev) for both Typ_id and Typ_app cases,
+ * including poly (parametric) type aliases.
  *****************************************************************************)
+
+(* Type alias information: includes the type quantifier and the aliased type *)
+type alias_info = {
+  typquant: typquant;
+  aliased_type: typ;
+}
 
 (* Collect type aliases from definitions *)
 let collect_type_aliases defs =
   let aliases = ref Bindings.empty in
   List.iter (function
-    | DEF_aux (DEF_type (TD_aux (TD_abbrev (alias_id, _, typ_arg), _)), _) ->
+    | DEF_aux (DEF_type (TD_aux (TD_abbrev (alias_id, typquant, typ_arg), _)), _) ->
         (match typ_arg with
         | A_aux (A_typ typ, _) ->
-            aliases := Bindings.add alias_id typ !aliases
-        | _ -> ())
+            let alias_info = { typquant; aliased_type = typ } in
+            aliases := Bindings.add alias_id alias_info !aliases
+        | _ ->  ())
     | _ -> ()
   ) defs;
   !aliases
 
-(* Substitute type aliases for Typ_id only *)
+(* Transform types by substituting type aliases - following the union elimination pattern *)
 let rec substitute_type_aliases aliases typ =
   match typ with
-  | Typ_aux (Typ_id alias_id, _) ->
+  | Typ_aux (Typ_id alias_id, annot) ->
       (match Bindings.find_opt alias_id aliases with
-      | Some replacement_typ -> substitute_type_aliases aliases replacement_typ
+      | Some alias_info ->
+          (* Non-parametric alias: direct substitution *)
+          let params = quant_kopts alias_info.typquant in
+          assert (List.length params = 0);
+          substitute_type_aliases aliases alias_info.aliased_type
       | None -> typ)
-  | _ -> typ
+  | Typ_aux (Typ_app (alias_id, typ_args), annot) ->
+      (match Bindings.find_opt alias_id aliases with
+      | Some alias_info ->
+          (* Parametric alias: substitute type parameters *)
+          let type_params = quant_kopts alias_info.typquant in
+          assert (List.length type_params = List.length typ_args);
+          let substs = List.map2 (fun param arg -> kopt_kid param, arg) type_params typ_args in
+          let substituted = typ_substs substs alias_info.aliased_type in
+          substitute_type_aliases aliases substituted
+      | None -> typ)
+  | Typ_aux (Typ_tuple typs, annot) ->
+      let substituted_typs = List.map (substitute_type_aliases aliases) typs in
+      Typ_aux (Typ_tuple substituted_typs, annot)
+  | _ ->  typ
 
 (* Main type alias elimination function *)
 let eliminate_type_aliases info ast =
   let aliases = collect_type_aliases ast.defs in
   let info = transform_instruction_info_types (substitute_type_aliases aliases) info in
-  (info, transform_ast_types (substitute_type_aliases aliases) ast)
+  let transformed_ast = transform_ast_types (substitute_type_aliases aliases) ast in
+  (info, transformed_ast)
 
 (****************************************************************************
  * Tuple Collapse Transform

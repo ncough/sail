@@ -62,6 +62,8 @@ let add_op arg1 arg2 =
   parens arg1 ^^ space ^^ string "+" ^^ space ^^ parens arg2
 let div_op arg1 arg2 =
   parens arg1 ^^ space ^^ string "DIV" ^^ space ^^ parens arg2
+let mod_op arg1 arg2 =
+  parens arg1 ^^ space ^^ string "MOD" ^^ space ^^ parens arg2
 
 let pow2_uop arg =
   string "pow2_int" ^^ parens arg
@@ -92,6 +94,9 @@ let rec call_doc name args =
   | ("__id",  [arg]) ->
       (arg)
   | ("vector_length", [_; arg2; _]) -> arg2
+
+  | ("MemoryOpResult_add_meta", [arg]) -> arg
+  | ("MemoryOpResult_drop_meta", [arg]) -> arg
 
   (* Translate infix syntax *)
   | ("(operator >=_u)", _) ->
@@ -303,8 +308,8 @@ let rec resolve_vector_size env typ =
   | Typ_aux (Typ_app (type_id, [A_aux (A_nexp size_nexp, _); A_aux (A_typ typ, _)]), _)
     when string_of_id type_id = "vector" ->
       (match resolve_bitvector_width env typ with
-      | Some width -> Some (size_nexp, width)
-      | None -> None)
+      | Some width -> Some [size_nexp; width]
+      | None -> Some [size_nexp])
   | Typ_aux (Typ_id type_id, _) ->
       (* Check if this is a newtype first *)
       if Env.is_newtype type_id env then
@@ -518,6 +523,9 @@ and asl_nexp (Nexp_aux (nexp, _) as n) =
   match nexp with
   | Nexp_constant n ->
       return (string (Big_int.to_string n))
+  | Nexp_id id ->
+      let@ name = read (asl_id_of_id id) in
+      retstr name
   | Nexp_var kid ->
       let@ name = read (asl_id_of_kid kid) in
       retstr name
@@ -548,6 +556,10 @@ and asl_nexp (Nexp_aux (nexp, _) as n) =
       let@ n1_doc = asl_nexp n1 in
       let@ n2_doc = asl_nexp n2 in
       return (div_op n1_doc n2_doc)
+  | Nexp_app (id, [n1; n2]) when string_of_id id = "mod" ->
+      let@ n1_doc = asl_nexp n1 in
+      let@ n2_doc = asl_nexp n2 in
+      return (mod_op n1_doc n2_doc)
   | _ -> fail ("Unknown nexp: " ^ string_of_nexp n)
 
 and asl_typ_arg (A_aux (arg, _) as a) =
@@ -594,7 +606,11 @@ let rec asl_typ ?(id) env (Typ_aux (t, annot) as typ) =
           let@ n_doc = asl_typ_arg n_arg in
           let@ m_doc = asl_nexp width_nexp in
           return (string "bits" ^^ parens (mul_op n_doc m_doc))
-      | None -> fail ("Unsupported vector element type: " ^ string_of_typ elem_typ))
+      | None ->
+          (* Handle vectors of non-bitvector types by translating to arrays *)
+          let@ n_doc = asl_typ_arg n_arg in
+          let@ elem_typ_doc = asl_typ env elem_typ in
+          return (string "array" ^^ space ^^ brackets (string "0" ^^ space ^^ string ".." ^^ space ^^ n_doc) ^^ space ^^ string "of" ^^ space ^^ elem_typ_doc))
 
   | Typ_app (tid, args) when string_of_id tid = "range" ->
       return (string "integer")
@@ -833,10 +849,9 @@ and asl_exp (E_aux (e, annot) as exp) =
       let@ args = traverse asl_expr args in
       let vector_typ = typ_of varg in
       (match resolve_vector_size env vector_typ with
-      | Some (elems,elemw) ->
-          let@ elems_doc = asl_nexp elems in
-          let@ elemw_doc = asl_nexp elemw in
-          some (call_doc (escape_asl_id id) (args@[elems_doc;elemw_doc]))
+      | Some l ->
+          let@ l' = traverse asl_nexp l in
+          some (call_doc (escape_asl_id id) (args@l'))
       | None -> fail ("vector operation over unsupported type: " ^ string_of_typ vector_typ))
   | E_app (id, _) when string_of_id id = "internal_error" ->
       asl_assert false_doc
@@ -858,10 +873,63 @@ and asl_exp (E_aux (e, annot) as exp) =
   | E_vector exprs ->
       let@ exprs = traverse asl_expr (List.rev exprs) in
       some (separate colon exprs)
+  | E_vector_access (vec_exp, idx_exp) ->
+      let@ vec_doc = asl_expr vec_exp in
+      let@ idx_doc = asl_expr idx_exp in
+      let vec_typ = typ_of vec_exp in
+      (match vec_typ with
+      | Typ_aux (Typ_app (type_id, [A_aux (A_nexp size_nexp, _); A_aux (A_typ elem_typ, _)]), _)
+        when string_of_id type_id = "vector" ->
+          (match resolve_bitvector_width env elem_typ with
+          | Some width_nexp ->
+              (* Vector of bitvectors - use bit slicing *)
+              let@ width_doc = asl_nexp width_nexp in
+              let start_bit = mul_op idx_doc width_doc in
+              let end_bit = add_op start_bit (sub_op width_doc (string "1")) in
+              some (vec_doc ^^ brackets (end_bit ^^ colon ^^ start_bit))
+          | None ->
+              (* Vector of non-bitvector types - use array access *)
+              some (vec_doc ^^ brackets idx_doc))
+      | _ -> fail ("vector access over unsupported type: " ^ string_of_typ vec_typ))
+  | E_vector_update (vec_exp, idx_exp, val_exp) ->
+      let@ vec_doc = asl_expr vec_exp in
+      let@ idx_doc = asl_expr idx_exp in
+      let@ val_doc = asl_expr val_exp in
+      let vec_typ = typ_of vec_exp in
+      (match vec_typ with
+      | Typ_aux (Typ_app (type_id, [A_aux (A_nexp size_nexp, _); A_aux (A_typ elem_typ, _)]), _)
+        when string_of_id type_id = "vector" ->
+          (match resolve_bitvector_width env elem_typ with
+          | Some width_nexp ->
+              (* Vector of bitvectors - use bit slicing assignment *)
+              let@ width_doc = asl_nexp width_nexp in
+              let start_bit = mul_op idx_doc width_doc in
+              let end_bit = add_op start_bit (sub_op width_doc (string "1")) in
+              let assignment = vec_doc ^^ brackets (end_bit ^^ colon ^^ start_bit) ^^ space ^^ equals ^^ space ^^ val_doc ^^ semi in
+              emit assignment
+          | None ->
+              (* Vector of non-bitvector types - use array assignment *)
+              let assignment = vec_doc ^^ brackets idx_doc ^^ space ^^ equals ^^ space ^^ val_doc ^^ semi in
+              emit assignment)
+      | _ -> fail ("vector update over unsupported type: " ^ string_of_typ vec_typ))
   | E_struct (SN_id id, fexps) ->
       let helper_name = "asl_make_" ^ escape_asl_id id in
-      let@ field_args = traverse (fun (FE_aux (FE_fexp (_, exp), _)) -> asl_expr exp) fexps in
+      (* Sort field expressions by field name to match function parameter order *)
+      let sorted_fexps = List.sort (fun (FE_aux (FE_fexp (field_id1, _), _)) (FE_aux (FE_fexp (field_id2, _), _)) ->
+        String.compare (string_of_id field_id1) (string_of_id field_id2)
+      ) fexps in
+      let@ field_args = traverse (fun (FE_aux (FE_fexp (_, exp), _)) -> asl_expr exp) sorted_fexps in
       some (call_doc helper_name field_args)
+  | E_struct_update (record_exp, fexps) ->
+      let record_typ = typ_of record_exp in
+      let@ temp_var = asl_temp_decl env record_typ in
+      let@ record_val = asl_expr record_exp in
+      let@ _ = emit (temp_var ^^ space ^^ equals ^^ space ^^ record_val ^^ semi) in
+      let@ _ = traverse (fun (FE_aux (FE_fexp (field_id, new_val), _)) ->
+        let@ new_val_doc = asl_expr new_val in
+        emit (temp_var ^^ dot ^^ id_doc field_id ^^ space ^^ equals ^^ space ^^ new_val_doc ^^ semi)
+      ) fexps in
+      some temp_var
 
   (* Pass-through *)
   | E_typ (_, exp) -> asl_exp exp
@@ -1163,15 +1231,19 @@ let pp_typedef (TD_aux (td_aux, annot)) = unwrap_pure @@
 
       (* Generate helper function asl_make_RECORD_TYPE *)
       let helper_name = "asl_make_" ^ (escape_asl_id id) in
+      (* Sort fields by field name to ensure consistent parameter order *)
+      let sorted_fields = List.sort (fun (_, field_id1) (_, field_id2) ->
+        String.compare (string_of_id field_id1) (string_of_id field_id2)
+      ) fields in
       let@ param_docs = traverse (fun (typ, field_id) ->
         let@ typ_doc = asl_typ env typ in
-        return (typ_doc ^^ space ^^ string (escape_asl_id field_id))) fields in
+        return (typ_doc ^^ space ^^ string (escape_asl_id field_id))) sorted_fields in
       let params = separate (comma ^^ space) param_docs in
 
       let@ field_assignments = traverse (fun (typ, field_id) ->
         let field_name = escape_asl_id field_id in
         return (string "temp" ^^ dot ^^ string field_name ^^ space ^^ equals ^^ space ^^ string field_name ^^ semi)
-      ) fields in
+      ) sorted_fields in
 
       let helper_body = nest 4 (hardline ^^
         record_name ^^ space ^^ string "temp" ^^ semi ^^ hardline ^^

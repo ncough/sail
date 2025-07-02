@@ -21,6 +21,7 @@ in `asl`. Notably:
 * newtypes
 * unions over record types
 * variable binding in `match` expressions
+* poly types and functions over type arguments
 
 In addition to these, the languages differ significantly in terms of structure.
 ASL considers a distinction between expressions and statements, whereas these are unified in Sail.
@@ -31,11 +32,3 @@ Some heuristics are necessary to get this structure back out.
 We have also had to mess with some of Sail's existing transforms:
 * The type system has a notion of which types can be undefined and which cannot. We abuse the notion of undefined throughout the plugin and lack similar type constraints in ASL, so this step of the checking has been turned off.
 * Functions can have clauses, corresponding to pattern matching over the function arguments. There is a transform to merge these into a single clause with a top-level pattern match. However, in doing so it merges all of the parameters into a tuple. This sucks, so we alter the transform to not do this.
-
-## Issues
-
-There are many. A series of configuration options in `src/sail_asl_backend/asl_context.ml` block
-the outputting a various problematic functions, leaving their implementations stubbed.
-These have been grouped based on the following problems:
-* TLB: Too many issues under this, such as polymorphic functions, vectors of non-bitvector types. The whole thing is just blocked out for now, as ASLp won't even consider it.
-* Flow/Context sensitive typing: Sail can exploit branch conditions (and function implementations?) when reasoning over bitvector types. ASL cannot do this. It only supports reasoning through constant declarations, which I am not sure it even does soundly. I have hacked this partially by adding support for reasoning over the implications of `assert` statements, but more work is necessary to support `if` statements.

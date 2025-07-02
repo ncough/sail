@@ -26,19 +26,16 @@ let unsupported_functions = ref (IdSet.of_list [
   Id_aux (Operator ">_s", Unknown);
   Id_aux (Operator ">=_s", Unknown);
   Id_aux (Operator "<=_s", Unknown);
+  mk_id "MemoryOpResult_add_meta";
+  mk_id "MemoryOpResult_drop_meta"
 ])
 
-(* A mix of floating point ops, that we want to exclude, along with problematic functions.
- * These are just printed as their signatures.
- *)
 let external_functions = ref (IdSet.of_list [
-  (* TODO: Many issues under tlb / memory accesses *)
-  mk_id "translate";
-  mk_id "flush_TLB";
-  mk_id "mem_read_priv";
+  (* Low Level Memory Interface *)
+  mk_id "read_ram";
   mk_id "write_ram";
 
-  (* Floats. Just want high-level prototypes. *)
+  (* Float Primitives *)
   mk_id "riscv_f16Add";
   mk_id "riscv_f16Sub";
   mk_id "riscv_f16Mul";
@@ -122,7 +119,6 @@ let external_types = ref (IdSet.of_list [
 ])
 
 let external_registers = ref (IdSet.of_list [
-  mk_id "tlb";
 ])
 
 let external_lets = ref (IdSet.of_list [])

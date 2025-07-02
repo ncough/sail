@@ -224,6 +224,9 @@ integer log2(integer n)
 
 constant integer max_mem_access = 4096;
 
+string hex_bits_str(bits(n) x)
+    return bits_str(zero_extend(3 - (emod_int(n + 3, 4)) + n, x));
+
 constant integer xlen = (pow2_int(3)) * (8);
 
 constant integer log2_xlen = 3 + 3;
@@ -269,6 +272,16 @@ enumeration write_kind {
     , Write_RISCV_conditional_strong_release
 };
 
+enumeration read_kind {
+    Read_plain
+    , Read_ifetch
+    , Read_RISCV_acquire
+    , Read_RISCV_strong_acquire
+    , Read_RISCV_reserved
+    , Read_RISCV_reserved_acquire
+    , Read_RISCV_reserved_strong_acquire
+};
+
 enumeration barrier_kind {
     Barrier_RISCV_rw_rw
     , Barrier_RISCV_r_rw
@@ -284,6 +297,8 @@ enumeration barrier_kind {
 };
 
 boolean write_ram(write_kind wk, bits(64) addr, integer width, bits((8) * (width)) data)
+
+bits((8) * (width)) read_ram(read_kind rk, bits(64) addr, integer width, boolean read_meta)
 
 bits(m) brev8(bits(m) input)
     bits(m) output = zeros(m);
@@ -1826,6 +1841,9 @@ type is_sv_mode = integer;
 () mem_write_callback(string wild0, bits(64) wild1, integer wild2, bits((8) * (wild2)) wild3)
 
 
+() mem_read_callback(string wild0, bits(64) wild1, integer wild2, bits((8) * (wild2)) wild3)
+
+
 () mem_exception_callback(bits(64) wild0, integer wild1)
 
 
@@ -3095,8 +3113,14 @@ bits(1) _get_Misa_A(bits((pow2_int(3)) * (8)) v)
 bits((pow2_int(3)) * (8)) _update_Misa_A(bits((pow2_int(3)) * (8)) v, bits(1) x)
     return update_subrange_bits(v, 0, 0, x);
 
+bits(8) _update_PTE_Flags_A(bits(8) v, bits(1) x)
+    return update_subrange_bits(v, 6, 6, x);
+
 bits(8) _update_Pmpcfg_ent_A(bits(8) v, bits(2) x)
     return update_subrange_bits(v, 4, 3, x);
+
+bits(1) _get_PTE_Flags_A(bits(8) v)
+    return subrange_bits(v, 6, 6);
 
 bits(2) _get_Pmpcfg_ent_A(bits(8) v)
     return subrange_bits(v, 4, 3);
@@ -3119,11 +3143,20 @@ bits(1) _get_Misa_D(bits((pow2_int(3)) * (8)) v)
 bits((pow2_int(3)) * (8)) _update_Misa_D(bits((pow2_int(3)) * (8)) v, bits(1) x)
     return update_subrange_bits(v, 3, 3, x);
 
+bits(8) _update_PTE_Flags_D(bits(8) v, bits(1) x)
+    return update_subrange_bits(v, 7, 7, x);
+
+bits(1) _get_PTE_Flags_D(bits(8) v)
+    return subrange_bits(v, 7, 7);
+
 bits(1) _get_Misa_F(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 5, 5);
 
 bits((pow2_int(3)) * (8)) _update_Misa_F(bits((pow2_int(3)) * (8)) v, bits(1) x)
     return update_subrange_bits(v, 5, 5, x);
+
+bits(1) _get_PTE_Flags_G(bits(8) v)
+    return subrange_bits(v, 5, 5);
 
 bits(1) _get_Misa_H(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 7, 7);
@@ -3149,8 +3182,14 @@ bits(2) _get_Misa_MXL(bits((pow2_int(3)) * (8)) v)
 bits((pow2_int(3)) * (8)) _update_Misa_MXL(bits((pow2_int(3)) * (8)) v, bits(2) x)
     return update_subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (2), x);
 
+bits(1) _get_PTE_Ext_N(bits(10) v)
+    return subrange_bits(v, 9, 9);
+
 bits(8) _update_Pmpcfg_ent_R(bits(8) v, bits(1) x)
     return update_subrange_bits(v, 0, 0, x);
+
+bits(1) _get_PTE_Flags_R(bits(8) v)
+    return subrange_bits(v, 1, 1);
 
 bits(1) _get_Pmpcfg_ent_R(bits(8) v)
     return subrange_bits(v, 0, 0);
@@ -3167,20 +3206,32 @@ bits(1) _get_Misa_U(bits((pow2_int(3)) * (8)) v)
 bits((pow2_int(3)) * (8)) _update_Misa_U(bits((pow2_int(3)) * (8)) v, bits(1) x)
     return update_subrange_bits(v, 20, 20, x);
 
+bits(1) _get_PTE_Flags_U(bits(8) v)
+    return subrange_bits(v, 4, 4);
+
 bits(1) _get_Misa_V(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, 21, 21);
 
 bits((pow2_int(3)) * (8)) _update_Misa_V(bits((pow2_int(3)) * (8)) v, bits(1) x)
     return update_subrange_bits(v, 21, 21, x);
 
+bits(1) _get_PTE_Flags_V(bits(8) v)
+    return subrange_bits(v, 0, 0);
+
 bits(8) _update_Pmpcfg_ent_W(bits(8) v, bits(1) x)
     return update_subrange_bits(v, 1, 1, x);
+
+bits(1) _get_PTE_Flags_W(bits(8) v)
+    return subrange_bits(v, 2, 2);
 
 bits(1) _get_Pmpcfg_ent_W(bits(8) v)
     return subrange_bits(v, 1, 1);
 
 bits(8) _update_Pmpcfg_ent_X(bits(8) v, bits(1) x)
     return update_subrange_bits(v, 2, 2, x);
+
+bits(1) _get_PTE_Flags_X(bits(8) v)
+    return subrange_bits(v, 3, 3);
 
 bits(1) _get_Pmpcfg_ent_X(bits(8) v)
     return subrange_bits(v, 2, 2);
@@ -3937,6 +3988,9 @@ bits((pow2_int(3)) * (8)) vl;
 
 constant bits((pow2_int(3)) * (8)) VLENB = to_bits((pow2_int(3)) * (8), quot_positive_round_zero(pow2_int(VLEN_pow), 8));
 
+bits(7) _get_PTE_Ext_reserved(bits(10) v)
+    return subrange_bits(v, 6, 0);
+
 bits(1) _get_Vtype_vill(bits((pow2_int(3)) * (8)) v)
     return subrange_bits(v, (pow2_int(3)) * (8) - (1), (pow2_int(3)) * (8) - (1));
 
@@ -4208,6 +4262,9 @@ enumeration Ext_PhysAddr_Check {
 (Ext_DataAddr_Check, bits((pow2_int(3)) * (8))) ext_data_get_addr(bits(5) base, bits((pow2_int(3)) * (8)) offset, AccessType acc, integer width)
     constant bits((pow2_int(3)) * (8)) addr = add_bits(rX_bits(base), offset);
     return (Ext_DataAddr_OK, addr);
+
+(Ext_PhysAddr_Check, ExceptionType) ext_check_phys_mem_read(AccessType access_type, bits(64) paddr, integer size, boolean acquire, boolean release, boolean reserved, boolean read_meta)
+    return (Ext_PhysAddr_OK, ExceptionType UNKNOWN);
 
 (Ext_PhysAddr_Check, ExceptionType) ext_check_phys_mem_write(write_kind write_kindXN, bits(64) paddr, integer size, bits((8) * (size)) data)
     return (Ext_PhysAddr_OK, ExceptionType UNKNOWN);
@@ -4667,11 +4724,11 @@ type sync_exception is (ExceptionType trap,
 (option, bits((pow2_int(3)) * (8))) excinfo,
 option ext)
 
-sync_exception asl_make_sync_exception(ExceptionType trap, (option, bits((pow2_int(3)) * (8))) excinfo, option ext)
+sync_exception asl_make_sync_exception((option, bits((pow2_int(3)) * (8))) excinfo, option ext, ExceptionType trap)
     sync_exception temp;
-    temp.trap = trap;
     temp.excinfo = excinfo;
     temp.ext = ext;
+    temp.trap = trap;
     return temp;
 
 bits(64) Mk_HpmEvent(bits(64) v)
@@ -5671,6 +5728,8 @@ bits(64) plat_ram_base;
 
 bits(64) plat_ram_size;
 
+constant boolean plat_enable_dirty_update = FALSE;
+
 constant boolean plat_enable_misaligned_access = TRUE;
 
 bits(64) plat_rom_base;
@@ -5714,6 +5773,9 @@ boolean within_clint(bits(64) addr, integer width)
 boolean within_htif_writable(bits(64) addr, integer width)
     return and_bool(plat_enable_htif(), or_bool(eq_bits(plat_htif_tohost(), addr), and_bool(eq_bits(add_bits_int(plat_htif_tohost(), 4), addr), eq_int(width, 4))));
 
+boolean within_htif_readable(bits(64) addr, integer width)
+    return and_bool(plat_enable_htif(), or_bool(eq_bits(plat_htif_tohost(), addr), and_bool(eq_bits(add_bits_int(plat_htif_tohost(), 4), addr), eq_int(width, 4))));
+
 bits(64) mtimecmp;
 
 bits(64) stimecmp;
@@ -5727,6 +5789,57 @@ constant bits(64) MTIMECMP_BASE_HI = zero_extend(64, '00000100000000000100');
 constant bits(64) MTIME_BASE = zero_extend(64, '00001011111111111000');
 
 constant bits(64) MTIME_BASE_HI = zero_extend(64, '00001011111111111100');
+
+(result, bits((8) * (width)), ExceptionType) clint_load(AccessType t, bits(64) addr, integer width)
+    (result, bits((8) * (width)), ExceptionType) temp_XT_1;
+    constant bits(64) addr = sub_vec(addr, plat_clint_base);
+    if and_bool(eq_bits(addr, MSIP_BASE), or_bool(eq_int(width, 8), eq_int(width, 4))) then
+        if get_config_print_platform() then
+            print_platform(concat_str("clint[", concat_str(bits_str(addr), concat_str("] -> ", bits_str(_get_Minterrupts_MSI(mip))))));
+        temp_XT_1 = (Ok, zero_extend((8) * (width), _get_Minterrupts_MSI(mip)), ExceptionType UNKNOWN);
+    else
+        if and_bool(eq_bits(addr, MTIMECMP_BASE), eq_int(width, 4)) then
+            if get_config_print_platform() then
+                print_platform(concat_str("clint<4>[", concat_str(bits_str(addr), concat_str("] -> ", bits_str(subrange_bits(mtimecmp, 31, 0))))));
+            temp_XT_1 = (Ok, zero_extend(32, subrange_bits(mtimecmp, 31, 0)), ExceptionType UNKNOWN);
+        else
+            if and_bool(eq_bits(addr, MTIMECMP_BASE), eq_int(width, 8)) then
+                if get_config_print_platform() then
+                    print_platform(concat_str("clint<8>[", concat_str(bits_str(addr), concat_str("] -> ", bits_str(mtimecmp)))));
+                temp_XT_1 = (Ok, zero_extend(64, mtimecmp), ExceptionType UNKNOWN);
+            else
+                if and_bool(eq_bits(addr, MTIMECMP_BASE_HI), eq_int(width, 4)) then
+                    if get_config_print_platform() then
+                        print_platform(concat_str("clint-hi<4>[", concat_str(bits_str(addr), concat_str("] -> ", bits_str(subrange_bits(mtimecmp, 63, 32))))));
+                    temp_XT_1 = (Ok, zero_extend(32, subrange_bits(mtimecmp, 63, 32)), ExceptionType UNKNOWN);
+                else
+                    if and_bool(eq_bits(addr, MTIME_BASE), eq_int(width, 4)) then
+                        if get_config_print_platform() then
+                            print_platform(concat_str("clint[", concat_str(bits_str(addr), concat_str("] -> ", bits_str(mtime)))));
+                        temp_XT_1 = (Ok, zero_extend(32, subrange_bits(mtime, 31, 0)), ExceptionType UNKNOWN);
+                    else
+                        if and_bool(eq_bits(addr, MTIME_BASE), eq_int(width, 8)) then
+                            if get_config_print_platform() then
+                                print_platform(concat_str("clint[", concat_str(bits_str(addr), concat_str("] -> ", bits_str(mtime)))));
+                            temp_XT_1 = (Ok, zero_extend(64, mtime), ExceptionType UNKNOWN);
+                        else
+                            if and_bool(eq_bits(addr, MTIME_BASE_HI), eq_int(width, 4)) then
+                                if get_config_print_platform() then
+                                    print_platform(concat_str("clint[", concat_str(bits_str(addr), concat_str("] -> ", bits_str(mtime)))));
+                                temp_XT_1 = (Ok, zero_extend(32, subrange_bits(mtime, 63, 32)), ExceptionType UNKNOWN);
+                            else
+                                if get_config_print_platform() then
+                                    print_platform(concat_str("clint[", concat_str(bits_str(addr), "] -> <not-mapped>")));
+                                constant AccessType XM_match_415 = t;
+                                case XM_match_415 of
+                                    when InstructionFetch
+                                        temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Fetch_Access_Fault);
+                                    when Read
+                                        - = XM_match_415;
+                                        temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Load_Access_Fault);
+                                    when -
+                                        temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_SAMO_Access_Fault);
+    return temp_XT_1;
 
 () clint_dispatch()
     mip = update_subrange_bits(mip, 7, 7, bool_to_bits(ule_bits(mtimecmp, mtime)));
@@ -5819,6 +5932,30 @@ bits(4) htif_payload_writes;
     htif_payload_writes = '0000';
     htif_tohost = zeros(64);
 
+(result, bits((8) * (width)), ExceptionType) htif_load(AccessType t, bits(64) paddr, integer width)
+    (result, bits((8) * (width)), ExceptionType) temp_XT_1;
+    if get_config_print_platform() then
+        print_platform(concat_str("htif[", concat_str(hex_bits_str(paddr), concat_str("] -> ", bits_str(htif_tohost)))));
+    if and_bool(eq_int(width, 8), eq_bits(paddr, plat_htif_tohost())) then
+        temp_XT_1 = (Ok, zero_extend(64, htif_tohost), ExceptionType UNKNOWN);
+    else
+        if and_bool(eq_int(width, 4), eq_bits(paddr, plat_htif_tohost())) then
+            temp_XT_1 = (Ok, zero_extend(32, subrange_bits(htif_tohost, 31, 0)), ExceptionType UNKNOWN);
+        else
+            if and_bool(eq_int(width, 4), eq_bits(paddr, add_bits_int(plat_htif_tohost(), 4))) then
+                temp_XT_1 = (Ok, zero_extend(32, subrange_bits(htif_tohost, 63, 32)), ExceptionType UNKNOWN);
+            else
+                constant AccessType XM_match_414 = t;
+                case XM_match_414 of
+                    when InstructionFetch
+                        temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Fetch_Access_Fault);
+                    when Read
+                        - = XM_match_414;
+                        temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Load_Access_Fault);
+                    when -
+                        temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_SAMO_Access_Fault);
+    return temp_XT_1;
+
 (result, boolean, ExceptionType) htif_store(bits(64) paddr, integer width, bits((8) * (width)) data)
     if get_config_print_platform() then
         print_platform(concat_str("htif[", concat_str(hex_bits_str(paddr), concat_str("] <- ", bits_str(data)))));
@@ -5869,8 +6006,30 @@ bits(4) htif_payload_writes;
                 print(concat_str("htif-???? cmd: ", bits_str(data)));
     return (Ok, TRUE, ExceptionType UNKNOWN);
 
+boolean within_mmio_readable(bits(64) addr, integer width)
+    return (if get_config_rvfi() then FALSE else or_bool(within_clint(addr, width), and_bool(within_htif_readable(addr, width), lteq_int(1, width))));
+
 boolean within_mmio_writable(bits(64) addr, integer width)
     return (if get_config_rvfi() then FALSE else or_bool(within_clint(addr, width), and_bool(within_htif_writable(addr, width), lteq_int(width, 8))));
+
+(result, bits((8) * (width)), ExceptionType) mmio_read(AccessType t, bits(64) paddr, integer width)
+    (result, bits((8) * (width)), ExceptionType) temp_XT_1;
+    if within_clint(paddr, width) then
+        temp_XT_1 = clint_load(t, paddr, width);
+    else
+        if and_bool(within_htif_readable(paddr, width), lteq_int(1, width)) then
+            temp_XT_1 = htif_load(t, paddr, width);
+        else
+            constant AccessType XM_match_413 = t;
+            case XM_match_413 of
+                when InstructionFetch
+                    temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Fetch_Access_Fault);
+                when Read
+                    - = XM_match_413;
+                    temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Load_Access_Fault);
+                when -
+                    temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_SAMO_Access_Fault);
+    return temp_XT_1;
 
 (result, boolean, ExceptionType) mmio_write(bits(64) paddr, integer width, bits((8) * (width)) data)
     return (if within_clint(paddr, width) then clint_store(paddr, width, data) else (if and_bool(within_htif_writable(paddr, width), lteq_int(width, 8)) then htif_store(paddr, width, data) else (Err, boolean UNKNOWN, E_SAMO_Access_Fault)));
@@ -5893,6 +6052,39 @@ boolean is_aligned_bits(bits((pow2_int(3)) * (8)) vaddr, word_width width)
             temp_XT_1 = eq_bits(subrange_bits(vaddr, 1, 0), zeros(1 - (0) + 1));
         when DOUBLE
             temp_XT_1 = eq_bits(subrange_bits(vaddr, 2, 0), zeros(2 - (0) + 1));
+    return temp_XT_1;
+
+(option, read_kind) read_kind_of_flags(boolean aq, boolean rl, boolean res)
+    (option, read_kind) temp_XT_1;
+    constant boolean p0XH = aq;
+    constant boolean p1XH = rl;
+    constant boolean p2XH = res;
+    if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, FALSE)) then
+        temp_XT_1 = (Some, Read_plain);
+    else
+        if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, TRUE)) then
+            temp_XT_1 = (Some, Read_RISCV_acquire);
+        else
+            if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, TRUE)) then
+                temp_XT_1 = (Some, Read_RISCV_strong_acquire);
+            else
+                if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, FALSE)) then
+                    temp_XT_1 = (Some, Read_RISCV_reserved);
+                else
+                    if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, FALSE)), eq_bool(p0XH, TRUE)) then
+                        temp_XT_1 = (Some, Read_RISCV_reserved_acquire);
+                    else
+                        if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, TRUE)) then
+                            temp_XT_1 = (Some, Read_RISCV_reserved_strong_acquire);
+                        else
+                            if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, FALSE)) then
+                                temp_XT_1 = (None, read_kind UNKNOWN);
+                            else
+                                if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, FALSE)) then
+                                    temp_XT_1 = (None, read_kind UNKNOWN);
+                                else
+                                    assert(FALSE);
+                                    exit();
     return temp_XT_1;
 
 write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
@@ -5928,11 +6120,100 @@ write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
                                     exit();
     return temp_XT_1;
 
+(result, bits((8) * (width)), ExceptionType) phys_mem_read(AccessType t, bits(64) paddr, integer width, boolean aq, boolean rl, boolean res, boolean meta)
+    (result, bits((8) * (width)), ExceptionType) temp_XT_1;
+    (option, bits((8) * (width))) temp_XT_2;
+    constant (option, read_kind) XM_match_411 = read_kind_of_flags(aq, rl, res);
+    case XM_match_411 of
+        when (Some, -)
+            read_kind rk;
+            (-, rk) = XM_match_411;
+            temp_XT_2 = (Some, read_ram(rk, paddr, width, meta));
+        when (None, -)
+            temp_XT_2 = (None, bits((8) * (width)) UNKNOWN);
+    constant (option, bits((8) * (width))) resultXN = temp_XT_2;
+    constant (AccessType, (option, bits((8) * (width)))) XM_match_410 = (t, resultXN);
+    case XM_match_410 of
+        when (InstructionFetch, (None, -))
+            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Fetch_Access_Fault);
+        when (Read, (None, -))
+            (-, (-, -)) = XM_match_410;
+            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Load_Access_Fault);
+        when (-, (None, -))
+            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_SAMO_Access_Fault);
+        when (-, (Some, -))
+            bits((8) * (width)) v;
+            (-, (-, v)) = XM_match_410;
+            temp_XT_1 = (Ok, v, ExceptionType UNKNOWN);
+    return temp_XT_1;
+
 (option, ExceptionType) phys_access_check(AccessType t, Privilege p, bits(64) paddr, integer width)
     constant (option, ExceptionType) pmpError = (if eq_int(sys_pmp_count, 0) then (None, ExceptionType UNKNOWN) else pmpCheck(paddr, width, t, p));
     return pmpError;
 
+(result, bits((8) * (width)), ExceptionType) checked_mem_read(AccessType t, Privilege priv, bits(64) paddr, integer width, boolean aq, boolean rl, boolean res, boolean meta)
+    (result, bits((8) * (width)), ExceptionType) temp_XT_1;
+    constant (option, ExceptionType) XM_match_409 = phys_access_check(t, priv, paddr, width);
+    case XM_match_409 of
+        when (Some, -)
+            ExceptionType e;
+            (-, e) = XM_match_409;
+            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, e);
+        when (None, -)
+            if within_mmio_readable(paddr, width) then
+                temp_XT_1 = mmio_read(t, paddr, width);
+            else
+                if within_phys_mem(paddr, width) then
+                    constant (Ext_PhysAddr_Check, ExceptionType) XM_match_408 = ext_check_phys_mem_read(t, paddr, width, aq, rl, res, meta);
+                    case XM_match_408 of
+                        when (Ext_PhysAddr_OK, -)
+                            temp_XT_1 = phys_mem_read(t, paddr, width, aq, rl, res, meta);
+                        when (Ext_PhysAddr_Error, -)
+                            ExceptionType e;
+                            (-, e) = XM_match_408;
+                            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, e);
+                else
+                    constant AccessType XM_match_407 = t;
+                    case XM_match_407 of
+                        when InstructionFetch
+                            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Fetch_Access_Fault);
+                        when Read
+                            - = XM_match_407;
+                            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_Load_Access_Fault);
+                        when -
+                            temp_XT_1 = (Err, bits((8) * (width)) UNKNOWN, E_SAMO_Access_Fault);
+    return temp_XT_1;
+
+(result, bits((8) * (width)), ExceptionType) mem_read_priv_meta(AccessType typ, Privilege priv, bits(64) paddr, integer width, boolean aq, boolean rl, boolean res, boolean meta)
+    (result, bits((8) * (width)), ExceptionType) temp_XT_2;
+    if and_bool(or_bool(aq, res), not(is_aligned_paddr(paddr, width))) then
+        temp_XT_2 = (Err, bits((8) * (width)) UNKNOWN, E_Load_Addr_Align);
+    else
+        constant boolean p0XH = aq;
+        constant boolean p1XH = rl;
+        constant boolean p2XH = res;
+        if and_bool(and_bool(eq_bool(p2XH, FALSE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, FALSE)) then
+            assert(FALSE);
+        else
+            if and_bool(and_bool(eq_bool(p2XH, TRUE), eq_bool(p1XH, TRUE)), eq_bool(p0XH, FALSE)) then
+                assert(FALSE);
+            else
+                temp_XT_2 = checked_mem_read(typ, priv, paddr, width, aq, rl, res, meta);
+    constant (result, bits((8) * (width)), ExceptionType) resultXN = temp_XT_2;
+    constant (result, bits((8) * (width)), ExceptionType) XM_match_406 = resultXN;
+    case XM_match_406 of
+        when (Ok, -, -)
+            bits((8) * (width)) value;
+            (-, value, -) = XM_match_406;
+            mem_read_callback(accessType_to_str(typ), bits_of_physaddr(paddr), width, value);
+        when (Err, -, -)
+            ExceptionType e;
+            (-, -, e) = XM_match_406;
+            mem_exception_callback(bits_of_physaddr(paddr), num_of_ExceptionType(e));
+    return resultXN;
+
 (result, bits((8) * (width)), ExceptionType) mem_read_priv(AccessType typ, Privilege priv, bits(64) paddr, integer width, boolean aq, boolean rl, boolean res)
+    return mem_read_priv_meta(typ, priv, paddr, width, aq, rl, res, FALSE);
 
 (result, bits((8) * (width)), ExceptionType) mem_read(AccessType typ, bits(64) paddr, integer width, boolean aq, boolean rel, boolean res)
     return mem_read_priv(typ, effectivePrivilege(typ, mstatus, cur_privilege), paddr, width, aq, rel, res);
@@ -5986,6 +6267,9 @@ write_kind write_kind_of_flags(boolean aq, boolean rl, boolean con)
         temp_XT_1 = resultXN;
     return temp_XT_1;
 
+(result, boolean, ExceptionType) mem_write_value_priv(bits(64) paddr, integer width, bits((8) * (width)) value, Privilege priv, boolean aq, boolean rl, boolean con)
+    return mem_write_value_priv_meta(paddr, width, value, Write, priv, aq, rl, con);
+
 (result, boolean, ExceptionType) mem_write_value_meta(bits(64) paddr, integer width, bits((8) * (width)) value, boolean aq, boolean rl, boolean con)
     constant AccessType typ = Write;
     constant Privilege ep = effectivePrivilege(typ, mstatus, cur_privilege);
@@ -6007,6 +6291,89 @@ enumeration ExecutionResult {
 };
 
 constant (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) RETIRE_SUCCESS = (Retire_Success, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
+
+bits(10) Mk_PTE_Ext(bits(10) v)
+    return v;
+
+bits(2) _get_PTE_Ext_PBMT(bits(10) v)
+    return subrange_bits(v, 8, 7);
+
+constant bits(10) default_sv32_ext_pte = zeros(10);
+
+bits(10) ext_bits_of_PTE(bits(pte_size) pte)
+    return Mk_PTE_Ext((if eq_int(pte_size, 64) then subrange_bits(pte, 63, 54) else default_sv32_ext_pte));
+
+bits((if pte_size == 32 then 22 else 44)) PPN_of_PTE(bits(pte_size) pte)
+    return (if eq_int(pte_size, 32) then subrange_bits(pte, 31, 10) else subrange_bits(pte, 53, 10));
+
+bits(8) Mk_PTE_Flags(bits(8) v)
+    return v;
+
+boolean pte_is_non_leaf(bits(8) pte_flags)
+    return and_bool(eq_bits(_get_PTE_Flags_X(pte_flags), '0'), and_bool(eq_bits(_get_PTE_Flags_W(pte_flags), '0'), eq_bits(_get_PTE_Flags_R(pte_flags), '0')));
+
+boolean pte_is_invalid(bits(8) pte_flags, bits(10) pte_ext)
+    return or_bool(eq_bits(_get_PTE_Flags_V(pte_flags), '0'), or_bool(and_bool(eq_bits(_get_PTE_Flags_W(pte_flags), '1'), eq_bits(_get_PTE_Flags_R(pte_flags), '0')), or_bool(and_bool(neq_bits(_get_PTE_Ext_N(pte_ext), '0'), not(currentlyEnabled(Ext_Svnapot))), or_bool(and_bool(neq_bits(_get_PTE_Ext_PBMT(pte_ext), zeros(2)), not(currentlyEnabled(Ext_Svpbmt))), neq_bits(_get_PTE_Ext_reserved(pte_ext), zeros(7))))));
+
+enumeration PTE_Check {
+    PTE_Check_Success
+    , PTE_Check_Failure
+};
+
+PTE_Check check_PTE_permission(AccessType ac, Privilege priv, boolean mxr, boolean do_sum, bits(8) pte_flags, bits(10) ext)
+    constant bits(1) pte_U = _get_PTE_Flags_U(pte_flags);
+    constant bits(1) pte_R = _get_PTE_Flags_R(pte_flags);
+    constant bits(1) pte_W = _get_PTE_Flags_W(pte_flags);
+    constant bits(1) pte_XX = _get_PTE_Flags_X(pte_flags);
+    boolean temp_XT_10;
+    constant (AccessType, Privilege) XM_match_402 = (ac, priv);
+    case XM_match_402 of
+        when (Read, User)
+            temp_XT_10 = and_bool(eq_bits(pte_U, '1'), or_bool(eq_bits(pte_R, '1'), and_bool(eq_bits(pte_XX, '1'), mxr)));
+        when (Write, User)
+            temp_XT_10 = and_bool(eq_bits(pte_U, '1'), eq_bits(pte_W, '1'));
+        when (ReadWrite, User)
+            temp_XT_10 = and_bool(eq_bits(pte_U, '1'), and_bool(eq_bits(pte_W, '1'), or_bool(eq_bits(pte_R, '1'), and_bool(eq_bits(pte_XX, '1'), mxr))));
+        when (InstructionFetch, User)
+            temp_XT_10 = and_bool(eq_bits(pte_U, '1'), eq_bits(pte_XX, '1'));
+        when (Read, Supervisor)
+            temp_XT_10 = and_bool(or_bool(eq_bits(pte_U, '0'), do_sum), or_bool(eq_bits(pte_R, '1'), and_bool(eq_bits(pte_XX, '1'), mxr)));
+        when (Write, Supervisor)
+            temp_XT_10 = and_bool(or_bool(eq_bits(pte_U, '0'), do_sum), eq_bits(pte_W, '1'));
+        when (ReadWrite, Supervisor)
+            temp_XT_10 = and_bool(or_bool(eq_bits(pte_U, '0'), do_sum), and_bool(eq_bits(pte_W, '1'), or_bool(eq_bits(pte_R, '1'), and_bool(eq_bits(pte_XX, '1'), mxr))));
+        when (InstructionFetch, Supervisor)
+            temp_XT_10 = and_bool(eq_bits(pte_U, '0'), eq_bits(pte_XX, '1'));
+        when (-, Machine)
+            assert(FALSE);
+    constant boolean success = temp_XT_10;
+    return (if success then PTE_Check_Success else PTE_Check_Failure);
+
+(option, bits(pte_size)) update_PTE_Bits(bits(pte_size) pte, AccessType a)
+    (option, bits(pte_size)) temp_XT_1;
+    constant bits(8) pte_flags = Mk_PTE_Flags(subrange_bits(pte, 7, 0));
+    boolean temp_XT_12;
+    constant AccessType XM_match_401 = a;
+    case XM_match_401 of
+        when InstructionFetch
+            temp_XT_12 = FALSE;
+        when Read
+            temp_XT_12 = FALSE;
+        when Write
+            temp_XT_12 = TRUE;
+        when ReadWrite
+            temp_XT_12 = TRUE;
+    constant boolean update_d = and_bool(eq_bits(_get_PTE_Flags_D(pte_flags), '0'), temp_XT_12);
+    constant boolean update_a = eq_bits(_get_PTE_Flags_A(pte_flags), '0');
+    if or_bool(update_d, update_a) then
+        constant bits(8) pte_flags = _update_PTE_Flags_D(_update_PTE_Flags_A(pte_flags, '1'), (if update_d then '1' else _get_PTE_Flags_D(pte_flags)));
+        temp_XT_1 = (Some, update_subrange_bits(pte, 7, 0, pte_flags));
+    else
+        temp_XT_1 = (None, bits(pte_size) UNKNOWN);
+    return temp_XT_1;
+
+PTW_Error ext_get_ptw_error()
+    return PTW_No_Permission;
 
 ExceptionType translationException(AccessType a, PTW_Error f)
     ExceptionType temp_XT_1;
@@ -6033,7 +6400,165 @@ ExceptionType translationException(AccessType a, PTW_Error f)
             temp_XT_1 = E_Fetch_Page_Fault;
     return temp_XT_1;
 
+constant integer tlb_vpn_bits = (57) - (12);
+
+type TLB_Entry is (bits(16) asid,
+boolean global,
+bits((57) - (12)) vpn,
+bits((57) - (12)) levelMask,
+bits(44) ppn,
+bits(64) pte,
+bits(64) pteAddr)
+
+TLB_Entry asl_make_TLB_Entry(bits(16) asid, boolean global, bits((57) - (12)) levelMask, bits(44) ppn, bits(64) pte, bits(64) pteAddr, bits((57) - (12)) vpn)
+    TLB_Entry temp;
+    temp.asid = asid;
+    temp.global = global;
+    temp.levelMask = levelMask;
+    temp.ppn = ppn;
+    temp.pte = pte;
+    temp.pteAddr = pteAddr;
+    temp.vpn = vpn;
+    return temp;
+
+bits((pte_width) * (8)) tlb_get_pte(integer pte_width, TLB_Entry ent)
+    return subrange_bits(ent.pte, (pte_width) * (8) - (1), 0);
+
+TLB_Entry tlb_set_pte(TLB_Entry ent, bits(n) pte)
+    TLB_Entry temp_XT_2;
+    temp_XT_2 = ent;
+    temp_XT_2.pte = zero_extend(64, pte);
+    return temp_XT_2;
+
+bits((if sv_width == 32 then 22 else 44)) tlb_get_ppn(integer sv_width, TLB_Entry ent, bits((sv_width) - (12)) vpn)
+    constant bits(64) vpn = sign_extend(64, vpn);
+    constant bits(64) levelMask = zero_extend(64, ent.levelMask);
+    constant bits(64) ppn = zero_extend(64, ent.ppn);
+    return trunc((if eq_int(sv_width, 32) then 22 else 44), or_vec(ppn, and_vec(vpn, levelMask)));
+
+constant integer num_tlb_entries = 64;
+
+array [0 .. num_tlb_entries] of (option, TLB_Entry) tlb;
+
+integer tlb_hash(integer sv_mode, bits((sv_mode) - (12)) vpn)
+    return unsigned(subrange_bits(vpn, 5, 0));
+
+() write_TLB(integer index, TLB_Entry entry)
+    tlb = plain_vector_update(tlb, index, (Some, entry));
+
+boolean match_TLB_Entry(TLB_Entry ent, bits(16) asid, bits((57) - (12)) vpn)
+    return and_bool(or_bool(ent.global, eq_bits(ent.asid, asid)), eq_bits(ent.vpn, and_vec(vpn, not_vec(ent.levelMask))));
+
+boolean flush_TLB_Entry(TLB_Entry ent, (option, bits(16)) asid, (option, bits((pow2_int(3)) * (8))) vaddr)
+    boolean temp_XT_2;
+    constant (option, bits(16)) XM_match_399 = asid;
+    case XM_match_399 of
+        when (Some, -)
+            bits(16) asid;
+            (-, asid) = XM_match_399;
+            temp_XT_2 = and_bool(eq_bits(ent.asid, asid), not(ent.global));
+        when (None, -)
+            temp_XT_2 = TRUE;
+    constant boolean asid_matches = temp_XT_2;
+    boolean temp_XT_13;
+    constant (option, bits((pow2_int(3)) * (8))) XM_match_398 = vaddr;
+    case XM_match_398 of
+        when (Some, -)
+            bits((pow2_int(3)) * (8)) vaddr;
+            (-, vaddr) = XM_match_398;
+            constant bits(64) vaddr = sign_extend(64, vaddr);
+            temp_XT_13 = eq_bits(ent.vpn, and_vec(subrange_bits(vaddr, 56, pagesize_bits), not_vec(ent.levelMask)));
+        when (None, -)
+            temp_XT_13 = TRUE;
+    constant boolean addr_matches = temp_XT_13;
+    return and_bool(asid_matches, addr_matches);
+
+(option, (integer, TLB_Entry)) lookup_TLB(integer sv_width, bits(16) asid, bits((sv_width) - (12)) vpn)
+    (option, (integer, TLB_Entry)) temp_XT_1;
+    constant integer index = tlb_hash(sv_width, vpn);
+    constant (option, TLB_Entry) XM_match_397 = plain_vector_access(tlb, index, 64);
+    case XM_match_397 of
+        when (None, -)
+            temp_XT_1 = (None, (integer, TLB_Entry) UNKNOWN);
+        when (Some, -)
+            TLB_Entry entry;
+            (-, entry) = XM_match_397;
+            temp_XT_1 = (if match_TLB_Entry(entry, asid, sign_extend(57 - (12), vpn)) then (Some, (index, entry)) else (None, (integer, TLB_Entry) UNKNOWN));
+    return temp_XT_1;
+
+() add_to_TLB(integer sv_width, bits(16) asid, bits((sv_width) - (12)) vpn, bits((if sv_width == 32 then 22 else 44)) ppn, bits((if sv_width == 32 then 32 else 64)) pte, bits(64) pteAddr, integer level, boolean global)
+    constant integer shift = (level) * ((if eq_int(sv_width, 32) then 10 else 9));
+    constant bits((level) * ((if sv_width == 32 then 10 else 9))) levelMask = ones(shift);
+    constant bits((sv_width) - (12)) vpn = and_vec(vpn, not_vec(zero_extend(sv_width - (12), levelMask)));
+    constant bits((if sv_width == 32 then 22 else 44)) ppn = and_vec(ppn, not_vec(zero_extend((if eq_int(sv_width, 32) then 22 else 44), levelMask)));
+    constant TLB_Entry entry = asl_make_TLB_Entry(asid, global, zero_extend(57 - (12), levelMask), zero_extend(44, ppn), zero_extend(64, pte), pteAddr, sign_extend(57 - (12), vpn));
+    constant integer index = tlb_hash(sv_width, vpn);
+    tlb = plain_vector_update(tlb, index, (Some, entry));
+
 () flush_TLB((option, bits(16)) asid, (option, bits((pow2_int(3)) * (8))) addr)
+    for i = 0 to vector_length(tlb, 64) - (1)
+        constant (option, TLB_Entry) XM_match_396 = plain_vector_access(tlb, i, 64);
+        case XM_match_396 of
+            when (None, -)
+
+            when (Some, -)
+                TLB_Entry entry;
+                (-, entry) = XM_match_396;
+                if flush_TLB_Entry(entry, asid, addr) then
+                    tlb = plain_vector_update(tlb, i, (None, TLB_Entry UNKNOWN));
+
+(result, boolean, ExceptionType) write_pte(bits(64) paddr, integer pte_size, bits((pte_size) * (8)) pte)
+    return mem_write_value_priv(paddr, pte_size, pte, Supervisor, FALSE, FALSE, FALSE);
+
+(result, bits((8) * (pte_size)), ExceptionType) read_pte(bits(64) paddr, integer pte_size)
+    return mem_read_priv(Read, Supervisor, paddr, pte_size, FALSE, FALSE, FALSE);
+
+(result, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean), PTW_Error) pt_walk(integer sv_width, bits((sv_width) - (12)) vpn, AccessType ac, Privilege priv, boolean mxr, boolean do_sum, bits((if sv_width == 32 then 22 else 44)) pt_base, integer level, boolean global)
+    (result, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean), PTW_Error) temp_XT_1;
+    constant integer vpn_i_size = (if eq_int(sv_width, 32) then 10 else 9);
+    constant bits((((((level) + (1)) * (vpn_i_size)) - (1)) - ((level) * (vpn_i_size))) + (1)) vpn_i = subrange_bits(vpn, (level + 1) * (vpn_i_size) - (1), (level) * (vpn_i_size));
+    constant integer log_pte_size_bytes = (if eq_int(sv_width, 32) then 2 else 3);
+    constant bits(((if sv_width == 32 then 22 else 44)) + (((((((level) + (1)) * (vpn_i_size)) - (1)) - ((level) * (vpn_i_size))) + (1)) + (log_pte_size_bytes))) pte_addr = bitvector_concat(pt_base, bitvector_concat(vpn_i, zeros(log_pte_size_bytes)));
+    assert(or_bool(eq_int(sv_width, 32), eq_int(xlen, 64)));
+    constant bits(64) pte_addr = zero_extend(64, pte_addr);
+    constant (result, bits((8) * (pow2_int(log_pte_size_bytes))), ExceptionType) XM_match_395 = read_pte(pte_addr, pow2_int(log_pte_size_bytes));
+    case XM_match_395 of
+        when (Err, -, -)
+            temp_XT_1 = (Err, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean) UNKNOWN, PTW_Access);
+        when (Ok, -, -)
+            bits((8) * (pow2_int(log_pte_size_bytes))) pte;
+            (-, pte, -) = XM_match_395;
+            constant bits(8) pte_flags = Mk_PTE_Flags(subrange_bits(pte, 7, 0));
+            constant bits(10) pte_ext = ext_bits_of_PTE(pte);
+            if pte_is_invalid(pte_flags, pte_ext) then
+                temp_XT_1 = (Err, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean) UNKNOWN, PTW_Invalid_PTE);
+            else
+                constant bits((if (8) * (pow2_int(log_pte_size_bytes)) == 32 then 22 else 44)) ppn = PPN_of_PTE(pte);
+                constant boolean global = or_bool(global, eq_bits(_get_PTE_Flags_G(pte_flags), '1'));
+                if pte_is_non_leaf(pte_flags) then
+                    temp_XT_1 = (if gt_int(level, 0) then pt_walk(sv_width, vpn, ac, priv, mxr, do_sum, ppn, level - (1), global) else (Err, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean) UNKNOWN, PTW_Invalid_PTE));
+                else
+                    constant integer ppn_size_bits = (if eq_int(sv_width, 32) then 10 else 9);
+                    if gt_int(level, 0) then
+                        constant integer low_bits = (ppn_size_bits) * (level);
+                        if neq_bits(subrange_bits(ppn, low_bits - (1), 0), zeros(((if eq_int(sv_width, 32) then 10 else 9)) * (level) - (1) - (0) + 1)) then
+                            return (Err, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean) UNKNOWN, PTW_Misaligned);
+                    constant PTE_Check XM_match_394 = check_PTE_permission(ac, priv, mxr, do_sum, pte_flags, pte_ext);
+                    case XM_match_394 of
+                        when PTE_Check_Failure
+                            - = XM_match_394;
+                            temp_XT_1 = (Err, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean) UNKNOWN, ext_get_ptw_error());
+                        when PTE_Check_Success
+                            - = XM_match_394;
+                            bits((((((if (8) * (pow2_int(log_pte_size_bytes)) == 32 then 22 else 44)) - (1)) - (((if sv_width == 32 then 10 else 9)) * (level))) + (1)) + ((((((if sv_width == 32 then 10 else 9)) * (level)) - (1)) - (0)) + (1))) temp_XT_143;
+                            if gt_int(level, 0) then
+                                constant integer low_bits = (ppn_size_bits) * (level);
+                                temp_XT_143 = bitvector_concat(subrange_bits(ppn, (if (8) * (pow2_int(log_pte_size_bytes)) == 32 then 22 else 44) - (1), low_bits), subrange_bits(vpn, low_bits - (1), 0));
+                            else
+                                temp_XT_143 = ppn;
+                            constant bits((((((if (8) * (pow2_int(log_pte_size_bytes)) == 32 then 22 else 44)) - (1)) - (((if sv_width == 32 then 10 else 9)) * (level))) + (1)) + ((((((if sv_width == 32 then 10 else 9)) * (level)) - (1)) - (0)) + (1))) ppn = temp_XT_143;
+                            temp_XT_1 = (Ok, (ppn, pte, pte_addr, level, global), PTW_Error UNKNOWN);
+    return temp_XT_1;
 
 bits((pow2_int(3)) * (8)) satp;
 
@@ -6070,6 +6595,83 @@ SATPMode translationMode(Privilege priv)
                 assert(FALSE);
     return temp_XT_1;
 
+(result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) translate_TLB_hit(integer sv_width, bits(16) asid, bits((sv_width) - (12)) vpn, AccessType ac, Privilege priv, boolean mxr, boolean do_sum, integer tlb_index, TLB_Entry ent)
+    (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) temp_XT_1;
+    constant integer pte_width = (if eq_int(sv_width, 32) then 4 else 8);
+    constant bits(((if sv_width == 32 then 4 else 8)) * (8)) pte = tlb_get_pte(pte_width, ent);
+    constant bits(10) ext_pte = ext_bits_of_PTE(pte);
+    constant bits(8) pte_flags = Mk_PTE_Flags(subrange_bits(pte, 7, 0));
+    constant PTE_Check pte_check = check_PTE_permission(ac, priv, mxr, do_sum, pte_flags, ext_pte);
+    constant PTE_Check XM_match_391 = pte_check;
+    case XM_match_391 of
+        when PTE_Check_Failure
+            - = XM_match_391;
+            temp_XT_1 = (Err, bits((if sv_width == 32 then 22 else 44)) UNKNOWN, ext_get_ptw_error());
+        when PTE_Check_Success
+            - = XM_match_391;
+            constant (option, bits(((if sv_width == 32 then 4 else 8)) * (8))) XM_match_390 = update_PTE_Bits(pte, ac);
+            case XM_match_390 of
+                when (None, -)
+                    temp_XT_1 = (Ok, tlb_get_ppn(sv_width, ent, vpn), PTW_Error UNKNOWN);
+                when (Some, -)
+                    bits(((if sv_width == 32 then 4 else 8)) * (8)) pteXQ;
+                    (-, pteXQ) = XM_match_390;
+                    if not(plat_enable_dirty_update) then
+                        temp_XT_1 = (Err, bits((if sv_width == 32 then 22 else 44)) UNKNOWN, PTW_PTE_Update);
+                    else
+                        write_TLB(tlb_index, tlb_set_pte(ent, pteXQ));
+                        constant (result, boolean, ExceptionType) XM_match_389 = write_pte(ent.pteAddr, pte_width, pteXQ);
+                        case XM_match_389 of
+                            when (Ok, -, -)
+
+                            when (Err, -, -)
+                                ExceptionType e;
+                                (-, -, e) = XM_match_389;
+                                assert(FALSE);
+                        temp_XT_1 = (Ok, tlb_get_ppn(sv_width, ent, vpn), PTW_Error UNKNOWN);
+    return temp_XT_1;
+
+(result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) translate_TLB_miss(integer sv_width, bits(16) asid, bits((if sv_width == 32 then 22 else 44)) base_ppn, bits((sv_width) - (12)) vpn, AccessType ac, Privilege priv, boolean mxr, boolean do_sum)
+    (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) temp_XT_1;
+    constant integer initial_level = (if eq_int(sv_width, 32) then 1 else (if eq_int(sv_width, 39) then 2 else (if eq_int(sv_width, 48) then 3 else 4)));
+    constant integer pte_width = (if eq_int(sv_width, 32) then 4 else 8);
+    constant (result, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean), PTW_Error) ptw_result = pt_walk(sv_width, vpn, ac, priv, mxr, do_sum, base_ppn, initial_level, FALSE);
+    constant (result, (bits((if sv_width == 32 then 22 else 44)), bits((if sv_width == 32 then 32 else 64)), bits(64), integer, boolean), PTW_Error) XM_match_388 = ptw_result;
+    case XM_match_388 of
+        when (Err, -, -)
+            PTW_Error f;
+            (-, -, f) = XM_match_388;
+            temp_XT_1 = (Err, bits((if sv_width == 32 then 22 else 44)) UNKNOWN, f);
+        when (Ok, (-, -, -, -, -), -)
+            bits((if sv_width == 32 then 22 else 44)) ppn;
+            bits((if sv_width == 32 then 32 else 64)) pte;
+            bits(64) pteAddr;
+            integer level;
+            boolean global;
+            (-, (ppn, pte, pteAddr, level, global), -) = XM_match_388;
+            constant bits(10) ext_pte = ext_bits_of_PTE(pte);
+            constant (option, bits((if sv_width == 32 then 32 else 64))) XM_match_387 = update_PTE_Bits(pte, ac);
+            case XM_match_387 of
+                when (None, -)
+                    add_to_TLB(sv_width, asid, vpn, ppn, pte, pteAddr, level, global);
+                    temp_XT_1 = (Ok, ppn, PTW_Error UNKNOWN);
+                when (Some, -)
+                    bits((if sv_width == 32 then 32 else 64)) pte;
+                    (-, pte) = XM_match_387;
+                    if not(plat_enable_dirty_update) then
+                        temp_XT_1 = (Err, bits((if sv_width == 32 then 22 else 44)) UNKNOWN, PTW_PTE_Update);
+                    else
+                        constant (result, boolean, ExceptionType) XM_match_386 = write_pte(pteAddr, pte_width, pte);
+                        case XM_match_386 of
+                            when (Ok, -, -)
+                                add_to_TLB(sv_width, asid, vpn, ppn, pte, pteAddr, level, global);
+                                temp_XT_1 = (Ok, ppn, PTW_Error UNKNOWN);
+                            when (Err, -, -)
+                                ExceptionType e;
+                                (-, -, e) = XM_match_386;
+                                temp_XT_1 = (Err, bits((if sv_width == 32 then 22 else 44)) UNKNOWN, PTW_Access);
+    return temp_XT_1;
+
 integer satp_mode_width_forwards(SATPMode argXH)
     integer temp_XT_1;
     constant SATPMode XM_match_385 = argXH;
@@ -6088,6 +6690,17 @@ integer satp_mode_width_forwards(SATPMode argXH)
     return temp_XT_1;
 
 (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) translate(integer sv_width, bits(16) asid, bits((if sv_width == 32 then 22 else 44)) base_ppn, bits((sv_width) - (12)) vpn, AccessType ac, Privilege priv, boolean mxr, boolean do_sum)
+    (result, bits((if sv_width == 32 then 22 else 44)), PTW_Error) temp_XT_1;
+    constant (option, (integer, TLB_Entry)) XM_match_384 = lookup_TLB(sv_width, asid, vpn);
+    case XM_match_384 of
+        when (Some, (-, -))
+            integer index;
+            TLB_Entry ent;
+            (-, (index, ent)) = XM_match_384;
+            temp_XT_1 = translate_TLB_hit(sv_width, asid, vpn, ac, priv, mxr, do_sum, index, ent);
+        when (None, -)
+            temp_XT_1 = translate_TLB_miss(sv_width, asid, base_ppn, vpn, ac, priv, mxr, do_sum);
+    return temp_XT_1;
 
 bits((if sv_width == 32 then 32 else 64)) get_satp(integer sv_width)
     assert(or_bool(eq_int(sv_width, 32), eq_int(xlen, 64)));
@@ -12741,7 +13354,6 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_VMVXS(bits(5) vs2, bits(5) rd)
     constant integer SEW = get_sew();
-    assert(or_bool(eq_int(SEW, 16), or_bool(eq_int(SEW, 32), or_bool(eq_int(SEW, 64), eq_int(SEW, 8)))));
     constant integer num_elem = get_num_elem(0, SEW);
     if illegal_vd_unmasked() then
         return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
@@ -12749,7 +13361,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant integer n = num_elem;
     constant integer m = SEW;
     constant bits((n) * (m)) vs2_val = read_vreg(num_elem, SEW, 0, vs2);
-    wX_bits(rd, (if gt_int(xlen, SEW) then sign_extend((pow2_int(3)) * (8), plain_vector_access(vs2_val, 0, n, m)) else plain_vector_access(vs2_val, 0, n, m)));
+    wX_bits(rd, sign_extend((pow2_int(3)) * (8), plain_vector_access(vs2_val, 0, n, m)));
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
 
@@ -18558,16 +19170,16 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_ECALL()
-    ExceptionType temp_XT_3;
+    ExceptionType temp_XT_7;
     constant Privilege XM_match_9 = cur_privilege;
     case XM_match_9 of
         when User
-            temp_XT_3 = E_U_EnvCall;
+            temp_XT_7 = E_U_EnvCall;
         when Supervisor
-            temp_XT_3 = E_S_EnvCall;
+            temp_XT_7 = E_S_EnvCall;
         when Machine
-            temp_XT_3 = E_M_EnvCall;
-    constant sync_exception t = asl_make_sync_exception(temp_XT_3, (None, bits((pow2_int(3)) * (8)) UNKNOWN), None);
+            temp_XT_7 = E_M_EnvCall;
+    constant sync_exception t = asl_make_sync_exception((None, bits((pow2_int(3)) * (8)) UNKNOWN), None, temp_XT_7);
     return (Trap, WaitReason UNKNOWN, cur_privilege, (CTL_TRAP, t), PC, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_EBREAK()
