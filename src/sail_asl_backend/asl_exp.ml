@@ -94,6 +94,7 @@ let rec call_doc name args =
   | ("__id",  [arg]) ->
       (arg)
   | ("vector_length", [_; arg2; _]) -> arg2
+  | ("vector_length", [_; arg2]) -> arg2
 
   | ("MemoryOpResult_add_meta", [arg]) -> arg
   | ("MemoryOpResult_drop_meta", [arg]) -> arg
@@ -173,7 +174,7 @@ let rec call_doc name args =
   | ("riscv_f32ToF64", [rm; op]) ->
       basic_call name [rm; op ^^ string "[31:0]"]
 
-  | ("riscv_f64Sqrt", [rm; op]) 
+  | ("riscv_f64Sqrt", [rm; op])
   | ("riscv_f64Rsqrte7", [rm; op])
   | ("riscv_f64Recip7", [rm; op]) ->
       basic_call name [rm; op ^^ string "[63:0]"]
@@ -196,21 +197,21 @@ let rec call_doc name args =
   | ("riscv_f64Div", [rm; op1; op2]) ->
       basic_call name [rm; op1 ^^ string "[63:0]"; op2 ^^ string "[63:0]"]
 
-  | ("riscv_f16Lt_quiet", [op1; op2]) 
-  | ("riscv_f16Le", [op1; op2]) 
-  | ("riscv_f16Lt", [op1; op2]) 
+  | ("riscv_f16Lt_quiet", [op1; op2])
+  | ("riscv_f16Le", [op1; op2])
+  | ("riscv_f16Lt", [op1; op2])
   | ("riscv_f16Eq", [op1; op2]) ->
       basic_call name [op1 ^^ string "[15:0]"; op2 ^^ string "[15:0]"]
 
-  | ("riscv_f32Lt_quiet", [op1; op2]) 
-  | ("riscv_f32Le", [op1; op2]) 
-  | ("riscv_f32Lt", [op1; op2]) 
+  | ("riscv_f32Lt_quiet", [op1; op2])
+  | ("riscv_f32Le", [op1; op2])
+  | ("riscv_f32Lt", [op1; op2])
   | ("riscv_f32Eq", [op1; op2]) ->
       basic_call name [op1 ^^ string "[31:0]"; op2 ^^ string "[31:0]"]
 
-  | ("riscv_f64Lt_quiet", [op1; op2]) 
-  | ("riscv_f64Le", [op1; op2]) 
-  | ("riscv_f64Lt", [op1; op2]) 
+  | ("riscv_f64Lt_quiet", [op1; op2])
+  | ("riscv_f64Le", [op1; op2])
+  | ("riscv_f64Lt", [op1; op2])
   | ("riscv_f64Eq", [op1; op2]) ->
       basic_call name [op1 ^^ string "[63:0]"; op2 ^^ string "[63:0]"]
 
@@ -229,6 +230,10 @@ let rec call_doc name args =
   | ("neq_anything", [arg1; arg2]) ->
       (arg1 ^^ space ^^ string "!=" ^^ space ^^ arg2)
 
+  (* Poly array op *)
+  | ("plain_vector_access", [vec; pos; len]) ->
+      (vec ^^ string "[" ^^ pos ^^ string "]")
+
   | (_, [arg]) when arg = unit_lit_doc ->
       (string name ^^ parens empty)
   | _ ->
@@ -237,6 +242,7 @@ let rec call_doc name args =
 let vec_ops = [
   ("vector_length", 0);
   ("plain_vector_access", 0);
+  ("plain_vector_update", 0);
   ("get_velem_quad", 0);
   ("get_velem_quad_vec", 0);
   ("vrev8", 1);
@@ -740,7 +746,7 @@ let rec asl_pat (P_aux (p, annot) as pat) =
   match p with
   | P_wild when get_attribute "int_wildcard" uannot <> None ->
       (match get_attribute "int_wildcard" uannot with
-      | Some (_, Some (Parse_ast.Attribute_data.AD_aux(AD_num n,_))) -> 
+      | Some (_, Some (Parse_ast.Attribute_data.AD_aux(AD_num n,_))) ->
           return (string (Big_int.to_string n))
       | _ -> failwith "")
   | P_wild
@@ -869,7 +875,8 @@ and asl_exp (E_aux (e, annot) as exp) =
       some (tuple_doc exprs)
   | E_field (exp, id) ->
       let@ exp_doc = asl_expr exp in
-      some (exp_doc ^^ dot ^^ id_doc id)
+      let getter_name = "asl_get_" ^ escape_asl_id id in
+      some (call_doc getter_name [exp_doc])
   | E_vector exprs ->
       let@ exprs = traverse asl_expr (List.rev exprs) in
       some (separate colon exprs)
@@ -913,23 +920,22 @@ and asl_exp (E_aux (e, annot) as exp) =
               emit assignment)
       | _ -> fail ("vector update over unsupported type: " ^ string_of_typ vec_typ))
   | E_struct (SN_id id, fexps) ->
-      let helper_name = "asl_make_" ^ escape_asl_id id in
-      (* Sort field expressions by field name to match function parameter order *)
+      (* Sort field expressions by field name to ensure consistent tuple ordering *)
       let sorted_fexps = List.sort (fun (FE_aux (FE_fexp (field_id1, _), _)) (FE_aux (FE_fexp (field_id2, _), _)) ->
         String.compare (string_of_id field_id1) (string_of_id field_id2)
       ) fexps in
       let@ field_args = traverse (fun (FE_aux (FE_fexp (_, exp), _)) -> asl_expr exp) sorted_fexps in
-      some (call_doc helper_name field_args)
+      some (tuple_doc field_args)
   | E_struct_update (record_exp, fexps) ->
-      let record_typ = typ_of record_exp in
-      let@ temp_var = asl_temp_decl env record_typ in
       let@ record_val = asl_expr record_exp in
-      let@ _ = emit (temp_var ^^ space ^^ equals ^^ space ^^ record_val ^^ semi) in
-      let@ _ = traverse (fun (FE_aux (FE_fexp (field_id, new_val), _)) ->
+      (* Apply setter functions in sequence, threading the result through *)
+      let@ result = List.fold_left (fun acc_m (FE_aux (FE_fexp (field_id, new_val), _)) ->
+        let@ acc_val = acc_m in
         let@ new_val_doc = asl_expr new_val in
-        emit (temp_var ^^ dot ^^ id_doc field_id ^^ space ^^ equals ^^ space ^^ new_val_doc ^^ semi)
-      ) fexps in
-      some temp_var
+        let setter_name = "asl_set_" ^ escape_asl_id field_id in
+        return (call_doc setter_name [acc_val; new_val_doc])
+      ) (return record_val) fexps in
+      some result
 
   (* Pass-through *)
   | E_typ (_, exp) -> asl_exp exp
@@ -1222,37 +1228,71 @@ let pp_typedef (TD_aux (td_aux, annot)) = unwrap_pure @@
         (* Complex union types are not supported in ASL *)
         fail ("Complex union types not supported in ASL: " ^ string_of_id id)
   | TD_record(id, _, fields, _) ->
-      let@ field_docs = traverse (fun (typ, field_id) ->
-        let@ typ_doc = asl_typ env typ in
-        return (typ_doc ^^ space ^^ string (escape_asl_id field_id))) fields in
       let record_name = string (escape_asl_id id) in
-      let type_head = string "type" ^^ space ^^ record_name ^^ space ^^ string "is" in
-      let type_def = type_head ^^ space ^^ parens (separate (comma ^^ hardline) field_docs) in
-
-      (* Generate helper function asl_make_RECORD_TYPE *)
-      let helper_name = "asl_make_" ^ (escape_asl_id id) in
-      (* Sort fields by field name to ensure consistent parameter order *)
+      (* Sort fields by field name to ensure consistent tuple ordering *)
       let sorted_fields = List.sort (fun (_, field_id1) (_, field_id2) ->
         String.compare (string_of_id field_id1) (string_of_id field_id2)
       ) fields in
-      let@ param_docs = traverse (fun (typ, field_id) ->
-        let@ typ_doc = asl_typ env typ in
-        return (typ_doc ^^ space ^^ string (escape_asl_id field_id))) sorted_fields in
-      let params = separate (comma ^^ space) param_docs in
 
-      let@ field_assignments = traverse (fun (typ, field_id) ->
-        let field_name = escape_asl_id field_id in
-        return (string "temp" ^^ dot ^^ string field_name ^^ space ^^ equals ^^ space ^^ string field_name ^^ semi)
+      (* Generate type alias for tuple *)
+      let@ field_type_docs = traverse (fun (typ, _) ->
+        asl_typ env typ
       ) sorted_fields in
+      let tuple_type = match field_type_docs with
+        | [] -> string "()"
+        | [single_type] -> single_type
+        | _ -> parens (separate (comma ^^ space) field_type_docs)
+      in
+      let type_alias = string "type" ^^ space ^^ record_name ^^ space ^^ equals ^^ space ^^ tuple_type ^^ semi in
 
-      let helper_body = nest 4 (hardline ^^
-        record_name ^^ space ^^ string "temp" ^^ semi ^^ hardline ^^
-        separate hardline field_assignments ^^ hardline ^^
-        string "return temp" ^^ semi) in
+      (* Generate getter functions for each field *)
+      let@ getter_functions = traverse (fun (field_idx, (typ, field_id)) ->
+        let@ typ_doc = asl_typ env typ in
+        let getter_name = "asl_get_" ^ escape_asl_id field_id in
+        let getter_body = match List.length sorted_fields with
+          | 0 -> string "return" ^^ space ^^ string "()" ^^ semi
+          | 1 -> string "return" ^^ space ^^ string "rec" ^^ semi
+          | _ ->
+              (* Generate tuple unpacking: (temp_0, temp_1, ...) = rec *)
+              let temp_vars = List.mapi (fun i _ -> string ("temp_" ^ string_of_int i)) sorted_fields in
+              let tuple_pattern = parens (separate (comma ^^ space) temp_vars) in
+              let unpack_stmt = tuple_pattern ^^ space ^^ equals ^^ space ^^ string "rec" ^^ semi in
+              let return_var = List.nth temp_vars field_idx in
+              unpack_stmt ^^ hardline ^^ string "return" ^^ space ^^ return_var ^^ semi
+        in
+        let getter_func = typ_doc ^^ space ^^ string getter_name ^^ parens (record_name ^^ space ^^ string "rec") ^^
+          nest 4 (hardline ^^ getter_body) in
+        return getter_func
+      ) (List.mapi (fun i field -> (i, field)) sorted_fields) in
 
-      let helper_func = record_name ^^ space ^^ string helper_name ^^ parens params ^^ helper_body in
+      (* Generate setter functions for each field *)
+      let@ setter_functions = traverse (fun (field_idx, (typ, field_id)) ->
+        let@ typ_doc = asl_typ env typ in
+        let setter_name = "asl_set_" ^ escape_asl_id field_id in
+        let params = record_name ^^ space ^^ string "rec" ^^ comma ^^ space ^^ typ_doc ^^ space ^^ string "new_value" in
+        let setter_body = match List.length sorted_fields with
+          | 0 -> string "return" ^^ space ^^ string "()" ^^ semi
+          | 1 -> string "return" ^^ space ^^ string "new_value" ^^ semi
+          | _ ->
+              (* Generate tuple unpacking: (temp_0, temp_1, ...) = rec *)
+              let temp_vars = List.mapi (fun i _ -> string ("temp_" ^ string_of_int i)) sorted_fields in
+              let tuple_pattern = parens (separate (comma ^^ space) temp_vars) in
+              let unpack_stmt = tuple_pattern ^^ space ^^ equals ^^ space ^^ string "rec" ^^ semi in
+              (* Generate new tuple with updated field *)
+              let field_exprs = List.mapi (fun i _ ->
+                if i = field_idx then string "new_value"
+                else List.nth temp_vars i
+              ) sorted_fields in
+              let new_tuple = parens (separate (comma ^^ space) field_exprs) in
+              unpack_stmt ^^ hardline ^^ string "return" ^^ space ^^ new_tuple ^^ semi
+        in
+        let setter_func = record_name ^^ space ^^ string setter_name ^^ parens params ^^
+          nest 4 (hardline ^^ setter_body) in
+        return setter_func
+      ) (List.mapi (fun i field -> (i, field)) sorted_fields) in
 
-      return (type_def ^^ hardline ^^ hardline ^^ helper_func)
+      let all_functions = getter_functions @ setter_functions in
+      return (type_alias ^^ hardline ^^ hardline ^^ separate (hardline ^^ hardline) all_functions)
   | TD_abbrev (id, typquant, A_aux (A_typ typ, _)) ->
       let@ typ_doc = asl_typ env typ in
       let head = string "type" ^^ space ^^ string (escape_asl_id id) in

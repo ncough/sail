@@ -1,4 +1,45 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+// Prims from ARMv8 Model
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+bits(N) sdiv_bits(bits(N) x, bits(N) y)
+    integer xn = SInt(x);
+    integer yn = SInt(y);
+    return RoundTowardsZero(Real(xn) / Real (yn))[N-1:0];
+
+bits(N) LSL(bits(N) x, integer shift)
+    assert shift >= 0;
+    if shift == 0 then
+        result = x;
+    else
+        extended_x = x : Zeros(shift);
+        result = extended_x[N-1:0];
+    return result;
+
+bits(N) LSR(bits(N) x, integer shift)
+    assert shift >= 0;
+    if shift == 0 then
+        result = x;
+    else
+        extended_x = Zeros(shift) : x;
+        result = extended_x[shift+N-1:shift];
+    return result;
+
+bits(N1) lsr_bits(bits(N1) x, bits(N2) y)
+    integer yn = SInt(y);
+    return LSR(x, yn);
+
+integer HighestSetBit(bits(N) x)
+    for i = N-1 downto 0
+        if x[i] == '1' then return i;
+    return -1;
+
+integer LowestSetBit(bits(N) x)
+    for i = 0 to N-1
+        if x[i] == '1' then return i;
+    return N;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 // Integer Operations
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,14 +58,18 @@ integer max_int(integer a, integer b)
     return if a > b then a else b;
 
 integer quot_positive_round_zero(integer a, integer b)
+    assert (a >= 0 && b > 0);
     return a QUOT b;
 
 integer quot_round_zero(integer a, integer b)
     return a QUOT b;
 
-// TODO: Not implemented
 integer rem_round_zero(integer a, integer b)
+    return a REM b;
+
 integer emod_int(integer a, integer b)
+    constant integer r = a REM b;
+    return (if r >= 0 then r elsif b > 0 then r + b else r - b);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Bitvector Operations
@@ -48,6 +93,7 @@ bits(m) zero_extend(integer m, bits(n) v)
 bits(n) sail_zeros(integer n)
     return zeros_bits();
 
+// Used in a constant definition, must be in an earlier file to ensure loaded before constant eval
 bits(n) zeros(integer n)
     return zeros_bits();
 
@@ -114,49 +160,26 @@ bits(m) undefined_bitvector(integer m)
 bits(m) nan_box(integer m, bits(n) x)
     return bitvector_concat(Ones(m - (n)), x);
 
-// TODO: Not implemented
-bits(m) shiftr(bits(m) b, integer w)
-bits(m) shiftl(bits(m) b, integer w)
 bits(16) get_16_random_bits()
-integer count_trailing_zeros(bits(m) b)
-integer count_leading_zeros(bits(m) b)
-bits(m) shift_bits_left(bits(m) a, bits(n) b)
+    return random_bits();
+
+bits(m) shiftr(bits(m) b, integer shift)
+    return LSR(b, shift);
+
+bits(m) shiftl(bits(m) b, integer shift)
+    return LSL(b, shift);
+
 bits(m) shift_bits_right(bits(m) a, bits(n) b)
+    return shiftr(a, UInt(b));
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// String Operations
-///////////////////////////////////////////////////////////////////////////////////////////////////
+bits(m) shift_bits_left(bits(m) a, bits(n) b)
+    return shiftl(a, UInt(b));
 
-string bits_str(bits(n) a)
-string hex_str(integer i)
-string concat_str(string a, string b)
-bits(n) hex_bits_backwards((integer, string) t)
-boolean eq_string(string a, string b)
-print_platform(string a)
-plat_term_write(bits(n) a)
+integer count_trailing_zeros(bits(m) b)
+    return LowestSetBit(b);
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Architecture Operations
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-exit()
-    return;
-
-type barrier_kind;
-() sail_barrier(barrier_kind b)
-internal_error(string a, integer b, string c)
-boolean plat_enable_htif()
-boolean speculate_conditional()
-() cancel_reservation()
-boolean match_reservation(bits(64) b)
-() load_reservation(bits(64) b)
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Vector Operations
-// - ASL requires the vector element count and element width to be passed as arguments
-// - Pretty printing has a list of functions where this should be done
-// - The following is this same list, with signatures extended to include the extra arguments
-///////////////////////////////////////////////////////////////////////////////////////////////////
+integer count_leading_zeros(bits(m) b)
+    return m - (HighestSetBit(b) + 1);
 
 bits(m) not_vec(bits(m) a)
     return not_bits(a);
@@ -170,35 +193,92 @@ bits(m) xor_vec(bits(m) a, bits(m) b)
 bits(m) and_vec(bits(m) a, bits(m) b)
     return and_bits(a, b);
 
-// TODO: Not implemented
 bits(m) add_vec(bits(m) a, bits(m) b)
+    return add_bits(a, b);
+
 bits(m) sub_vec(bits(m) a, bits(m) b)
+    return sub_bits(a, b);
+
 bits(n) sub_vec_int(bits(n) b, integer i)
-bits(n * m) undefined_vector(integer n, bits(m) b)
+    return sub_bits(b, get_slice_int(n, i, 0));
 
-bits(vec DIV elems) plain_vector_access(bits(vec) b, integer pos, integer elems, integer width)
-    return b[pos * (vec DIV elems) +: (vec DIV elems)];
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// String Operations
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
-type TLB_Entry;
-type option;
+string bits_str(bits(n) a)
+    return cvt_bits_str(n, a);
 
-array [0 .. N] of (option,TLB_Entry) plain_vector_update(array [0 .. N] of (option,TLB_Entry) vec, integer pos, (option,TLB_Entry) var)
+string hex_str(integer i)
+    return cvt_int_hexstr(i);
 
-(option,TLB_Entry) plain_vector_access(array [0 .. N] of (option,TLB_Entry) vec, integer pos, integer N)
+string concat_str(string a, string b)
+    return append_str_str(a, b);
 
-integer vector_length(array [0 .. N] of (option,TLB_Entry) vec, integer N)
-    return N;
+boolean eq_string(string a, string b)
+    return eq_str(a, b);
 
+print_platform(string a)
+    return;
 
-bits(m) plain_vector_update(bits(m) b, integer pos, bits(n) a)
-    b[pos * n +: n] = a;
+plat_term_write(bits(n) a)
+    return;
+
+bits(n) hex_bits_backwards((integer, string) t)
+    assert FALSE;
+    return Zeros();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Architecture Operations
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+exit()
+    return;
+
+type barrier_kind;
+
+sail_barrier(barrier_kind b)
+    return;
+
+internal_error(string a, integer b, string c)
+    assert FALSE;
+    return;
+
+boolean plat_enable_htif()
+    return TRUE;
+
+boolean speculate_conditional()
+    return TRUE;
+
+cancel_reservation()
+    return;
+
+boolean match_reservation(bits(64) b)
+    return TRUE;
+
+load_reservation(bits(64) b)
+    return;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Vector Operations
+// - ASL requires the vector element count and element width to be passed as arguments
+// - Pretty printing has a list of functions where this should be done
+// - The following is this same list, with signatures extended to include the extra arguments
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+bits(width) plain_vector_access(bits(elems * width) b, integer pos, integer elems, integer width)
+    assert 0 <= pos && pos < elems;
+    return b[pos * width +: width];
+
+bits(elems * width) plain_vector_update(bits(elems * width) b, integer pos, bits(width) a, integer elems, integer width)
+    b[pos * width +: width] = a;
     return b;
 
 bits(r * m) vector_init(integer r, bits(m) b)
     return replicate_bits(b, r);
 
-integer vector_length(bits(v) n, integer elems, integer width)
-    return elems;
+bits(n * m) undefined_vector(integer n, bits(m) b)
+    return vector_init(n, b);
 
 bits((4) * (m)) get_velem_quad(bits((m) * (n)) v, integer i, integer n, integer m)
     return bitvector_concat(plain_vector_access(v, (4) * (i) + 3, n, m), bitvector_concat(plain_vector_access(v, (4) * (i) + 2, n, m), bitvector_concat(plain_vector_access(v, (4) * (i) + 1, n, m), plain_vector_access(v, (4) * (i), n, m))));
@@ -207,7 +287,7 @@ bits((m) * (4)) get_velem_quad_vec(bits((m) * (n)) v, integer i, integer n, inte
     return plain_vector_access(v, (4) * (i), n, m):plain_vector_access(v, (4) * (i) + 1, n, m):plain_vector_access(v, (4) * (i) + 2, n, m):plain_vector_access(v, (4) * (i) + 3, n, m);
 
 bits(m) rev8(bits(m) input)
-    bits(m) output = zeros(m);
+    bits(m) output = sail_zeros(m);
     integer temp_XT_7;
     for temp_XT_7 = (0) DIV (8) to (m - (8)) DIV (8)
         constant integer i = (temp_XT_7) * (8);
@@ -217,9 +297,22 @@ bits(m) rev8(bits(m) input)
 bits((n) * ((m) * (8))) vrev8(integer m, bits((n) * ((m) * (8))) input, integer n, integer h)
     bits((n) * ((m) * (8))) output = input;
     for i = 0 to n - (1)
-        output = plain_vector_update(output, i, rev8(plain_vector_access(input, i, n, (m) * (8))));
+        output = plain_vector_update(output, i, rev8(plain_vector_access(input, i, n, (m) * (8))), n, m * 8);
     return output;
 
 bits((8) * (m)) get_velem_oct_vec(integer n, bits((n) * (m)) v, integer i, integer h, integer m)
     return plain_vector_access(v, (8) * (i), n, m):plain_vector_access(v, (8) * (i) + 1, n, m):plain_vector_access(v, (8) * (i) + 2, n, m):plain_vector_access(v, (8) * (i) + 3, n, m):plain_vector_access(v, (8) * (i) + 4, n, m):plain_vector_access(v, (8) * (i) + 5, n, m):plain_vector_access(v, (8) * (i) + 6, n, m):plain_vector_access(v, (8) * (i) + 7, n, m);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Array Operations
+// - Array update is mutation for ASL, wrap in copies to get immutable Sail behaviour.
+// - Means update is no longer poly, but only one case of non-bitvector array elements.
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+type TLB_Entry;
+type option;
+
+array [0 .. N] of (option,TLB_Entry) plain_vector_update(array [0 .. N] of (option,TLB_Entry) vec, integer pos, (option,TLB_Entry) var, integer N)
+    vec[pos] = var;
+    return vec;
 

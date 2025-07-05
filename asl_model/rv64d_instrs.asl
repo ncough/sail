@@ -9,7 +9,7 @@ __instruction ADDIW_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -26,7 +26,7 @@ __instruction AES32DSI_0
         __opcode 'xx10101xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknd), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -44,7 +44,7 @@ __instruction AES32DSMI_0
         __opcode 'xx10111xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknd), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -62,7 +62,7 @@ __instruction AES32ESI_0
         __opcode 'xx10001xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zkne), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -80,7 +80,7 @@ __instruction AES32ESMI_0
         __opcode 'xx10011xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zkne), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -97,7 +97,7 @@ __instruction AES64DS_0
         __opcode '0011101xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknd), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -114,7 +114,7 @@ __instruction AES64DSM_0
         __opcode '0011111xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknd), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -131,7 +131,7 @@ __instruction AES64ES_0
         __opcode '0011001xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zkne), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -148,7 +148,7 @@ __instruction AES64ESM_0
         __opcode '0011011xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zkne), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -164,7 +164,7 @@ __instruction AES64IM_0
         __opcode '001100000000xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zknd), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -180,7 +180,7 @@ __instruction AES64KS1I_0
         __opcode '00110001xxxxxxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(or_bool(currentlyEnabled(Ext_Zkne), currentlyEnabled(Ext_Zknd)), and_bool(eq_int(xlen, 64), ult_bits(rnum, '1011'))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -196,7 +196,7 @@ __instruction AES64KS2_0
         __opcode '0111111xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(or_bool(currentlyEnabled(Ext_Zkne), currentlyEnabled(Ext_Zknd)), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -217,7 +217,7 @@ __instruction AMO_0
         __opcode 'xxxxxxxxxxxxxxxxx0xxxxxxx0101111'
         __guard and_bool(and_bool(encdec_amoop_backwards_matches(mapping0XH), and_bool(bool_bits_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), and_bool(encdec_reg_backwards_matches(mapping3XH), and_bool(encdec_reg_backwards_matches(mapping4XH), and_bool(size_enc_backwards_matches(mapping5XH), encdec_reg_backwards_matches(mapping6XH))))))), and_bool(currentlyEnabled(Ext_Zaamo), amo_width_valid(size_enc_backwards(mapping5XH))))
         __decode
-            return;
+
 
     __execute
         constant amoop op = encdec_amoop_backwards(mapping0XH);
@@ -237,7 +237,7 @@ __instruction BREV8_0
         __opcode '011010000111xxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zbkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -257,7 +257,7 @@ __instruction BTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxxxxxxxxxx1100011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_bop_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -274,7 +274,7 @@ __instruction CLMUL_0
         __opcode '0000101xxxxxxxxxx001xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), or_bool(currentlyEnabled(Ext_Zbc), currentlyEnabled(Ext_Zbkc)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -291,7 +291,7 @@ __instruction CLMULH_0
         __opcode '0000101xxxxxxxxxx011xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), or_bool(currentlyEnabled(Ext_Zbc), currentlyEnabled(Ext_Zbkc)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -308,7 +308,7 @@ __instruction CLMULR_0
         __opcode '0000101xxxxxxxxxx010xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbc))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -324,7 +324,7 @@ __instruction CLZ_0
         __opcode '011000000000xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -339,7 +339,7 @@ __instruction CLZW_0
         __opcode '011000000000xxxxx001xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbb), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -354,7 +354,7 @@ __instruction CPOP_0
         __opcode '011000000010xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -369,7 +369,7 @@ __instruction CPOPW_0
         __opcode '011000000010xxxxx001xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbb), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -386,7 +386,7 @@ __instruction CSRImm_0
         __opcode 'xxxxxxxxxxxxxxxxx1xxxxxxx1110011'
         __guard and_bool(and_bool(encdec_csrop_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zicsr))
         __decode
-            return;
+
 
     __execute
         constant csrop op = encdec_csrop_backwards(mapping0XH);
@@ -403,7 +403,7 @@ __instruction CSRReg_0
         __opcode 'xxxxxxxxxxxxxxxxx0xxxxxxx1110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_csrop_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zicsr))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -419,7 +419,7 @@ __instruction CTZ_0
         __opcode '011000000001xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -434,7 +434,7 @@ __instruction CTZW_0
         __opcode '011000000001xxxxx001xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbb), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -451,7 +451,7 @@ __instruction DIV_0
         __opcode '0000001xxxxxxxxxx10xxxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_M))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -470,7 +470,7 @@ __instruction DIVW_0
         __opcode '0000001xxxxxxxxxx10xxxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), and_bool(eq_int(xlen, 64), currentlyEnabled(Ext_M)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -485,7 +485,7 @@ __instruction EBREAK_0
         __opcode '00000000000100000000000001110011'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_EBREAK();
@@ -496,7 +496,7 @@ __instruction ECALL_0
         __opcode '00000000000000000000000001110011'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_ECALL();
@@ -509,7 +509,7 @@ __instruction FCVTMOD_W_D_0
         __opcode '110000101000xxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -524,7 +524,7 @@ __instruction FENCE_0
         __opcode '0000xxxxxxxx00000000000000001111'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_FENCE(pred, succ);
@@ -535,7 +535,7 @@ __instruction FENCEI_0
         __opcode '00000000000000000001000000001111'
         __guard currentlyEnabled(Ext_Zifencei)
         __decode
-            return;
+
 
     __execute
         - = execute_FENCEI();
@@ -549,7 +549,7 @@ __instruction FENCEI_RESERVED_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx0001111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), or_bool(neq_bits(imm, '000000000000'), or_bool(encdec_reg_backwards(mapping0XH) != zreg, encdec_reg_backwards(mapping1XH) != zreg)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs = encdec_reg_backwards(mapping0XH);
@@ -567,7 +567,7 @@ __instruction FENCE_RESERVED_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx0001111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), or_bool(and_bool(neq_bits(fm, '0000'), neq_bits(fm, '1000')), or_bool(encdec_reg_backwards(mapping0XH) != zreg, encdec_reg_backwards(mapping1XH) != zreg)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs = encdec_reg_backwards(mapping0XH);
@@ -580,7 +580,7 @@ __instruction FENCE_TSO_0
         __opcode '10000011001100000000000000001111'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_FENCE_TSO();
@@ -594,7 +594,7 @@ __instruction FLEQ_D_0
         __opcode '1010001xxxxxxxxxx100xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -611,7 +611,7 @@ __instruction FLEQ_H_0
         __opcode '1010010xxxxxxxxxx100xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zfh), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -628,7 +628,7 @@ __instruction FLEQ_S_0
         __opcode '1010000xxxxxxxxxx100xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zfa))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -644,7 +644,7 @@ __instruction FLI_D_0
         __opcode '111100100001xxxxx000xxxxx1010011'
         __guard and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rd = encdec_freg_backwards(mapping0XH);
@@ -658,7 +658,7 @@ __instruction FLI_H_0
         __opcode '111101000001xxxxx000xxxxx1010011'
         __guard and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(currentlyEnabled(Ext_Zfh), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rd = encdec_freg_backwards(mapping0XH);
@@ -672,7 +672,7 @@ __instruction FLI_S_0
         __opcode '111100000001xxxxx000xxxxx1010011'
         __guard and_bool(encdec_freg_backwards_matches(mapping0XH), currentlyEnabled(Ext_Zfa))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rd = encdec_freg_backwards(mapping0XH);
@@ -687,7 +687,7 @@ __instruction FLTQ_D_0
         __opcode '1010001xxxxxxxxxx101xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -704,7 +704,7 @@ __instruction FLTQ_H_0
         __opcode '1010010xxxxxxxxxx101xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zfh), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -721,7 +721,7 @@ __instruction FLTQ_S_0
         __opcode '1010000xxxxxxxxxx101xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zfa))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -738,7 +738,7 @@ __instruction FMAXM_D_0
         __opcode '0010101xxxxxxxxxx011xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -755,7 +755,7 @@ __instruction FMAXM_H_0
         __opcode '0010110xxxxxxxxxx011xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zfh), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -772,7 +772,7 @@ __instruction FMAXM_S_0
         __opcode '0010100xxxxxxxxxx011xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zfa))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -789,7 +789,7 @@ __instruction FMINM_D_0
         __opcode '0010101xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -806,7 +806,7 @@ __instruction FMINM_H_0
         __opcode '0010110xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zfh), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -823,7 +823,7 @@ __instruction FMINM_S_0
         __opcode '0010100xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zfa))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -839,7 +839,7 @@ __instruction FMVH_X_D_0
         __opcode '111000100001xxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_D), and_bool(currentlyEnabled(Ext_Zfa), in32BitMode())))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -855,7 +855,7 @@ __instruction FMVP_D_X_0
         __opcode '1011001xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_D), and_bool(currentlyEnabled(Ext_Zfa), in32BitMode())))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -872,7 +872,7 @@ __instruction FROUNDNX_D_0
         __opcode '010000100101xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -889,7 +889,7 @@ __instruction FROUNDNX_H_0
         __opcode '010001000101xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zfh), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -906,7 +906,7 @@ __instruction FROUNDNX_S_0
         __opcode '010000000101xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zfa))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -923,7 +923,7 @@ __instruction FROUND_D_0
         __opcode '010000100100xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_D), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -940,7 +940,7 @@ __instruction FROUND_H_0
         __opcode '010001000100xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zfh), currentlyEnabled(Ext_Zfa)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -957,7 +957,7 @@ __instruction FROUND_S_0
         __opcode '010000000100xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zfa))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -976,7 +976,7 @@ __instruction FVFMATYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_fvfmafunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fvfmafunct6 funct6 = encdec_fvfmafunct6_backwards(mapping0XH);
@@ -996,7 +996,7 @@ __instruction FVFMTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_fvfmfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fvfmfunct6 funct6 = encdec_fvfmfunct6_backwards(mapping0XH);
@@ -1016,7 +1016,7 @@ __instruction FVFTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_fvffunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fvffunct6 funct6 = encdec_fvffunct6_backwards(mapping0XH);
@@ -1036,7 +1036,7 @@ __instruction FVVMATYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_fvvmafunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fvvmafunct6 funct6 = encdec_fvvmafunct6_backwards(mapping0XH);
@@ -1056,7 +1056,7 @@ __instruction FVVMTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_fvvmfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fvvmfunct6 funct6 = encdec_fvvmfunct6_backwards(mapping0XH);
@@ -1076,7 +1076,7 @@ __instruction FVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_fvvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fvvfunct6 funct6 = encdec_fvvfunct6_backwards(mapping0XH);
@@ -1096,7 +1096,7 @@ __instruction FWFTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_fwffunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fwffunct6 funct6 = encdec_fwffunct6_backwards(mapping0XH);
@@ -1116,7 +1116,7 @@ __instruction FWVFMATYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_fwvfmafunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fwvfmafunct6 funct6 = encdec_fwvfmafunct6_backwards(mapping0XH);
@@ -1136,7 +1136,7 @@ __instruction FWVFTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_fwvffunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fwvffunct6 funct6 = encdec_fwvffunct6_backwards(mapping0XH);
@@ -1156,7 +1156,7 @@ __instruction FWVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_fwvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fwvfunct6 funct6 = encdec_fwvfunct6_backwards(mapping0XH);
@@ -1176,7 +1176,7 @@ __instruction FWVVMATYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_fwvvmafunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fwvvmafunct6 funct6 = encdec_fwvvmafunct6_backwards(mapping0XH);
@@ -1196,7 +1196,7 @@ __instruction FWVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_fwvvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant fwvvfunct6 funct6 = encdec_fwvvfunct6_backwards(mapping0XH);
@@ -1214,7 +1214,7 @@ __instruction F_BIN_F_TYPE_D_0
         __opcode '0010101xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1231,7 +1231,7 @@ __instruction F_BIN_F_TYPE_D_1
         __opcode '0010101xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1248,7 +1248,7 @@ __instruction F_BIN_F_TYPE_D_2
         __opcode '0010001xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1265,7 +1265,7 @@ __instruction F_BIN_F_TYPE_D_3
         __opcode '0010001xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1282,7 +1282,7 @@ __instruction F_BIN_F_TYPE_D_4
         __opcode '0010001xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1299,7 +1299,7 @@ __instruction F_BIN_F_TYPE_H_0
         __opcode '0010110xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1316,7 +1316,7 @@ __instruction F_BIN_F_TYPE_H_1
         __opcode '0010110xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1333,7 +1333,7 @@ __instruction F_BIN_F_TYPE_H_2
         __opcode '0010010xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1350,7 +1350,7 @@ __instruction F_BIN_F_TYPE_H_3
         __opcode '0010010xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1367,7 +1367,7 @@ __instruction F_BIN_F_TYPE_H_4
         __opcode '0010010xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1385,7 +1385,7 @@ __instruction F_BIN_RM_TYPE_D_0
         __opcode '0001101xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping3XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1404,7 +1404,7 @@ __instruction F_BIN_RM_TYPE_D_1
         __opcode '0001001xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping3XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1423,7 +1423,7 @@ __instruction F_BIN_RM_TYPE_D_2
         __opcode '0000101xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping3XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1442,7 +1442,7 @@ __instruction F_BIN_RM_TYPE_D_3
         __opcode '0000001xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), and_bool(haveDoubleFPU(), validDoubleRegs(3, encdec_freg_backwards(mapping3XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1461,7 +1461,7 @@ __instruction F_BIN_RM_TYPE_H_0
         __opcode '0001110xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1480,7 +1480,7 @@ __instruction F_BIN_RM_TYPE_H_1
         __opcode '0001010xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1499,7 +1499,7 @@ __instruction F_BIN_RM_TYPE_H_2
         __opcode '0000110xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1518,7 +1518,7 @@ __instruction F_BIN_RM_TYPE_H_3
         __opcode '0000010xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1537,7 +1537,7 @@ __instruction F_BIN_RM_TYPE_S_0
         __opcode '0001100xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1556,7 +1556,7 @@ __instruction F_BIN_RM_TYPE_S_1
         __opcode '0001000xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1575,7 +1575,7 @@ __instruction F_BIN_RM_TYPE_S_2
         __opcode '0000100xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1594,7 +1594,7 @@ __instruction F_BIN_RM_TYPE_S_3
         __opcode '0000000xxxxxxxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_rounding_mode_backwards_matches(mapping2XH), encdec_freg_backwards_matches(mapping3XH)))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1612,7 +1612,7 @@ __instruction F_BIN_TYPE_F_S_0
         __opcode '0010100xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1629,7 +1629,7 @@ __instruction F_BIN_TYPE_F_S_1
         __opcode '0010100xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1646,7 +1646,7 @@ __instruction F_BIN_TYPE_F_S_2
         __opcode '0010000xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1663,7 +1663,7 @@ __instruction F_BIN_TYPE_F_S_3
         __opcode '0010000xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1680,7 +1680,7 @@ __instruction F_BIN_TYPE_F_S_4
         __opcode '0010000xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1697,7 +1697,7 @@ __instruction F_BIN_TYPE_X_S_0
         __opcode '1010000xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1714,7 +1714,7 @@ __instruction F_BIN_TYPE_X_S_1
         __opcode '1010000xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1731,7 +1731,7 @@ __instruction F_BIN_TYPE_X_S_2
         __opcode '1010000xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1748,7 +1748,7 @@ __instruction F_BIN_X_TYPE_D_0
         __opcode '1010001xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(2, encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1765,7 +1765,7 @@ __instruction F_BIN_X_TYPE_D_1
         __opcode '1010001xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(2, encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1782,7 +1782,7 @@ __instruction F_BIN_X_TYPE_D_2
         __opcode '1010001xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(2, encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1799,7 +1799,7 @@ __instruction F_BIN_X_TYPE_H_0
         __opcode '1010010xxxxxxxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1816,7 +1816,7 @@ __instruction F_BIN_X_TYPE_H_1
         __opcode '1010010xxxxxxxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1833,7 +1833,7 @@ __instruction F_BIN_X_TYPE_H_2
         __opcode '1010010xxxxxxxxxx010xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -1852,7 +1852,7 @@ __instruction F_MADD_TYPE_D_0
         __opcode 'xxxxx01xxxxxxxxxxxxxxxxxx1001111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), and_bool(haveDoubleFPU(), validDoubleRegs(4, encdec_freg_backwards(mapping4XH):encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -1873,7 +1873,7 @@ __instruction F_MADD_TYPE_D_1
         __opcode 'xxxxx01xxxxxxxxxxxxxxxxxx1001011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), and_bool(haveDoubleFPU(), validDoubleRegs(4, encdec_freg_backwards(mapping4XH):encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -1894,7 +1894,7 @@ __instruction F_MADD_TYPE_D_2
         __opcode 'xxxxx01xxxxxxxxxxxxxxxxxx1000111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), and_bool(haveDoubleFPU(), validDoubleRegs(4, encdec_freg_backwards(mapping4XH):encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -1915,7 +1915,7 @@ __instruction F_MADD_TYPE_D_3
         __opcode 'xxxxx01xxxxxxxxxxxxxxxxxx1000011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), and_bool(haveDoubleFPU(), validDoubleRegs(4, encdec_freg_backwards(mapping4XH):encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping1XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -1936,7 +1936,7 @@ __instruction F_MADD_TYPE_H_0
         __opcode 'xxxxx10xxxxxxxxxxxxxxxxxx1001111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -1957,7 +1957,7 @@ __instruction F_MADD_TYPE_H_1
         __opcode 'xxxxx10xxxxxxxxxxxxxxxxxx1001011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -1978,7 +1978,7 @@ __instruction F_MADD_TYPE_H_2
         __opcode 'xxxxx10xxxxxxxxxxxxxxxxxx1000111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -1999,7 +1999,7 @@ __instruction F_MADD_TYPE_H_3
         __opcode 'xxxxx10xxxxxxxxxxxxxxxxxx1000011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -2020,7 +2020,7 @@ __instruction F_MADD_TYPE_S_0
         __opcode 'xxxxx00xxxxxxxxxxxxxxxxxx1001111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -2041,7 +2041,7 @@ __instruction F_MADD_TYPE_S_1
         __opcode 'xxxxx00xxxxxxxxxxxxxxxxxx1001011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -2062,7 +2062,7 @@ __instruction F_MADD_TYPE_S_2
         __opcode 'xxxxx00xxxxxxxxxxxxxxxxxx1000111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -2083,7 +2083,7 @@ __instruction F_MADD_TYPE_S_3
         __opcode 'xxxxx00xxxxxxxxxxxxxxxxxx1000011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), and_bool(encdec_freg_backwards_matches(mapping2XH), and_bool(encdec_rounding_mode_backwards_matches(mapping3XH), encdec_freg_backwards_matches(mapping4XH))))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs3 = encdec_freg_backwards(mapping0XH);
@@ -2101,7 +2101,7 @@ __instruction F_UN_F_TYPE_D_0
         __opcode '111100100000xxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_freg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_D), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2116,7 +2116,7 @@ __instruction F_UN_F_TYPE_H_0
         __opcode '111101000000xxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_freg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zfhmin))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2132,7 +2132,7 @@ __instruction F_UN_RM_FF_TYPE_D_0
         __opcode '010000100000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping2XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2149,7 +2149,7 @@ __instruction F_UN_RM_FF_TYPE_D_1
         __opcode '010000000001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2166,7 +2166,7 @@ __instruction F_UN_RM_FF_TYPE_D_2
         __opcode '010110100000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(2, encdec_freg_backwards(mapping2XH):encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2183,7 +2183,7 @@ __instruction F_UN_RM_FF_TYPE_H_0
         __opcode '010000100010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveHalfMin(), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping2XH)))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2200,7 +2200,7 @@ __instruction F_UN_RM_FF_TYPE_H_1
         __opcode '010000000010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfMin())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2217,7 +2217,7 @@ __instruction F_UN_RM_FF_TYPE_H_2
         __opcode '010001000001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveHalfMin(), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping0XH)))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2234,7 +2234,7 @@ __instruction F_UN_RM_FF_TYPE_H_3
         __opcode '010001000000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfMin())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2251,7 +2251,7 @@ __instruction F_UN_RM_FF_TYPE_H_4
         __opcode '010111000000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2268,7 +2268,7 @@ __instruction F_UN_RM_FF_TYPE_S_0
         __opcode '010110000000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2285,7 +2285,7 @@ __instruction F_UN_RM_FX_TYPE_D_0
         __opcode '110000100011xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2302,7 +2302,7 @@ __instruction F_UN_RM_FX_TYPE_D_1
         __opcode '110000100010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2319,7 +2319,7 @@ __instruction F_UN_RM_FX_TYPE_D_2
         __opcode '110000100001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2336,7 +2336,7 @@ __instruction F_UN_RM_FX_TYPE_D_3
         __opcode '110000100000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2353,7 +2353,7 @@ __instruction F_UN_RM_FX_TYPE_H_0
         __opcode '110001000011xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveHalfFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2370,7 +2370,7 @@ __instruction F_UN_RM_FX_TYPE_H_1
         __opcode '110001000010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveHalfFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2387,7 +2387,7 @@ __instruction F_UN_RM_FX_TYPE_H_2
         __opcode '110001000001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2404,7 +2404,7 @@ __instruction F_UN_RM_FX_TYPE_H_3
         __opcode '110001000000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2421,7 +2421,7 @@ __instruction F_UN_RM_FX_TYPE_S_0
         __opcode '110000000011xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveSingleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2438,7 +2438,7 @@ __instruction F_UN_RM_FX_TYPE_S_1
         __opcode '110000000010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(haveSingleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2455,7 +2455,7 @@ __instruction F_UN_RM_FX_TYPE_S_2
         __opcode '110000000001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2472,7 +2472,7 @@ __instruction F_UN_RM_FX_TYPE_S_3
         __opcode '110000000000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2489,7 +2489,7 @@ __instruction F_UN_RM_XF_TYPE_D_0
         __opcode '110100100011xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2506,7 +2506,7 @@ __instruction F_UN_RM_XF_TYPE_D_1
         __opcode '110100100010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2523,7 +2523,7 @@ __instruction F_UN_RM_XF_TYPE_D_2
         __opcode '110100100001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping2XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2540,7 +2540,7 @@ __instruction F_UN_RM_XF_TYPE_D_3
         __opcode '110100100000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping2XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2557,7 +2557,7 @@ __instruction F_UN_RM_XF_TYPE_H_0
         __opcode '110101000011xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveHalfFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2574,7 +2574,7 @@ __instruction F_UN_RM_XF_TYPE_H_1
         __opcode '110101000010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveHalfFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2591,7 +2591,7 @@ __instruction F_UN_RM_XF_TYPE_H_2
         __opcode '110101000001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2608,7 +2608,7 @@ __instruction F_UN_RM_XF_TYPE_H_3
         __opcode '110101000000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2625,7 +2625,7 @@ __instruction F_UN_RM_XF_TYPE_S_0
         __opcode '110100000011xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveSingleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2642,7 +2642,7 @@ __instruction F_UN_RM_XF_TYPE_S_1
         __opcode '110100000010xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), and_bool(haveSingleFPU(), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2659,7 +2659,7 @@ __instruction F_UN_RM_XF_TYPE_S_2
         __opcode '110100000001xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2676,7 +2676,7 @@ __instruction F_UN_RM_XF_TYPE_S_3
         __opcode '110100000000xxxxxxxxxxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_rounding_mode_backwards_matches(mapping1XH), encdec_freg_backwards_matches(mapping2XH))), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2692,7 +2692,7 @@ __instruction F_UN_TYPE_F_S_0
         __opcode '111100000000xxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_freg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_F))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2707,7 +2707,7 @@ __instruction F_UN_TYPE_X_S_0
         __opcode '111000000000xxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_F))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2722,7 +2722,7 @@ __instruction F_UN_TYPE_X_S_1
         __opcode '111000000000xxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), haveSingleFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2737,7 +2737,7 @@ __instruction F_UN_X_TYPE_D_0
         __opcode '111000100000xxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_D), gteq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2752,7 +2752,7 @@ __instruction F_UN_X_TYPE_D_1
         __opcode '111000100000xxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(haveDoubleFPU(), validDoubleRegs(1, encdec_freg_backwards(mapping0XH))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2767,7 +2767,7 @@ __instruction F_UN_X_TYPE_H_0
         __opcode '111001000000xxxxx000xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zfhmin))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2782,7 +2782,7 @@ __instruction F_UN_X_TYPE_H_1
         __opcode '111001000000xxxxx001xxxxx1010011'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), haveHalfFPU())
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -2796,7 +2796,7 @@ __instruction ILLEGAL_0
         __opcode 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_ILLEGAL(s);
@@ -2811,7 +2811,7 @@ __instruction ITYPE_0
         __opcode 'xxxxxxxxxxxxxxxxxxxxxxxxx0010011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_iop_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2831,7 +2831,7 @@ __instruction JAL_0
         __opcode 'xxxxxxxxxxxxxxxxxxxxxxxxx1101111'
         __guard encdec_reg_backwards_matches(mapping0XH)
         __decode
-            return;
+
 
     __execute
         constant bits(5) rd = encdec_reg_backwards(mapping0XH);
@@ -2846,7 +2846,7 @@ __instruction JALR_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx1100111'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2864,7 +2864,7 @@ __instruction LOAD_0
         __opcode 'xxxxxxxxxxxxxxxxxxxxxxxxx0000011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(bool_bits_backwards_matches(mapping1XH), and_bool(size_enc_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), valid_load_encdec(size_enc_backwards(mapping2XH), bool_bits_backwards(mapping1XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2884,7 +2884,7 @@ __instruction LOADRES_0
         __opcode '00010xx00000xxxxx0xxxxxxx0101111'
         __guard and_bool(and_bool(bool_bits_backwards_matches(mapping0XH), and_bool(bool_bits_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), and_bool(size_enc_backwards_matches(mapping3XH), encdec_reg_backwards_matches(mapping4XH))))), and_bool(currentlyEnabled(Ext_Zalrsc), lrsc_width_valid(size_enc_backwards(mapping3XH))))
         __decode
-            return;
+
 
     __execute
         constant boolean aq = bool_bits_backwards(mapping0XH);
@@ -2903,7 +2903,7 @@ __instruction LOAD_FP_0
         __opcode 'xxxxxxxxxxxxxxxxx011xxxxx0000111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_freg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_D))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2919,7 +2919,7 @@ __instruction LOAD_FP_1
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx0000111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_freg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_F))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2935,7 +2935,7 @@ __instruction LOAD_FP_2
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx0000111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_freg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zfhmin))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -2951,7 +2951,7 @@ __instruction MASKTYPEI_0
         __opcode '0101110xxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -2967,7 +2967,7 @@ __instruction MASKTYPEV_0
         __opcode '0101110xxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -2984,7 +2984,7 @@ __instruction MASKTYPEX_0
         __opcode '0101110xxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -3002,7 +3002,7 @@ __instruction MMTYPE_0
         __opcode 'xxxxxx1xxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_mmfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant mmfunct6 funct6 = encdec_mmfunct6_backwards(mapping0XH);
@@ -3019,7 +3019,7 @@ __instruction MOVETYPEI_0
         __opcode '010111100000xxxxx011xxxxx1010111'
         __guard and_bool(encdec_vreg_backwards_matches(mapping0XH), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vd = encdec_vreg_backwards(mapping0XH);
@@ -3033,7 +3033,7 @@ __instruction MOVETYPEV_0
         __opcode '010111100000xxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs1 = encdec_vreg_backwards(mapping0XH);
@@ -3048,7 +3048,7 @@ __instruction MOVETYPEX_0
         __opcode '010111100000xxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3061,7 +3061,7 @@ __instruction MRET_0
         __opcode '00110000001000000000000001110011'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_MRET();
@@ -3076,7 +3076,7 @@ __instruction MUL_0
         __opcode '0000001xxxxxxxxxxxxxxxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(encdec_mul_op_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), or_bool(currentlyEnabled(Ext_M), currentlyEnabled(Ext_Zmmul)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3094,7 +3094,7 @@ __instruction MULW_0
         __opcode '0000001xxxxxxxxxx000xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(eq_int(xlen, 64), or_bool(currentlyEnabled(Ext_M), currentlyEnabled(Ext_Zmmul))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3111,7 +3111,7 @@ __instruction MVVCOMPRESS_0
         __opcode '0101111xxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -3130,7 +3130,7 @@ __instruction MVVMATYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_mvvmafunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant mvvmafunct6 funct6 = encdec_mvvmafunct6_backwards(mapping0XH);
@@ -3150,7 +3150,7 @@ __instruction MVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_mvvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant mvvfunct6 funct6 = encdec_mvvfunct6_backwards(mapping0XH);
@@ -3170,7 +3170,7 @@ __instruction MVXMATYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_mvxmafunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant mvxmafunct6 funct6 = encdec_mvxmafunct6_backwards(mapping0XH);
@@ -3190,7 +3190,7 @@ __instruction MVXTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_mvxfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant mvxfunct6 funct6 = encdec_mvxfunct6_backwards(mapping0XH);
@@ -3210,7 +3210,7 @@ __instruction NISTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_nisfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant nisfunct6 funct6 = encdec_nisfunct6_backwards(mapping0XH);
@@ -3229,7 +3229,7 @@ __instruction NITYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_nifunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant nifunct6 funct6 = encdec_nifunct6_backwards(mapping0XH);
@@ -3248,7 +3248,7 @@ __instruction NVSTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_nvsfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant nvsfunct6 funct6 = encdec_nvsfunct6_backwards(mapping0XH);
@@ -3268,7 +3268,7 @@ __instruction NVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_nvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant nvfunct6 funct6 = encdec_nvfunct6_backwards(mapping0XH);
@@ -3288,7 +3288,7 @@ __instruction NXSTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_nxsfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant nxsfunct6 funct6 = encdec_nxsfunct6_backwards(mapping0XH);
@@ -3308,7 +3308,7 @@ __instruction NXTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_nxfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant nxfunct6 funct6 = encdec_nxfunct6_backwards(mapping0XH);
@@ -3325,7 +3325,7 @@ __instruction ORCB_0
         __opcode '001010000111xxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3342,7 +3342,7 @@ __instruction REM_0
         __opcode '0000001xxxxxxxxxx11xxxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_M))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3361,7 +3361,7 @@ __instruction REMW_0
         __opcode '0000001xxxxxxxxxx11xxxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(bool_bits_backwards_matches(mapping2XH), encdec_reg_backwards_matches(mapping3XH)))), and_bool(eq_int(xlen, 64), currentlyEnabled(Ext_M)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3378,7 +3378,7 @@ __instruction REV8_0
         __opcode '011010111000xxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3393,7 +3393,7 @@ __instruction REV8_1
         __opcode '011010011000xxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3411,7 +3411,7 @@ __instruction RFVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_rfvvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant rfvvfunct6 funct6 = encdec_rfvvfunct6_backwards(mapping0XH);
@@ -3431,7 +3431,7 @@ __instruction RIVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_rivvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant rivvfunct6 funct6 = encdec_rivvfunct6_backwards(mapping0XH);
@@ -3451,7 +3451,7 @@ __instruction RMVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_rmvvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant rmvvfunct6 funct6 = encdec_rmvvfunct6_backwards(mapping0XH);
@@ -3469,7 +3469,7 @@ __instruction RORI_0
         __opcode '011000xxxxxxxxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0'))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3485,7 +3485,7 @@ __instruction RORIW_0
         __opcode '0110000xxxxxxxxxx101xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3501,7 +3501,7 @@ __instruction RTYPE_0
         __opcode '0100000xxxxxxxxxx101xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3518,7 +3518,7 @@ __instruction RTYPE_1
         __opcode '0100000xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3535,7 +3535,7 @@ __instruction RTYPE_2
         __opcode '0000000xxxxxxxxxx101xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3552,7 +3552,7 @@ __instruction RTYPE_3
         __opcode '0000000xxxxxxxxxx001xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3569,7 +3569,7 @@ __instruction RTYPE_4
         __opcode '0000000xxxxxxxxxx100xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3586,7 +3586,7 @@ __instruction RTYPE_5
         __opcode '0000000xxxxxxxxxx110xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3603,7 +3603,7 @@ __instruction RTYPE_6
         __opcode '0000000xxxxxxxxxx111xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3620,7 +3620,7 @@ __instruction RTYPE_7
         __opcode '0000000xxxxxxxxxx011xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3637,7 +3637,7 @@ __instruction RTYPE_8
         __opcode '0000000xxxxxxxxxx010xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3654,7 +3654,7 @@ __instruction RTYPE_9
         __opcode '0000000xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3671,7 +3671,7 @@ __instruction RTYPEW_0
         __opcode '0100000xxxxxxxxxx101xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3688,7 +3688,7 @@ __instruction RTYPEW_1
         __opcode '0000000xxxxxxxxxx101xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3705,7 +3705,7 @@ __instruction RTYPEW_2
         __opcode '0000000xxxxxxxxxx001xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3722,7 +3722,7 @@ __instruction RTYPEW_3
         __opcode '0100000xxxxxxxxxx000xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3739,7 +3739,7 @@ __instruction RTYPEW_4
         __opcode '0000000xxxxxxxxxx000xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3753,7 +3753,7 @@ __instruction SFENCE_INVAL_IR_0
         __opcode '00011000000100000000000001110011'
         __guard currentlyEnabled(Ext_Svinval)
         __decode
-            return;
+
 
     __execute
         - = execute_SFENCE_INVAL_IR();
@@ -3766,7 +3766,7 @@ __instruction SFENCE_VMA_0
         __opcode '0001001xxxxxxxxxx000000001110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), or_bool(virtual_memory_supported(), not(TRUE)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3779,7 +3779,7 @@ __instruction SFENCE_W_INVAL_0
         __opcode '00011000000000000000000001110011'
         __guard currentlyEnabled(Ext_Svinval)
         __decode
-            return;
+
 
     __execute
         - = execute_SFENCE_W_INVAL();
@@ -3792,7 +3792,7 @@ __instruction SHA256SIG0_0
         __opcode '000100000010xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zknh))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3807,7 +3807,7 @@ __instruction SHA256SIG1_0
         __opcode '000100000011xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zknh))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3822,7 +3822,7 @@ __instruction SHA256SUM0_0
         __opcode '000100000000xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zknh))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3837,7 +3837,7 @@ __instruction SHA256SUM1_0
         __opcode '000100000001xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zknh))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3852,7 +3852,7 @@ __instruction SHA512SIG0_0
         __opcode '000100000110xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3868,7 +3868,7 @@ __instruction SHA512SIG0H_0
         __opcode '0101110xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3885,7 +3885,7 @@ __instruction SHA512SIG0L_0
         __opcode '0101010xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3901,7 +3901,7 @@ __instruction SHA512SIG1_0
         __opcode '000100000111xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3917,7 +3917,7 @@ __instruction SHA512SIG1H_0
         __opcode '0101111xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3934,7 +3934,7 @@ __instruction SHA512SIG1L_0
         __opcode '0101011xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3950,7 +3950,7 @@ __instruction SHA512SUM0_0
         __opcode '000100000100xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3966,7 +3966,7 @@ __instruction SHA512SUM0R_0
         __opcode '0101000xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -3982,7 +3982,7 @@ __instruction SHA512SUM1_0
         __opcode '000100000101xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -3998,7 +3998,7 @@ __instruction SHA512SUM1R_0
         __opcode '0101001xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zknh), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -4015,7 +4015,7 @@ __instruction SHIFTIOP_0
         __opcode '010000xxxxxxxxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0')))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4031,7 +4031,7 @@ __instruction SHIFTIOP_1
         __opcode '000000xxxxxxxxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0')))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4047,7 +4047,7 @@ __instruction SHIFTIOP_2
         __opcode '000000xxxxxxxxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0')))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4063,7 +4063,7 @@ __instruction SHIFTIWOP_0
         __opcode '0100000xxxxxxxxxx101xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4079,7 +4079,7 @@ __instruction SHIFTIWOP_1
         __opcode '0000000xxxxxxxxxx101xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4095,7 +4095,7 @@ __instruction SHIFTIWOP_2
         __opcode '0000000xxxxxxxxxx001xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), eq_int(xlen, 64))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4110,7 +4110,7 @@ __instruction SINVAL_VMA_0
         __opcode '0001011xxxxxxxxxx000000001110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Svinval))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -4126,7 +4126,7 @@ __instruction SLLIUW_0
         __opcode '000010xxxxxxxxxxx001xxxxx0011011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zba), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4141,7 +4141,7 @@ __instruction SM3P0_0
         __opcode '000100001000xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zksh))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4156,7 +4156,7 @@ __instruction SM3P1_0
         __opcode '000100001001xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zksh))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4173,7 +4173,7 @@ __instruction SM4ED_0
         __opcode 'xx11000xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zksed))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -4191,7 +4191,7 @@ __instruction SM4KS_0
         __opcode 'xx11010xxxxxxxxxx000xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zksed))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -4205,7 +4205,7 @@ __instruction SRET_0
         __opcode '00010000001000000000000001110011'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_SRET();
@@ -4221,7 +4221,7 @@ __instruction STORE_0
         __opcode 'xxxxxxxxxxxxxxxxx0xxxxxxx0100011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), size_enc_backwards_matches(mapping2XH))), lteq_int(size_bytes_forwards(size_enc_backwards(mapping2XH)), xlen_bytes))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -4241,7 +4241,7 @@ __instruction STORECON_0
         __opcode '00011xxxxxxxxxxxx0xxxxxxx0101111'
         __guard and_bool(and_bool(bool_bits_backwards_matches(mapping0XH), and_bool(bool_bits_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), and_bool(encdec_reg_backwards_matches(mapping3XH), and_bool(size_enc_backwards_matches(mapping4XH), encdec_reg_backwards_matches(mapping5XH)))))), and_bool(currentlyEnabled(Ext_Zalrsc), lrsc_width_valid(size_enc_backwards(mapping4XH))))
         __decode
-            return;
+
 
     __execute
         constant boolean aq = bool_bits_backwards(mapping0XH);
@@ -4262,7 +4262,7 @@ __instruction STORE_FP_0
         __opcode 'xxxxxxxxxxxxxxxxx011xxxxx0100111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_D))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -4279,7 +4279,7 @@ __instruction STORE_FP_1
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx0100111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_F))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -4296,7 +4296,7 @@ __instruction STORE_FP_2
         __opcode 'xxxxxxxxxxxxxxxxx001xxxxx0100111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zfhmin))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(mapping0XH);
@@ -4311,7 +4311,7 @@ __instruction UNZIP_0
         __opcode '000010001111xxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbkb), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -4327,7 +4327,7 @@ __instruction UTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_uop_backwards_matches(mapping1XH))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rd = encdec_reg_backwards(mapping0XH);
@@ -4343,7 +4343,7 @@ __instruction VAESDF_0
         __opcode 'xxxxxx1xxxxx00001010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vaesdf_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvkned), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(128, 4), or_bool(encdec_vaesdf_backwards(mapping0XH) == ZVK_VAESDF_VV, zvk_valid_reg_overlap(encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), get_lmul_pow()))))))
         __decode
-            return;
+
 
     __execute
         constant zvk_vaesdf_funct6 funct6 = encdec_vaesdf_backwards(mapping0XH);
@@ -4360,7 +4360,7 @@ __instruction VAESDM_0
         __opcode 'xxxxxx1xxxxx00000010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vaesdm_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvkned), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(128, 4), or_bool(encdec_vaesdm_backwards(mapping0XH) == ZVK_VAESDM_VV, zvk_valid_reg_overlap(encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), get_lmul_pow()))))))
         __decode
-            return;
+
 
     __execute
         constant zvk_vaesdm_funct6 funct6 = encdec_vaesdm_backwards(mapping0XH);
@@ -4377,7 +4377,7 @@ __instruction VAESEF_0
         __opcode 'xxxxxx1xxxxx00011010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vaesef_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvkned), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(128, 4), or_bool(encdec_vaesef_backwards(mapping0XH) == ZVK_VAESEF_VV, zvk_valid_reg_overlap(encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), get_lmul_pow()))))))
         __decode
-            return;
+
 
     __execute
         constant zvk_vaesef_funct6 funct6 = encdec_vaesef_backwards(mapping0XH);
@@ -4394,7 +4394,7 @@ __instruction VAESEM_0
         __opcode 'xxxxxx1xxxxx00010010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vaesem_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvkned), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(128, 4), or_bool(encdec_vaesem_backwards(mapping0XH) == ZVK_VAESEM_VV, zvk_valid_reg_overlap(encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), get_lmul_pow()))))))
         __decode
-            return;
+
 
     __execute
         constant zvk_vaesem_funct6 funct6 = encdec_vaesem_backwards(mapping0XH);
@@ -4411,7 +4411,7 @@ __instruction VAESKF1_VI_0
         __opcode '1000101xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvkned), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4427,7 +4427,7 @@ __instruction VAESKF2_VI_0
         __opcode '1010101xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvkned), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4442,7 +4442,7 @@ __instruction VAESZ_VS_0
         __opcode '1010011xxxxx00111010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvkned), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(128, 4), zvk_valid_reg_overlap(encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), get_lmul_pow())))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4459,7 +4459,7 @@ __instruction VANDN_VV_0
         __opcode '000001xxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4477,7 +4477,7 @@ __instruction VANDN_VX_0
         __opcode '000001xxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4494,7 +4494,7 @@ __instruction VBREV8_V_0
         __opcode '010010xxxxxx01000010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4510,7 +4510,7 @@ __instruction VBREV_V_0
         __opcode '010010xxxxxx01010010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4527,7 +4527,7 @@ __instruction VCLMULH_VV_0
         __opcode '001101xxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvbc), eq_int(get_sew(), 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4545,7 +4545,7 @@ __instruction VCLMULH_VX_0
         __opcode '001101xxxxxxxxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvbc), eq_int(get_sew(), 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4563,7 +4563,7 @@ __instruction VCLMUL_VV_0
         __opcode '001100xxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvbc), eq_int(get_sew(), 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4581,7 +4581,7 @@ __instruction VCLMUL_VX_0
         __opcode '001100xxxxxxxxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvbc), eq_int(get_sew(), 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4598,7 +4598,7 @@ __instruction VCLZ_V_0
         __opcode '010010xxxxxx01100010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4614,7 +4614,7 @@ __instruction VCPOP_M_0
         __opcode '010000xxxxxx10000010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4630,7 +4630,7 @@ __instruction VCPOP_V_0
         __opcode '010010xxxxxx01110010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4646,7 +4646,7 @@ __instruction VCTZ_V_0
         __opcode '010010xxxxxx01101010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4663,7 +4663,7 @@ __instruction VEXT2TYPE_0
         __opcode '010010xxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(vext2_vs1_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4681,7 +4681,7 @@ __instruction VEXT4TYPE_0
         __opcode '010010xxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(vext4_vs1_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4699,7 +4699,7 @@ __instruction VEXT8TYPE_0
         __opcode '010010xxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(vext8_vs1_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4716,7 +4716,7 @@ __instruction VFIRST_M_0
         __opcode '010000xxxxxx10001010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4732,7 +4732,7 @@ __instruction VFMERGE_0
         __opcode '0101110xxxxxxxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_freg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4748,7 +4748,7 @@ __instruction VFMV_0
         __opcode '010111100000xxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -4763,7 +4763,7 @@ __instruction VFMVFS_0
         __opcode '0100001xxxxx00000001xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_freg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4778,7 +4778,7 @@ __instruction VFMVSF_0
         __opcode '010000100000xxxxx101xxxxx1010111'
         __guard and_bool(and_bool(encdec_freg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(mapping0XH);
@@ -4795,7 +4795,7 @@ __instruction VFNUNARY0_0
         __opcode '010010xxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vfnunary0_vs1_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4813,7 +4813,7 @@ __instruction VFUNARY0_0
         __opcode '010010xxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vfunary0_vs1_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4831,7 +4831,7 @@ __instruction VFUNARY1_0
         __opcode '010011xxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vfunary1_vs1_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4849,7 +4849,7 @@ __instruction VFWUNARY0_0
         __opcode '010010xxxxxxxxxxx001xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vfwunary0_vs1_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4866,7 +4866,7 @@ __instruction VGHSH_VV_0
         __opcode '1011001xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvkg), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4882,7 +4882,7 @@ __instruction VGMUL_VV_0
         __opcode '1010001xxxxx10001010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvkg), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -4900,7 +4900,7 @@ __instruction VICMPTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vicmpfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vicmpfunct6 funct6 = encdec_vicmpfunct6_backwards(mapping0XH);
@@ -4916,7 +4916,7 @@ __instruction VID_V_0
         __opcode '010100x0000010001010xxxxx1010111'
         __guard and_bool(encdec_vreg_backwards_matches(mapping0XH), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vd = encdec_vreg_backwards(mapping0XH);
@@ -4932,7 +4932,7 @@ __instruction VIMCTYPE_0
         __opcode 'xxxxxx1xxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vimcfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vimcfunct6 funct6 = encdec_vimcfunct6_backwards(mapping0XH);
@@ -4950,7 +4950,7 @@ __instruction VIMSTYPE_0
         __opcode 'xxxxxx0xxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vimsfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vimsfunct6 funct6 = encdec_vimsfunct6_backwards(mapping0XH);
@@ -4968,7 +4968,7 @@ __instruction VIMTYPE_0
         __opcode 'xxxxxx0xxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vimfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vimfunct6 funct6 = encdec_vimfunct6_backwards(mapping0XH);
@@ -4985,7 +4985,7 @@ __instruction VIOTA_M_0
         __opcode '010100xxxxxx10000010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5003,7 +5003,7 @@ __instruction VISG_0
         __opcode 'xxxxxxxxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_visgfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant visgfunct6 funct6 = encdec_visgfunct6_backwards(mapping0XH);
@@ -5022,7 +5022,7 @@ __instruction VITYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vifunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vifunct6 funct6 = encdec_vifunct6_backwards(mapping0XH);
@@ -5042,7 +5042,7 @@ __instruction VLOXSEGTYPE_0
         __opcode 'xxx011xxxxxxxxxxxxxxxxxxx0000111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(encdec_vlewidth_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5061,7 +5061,7 @@ __instruction VLRETYPE_0
         __opcode 'xxx000101000xxxxxxxxxxxxx0000111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_vlewidth_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5080,7 +5080,7 @@ __instruction VLSEGFFTYPE_0
         __opcode 'xxx000x10000xxxxxxxxxxxxx0000111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_vlewidth_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5099,7 +5099,7 @@ __instruction VLSEGTYPE_0
         __opcode 'xxx000x00000xxxxxxxxxxxxx0000111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_vlewidth_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5119,7 +5119,7 @@ __instruction VLSSEGTYPE_0
         __opcode 'xxx010xxxxxxxxxxxxxxxxxxx0000111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(encdec_vlewidth_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -5140,7 +5140,7 @@ __instruction VLUXSEGTYPE_0
         __opcode 'xxx001xxxxxxxxxxxxxxxxxxx0000111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(encdec_vlewidth_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5158,7 +5158,7 @@ __instruction VMSBF_M_0
         __opcode '010100xxxxxx00001010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5174,7 +5174,7 @@ __instruction VMSIF_M_0
         __opcode '010100xxxxxx00011010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5190,7 +5190,7 @@ __instruction VMSOF_M_0
         __opcode '010100xxxxxx00010010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5206,7 +5206,7 @@ __instruction VMTYPE_0
         __opcode '000000101011xxxxx000xxxxxxxxxxxx'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_lsop_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5223,7 +5223,7 @@ __instruction VMVRTYPE_0
         __opcode '1001111xxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_nreg_forwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5239,7 +5239,7 @@ __instruction VMVSX_0
         __opcode '010000100000xxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5254,7 +5254,7 @@ __instruction VMVXS_0
         __opcode '0100001xxxxx00000010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5270,7 +5270,7 @@ __instruction VREV8_V_0
         __opcode '010010xxxxxx01001010xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5287,7 +5287,7 @@ __instruction VROL_VV_0
         __opcode '010101xxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5305,7 +5305,7 @@ __instruction VROL_VX_0
         __opcode '010101xxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5324,7 +5324,7 @@ __instruction VROR_VI_0
         __opcode '01010xxxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5341,7 +5341,7 @@ __instruction VROR_VV_0
         __opcode '010100xxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5359,7 +5359,7 @@ __instruction VROR_VX_0
         __opcode '010100xxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5379,7 +5379,7 @@ __instruction VSETIVLI_0
         __opcode '1100xxxxxxxxxxxxx111xxxxx1010111'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rd = encdec_reg_backwards(mapping0XH);
@@ -5394,7 +5394,7 @@ __instruction VSETVL_0
         __opcode '1000000xxxxxxxxxx111xxxxx1010111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -5414,7 +5414,7 @@ __instruction VSETVLI_0
         __opcode '0000xxxxxxxxxxxxx111xxxxx1010111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5430,7 +5430,7 @@ __instruction VSHA2MS_VV_0
         __opcode '1011011xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), or_bool(and_bool(currentlyEnabled(Ext_Zvknha), eq_int(get_sew(), 32)), and_bool(and_bool(currentlyEnabled(Ext_Zvknhb), or_bool(eq_int(get_sew(), 32), eq_int(get_sew(), 64))), zvknhab_check_encdec(encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH)))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5447,7 +5447,7 @@ __instruction VSM3C_VI_0
         __opcode '1010111xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvksh), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(256, 8), zvk_valid_reg_overlap(encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), get_lmul_pow())))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5463,7 +5463,7 @@ __instruction VSM3ME_VV_0
         __opcode '1000001xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zvksh), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(256, 8), zvk_valid_reg_overlap(encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping2XH), get_lmul_pow())))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5480,7 +5480,7 @@ __instruction VSM4K_VI_0
         __opcode '1000011xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvksed), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5499,7 +5499,7 @@ __instruction VSOXSEGTYPE_0
         __opcode 'xxx011xxxxxxxxxxxxxxxxxxx0100111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(encdec_vlewidth_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5517,7 +5517,7 @@ __instruction VSRETYPE_0
         __opcode 'xxx000101000xxxxx000xxxxx0100111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5535,7 +5535,7 @@ __instruction VSSEGTYPE_0
         __opcode 'xxx000x00000xxxxxxxxxxxxx0100111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_vlewidth_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -5555,7 +5555,7 @@ __instruction VSSSEGTYPE_0
         __opcode 'xxx010xxxxxxxxxxxxxxxxxxx0100111'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(encdec_vlewidth_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -5576,7 +5576,7 @@ __instruction VSUXSEGTYPE_0
         __opcode 'xxx001xxxxxxxxxxxxxxxxxxx0100111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), and_bool(encdec_vlewidth_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5596,7 +5596,7 @@ __instruction VVCMPTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vvcmpfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vvcmpfunct6 funct6 = encdec_vvcmpfunct6_backwards(mapping0XH);
@@ -5615,7 +5615,7 @@ __instruction VVMCTYPE_0
         __opcode 'xxxxxx1xxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vvmcfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vvmcfunct6 funct6 = encdec_vvmcfunct6_backwards(mapping0XH);
@@ -5634,7 +5634,7 @@ __instruction VVMSTYPE_0
         __opcode 'xxxxxx0xxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vvmsfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vvmsfunct6 funct6 = encdec_vvmsfunct6_backwards(mapping0XH);
@@ -5653,7 +5653,7 @@ __instruction VVMTYPE_0
         __opcode 'xxxxxx0xxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vvmfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vvmfunct6 funct6 = encdec_vvmfunct6_backwards(mapping0XH);
@@ -5673,7 +5673,7 @@ __instruction VVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vvfunct6 funct6 = encdec_vvfunct6_backwards(mapping0XH);
@@ -5692,7 +5692,7 @@ __instruction VWSLL_VI_0
         __opcode '110101xxxxxxxxxxx011xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zvbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5709,7 +5709,7 @@ __instruction VWSLL_VV_0
         __opcode '110101xxxxxxxxxxx000xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5727,7 +5727,7 @@ __instruction VWSLL_VX_0
         __opcode '110101xxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_vreg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zvbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -5746,7 +5746,7 @@ __instruction VXCMPTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vxcmpfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vxcmpfunct6 funct6 = encdec_vxcmpfunct6_backwards(mapping0XH);
@@ -5765,7 +5765,7 @@ __instruction VXMCTYPE_0
         __opcode 'xxxxxx1xxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vxmcfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vxmcfunct6 funct6 = encdec_vxmcfunct6_backwards(mapping0XH);
@@ -5784,7 +5784,7 @@ __instruction VXMSTYPE_0
         __opcode 'xxxxxx0xxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vxmsfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vxmsfunct6 funct6 = encdec_vxmsfunct6_backwards(mapping0XH);
@@ -5803,7 +5803,7 @@ __instruction VXMTYPE_0
         __opcode 'xxxxxx0xxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vxmfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vxmfunct6 funct6 = encdec_vxmfunct6_backwards(mapping0XH);
@@ -5823,7 +5823,7 @@ __instruction VXSG_0
         __opcode 'xxxxxxxxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vxsgfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vxsgfunct6 funct6 = encdec_vxsgfunct6_backwards(mapping0XH);
@@ -5843,7 +5843,7 @@ __instruction VXTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx100xxxxx1010111'
         __guard and_bool(and_bool(encdec_vxfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant vxfunct6 funct6 = encdec_vxfunct6_backwards(mapping0XH);
@@ -5858,7 +5858,7 @@ __instruction WFI_0
         __opcode '00010000010100000000000001110011'
         __guard TRUE
         __decode
-            return;
+
 
     __execute
         - = execute_WFI();
@@ -5874,7 +5874,7 @@ __instruction WMVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_wmvvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant wmvvfunct6 funct6 = encdec_wmvvfunct6_backwards(mapping0XH);
@@ -5894,7 +5894,7 @@ __instruction WMVXTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_wmvxfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant wmvxfunct6 funct6 = encdec_wmvxfunct6_backwards(mapping0XH);
@@ -5910,7 +5910,7 @@ __instruction WRS_0
         __opcode 'xxxxxxxxxxxx00000000000001110011'
         __guard and_bool(encdec_wrsop_backwards_matches(mapping0XH), currentlyEnabled(Ext_Zawrs))
         __decode
-            return;
+
 
     __execute
         constant wrsop op = encdec_wrsop_backwards(mapping0XH);
@@ -5927,7 +5927,7 @@ __instruction WVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_wvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant wvfunct6 funct6 = encdec_wvfunct6_backwards(mapping0XH);
@@ -5947,7 +5947,7 @@ __instruction WVVTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx010xxxxx1010111'
         __guard and_bool(and_bool(encdec_wvvfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant wvvfunct6 funct6 = encdec_wvvfunct6_backwards(mapping0XH);
@@ -5967,7 +5967,7 @@ __instruction WVXTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_wvxfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant wvxfunct6 funct6 = encdec_wvxfunct6_backwards(mapping0XH);
@@ -5987,7 +5987,7 @@ __instruction WXTYPE_0
         __opcode 'xxxxxxxxxxxxxxxxx110xxxxx1010111'
         __guard and_bool(and_bool(encdec_wxfunct6_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_reg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), currentlyEnabled(Ext_V))
         __decode
-            return;
+
 
     __execute
         constant wxfunct6 funct6 = encdec_wxfunct6_backwards(mapping0XH);
@@ -6005,7 +6005,7 @@ __instruction XPERM4_0
         __opcode '0010100xxxxxxxxxx010xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbkx))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6022,7 +6022,7 @@ __instruction XPERM8_0
         __opcode '0010100xxxxxxxxxx100xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbkx))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6039,7 +6039,7 @@ __instruction ZBA_RTYPE_0
         __opcode '0010000xxxxxxxxxx110xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zba))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6056,7 +6056,7 @@ __instruction ZBA_RTYPE_1
         __opcode '0010000xxxxxxxxxx100xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zba))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6073,7 +6073,7 @@ __instruction ZBA_RTYPE_2
         __opcode '0010000xxxxxxxxxx010xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zba))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6090,7 +6090,7 @@ __instruction ZBA_RTYPEUW_0
         __opcode '0010000xxxxxxxxxx110xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zba), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6107,7 +6107,7 @@ __instruction ZBA_RTYPEUW_1
         __opcode '0010000xxxxxxxxxx100xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zba), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6124,7 +6124,7 @@ __instruction ZBA_RTYPEUW_2
         __opcode '0010000xxxxxxxxxx010xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zba), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6141,7 +6141,7 @@ __instruction ZBA_RTYPEUW_3
         __opcode '0000100xxxxxxxxxx000xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zba), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6157,7 +6157,7 @@ __instruction ZBB_EXTOP_0
         __opcode '000010000000xxxxx100xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbb), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6172,7 +6172,7 @@ __instruction ZBB_EXTOP_1
         __opcode '000010000000xxxxx100xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbb), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6187,7 +6187,7 @@ __instruction ZBB_EXTOP_2
         __opcode '011000000101xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6202,7 +6202,7 @@ __instruction ZBB_EXTOP_3
         __opcode '011000000100xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6218,7 +6218,7 @@ __instruction ZBB_RTYPE_0
         __opcode '0110000xxxxxxxxxx101xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6235,7 +6235,7 @@ __instruction ZBB_RTYPE_1
         __opcode '0110000xxxxxxxxxx001xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6252,7 +6252,7 @@ __instruction ZBB_RTYPE_2
         __opcode '0000101xxxxxxxxxx101xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6269,7 +6269,7 @@ __instruction ZBB_RTYPE_3
         __opcode '0000101xxxxxxxxxx100xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6286,7 +6286,7 @@ __instruction ZBB_RTYPE_4
         __opcode '0000101xxxxxxxxxx111xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6303,7 +6303,7 @@ __instruction ZBB_RTYPE_5
         __opcode '0000101xxxxxxxxxx110xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6320,7 +6320,7 @@ __instruction ZBB_RTYPE_6
         __opcode '0100000xxxxxxxxxx100xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6337,7 +6337,7 @@ __instruction ZBB_RTYPE_7
         __opcode '0100000xxxxxxxxxx110xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6354,7 +6354,7 @@ __instruction ZBB_RTYPE_8
         __opcode '0100000xxxxxxxxxx111xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6371,7 +6371,7 @@ __instruction ZBB_RTYPEW_0
         __opcode '0110000xxxxxxxxxx101xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6388,7 +6388,7 @@ __instruction ZBB_RTYPEW_1
         __opcode '0110000xxxxxxxxxx001xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(or_bool(currentlyEnabled(Ext_Zbb), currentlyEnabled(Ext_Zbkb)), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6405,7 +6405,7 @@ __instruction ZBKB_PACKW_0
         __opcode '0000100xxxxxxxxxx100xxxxx0111011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), and_bool(currentlyEnabled(Ext_Zbkb), eq_int(xlen, 64)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6422,7 +6422,7 @@ __instruction ZBKB_RTYPE_0
         __opcode '0000100xxxxxxxxxx111xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6439,7 +6439,7 @@ __instruction ZBKB_RTYPE_1
         __opcode '0000100xxxxxxxxxx100xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbkb))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6456,7 +6456,7 @@ __instruction ZBS_IOP_0
         __opcode '001010xxxxxxxxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbs), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0'))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6472,7 +6472,7 @@ __instruction ZBS_IOP_1
         __opcode '011010xxxxxxxxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbs), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0'))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6488,7 +6488,7 @@ __instruction ZBS_IOP_2
         __opcode '010010xxxxxxxxxxx101xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbs), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0'))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6504,7 +6504,7 @@ __instruction ZBS_IOP_3
         __opcode '010010xxxxxxxxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbs), or_bool(eq_int(xlen, 64), eq_bit(bitvector_access(shamt, 5), '0'))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6520,7 +6520,7 @@ __instruction ZBS_RTYPE_0
         __opcode '0010100xxxxxxxxxx001xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbs))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6537,7 +6537,7 @@ __instruction ZBS_RTYPE_1
         __opcode '0110100xxxxxxxxxx001xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbs))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6554,7 +6554,7 @@ __instruction ZBS_RTYPE_2
         __opcode '0100100xxxxxxxxxx101xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbs))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6571,7 +6571,7 @@ __instruction ZBS_RTYPE_3
         __opcode '0100100xxxxxxxxxx001xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zbs))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6587,7 +6587,7 @@ __instruction ZICBOM_0
         __opcode 'xxxxxxxxxxxxxxxxx010000000001111'
         __guard and_bool(and_bool(encdec_cbop_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zicbom))
         __decode
-            return;
+
 
     __execute
         constant cbop_zicbom cbop = encdec_cbop_backwards(mapping0XH);
@@ -6601,7 +6601,7 @@ __instruction ZICBOZ_0
         __opcode '000000000100xxxxx010000000001111'
         __guard and_bool(encdec_reg_backwards_matches(mapping0XH), currentlyEnabled(Ext_Zicboz))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6616,7 +6616,7 @@ __instruction ZICOND_RTYPE_0
         __opcode '0000111xxxxxxxxxx111xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zicond))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6633,7 +6633,7 @@ __instruction ZICOND_RTYPE_1
         __opcode '0000111xxxxxxxxxx101xxxxx0110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zicond))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6652,7 +6652,7 @@ __instruction ZIMOP_MOP_R_0
         __opcode '1x00xx0111xxxxxxx100xxxxx1110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), currentlyEnabled(Ext_Zimop))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6670,7 +6670,7 @@ __instruction ZIMOP_MOP_RR_0
         __opcode '1x00xx1xxxxxxxxxx100xxxxx1110011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), and_bool(encdec_reg_backwards_matches(mapping1XH), encdec_reg_backwards_matches(mapping2XH))), currentlyEnabled(Ext_Zimop))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(mapping0XH);
@@ -6686,7 +6686,7 @@ __instruction ZIP_0
         __opcode '000010001111xxxxx001xxxxx0010011'
         __guard and_bool(and_bool(encdec_reg_backwards_matches(mapping0XH), encdec_reg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zbkb), eq_int(xlen, 32)))
         __decode
-            return;
+
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(mapping0XH);
@@ -6703,7 +6703,7 @@ __instruction ZVKSHA2TYPE_0
         __opcode 'xxxxxx1xxxxxxxxxx010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vsha2_backwards_matches(mapping0XH), and_bool(encdec_vreg_backwards_matches(mapping1XH), and_bool(encdec_vreg_backwards_matches(mapping2XH), encdec_vreg_backwards_matches(mapping3XH)))), or_bool(and_bool(currentlyEnabled(Ext_Zvknha), eq_int(get_sew(), 32)), and_bool(and_bool(currentlyEnabled(Ext_Zvknhb), or_bool(eq_int(get_sew(), 32), eq_int(get_sew(), 64))), zvknhab_check_encdec(encdec_vreg_backwards(mapping1XH), encdec_vreg_backwards(mapping2XH), encdec_vreg_backwards(mapping3XH)))))
         __decode
-            return;
+
 
     __execute
         constant zvk_vsha2_funct6 funct6 = encdec_vsha2_backwards(mapping0XH);
@@ -6720,7 +6720,7 @@ __instruction ZVKSM4RTYPE_0
         __opcode '1010011xxxxx10000010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvksed), and_bool(eq_int(get_sew(), 32), and_bool(zvk_check_encdec(128, 4), zvk_valid_reg_overlap(encdec_vreg_backwards(mapping0XH), encdec_vreg_backwards(mapping1XH), get_lmul_pow())))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);
@@ -6735,7 +6735,7 @@ __instruction ZVKSM4RTYPE_1
         __opcode '1010001xxxxx10000010xxxxx1110111'
         __guard and_bool(and_bool(encdec_vreg_backwards_matches(mapping0XH), encdec_vreg_backwards_matches(mapping1XH)), and_bool(currentlyEnabled(Ext_Zvksed), and_bool(eq_int(get_sew(), 32), zvk_check_encdec(128, 4))))
         __decode
-            return;
+
 
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(mapping0XH);

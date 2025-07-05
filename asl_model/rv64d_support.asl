@@ -1098,16 +1098,31 @@ enumeration mmfunct6 {
     , MM_VMXXNOR
 };
 
-type mul_op is (boolean high,
-boolean signed_rs1,
-boolean signed_rs2)
+type mul_op = (boolean, boolean, boolean);
 
-mul_op asl_make_mul_op(boolean high, boolean signed_rs1, boolean signed_rs2)
-    mul_op temp;
-    temp.high = high;
-    temp.signed_rs1 = signed_rs1;
-    temp.signed_rs2 = signed_rs2;
-    return temp;
+boolean asl_get_high(mul_op rec)
+    (temp_0, temp_1, temp_2) = rec;
+    return temp_0;
+
+boolean asl_get_signed_rs1(mul_op rec)
+    (temp_0, temp_1, temp_2) = rec;
+    return temp_1;
+
+boolean asl_get_signed_rs2(mul_op rec)
+    (temp_0, temp_1, temp_2) = rec;
+    return temp_2;
+
+mul_op asl_set_high(mul_op rec, boolean new_value)
+    (temp_0, temp_1, temp_2) = rec;
+    return (new_value, temp_1, temp_2);
+
+mul_op asl_set_signed_rs1(mul_op rec, boolean new_value)
+    (temp_0, temp_1, temp_2) = rec;
+    return (temp_0, new_value, temp_2);
+
+mul_op asl_set_signed_rs2(mul_op rec, boolean new_value)
+    (temp_0, temp_1, temp_2) = rec;
+    return (temp_0, temp_1, new_value);
 
 enumeration mvvmafunct6 {
     MVV_VMACC
@@ -4154,13 +4169,13 @@ bits(8) pmpWriteCfg(integer n, bits(8) cfg, bits(8) v)
     assert(eq_int(emod_int(n, 2), 0));
     for i = 0 to 7
         constant integer idx = (n) * (4) + i;
-        pmpcfg_n = plain_vector_update(pmpcfg_n, idx, pmpWriteCfg(idx, plain_vector_access(pmpcfg_n, idx, 64, 8), subrange_bits(v, (8) * (i) + 7, (8) * (i))));
+        pmpcfg_n = plain_vector_update(pmpcfg_n, idx, pmpWriteCfg(idx, plain_vector_access(pmpcfg_n, idx, 64, 8), subrange_bits(v, (8) * (i) + 7, (8) * (i))), 64, 8);
 
 bits((pow2_int(3)) * (8)) pmpWriteAddr(boolean locked, boolean tor_locked, bits((pow2_int(3)) * (8)) reg, bits((pow2_int(3)) * (8)) v)
     return (if or_bool(locked, tor_locked) then reg else zero_extend((pow2_int(3)) * (8), subrange_bits(v, 53, 0)));
 
 () pmpWriteAddrReg(integer n, bits((pow2_int(3)) * (8)) v)
-    pmpaddr_n = plain_vector_update(pmpaddr_n, n, pmpWriteAddr(pmpLocked(plain_vector_access(pmpcfg_n, n, 64, 8)), (if lt_int(n + 1, 64) then pmpTORLocked(plain_vector_access(pmpcfg_n, n + 1, 64, 8)) else FALSE), plain_vector_access(pmpaddr_n, n, 64, (pow2_int(3)) * (8)), v));
+    pmpaddr_n = plain_vector_update(pmpaddr_n, n, pmpWriteAddr(pmpLocked(plain_vector_access(pmpcfg_n, n, 64, 8)), (if lt_int(n + 1, 64) then pmpTORLocked(plain_vector_access(pmpcfg_n, n + 1, 64, 8)) else FALSE), plain_vector_access(pmpaddr_n, n, 64, (pow2_int(3)) * (8)), v), 64, (pow2_int(3)) * (8));
 
 boolean pmpCheckRWX(bits(8) ent, AccessType acc)
     boolean temp_XT_1;
@@ -4536,7 +4551,7 @@ bits((num_elem) * (SEW)) read_single_vreg(integer num_elem, integer SEW, bits(5)
     assert(and_bool(lteq_int(8, SEW), lteq_int(SEW, 64)));
     for i = 0 to num_elem - (1)
         constant integer start_index = (i) * (SEW);
-        resultXN = plain_vector_update(resultXN, i, slice(bv, start_index, SEW));
+        resultXN = plain_vector_update(resultXN, i, slice(bv, start_index, SEW), num_elem, SEW);
     return resultXN;
 
 () write_single_vreg(integer num_elem, integer SEW, bits(5) vrid, bits((num_elem) * (SEW)) v)
@@ -4571,7 +4586,7 @@ bits((num_elem) * (SEW)) read_vreg(integer num_elem, integer SEW, integer LMUL_p
                         constant integer s_i = r_i - (r_start_i);
                         assert(and_bool(lteq_int(0, r_i), lt_int(r_i, num_elem)));
                         assert(and_bool(lteq_int(0, s_i), lt_int(s_i, num_elem_single)));
-                        resultXN = plain_vector_update(resultXN, r_i, plain_vector_access(single_result, s_i, num_elem_single, SEW));
+                        resultXN = plain_vector_update(resultXN, r_i, plain_vector_access(single_result, s_i, num_elem_single, SEW), num_elem, SEW);
     return resultXN;
 
 bits(EEW) read_single_element(integer EEW, integer index, bits(5) vrid)
@@ -4597,7 +4612,7 @@ bits(EEW) read_single_element(integer EEW, integer index, bits(5) vrid)
             constant integer s_i = r_i - (r_start_i);
             assert(and_bool(lteq_int(0, r_i), lt_int(r_i, num_elem)));
             assert(and_bool(lteq_int(0, s_i), lt_int(s_i, num_elem_single)));
-            single_vec = plain_vector_update(single_vec, s_i, plain_vector_access(vec, r_i, num_elem, SEW));
+            single_vec = plain_vector_update(single_vec, s_i, plain_vector_access(vec, r_i, num_elem, SEW), num_elem_single, SEW);
         write_single_vreg(num_elem_single, SEW, vrid_lmul, single_vec);
 
 () write_single_element(integer EEW, integer index, bits(5) vrid, bits(EEW) value)
@@ -4720,16 +4735,31 @@ bits((pow2_int(3)) * (8)) set_stvec(bits((pow2_int(3)) * (8)) value)
     stvec = legalize_tvec(stvec, value);
     return stvec;
 
-type sync_exception is (ExceptionType trap,
-(option, bits((pow2_int(3)) * (8))) excinfo,
-option ext)
+type sync_exception = ((option, bits((pow2_int(3)) * (8))), option, ExceptionType);
 
-sync_exception asl_make_sync_exception((option, bits((pow2_int(3)) * (8))) excinfo, option ext, ExceptionType trap)
-    sync_exception temp;
-    temp.excinfo = excinfo;
-    temp.ext = ext;
-    temp.trap = trap;
-    return temp;
+(option, bits((pow2_int(3)) * (8))) asl_get_excinfo(sync_exception rec)
+    (temp_0, temp_1, temp_2) = rec;
+    return temp_0;
+
+option asl_get_ext(sync_exception rec)
+    (temp_0, temp_1, temp_2) = rec;
+    return temp_1;
+
+ExceptionType asl_get_trap(sync_exception rec)
+    (temp_0, temp_1, temp_2) = rec;
+    return temp_2;
+
+sync_exception asl_set_excinfo(sync_exception rec, (option, bits((pow2_int(3)) * (8))) new_value)
+    (temp_0, temp_1, temp_2) = rec;
+    return (new_value, temp_1, temp_2);
+
+sync_exception asl_set_ext(sync_exception rec, option new_value)
+    (temp_0, temp_1, temp_2) = rec;
+    return (temp_0, new_value, temp_2);
+
+sync_exception asl_set_trap(sync_exception rec, ExceptionType new_value)
+    (temp_0, temp_1, temp_2) = rec;
+    return (temp_0, temp_1, new_value);
 
 bits(64) Mk_HpmEvent(bits(64) v)
     return v;
@@ -4811,11 +4841,11 @@ bits((pow2_int(3)) * (8)) read_mhpmevent(integer index)
 
 () write_mhpmcounter(integer index, bits((pow2_int(3)) * (8)) value)
     if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
-        mhpmcounter = plain_vector_update(mhpmcounter, index, update_subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), xlen - (1), 0, value));
+        mhpmcounter = plain_vector_update(mhpmcounter, index, update_subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), xlen - (1), 0, value), 32, 64);
 
 () write_mhpmcounterh(integer index, bits(32) value)
     if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
-        mhpmcounter = plain_vector_update(mhpmcounter, index, update_subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), 63, 32, value));
+        mhpmcounter = plain_vector_update(mhpmcounter, index, update_subrange_bits(plain_vector_access(mhpmcounter, index, 32, 64), 63, 32, value), 32, 64);
 
 () write_mhpmevent(integer index, bits((pow2_int(3)) * (8)) value)
     if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
@@ -4828,14 +4858,14 @@ bits((pow2_int(3)) * (8)) read_mhpmevent(integer index)
                 temp_XT_12 = value;
             when -
                 assert(FALSE);
-        mhpmevent = plain_vector_update(mhpmevent, index, legalize_hpmevent(Mk_HpmEvent(temp_XT_12)));
+        mhpmevent = plain_vector_update(mhpmevent, index, legalize_hpmevent(Mk_HpmEvent(temp_XT_12)), 32, 64);
 
 bits(32) read_mhpmeventh(integer index)
     return subrange_bits(plain_vector_access(mhpmevent, index, 32, 64), 63, 32);
 
 () write_mhpmeventh(integer index, bits(32) value)
     if eq_bit(bitvector_access(sys_writable_hpm_counters, index), '1') then
-        mhpmevent = plain_vector_update(mhpmevent, index, legalize_hpmevent(Mk_HpmEvent(bitvector_concat(value, subrange_bits(plain_vector_access(mhpmevent, index, 32, 64), 31, 0)))));
+        mhpmevent = plain_vector_update(mhpmevent, index, legalize_hpmevent(Mk_HpmEvent(bitvector_concat(value, subrange_bits(plain_vector_access(mhpmevent, index, 32, 64), 31, 0)))), 32, 64);
 
 bits(32) get_scountovf(Privilege priv)
     bits(32) temp_XT_1;
@@ -5692,10 +5722,10 @@ bits((pow2_int(3)) * (8)) exception_handler(Privilege cur_priv, (ctl_result, syn
         when (-, (CTL_TRAP, -))
             sync_exception e;
             (-, (-, e)) = XM_match_418;
-            constant Privilege del_priv = exception_delegatee(e.trap, cur_priv);
+            constant Privilege del_priv = exception_delegatee(asl_get_trap(e), cur_priv);
             if get_config_print_platform() then
-                print_platform(concat_str("trapping from ", concat_str(privLevel_to_str(cur_priv), concat_str(" to ", concat_str(privLevel_to_str(del_priv), concat_str(" to handle ", exceptionType_to_str(e.trap)))))));
-            temp_XT_1 = trap_handler(del_priv, FALSE, exceptionType_to_bits(e.trap), pc, e.excinfo, e.ext);
+                print_platform(concat_str("trapping from ", concat_str(privLevel_to_str(cur_priv), concat_str(" to ", concat_str(privLevel_to_str(del_priv), concat_str(" to handle ", exceptionType_to_str(asl_get_trap(e))))))));
+            temp_XT_1 = trap_handler(del_priv, FALSE, exceptionType_to_bits(asl_get_trap(e)), pc, asl_get_excinfo(e), asl_get_ext(e));
         when (-, (CTL_MRET, -))
             constant Privilege prev_priv = cur_privilege;
             mstatus = update_subrange_bits(mstatus, 3, 3, _get_Mstatus_MPIE(mstatus));
@@ -6402,38 +6432,74 @@ ExceptionType translationException(AccessType a, PTW_Error f)
 
 constant integer tlb_vpn_bits = (57) - (12);
 
-type TLB_Entry is (bits(16) asid,
-boolean global,
-bits((57) - (12)) vpn,
-bits((57) - (12)) levelMask,
-bits(44) ppn,
-bits(64) pte,
-bits(64) pteAddr)
+type TLB_Entry = (bits(16), boolean, bits((57) - (12)), bits(44), bits(64), bits(64), bits((57) - (12)));
 
-TLB_Entry asl_make_TLB_Entry(bits(16) asid, boolean global, bits((57) - (12)) levelMask, bits(44) ppn, bits(64) pte, bits(64) pteAddr, bits((57) - (12)) vpn)
-    TLB_Entry temp;
-    temp.asid = asid;
-    temp.global = global;
-    temp.levelMask = levelMask;
-    temp.ppn = ppn;
-    temp.pte = pte;
-    temp.pteAddr = pteAddr;
-    temp.vpn = vpn;
-    return temp;
+bits(16) asl_get_asid(TLB_Entry rec)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return temp_0;
+
+boolean asl_get_global(TLB_Entry rec)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return temp_1;
+
+bits((57) - (12)) asl_get_levelMask(TLB_Entry rec)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return temp_2;
+
+bits(44) asl_get_ppn(TLB_Entry rec)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return temp_3;
+
+bits(64) asl_get_pte(TLB_Entry rec)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return temp_4;
+
+bits(64) asl_get_pteAddr(TLB_Entry rec)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return temp_5;
+
+bits((57) - (12)) asl_get_vpn(TLB_Entry rec)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return temp_6;
+
+TLB_Entry asl_set_asid(TLB_Entry rec, bits(16) new_value)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return (new_value, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6);
+
+TLB_Entry asl_set_global(TLB_Entry rec, boolean new_value)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return (temp_0, new_value, temp_2, temp_3, temp_4, temp_5, temp_6);
+
+TLB_Entry asl_set_levelMask(TLB_Entry rec, bits((57) - (12)) new_value)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return (temp_0, temp_1, new_value, temp_3, temp_4, temp_5, temp_6);
+
+TLB_Entry asl_set_ppn(TLB_Entry rec, bits(44) new_value)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return (temp_0, temp_1, temp_2, new_value, temp_4, temp_5, temp_6);
+
+TLB_Entry asl_set_pte(TLB_Entry rec, bits(64) new_value)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return (temp_0, temp_1, temp_2, temp_3, new_value, temp_5, temp_6);
+
+TLB_Entry asl_set_pteAddr(TLB_Entry rec, bits(64) new_value)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return (temp_0, temp_1, temp_2, temp_3, temp_4, new_value, temp_6);
+
+TLB_Entry asl_set_vpn(TLB_Entry rec, bits((57) - (12)) new_value)
+    (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6) = rec;
+    return (temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, new_value);
 
 bits((pte_width) * (8)) tlb_get_pte(integer pte_width, TLB_Entry ent)
-    return subrange_bits(ent.pte, (pte_width) * (8) - (1), 0);
+    return subrange_bits(asl_get_pte(ent), (pte_width) * (8) - (1), 0);
 
 TLB_Entry tlb_set_pte(TLB_Entry ent, bits(n) pte)
-    TLB_Entry temp_XT_2;
-    temp_XT_2 = ent;
-    temp_XT_2.pte = zero_extend(64, pte);
-    return temp_XT_2;
+    return asl_set_pte(ent, zero_extend(64, pte));
 
 bits((if sv_width == 32 then 22 else 44)) tlb_get_ppn(integer sv_width, TLB_Entry ent, bits((sv_width) - (12)) vpn)
     constant bits(64) vpn = sign_extend(64, vpn);
-    constant bits(64) levelMask = zero_extend(64, ent.levelMask);
-    constant bits(64) ppn = zero_extend(64, ent.ppn);
+    constant bits(64) levelMask = zero_extend(64, asl_get_levelMask(ent));
+    constant bits(64) ppn = zero_extend(64, asl_get_ppn(ent));
     return trunc((if eq_int(sv_width, 32) then 22 else 44), or_vec(ppn, and_vec(vpn, levelMask)));
 
 constant integer num_tlb_entries = 64;
@@ -6444,10 +6510,10 @@ integer tlb_hash(integer sv_mode, bits((sv_mode) - (12)) vpn)
     return unsigned(subrange_bits(vpn, 5, 0));
 
 () write_TLB(integer index, TLB_Entry entry)
-    tlb = plain_vector_update(tlb, index, (Some, entry));
+    tlb = plain_vector_update(tlb, index, (Some, entry), 64);
 
 boolean match_TLB_Entry(TLB_Entry ent, bits(16) asid, bits((57) - (12)) vpn)
-    return and_bool(or_bool(ent.global, eq_bits(ent.asid, asid)), eq_bits(ent.vpn, and_vec(vpn, not_vec(ent.levelMask))));
+    return and_bool(or_bool(asl_get_global(ent), eq_bits(asl_get_asid(ent), asid)), eq_bits(asl_get_vpn(ent), and_vec(vpn, not_vec(asl_get_levelMask(ent)))));
 
 boolean flush_TLB_Entry(TLB_Entry ent, (option, bits(16)) asid, (option, bits((pow2_int(3)) * (8))) vaddr)
     boolean temp_XT_2;
@@ -6456,7 +6522,7 @@ boolean flush_TLB_Entry(TLB_Entry ent, (option, bits(16)) asid, (option, bits((p
         when (Some, -)
             bits(16) asid;
             (-, asid) = XM_match_399;
-            temp_XT_2 = and_bool(eq_bits(ent.asid, asid), not(ent.global));
+            temp_XT_2 = and_bool(eq_bits(asl_get_asid(ent), asid), not(asl_get_global(ent)));
         when (None, -)
             temp_XT_2 = TRUE;
     constant boolean asid_matches = temp_XT_2;
@@ -6467,7 +6533,7 @@ boolean flush_TLB_Entry(TLB_Entry ent, (option, bits(16)) asid, (option, bits((p
             bits((pow2_int(3)) * (8)) vaddr;
             (-, vaddr) = XM_match_398;
             constant bits(64) vaddr = sign_extend(64, vaddr);
-            temp_XT_13 = eq_bits(ent.vpn, and_vec(subrange_bits(vaddr, 56, pagesize_bits), not_vec(ent.levelMask)));
+            temp_XT_13 = eq_bits(asl_get_vpn(ent), and_vec(subrange_bits(vaddr, 56, pagesize_bits), not_vec(asl_get_levelMask(ent))));
         when (None, -)
             temp_XT_13 = TRUE;
     constant boolean addr_matches = temp_XT_13;
@@ -6476,7 +6542,7 @@ boolean flush_TLB_Entry(TLB_Entry ent, (option, bits(16)) asid, (option, bits((p
 (option, (integer, TLB_Entry)) lookup_TLB(integer sv_width, bits(16) asid, bits((sv_width) - (12)) vpn)
     (option, (integer, TLB_Entry)) temp_XT_1;
     constant integer index = tlb_hash(sv_width, vpn);
-    constant (option, TLB_Entry) XM_match_397 = plain_vector_access(tlb, index, 64);
+    constant (option, TLB_Entry) XM_match_397 = tlb[index];
     case XM_match_397 of
         when (None, -)
             temp_XT_1 = (None, (integer, TLB_Entry) UNKNOWN);
@@ -6491,13 +6557,13 @@ boolean flush_TLB_Entry(TLB_Entry ent, (option, bits(16)) asid, (option, bits((p
     constant bits((level) * ((if sv_width == 32 then 10 else 9))) levelMask = ones(shift);
     constant bits((sv_width) - (12)) vpn = and_vec(vpn, not_vec(zero_extend(sv_width - (12), levelMask)));
     constant bits((if sv_width == 32 then 22 else 44)) ppn = and_vec(ppn, not_vec(zero_extend((if eq_int(sv_width, 32) then 22 else 44), levelMask)));
-    constant TLB_Entry entry = asl_make_TLB_Entry(asid, global, zero_extend(57 - (12), levelMask), zero_extend(44, ppn), zero_extend(64, pte), pteAddr, sign_extend(57 - (12), vpn));
+    constant TLB_Entry entry = (asid, global, zero_extend(57 - (12), levelMask), zero_extend(44, ppn), zero_extend(64, pte), pteAddr, sign_extend(57 - (12), vpn));
     constant integer index = tlb_hash(sv_width, vpn);
-    tlb = plain_vector_update(tlb, index, (Some, entry));
+    tlb = plain_vector_update(tlb, index, (Some, entry), 64);
 
 () flush_TLB((option, bits(16)) asid, (option, bits((pow2_int(3)) * (8))) addr)
-    for i = 0 to vector_length(tlb, 64) - (1)
-        constant (option, TLB_Entry) XM_match_396 = plain_vector_access(tlb, i, 64);
+    for i = 0 to 64 - (1)
+        constant (option, TLB_Entry) XM_match_396 = tlb[i];
         case XM_match_396 of
             when (None, -)
 
@@ -6505,7 +6571,7 @@ boolean flush_TLB_Entry(TLB_Entry ent, (option, bits(16)) asid, (option, bits((p
                 TLB_Entry entry;
                 (-, entry) = XM_match_396;
                 if flush_TLB_Entry(entry, asid, addr) then
-                    tlb = plain_vector_update(tlb, i, (None, TLB_Entry UNKNOWN));
+                    tlb = plain_vector_update(tlb, i, (None, TLB_Entry UNKNOWN), 64);
 
 (result, boolean, ExceptionType) write_pte(bits(64) paddr, integer pte_size, bits((pte_size) * (8)) pte)
     return mem_write_value_priv(paddr, pte_size, pte, Supervisor, FALSE, FALSE, FALSE);
@@ -6620,7 +6686,7 @@ SATPMode translationMode(Privilege priv)
                         temp_XT_1 = (Err, bits((if sv_width == 32 then 22 else 44)) UNKNOWN, PTW_PTE_Update);
                     else
                         write_TLB(tlb_index, tlb_set_pte(ent, pteXQ));
-                        constant (result, boolean, ExceptionType) XM_match_389 = write_pte(ent.pteAddr, pte_width, pteXQ);
+                        constant (result, boolean, ExceptionType) XM_match_389 = write_pte(asl_get_pteAddr(ent), pte_width, pteXQ);
                         case XM_match_389 of
                             when (Ok, -, -)
 
@@ -7341,16 +7407,16 @@ mul_op encdec_mul_op_backwards(bits(3) argXH)
     mul_op temp_XT_1;
     constant bits(3) b__0 = argXH;
     if eq_bits(b__0, '000') then
-        temp_XT_1 = asl_make_mul_op(FALSE, TRUE, TRUE);
+        temp_XT_1 = (FALSE, TRUE, TRUE);
     else
         if eq_bits(b__0, '001') then
-            temp_XT_1 = asl_make_mul_op(TRUE, TRUE, TRUE);
+            temp_XT_1 = (TRUE, TRUE, TRUE);
         else
             if eq_bits(b__0, '010') then
-                temp_XT_1 = asl_make_mul_op(TRUE, TRUE, FALSE);
+                temp_XT_1 = (TRUE, TRUE, FALSE);
             else
                 if eq_bits(b__0, '011') then
-                    temp_XT_1 = asl_make_mul_op(TRUE, FALSE, FALSE);
+                    temp_XT_1 = (TRUE, FALSE, FALSE);
                 else
                     assert(FALSE);
                     exit();
@@ -8464,7 +8530,7 @@ integer get_end_element()
     assert(gteq_int(num_elem, real_num_elem));
     for i = 0 to num_elem - (1)
         if lt_int(i, start_element) then
-            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, num_elem, SEW));
+            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, num_elem, SEW), num_elem, SEW);
             mask = bitvector_update(mask, i, '0');
         else
             if gt_int(i, end_element) then
@@ -8475,7 +8541,7 @@ integer get_end_element()
                         temp_XT_63 = plain_vector_access(vd_val, i, num_elem, SEW);
                     when AGNOSTIC
                         temp_XT_63 = plain_vector_access(vd_val, i, num_elem, SEW);
-                resultXN = plain_vector_update(resultXN, i, temp_XT_63);
+                resultXN = plain_vector_update(resultXN, i, temp_XT_63, num_elem, SEW);
                 mask = bitvector_update(mask, i, '0');
             else
                 if gteq_int(i, real_num_elem) then
@@ -8486,7 +8552,7 @@ integer get_end_element()
                             temp_XT_81 = plain_vector_access(vd_val, i, num_elem, SEW);
                         when AGNOSTIC
                             temp_XT_81 = plain_vector_access(vd_val, i, num_elem, SEW);
-                    resultXN = plain_vector_update(resultXN, i, temp_XT_81);
+                    resultXN = plain_vector_update(resultXN, i, temp_XT_81, num_elem, SEW);
                     mask = bitvector_update(mask, i, '0');
                 else
                     if eq_bit(bitvector_access(vm_val, i), '0') then
@@ -8497,7 +8563,7 @@ integer get_end_element()
                                 temp_XT_101 = plain_vector_access(vd_val, i, num_elem, SEW);
                             when AGNOSTIC
                                 temp_XT_101 = plain_vector_access(vd_val, i, num_elem, SEW);
-                        resultXN = plain_vector_update(resultXN, i, temp_XT_101);
+                        resultXN = plain_vector_update(resultXN, i, temp_XT_101, num_elem, SEW);
                         mask = bitvector_update(mask, i, '0');
                     else
                         mask = bitvector_update(mask, i, '1');
@@ -8615,11 +8681,11 @@ bits((num_elem) * ((nf) * (SEW))) read_vreg_seg(integer num_elem, integer SEW, i
     bits((nf) * ((SEW) * (num_elem))) vreg_list = vector_init(nf, vector_init(num_elem, zeros(SEW)));
     bits((num_elem) * ((nf) * (SEW))) resultXN = vector_init(num_elem, zeros((nf) * (SEW)));
     for j = 0 to nf - (1)
-        vreg_list = plain_vector_update(vreg_list, j, read_vreg(num_elem, SEW, LMUL_pow, vregidx_offset(vrid, to_bits_unsafe(5, (j) * (LMUL_reg)))));
+        vreg_list = plain_vector_update(vreg_list, j, read_vreg(num_elem, SEW, LMUL_pow, vregidx_offset(vrid, to_bits_unsafe(5, (j) * (LMUL_reg)))), nf, (SEW) * (num_elem));
     for i = 0 to num_elem - (1)
-        resultXN = plain_vector_update(resultXN, i, zeros((nf) * (SEW)));
+        resultXN = plain_vector_update(resultXN, i, zeros((nf) * (SEW)), num_elem, (nf) * (SEW));
         for j = 0 to nf - (1)
-            resultXN = plain_vector_update(resultXN, i, or_vec(plain_vector_access(resultXN, i, num_elem, (nf) * (SEW)), shiftl(zero_extend((nf) * (SEW), plain_vector_access(plain_vector_access(vreg_list, j, nf, (SEW) * (num_elem)), i, num_elem, SEW)), (j) * (SEW))));
+            resultXN = plain_vector_update(resultXN, i, or_vec(plain_vector_access(resultXN, i, num_elem, (nf) * (SEW)), shiftl(zero_extend((nf) * (SEW), plain_vector_access(plain_vector_access(vreg_list, j, nf, (SEW) * (num_elem)), i, num_elem, SEW)), (j) * (SEW))), num_elem, (nf) * (SEW));
     return resultXN;
 
 nat get_shift_amount(bits(n) bit_val, integer SEW)
@@ -8662,7 +8728,7 @@ bits(len) signed_saturation(integer len, bits(n) elem)
 bits((n) * ((m) * (8))) vrev8(integer m, bits((n) * ((m) * (8))) input)
     bits((n) * ((m) * (8))) output = input;
     for i = 0 to n - (1)
-        output = plain_vector_update(output, i, rev8(plain_vector_access(input, i, n, (m) * (8))));
+        output = plain_vector_update(output, i, rev8(plain_vector_access(input, i, n, (m) * (8))), n, (m) * (8));
     return output;
 
 boolean valid_fp_op(integer SEW, bits(3) rm_3b)
@@ -11570,16 +11636,16 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
         bits((4) * (32)) x_out = vector_init(4, zeros(32));
         bits(SEW) B = xor_vec(plain_vector_access(x_in, 1, 4, SEW), xor_vec(plain_vector_access(x_in, 2, 4, SEW), xor_vec(plain_vector_access(x_in, 3, 4, SEW), plain_vector_access(rk_in, 0, 4, SEW))));
         bits(32) S = zvk_sm4_subword(B);
-        x_out = plain_vector_update(x_out, 0, zvk_sm4_round(plain_vector_access(x_in, 0, 4, SEW), S));
+        x_out = plain_vector_update(x_out, 0, zvk_sm4_round(plain_vector_access(x_in, 0, 4, SEW), S), 4, 32);
         B = xor_vec(plain_vector_access(x_in, 2, 4, SEW), xor_vec(plain_vector_access(x_in, 3, 4, SEW), xor_vec(plain_vector_access(x_out, 0, 4, 32), plain_vector_access(rk_in, 1, 4, SEW))));
         S = zvk_sm4_subword(B);
-        x_out = plain_vector_update(x_out, 1, zvk_sm4_round(plain_vector_access(x_in, 1, 4, SEW), S));
+        x_out = plain_vector_update(x_out, 1, zvk_sm4_round(plain_vector_access(x_in, 1, 4, SEW), S), 4, 32);
         B = xor_vec(plain_vector_access(x_in, 3, 4, SEW), xor_vec(plain_vector_access(x_out, 0, 4, 32), xor_vec(plain_vector_access(x_out, 1, 4, 32), plain_vector_access(rk_in, 2, 4, SEW))));
         S = zvk_sm4_subword(B);
-        x_out = plain_vector_update(x_out, 2, zvk_sm4_round(plain_vector_access(x_in, 2, 4, SEW), S));
+        x_out = plain_vector_update(x_out, 2, zvk_sm4_round(plain_vector_access(x_in, 2, 4, SEW), S), 4, 32);
         B = xor_vec(plain_vector_access(x_out, 0, 4, 32), xor_vec(plain_vector_access(x_out, 1, 4, 32), xor_vec(plain_vector_access(x_out, 2, 4, 32), plain_vector_access(rk_in, 3, 4, SEW))));
         S = zvk_sm4_subword(B);
-        x_out = plain_vector_update(x_out, 3, zvk_sm4_round(plain_vector_access(x_in, 3, 4, SEW), S));
+        x_out = plain_vector_update(x_out, 3, zvk_sm4_round(plain_vector_access(x_in, 3, 4, SEW), S), 4, 32);
         write_velem_quad_vec(vd, SEW, x_out, i);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -11962,7 +12028,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_85 = to_bits_unsafe(SEW_widen, unsigned(plain_vector_access(vs2_val, i, n, o)) + unsigned(rs1_val));
                 when WXX_VSUBU
                     temp_XT_85 = to_bits_unsafe(SEW_widen, unsigned(plain_vector_access(vs2_val, i, n, o)) - (unsigned(rs1_val)));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_85);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_85, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12015,7 +12081,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_92 = to_bits_unsafe(SEW_widen, (unsigned(plain_vector_access(vs2_val, i, n, m))) * (unsigned(rs1_val)));
                 when WVXX_VWMULSU
                     temp_XT_92 = to_bits_unsafe(SEW_widen, (signed(plain_vector_access(vs2_val, i, n, m))) * (unsigned(rs1_val)));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_92);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_92, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12068,7 +12134,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_101 = to_bits_unsafe(SEW_widen, (unsigned(plain_vector_access(vs2_val, i, n, m))) * (unsigned(plain_vector_access(vs1_val, i, n, m))));
                 when WVV_VWMULSU
                     temp_XT_101 = to_bits_unsafe(SEW_widen, (signed(plain_vector_access(vs2_val, i, n, m))) * (unsigned(plain_vector_access(vs1_val, i, n, m))));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_101);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_101, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12115,7 +12181,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_94 = to_bits_unsafe(SEW_widen, unsigned(plain_vector_access(vs2_val, i, n, o)) + unsigned(plain_vector_access(vs1_val, i, n, m)));
                 when WV_VSUBU
                     temp_XT_94 = to_bits_unsafe(SEW_widen, unsigned(plain_vector_access(vs2_val, i, n, o)) - (unsigned(plain_vector_access(vs1_val, i, n, m))));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_94);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_94, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12172,7 +12238,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_92 = add_bits(to_bits_unsafe(SEW_widen, (unsigned(rs1_val)) * (signed(plain_vector_access(vs2_val, i, n, m)))), plain_vector_access(vd_val, i, n, o));
                 when WMVXX_VWMACCSU
                     temp_XT_92 = add_bits(to_bits_unsafe(SEW_widen, (signed(rs1_val)) * (unsigned(plain_vector_access(vs2_val, i, n, m)))), plain_vector_access(vd_val, i, n, o));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_92);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_92, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12217,7 +12283,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_101 = add_bits(to_bits_unsafe(SEW_widen, (unsigned(plain_vector_access(vs1_val, i, n, m))) * (unsigned(plain_vector_access(vs2_val, i, n, m)))), plain_vector_access(vd_val, i, n, o));
                 when WMVV_VWMACCSU
                     temp_XT_101 = add_bits(to_bits_unsafe(SEW_widen, (signed(plain_vector_access(vs1_val, i, n, m))) * (unsigned(plain_vector_access(vs2_val, i, n, m)))), plain_vector_access(vd_val, i, n, o));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_101);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_101, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12316,7 +12382,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_72 = to_bits_unsafe(SEW, max_int(unsigned(plain_vector_access(vs2_val, i, n, m)), unsigned(rs1_val)));
                 when VXX_VMAXX
                     temp_XT_72 = to_bits_unsafe(SEW, max_int(signed(plain_vector_access(vs2_val, i, n, m)), signed(rs1_val)));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_72);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_72, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12366,7 +12432,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant integer VLMAXX = pow2_int(LMUL_pow + VLEN_pow - (SEW_pow));
                     assert(and_bool(gt_int(VLMAXX, 0), lteq_int(VLMAXX, n)));
                     temp_XT_74 = (if lt_int(rs1_val, VLMAXX) then plain_vector_access(vs2_val, rs1_val, n, m) else zeros(m));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_74);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_74, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12446,7 +12512,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_74 = to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(rs1_val) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0));
                 when VXXMS_VSBC
                     temp_XT_74 = to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) - (unsigned(rs1_val)) - ((if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0)));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_74);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_74, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12575,7 +12641,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant bits(o) vs2_val = zero_extend(o, plain_vector_access(vs2_val_vec, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, shift_bits_left(vs2_val, and_vec(rs1_val, zero_extend(o, sub_vec_int(SEW_widen_bits, 1)))));
+            resultXN = plain_vector_update(resultXN, i, shift_bits_left(vs2_val, and_vec(rs1_val, zero_extend(o, sub_vec_int(SEW_widen_bits, 1)))), n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12614,7 +12680,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant bits(o) vs1_val = zero_extend(o, plain_vector_access(vs1_val_vec, i, n, m));
             constant bits(o) vs2_val = zero_extend(o, plain_vector_access(vs2_val_vec, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, shift_bits_left(vs2_val, and_vec(vs1_val, zero_extend(o, sub_vec_int(SEW_widen_bits, 1)))));
+            resultXN = plain_vector_update(resultXN, i, shift_bits_left(vs2_val, and_vec(vs1_val, zero_extend(o, sub_vec_int(SEW_widen_bits, 1)))), n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12652,7 +12718,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant bits(o) vs2_val = zero_extend(o, plain_vector_access(vs2_val_vec, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, shift_bits_left(vs2_val, and_vec(uimm_val, zero_extend(o, sub_vec_int(SEW_widen_bits, 1)))));
+            resultXN = plain_vector_update(resultXN, i, shift_bits_left(vs2_val, and_vec(uimm_val, zero_extend(o, sub_vec_int(SEW_widen_bits, 1)))), n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12753,7 +12819,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant integer VLMAXX = pow2_int(LMUL_pow + VLEN_pow - (SEW_pow));
                     assert(lteq_int(VLMAXX, n));
                     temp_XT_76 = (if lt_int(idx, VLMAXX) then plain_vector_access(vs2_val, idx, n, m) else zeros(m));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_76);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_76, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -12833,7 +12899,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_76 = to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(plain_vector_access(vs1_val, i, n, m)) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0));
                 when VVMS_VSBC
                     temp_XT_76 = to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) - (unsigned(plain_vector_access(vs1_val, i, n, m))) - ((if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0)));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_76);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_76, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13006,16 +13072,16 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
         bits((4) * (32)) rk_out = vector_init(4, zeros(32));
         bits(SEW) B = xor_vec(plain_vector_access(rk_in, 1, 4, SEW), xor_vec(plain_vector_access(rk_in, 2, 4, SEW), xor_vec(plain_vector_access(rk_in, 3, 4, SEW), zvk_sm4_sbox(shiftl(rnd, 2)))));
         bits(32) S = zvk_sm4_subword(B);
-        rk_out = plain_vector_update(rk_out, 0, zvk_round_key(plain_vector_access(rk_in, 0, 4, SEW), S));
+        rk_out = plain_vector_update(rk_out, 0, zvk_round_key(plain_vector_access(rk_in, 0, 4, SEW), S), 4, 32);
         B = xor_vec(plain_vector_access(rk_in, 2, 4, SEW), xor_vec(plain_vector_access(rk_in, 3, 4, SEW), xor_vec(plain_vector_access(rk_out, 0, 4, 32), zvk_sm4_sbox(add_bits_int(shiftl(rnd, 2), 1)))));
         S = zvk_sm4_subword(B);
-        rk_out = plain_vector_update(rk_out, 1, zvk_round_key(plain_vector_access(rk_in, 1, 4, SEW), S));
+        rk_out = plain_vector_update(rk_out, 1, zvk_round_key(plain_vector_access(rk_in, 1, 4, SEW), S), 4, 32);
         B = xor_vec(plain_vector_access(rk_in, 3, 4, SEW), xor_vec(plain_vector_access(rk_out, 0, 4, 32), xor_vec(plain_vector_access(rk_out, 1, 4, 32), zvk_sm4_sbox(add_bits_int(shiftl(rnd, 2), 2)))));
         S = zvk_sm4_subword(B);
-        rk_out = plain_vector_update(rk_out, 2, zvk_round_key(plain_vector_access(rk_in, 2, 4, SEW), S));
+        rk_out = plain_vector_update(rk_out, 2, zvk_round_key(plain_vector_access(rk_in, 2, 4, SEW), S), 4, 32);
         B = xor_vec(plain_vector_access(rk_out, 0, 4, 32), xor_vec(plain_vector_access(rk_out, 1, 4, 32), xor_vec(plain_vector_access(rk_out, 2, 4, 32), zvk_sm4_sbox(add_bits_int(shiftl(rnd, 2), 3)))));
         S = zvk_sm4_subword(B);
-        rk_out = plain_vector_update(rk_out, 3, zvk_round_key(plain_vector_access(rk_in, 3, 4, SEW), S));
+        rk_out = plain_vector_update(rk_out, 3, zvk_round_key(plain_vector_access(rk_in, 3, 4, SEW), S), 4, 32);
         write_velem_quad_vec(vd, SEW, rk_out, i);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13033,10 +13099,10 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = eg_start to eg_len - (1)
         assert(lt_int((i) * (8) + 7, num_elem));
         for j = 0 to 7
-            w = plain_vector_update(w, j, rev8(plain_vector_access(vs1_val, (i) * (8) + j, num_elem, SEW)));
-            w = plain_vector_update(w, j + 8, rev8(plain_vector_access(vs2_val, (i) * (8) + j, num_elem, SEW)));
+            w = plain_vector_update(w, j, rev8(plain_vector_access(vs1_val, (i) * (8) + j, num_elem, SEW)), 24, 32);
+            w = plain_vector_update(w, j + 8, rev8(plain_vector_access(vs2_val, (i) * (8) + j, num_elem, SEW)), 24, 32);
         for j = 16 to 23
-            w = plain_vector_update(w, j, zvk_sh_w(plain_vector_access(w, j - (16), 24, 32), plain_vector_access(w, j - (9), 24, 32), plain_vector_access(w, j - (3), 24, 32), plain_vector_access(w, j - (13), 24, 32), plain_vector_access(w, j - (6), 24, 32)));
+            w = plain_vector_update(w, j, zvk_sh_w(plain_vector_access(w, j - (16), 24, 32), plain_vector_access(w, j - (9), 24, 32), plain_vector_access(w, j - (3), 24, 32), plain_vector_access(w, j - (13), 24, 32), plain_vector_access(w, j - (6), 24, 32)), 24, 32);
         write_velem_oct_vec(vd, SEW, vrev8((SEW) DIV (8), plain_vector_access(w, 16, 24, 32):plain_vector_access(w, 17, 24, 32):plain_vector_access(w, 18, 24, 32):plain_vector_access(w, 19, 24, 32):plain_vector_access(w, 20, 24, 32):plain_vector_access(w, 21, 24, 32):plain_vector_access(w, 22, 24, 32):plain_vector_access(w, 23, 24, 32), 8, ((SEW) DIV (8)) * (8)), i);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13076,11 +13142,11 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant integer eg_start = quot_positive_round_zero(unsigned(vstart), 4);
     for i = eg_start to eg_len - (1)
         assert(lt_int((i) * (4) + 3, num_elem));
-        w = plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(w, 0, plain_vector_access(vd_val, (i) * (4), num_elem, SEW)), 1, plain_vector_access(vd_val, (i) * (4) + 1, num_elem, SEW)), 2, plain_vector_access(vd_val, (i) * (4) + 2, num_elem, SEW)), 3, plain_vector_access(vd_val, (i) * (4) + 3, num_elem, SEW)), 4, plain_vector_access(vs2_val, (i) * (4), num_elem, SEW)), 9, plain_vector_access(vs2_val, (i) * (4) + 1, num_elem, SEW)), 10, plain_vector_access(vs2_val, (i) * (4) + 2, num_elem, SEW)), 11, plain_vector_access(vs2_val, (i) * (4) + 3, num_elem, SEW)), 12, plain_vector_access(vs1_val, (i) * (4), num_elem, SEW)), 13, plain_vector_access(vs1_val, (i) * (4) + 1, num_elem, SEW)), 14, plain_vector_access(vs1_val, (i) * (4) + 2, num_elem, SEW)), 15, plain_vector_access(vs1_val, (i) * (4) + 3, num_elem, SEW));
-        w = plain_vector_update(w, 16, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 14, 20, SEW), SEW), plain_vector_access(w, 9, 20, SEW)), zvk_sig0(plain_vector_access(w, 1, 20, SEW), SEW)), plain_vector_access(w, 0, 20, SEW)));
-        w = plain_vector_update(w, 17, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 15, 20, SEW), SEW), plain_vector_access(w, 10, 20, SEW)), zvk_sig0(plain_vector_access(w, 2, 20, SEW), SEW)), plain_vector_access(w, 1, 20, SEW)));
-        w = plain_vector_update(w, 18, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 16, 20, SEW), SEW), plain_vector_access(w, 11, 20, SEW)), zvk_sig0(plain_vector_access(w, 3, 20, SEW), SEW)), plain_vector_access(w, 2, 20, SEW)));
-        w = plain_vector_update(w, 19, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 17, 20, SEW), SEW), plain_vector_access(w, 12, 20, SEW)), zvk_sig0(plain_vector_access(w, 4, 20, SEW), SEW)), plain_vector_access(w, 3, 20, SEW)));
+        w = plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(plain_vector_update(w, 0, plain_vector_access(vd_val, (i) * (4), num_elem, SEW), 20, SEW), 1, plain_vector_access(vd_val, (i) * (4) + 1, num_elem, SEW), 20, SEW), 2, plain_vector_access(vd_val, (i) * (4) + 2, num_elem, SEW), 20, SEW), 3, plain_vector_access(vd_val, (i) * (4) + 3, num_elem, SEW), 20, SEW), 4, plain_vector_access(vs2_val, (i) * (4), num_elem, SEW), 20, SEW), 9, plain_vector_access(vs2_val, (i) * (4) + 1, num_elem, SEW), 20, SEW), 10, plain_vector_access(vs2_val, (i) * (4) + 2, num_elem, SEW), 20, SEW), 11, plain_vector_access(vs2_val, (i) * (4) + 3, num_elem, SEW), 20, SEW), 12, plain_vector_access(vs1_val, (i) * (4), num_elem, SEW), 20, SEW), 13, plain_vector_access(vs1_val, (i) * (4) + 1, num_elem, SEW), 20, SEW), 14, plain_vector_access(vs1_val, (i) * (4) + 2, num_elem, SEW), 20, SEW), 15, plain_vector_access(vs1_val, (i) * (4) + 3, num_elem, SEW), 20, SEW);
+        w = plain_vector_update(w, 16, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 14, 20, SEW), SEW), plain_vector_access(w, 9, 20, SEW)), zvk_sig0(plain_vector_access(w, 1, 20, SEW), SEW)), plain_vector_access(w, 0, 20, SEW)), 20, SEW);
+        w = plain_vector_update(w, 17, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 15, 20, SEW), SEW), plain_vector_access(w, 10, 20, SEW)), zvk_sig0(plain_vector_access(w, 2, 20, SEW), SEW)), plain_vector_access(w, 1, 20, SEW)), 20, SEW);
+        w = plain_vector_update(w, 18, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 16, 20, SEW), SEW), plain_vector_access(w, 11, 20, SEW)), zvk_sig0(plain_vector_access(w, 3, 20, SEW), SEW)), plain_vector_access(w, 2, 20, SEW)), 20, SEW);
+        w = plain_vector_update(w, 19, add_bits(add_bits(add_bits(zvk_sig1(plain_vector_access(w, 17, 20, SEW), SEW), plain_vector_access(w, 12, 20, SEW)), zvk_sig0(plain_vector_access(w, 4, 20, SEW), SEW)), plain_vector_access(w, 3, 20, SEW)), 20, SEW);
         write_velem_quad(vd, SEW, bitvector_concat(plain_vector_access(w, 19, 20, SEW), bitvector_concat(plain_vector_access(w, 18, 20, SEW), bitvector_concat(plain_vector_access(w, 17, 20, SEW), plain_vector_access(w, 16, 20, SEW)))), i);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13194,7 +13260,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rotate_bits_right(plain_vector_access(vs2_val, i, n, m), subrange_bits(rs1_val, SEW_pow - (1), 0)));
+            resultXN = plain_vector_update(resultXN, i, rotate_bits_right(plain_vector_access(vs2_val, i, n, m), subrange_bits(rs1_val, SEW_pow - (1), 0)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13225,7 +13291,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rotate_bits_right(plain_vector_access(vs2_val, i, n, m), subrange_bits(plain_vector_access(vs1_val, i, n, m), SEW_pow - (1), 0)));
+            resultXN = plain_vector_update(resultXN, i, rotate_bits_right(plain_vector_access(vs2_val, i, n, m), subrange_bits(plain_vector_access(vs1_val, i, n, m), SEW_pow - (1), 0)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13256,7 +13322,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rotate_bits_right(plain_vector_access(vs2_val, i, n, m), subrange_bits(uimm_val, SEW_pow - (1), 0)));
+            resultXN = plain_vector_update(resultXN, i, rotate_bits_right(plain_vector_access(vs2_val, i, n, m), subrange_bits(uimm_val, SEW_pow - (1), 0)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13287,7 +13353,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rotate_bits_left(plain_vector_access(vs2_val, i, n, m), subrange_bits(rs1_val, SEW_pow - (1), 0)));
+            resultXN = plain_vector_update(resultXN, i, rotate_bits_left(plain_vector_access(vs2_val, i, n, m), subrange_bits(rs1_val, SEW_pow - (1), 0)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13318,7 +13384,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rotate_bits_left(plain_vector_access(vs2_val, i, n, m), subrange_bits(plain_vector_access(vs1_val, i, n, m), SEW_pow - (1), 0)));
+            resultXN = plain_vector_update(resultXN, i, rotate_bits_left(plain_vector_access(vs2_val, i, n, m), subrange_bits(plain_vector_access(vs1_val, i, n, m), SEW_pow - (1), 0)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13347,7 +13413,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rev8(plain_vector_access(vs2_val, i, n, m)));
+            resultXN = plain_vector_update(resultXN, i, rev8(plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13390,7 +13456,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     (initial_result, mask) = temp_XT_37;
     bits((n) * (m)) resultXN = initial_result;
     if eq_bit(bitvector_access(mask, 0), '1') then
-        resultXN = plain_vector_update(resultXN, 0, rs1_val);
+        resultXN = plain_vector_update(resultXN, 0, rs1_val, n, m);
     constant agtype tail_ag = get_vtype_vta();
     for i = 1 to num_elem - (1)
         bits(m) temp_XT_76;
@@ -13400,7 +13466,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                 temp_XT_76 = plain_vector_access(vd_val, i, n, m);
             when AGNOSTIC
                 temp_XT_76 = plain_vector_access(vd_val, i, n, m);
-        resultXN = plain_vector_update(resultXN, i, temp_XT_76);
+        resultXN = plain_vector_update(resultXN, i, temp_XT_76, n, m);
     write_vreg(num_elem, SEW, 0, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13427,7 +13493,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant bits((n) * (m)) vd_val = read_vreg(num_elem, SEW, EMUL_pow, vd);
     bits((n) * (m)) resultXN = vector_init(n, zeros(m));
     for i = 0 to num_elem - (1)
-        resultXN = plain_vector_update(resultXN, i, (if lt_int(i, start_element) then plain_vector_access(vd_val, i, n, m) else plain_vector_access(vs2_val, i, n, m)));
+        resultXN = plain_vector_update(resultXN, i, (if lt_int(i, start_element) then plain_vector_access(vd_val, i, n, m) else plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, EMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13690,7 +13756,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits(1) rounding_incr = get_fixed_rounding_incr(plain_vector_access(vs2_val, i, n, m), shift_amount);
                     constant bits((m) * (2)) v_double = sign_extend((m) * (2), plain_vector_access(vs2_val, i, n, m));
                     temp_XT_73 = add_bits(slice(shiftr(v_double, shift_amount), 0, SEW), zero_extend(m, rounding_incr));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_73);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_73, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13740,7 +13806,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant integer VLMAXX = pow2_int(LMUL_pow + VLEN_pow - (SEW_pow));
                     assert(and_bool(gt_int(VLMAXX, 0), lteq_int(VLMAXX, n)));
                     temp_XT_75 = (if lt_int(imm_val, VLMAXX) then plain_vector_access(vs2_val, imm_val, n, m) else zeros(m));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_75);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_75, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13772,7 +13838,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     integer sum = 0;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, to_bits_unsafe(SEW, sum));
+            resultXN = plain_vector_update(resultXN, i, to_bits_unsafe(SEW, sum), n, m);
             if eq_bit(bitvector_access(vs2_val, i), '1') then
                 sum = sum + 1;
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
@@ -13842,7 +13908,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant vimsfunct6 VIMS_VADC = funct6;
-            resultXN = plain_vector_update(resultXN, i, to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(imm_val) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0)));
+            resultXN = plain_vector_update(resultXN, i, to_bits_unsafe(SEW, unsigned(plain_vector_access(vs2_val, i, n, m)) + unsigned(imm_val) + (if eq_bit(bitvector_access(vm_val, i), '1') then 1 else 0)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -13905,7 +13971,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, to_bits_unsafe(SEW, i));
+            resultXN = plain_vector_update(resultXN, i, to_bits_unsafe(SEW, i), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14150,7 +14216,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     (fflags, elem) = temp_XT_232;
                     accrue_fflags(fflags);
                     temp_XT_97 = elem;
-            resultXN = plain_vector_update(resultXN, i, temp_XT_97);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_97, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14233,7 +14299,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_77 = elem;
                 when FVV_VCLASS
                     temp_XT_77 = fp_class(plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_77);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_77, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14359,7 +14425,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     (fflags, elem) = temp_XT_174;
                     accrue_fflags(fflags);
                     temp_XT_77 = elem;
-            resultXN = plain_vector_update(resultXN, i, temp_XT_77);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_77, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14518,7 +14584,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     (fflags, elem) = temp_XT_238;
                     accrue_fflags(fflags);
                     temp_XT_93 = elem;
-            resultXN = plain_vector_update(resultXN, i, temp_XT_93);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_93, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14549,7 +14615,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     (initial_result, mask) = temp_XT_44;
     bits((n) * (m)) resultXN = initial_result;
     if eq_bit(bitvector_access(mask, 0), '1') then
-        resultXN = plain_vector_update(resultXN, 0, rs1_val);
+        resultXN = plain_vector_update(resultXN, 0, rs1_val, n, m);
     constant agtype tail_ag = get_vtype_vta();
     for i = 1 to num_elem - (1)
         bits(m) temp_XT_83;
@@ -14559,7 +14625,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                 temp_XT_83 = plain_vector_access(vd_val, i, n, m);
             when AGNOSTIC
                 temp_XT_83 = plain_vector_access(vd_val, i, n, m);
-        resultXN = plain_vector_update(resultXN, i, temp_XT_83);
+        resultXN = plain_vector_update(resultXN, i, temp_XT_83, n, m);
     write_vreg(num_elem, SEW, 0, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14613,7 +14679,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rs1_val);
+            resultXN = plain_vector_update(resultXN, i, rs1_val, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14648,7 +14714,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant agtype tail_ag = get_vtype_vta();
     for i = 0 to num_elem - (1)
         if lt_int(i, start_element) then
-            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m));
+            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m), n, m);
         else
             if or_bool(gt_int(i, end_element), gteq_int(i, real_num_elem)) then
                 bits(m) temp_XT_104;
@@ -14658,9 +14724,9 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                         temp_XT_104 = plain_vector_access(vd_val, i, n, m);
                     when AGNOSTIC
                         temp_XT_104 = plain_vector_access(vd_val, i, n, m);
-                resultXN = plain_vector_update(resultXN, i, temp_XT_104);
+                resultXN = plain_vector_update(resultXN, i, temp_XT_104, n, m);
             else
-                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then rs1_val else plain_vector_access(vs2_val, i, n, m)));
+                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then rs1_val else plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14733,7 +14799,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_93 = zero_extend(m, plain_vector_access(vs2_val, i, n, o));
                 when VEXXT8_SVF8
                     temp_XT_93 = sign_extend(m, plain_vector_access(vs2_val, i, n, o));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_93);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_93, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14775,7 +14841,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_89 = zero_extend(m, plain_vector_access(vs2_val, i, n, o));
                 when VEXXT4_SVF4
                     temp_XT_89 = sign_extend(m, plain_vector_access(vs2_val, i, n, o));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_89);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_89, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14817,7 +14883,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_89 = zero_extend(m, plain_vector_access(vs2_val, i, n, o));
                 when VEXXT2_SVF2
                     temp_XT_89 = sign_extend(m, plain_vector_access(vs2_val, i, n, o));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_89);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_89, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14847,7 +14913,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant integer ctz = count_trailing_zeros(plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, to_bits(m, ctz));
+            resultXN = plain_vector_update(resultXN, i, to_bits(m, ctz), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14878,7 +14944,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
         if eq_bit(bitvector_access(mask, i), '1') then
             for j = 0 to SEW - (1)
                 if eq_bit(bitvector_access(plain_vector_access(vs2_val, i, n, m), j), '1') then
-                    resultXN = plain_vector_update(resultXN, i, add_bits_int(plain_vector_access(resultXN, i, n, m), 1));
+                    resultXN = plain_vector_update(resultXN, i, add_bits_int(plain_vector_access(resultXN, i, n, m), 1), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14937,7 +15003,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant integer clz = count_leading_zeros(plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, to_bits(m, clz));
+            resultXN = plain_vector_update(resultXN, i, to_bits(m, clz), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14967,7 +15033,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to n - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant bits((2) * (m)) prod = carryless_mul(rs1_val, plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, m - (1), 0));
+            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, m - (1), 0), n, m);
     write_vreg(n, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -14997,7 +15063,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to n - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant bits((2) * (m)) prod = carryless_mul(plain_vector_access(vs1_val, i, n, m), plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, m - (1), 0));
+            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, m - (1), 0), n, m);
     write_vreg(n, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15027,7 +15093,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to n - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant bits((2) * (m)) prod = carryless_mul(rs1_val, plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, (2) * (SEW) - (1), SEW));
+            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, (2) * (SEW) - (1), SEW), n, m);
     write_vreg(n, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15057,7 +15123,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = 0 to n - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
             constant bits((2) * (m)) prod = carryless_mul(plain_vector_access(vs1_val, i, n, m), plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, (2) * (SEW) - (1), SEW));
+            resultXN = plain_vector_update(resultXN, i, subrange_bits(prod, (2) * (SEW) - (1), SEW), n, m);
     write_vreg(n, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15089,7 +15155,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             bits(m) output = zeros(m);
             for j = 0 to SEW - (1)
                 output = bitvector_update(output, SEW - (1) - (j), bitvector_access(plain_vector_access(vs2_val, i, n, m), j));
-            resultXN = plain_vector_update(resultXN, i, output);
+            resultXN = plain_vector_update(resultXN, i, output, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15118,7 +15184,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, brev8(plain_vector_access(vs2_val, i, n, m)));
+            resultXN = plain_vector_update(resultXN, i, brev8(plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15148,7 +15214,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, and_vec(not_vec(rs1_val), plain_vector_access(vs2_val, i, n, m)));
+            resultXN = plain_vector_update(resultXN, i, and_vec(not_vec(rs1_val), plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15178,7 +15244,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, and_vec(not_vec(plain_vector_access(vs1_val, i, n, m)), plain_vector_access(vs2_val, i, n, m)));
+            resultXN = plain_vector_update(resultXN, i, and_vec(not_vec(plain_vector_access(vs1_val, i, n, m)), plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15218,10 +15284,10 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
         assert(lt_int((i) * (4) + 3, num_elem));
         constant bits((4) * (SEW)) current_round_key = get_velem_quad_vec(vs2_val, i, num_elem, SEW);
         constant bits((4) * (SEW)) round_key_b = get_velem_quad_vec(vd_val, i, num_elem, SEW);
-        w = plain_vector_update(w, 0, (if eq_bit(bitvector_access(rnd_val, 0), '1') then xor_vec(aes_subword_fwd(plain_vector_access(current_round_key, 3, 4, SEW)), plain_vector_access(round_key_b, 0, 4, SEW)) else xor_vec(aes_subword_fwd(rotater(plain_vector_access(current_round_key, 3, 4, SEW), 8)), xor_vec(aes_decode_rcon(sub_vec_int(shiftr(rnd_val, 1), 1)), plain_vector_access(round_key_b, 0, 4, SEW)))));
-        w = plain_vector_update(w, 1, xor_vec(plain_vector_access(w, 0, 4, 32), plain_vector_access(round_key_b, 1, 4, SEW)));
-        w = plain_vector_update(w, 2, xor_vec(plain_vector_access(w, 1, 4, 32), plain_vector_access(round_key_b, 2, 4, SEW)));
-        w = plain_vector_update(w, 3, xor_vec(plain_vector_access(w, 2, 4, 32), plain_vector_access(round_key_b, 3, 4, SEW)));
+        w = plain_vector_update(w, 0, (if eq_bit(bitvector_access(rnd_val, 0), '1') then xor_vec(aes_subword_fwd(plain_vector_access(current_round_key, 3, 4, SEW)), plain_vector_access(round_key_b, 0, 4, SEW)) else xor_vec(aes_subword_fwd(rotater(plain_vector_access(current_round_key, 3, 4, SEW), 8)), xor_vec(aes_decode_rcon(sub_vec_int(shiftr(rnd_val, 1), 1)), plain_vector_access(round_key_b, 0, 4, SEW)))), 4, 32);
+        w = plain_vector_update(w, 1, xor_vec(plain_vector_access(w, 0, 4, 32), plain_vector_access(round_key_b, 1, 4, SEW)), 4, 32);
+        w = plain_vector_update(w, 2, xor_vec(plain_vector_access(w, 1, 4, 32), plain_vector_access(round_key_b, 2, 4, SEW)), 4, 32);
+        w = plain_vector_update(w, 3, xor_vec(plain_vector_access(w, 2, 4, 32), plain_vector_access(round_key_b, 3, 4, SEW)), 4, 32);
         write_velem_quad_vec(vd, SEW, w, i);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15243,10 +15309,10 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     for i = eg_start to eg_len - (1)
         assert(lt_int((i) * (4) + 3, num_elem));
         constant bits((4) * (SEW)) current_round_key = get_velem_quad_vec(vs2_val, i, num_elem, SEW);
-        w = plain_vector_update(w, 0, xor_vec(aes_subword_fwd(rotater(plain_vector_access(current_round_key, 3, 4, SEW), 8)), xor_vec(aes_decode_rcon(r), plain_vector_access(current_round_key, 0, 4, SEW))));
-        w = plain_vector_update(w, 1, xor_vec(plain_vector_access(w, 0, 4, 32), plain_vector_access(current_round_key, 1, 4, SEW)));
-        w = plain_vector_update(w, 2, xor_vec(plain_vector_access(w, 1, 4, 32), plain_vector_access(current_round_key, 2, 4, SEW)));
-        w = plain_vector_update(w, 3, xor_vec(plain_vector_access(w, 2, 4, 32), plain_vector_access(current_round_key, 3, 4, SEW)));
+        w = plain_vector_update(w, 0, xor_vec(aes_subword_fwd(rotater(plain_vector_access(current_round_key, 3, 4, SEW), 8)), xor_vec(aes_decode_rcon(r), plain_vector_access(current_round_key, 0, 4, SEW))), 4, 32);
+        w = plain_vector_update(w, 1, xor_vec(plain_vector_access(w, 0, 4, 32), plain_vector_access(current_round_key, 1, 4, SEW)), 4, 32);
+        w = plain_vector_update(w, 2, xor_vec(plain_vector_access(w, 1, 4, 32), plain_vector_access(current_round_key, 2, 4, SEW)), 4, 32);
+        w = plain_vector_update(w, 3, xor_vec(plain_vector_access(w, 2, 4, 32), plain_vector_access(current_round_key, 3, 4, SEW)), 4, 32);
         write_velem_quad_vec(vd, SEW, w, i);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15866,7 +15932,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits((m) * (4)) v_double = sign_extend((m) * (4), plain_vector_access(vs2_val, i, n, o));
                     constant bits(o) result_wide = add_bits(slice(shiftr(v_double, shift_amount), 0, o), zero_extend(o, rounding_incr));
                     temp_XT_100 = signed_saturation(m, result_wide);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_100);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_100, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15913,7 +15979,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits((o) * (2)) v_double = sign_extend((o) * (2), plain_vector_access(vs2_val, i, n, o));
                     constant bits(o) arith_shifted = slice(shiftr(v_double, shift_amount), 0, SEW_widen);
                     temp_XT_92 = slice(arith_shifted, 0, SEW);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_92);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_92, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -15961,7 +16027,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits((m) * (4)) v_double = sign_extend((m) * (4), plain_vector_access(vs2_val, i, n, o));
                     constant bits(o) result_wide = add_bits(slice(shiftr(v_double, shift_amount), 0, o), zero_extend(o, rounding_incr));
                     temp_XT_104 = signed_saturation(m, result_wide);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_104);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_104, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16008,7 +16074,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits((o) * (2)) v_double = sign_extend((o) * (2), plain_vector_access(vs2_val, i, n, o));
                     constant bits(o) arith_shifted = slice(shiftr(v_double, shift_amount), 0, SEW_widen);
                     temp_XT_94 = slice(arith_shifted, 0, SEW);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_94);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_94, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16056,7 +16122,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits((m) * (4)) v_double = sign_extend((m) * (4), plain_vector_access(vs2_val, i, n, o));
                     constant bits(o) result_wide = add_bits(slice(shiftr(v_double, shift_amount), 0, o), zero_extend(o, rounding_incr));
                     temp_XT_101 = signed_saturation(m, result_wide);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_101);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_101, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16103,7 +16169,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant bits((o) * (2)) v_double = sign_extend((o) * (2), plain_vector_access(vs2_val, i, n, o));
                     constant bits(o) arith_shifted = slice(shiftr(v_double, shift_amount), 0, SEW_widen);
                     temp_XT_93 = slice(arith_shifted, 0, SEW);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_93);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_93, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16193,7 +16259,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant integer dividend = signed(plain_vector_access(vs2_val, i, n, m));
                     constant integer r = (if eq_int(divisor, 0) then dividend else rem_round_zero(dividend, divisor));
                     temp_XT_72 = to_bits_unsafe(SEW, r);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_72);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_72, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16236,7 +16302,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_72 = add_bits(get_slice_int(SEW, (signed(rs1_val)) * (signed(plain_vector_access(vd_val, i, n, m))), 0), plain_vector_access(vs2_val, i, n, m));
                 when MVXX_VNMSUB
                     temp_XT_72 = sub_vec(plain_vector_access(vs2_val, i, n, m), get_slice_int(SEW, (signed(rs1_val)) * (signed(plain_vector_access(vd_val, i, n, m))), 0));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_72);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_72, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16318,7 +16384,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant integer dividend = signed(plain_vector_access(vs2_val, i, n, m));
                     constant integer r = (if eq_int(divisor, 0) then dividend else rem_round_zero(dividend, divisor));
                     temp_XT_74 = to_bits_unsafe(SEW, r);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_74);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_74, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16361,7 +16427,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_74 = add_bits(get_slice_int(SEW, (signed(plain_vector_access(vs1_val, i, n, m))) * (signed(plain_vector_access(vd_val, i, n, m))), 0), plain_vector_access(vs2_val, i, n, m));
                 when MVV_VNMSUB
                     temp_XT_74 = sub_vec(plain_vector_access(vs2_val, i, n, m), get_slice_int(SEW, (signed(plain_vector_access(vs1_val, i, n, m))) * (signed(plain_vector_access(vd_val, i, n, m))), 0));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_74);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_74, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16395,7 +16461,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             if eq_bit(bitvector_access(vs1_val, i), '1') then
                 constant integer p = vd_idx;
                 assert(lt_int(p, n));
-                resultXN = plain_vector_update(resultXN, p, plain_vector_access(vs2_val, i, n, m));
+                resultXN = plain_vector_update(resultXN, p, plain_vector_access(vs2_val, i, n, m), n, m);
                 vd_idx = vd_idx + 1;
     if lt_int(vd_idx, num_elem) then
         constant agtype tail_ag = get_vtype_vta();
@@ -16408,7 +16474,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_118 = plain_vector_access(vd_val, i, n, m);
                 when AGNOSTIC
                     temp_XT_118 = plain_vector_access(vd_val, i, n, m);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_118);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_118, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16425,10 +16491,10 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_MUL(bits(5) rs2, bits(5) rs1, bits(5) rd, mul_op mul_opXN)
     constant bits((pow2_int(3)) * (8)) rs1_bits = rX_bits(rs1);
     constant bits((pow2_int(3)) * (8)) rs2_bits = rX_bits(rs2);
-    constant integer rs1_int = (if mul_opXN.signed_rs1 then signed(rs1_bits) else unsigned(rs1_bits));
-    constant integer rs2_int = (if mul_opXN.signed_rs2 then signed(rs2_bits) else unsigned(rs2_bits));
+    constant integer rs1_int = (if asl_get_signed_rs1(mul_opXN) then signed(rs1_bits) else unsigned(rs1_bits));
+    constant integer rs2_int = (if asl_get_signed_rs2(mul_opXN) then signed(rs2_bits) else unsigned(rs2_bits));
     constant bits((2) * ((pow2_int(3)) * (8))) result_wide = to_bits_truncate((2) * (xlen), (rs1_int) * (rs2_int));
-    wX_bits(rd, (if mul_opXN.high then subrange_bits(result_wide, (2) * (xlen) - (1), xlen) else subrange_bits(result_wide, xlen - (1), 0)));
+    wX_bits(rd, (if asl_get_high(mul_opXN) then subrange_bits(result_wide, (2) * (xlen) - (1), xlen) else subrange_bits(result_wide, xlen - (1), 0)));
     return RETIRE_SUCCESS;
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_MRET()
@@ -16469,7 +16535,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, rs1_val);
+            resultXN = plain_vector_update(resultXN, i, rs1_val, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16500,7 +16566,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vs1_val, i, n, m));
+            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vs1_val, i, n, m), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16531,7 +16597,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     bits((n) * (m)) resultXN = initial_result;
     for i = 0 to num_elem - (1)
         if eq_bit(bitvector_access(mask, i), '1') then
-            resultXN = plain_vector_update(resultXN, i, imm_val);
+            resultXN = plain_vector_update(resultXN, i, imm_val, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16614,7 +16680,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant agtype tail_ag = get_vtype_vta();
     for i = 0 to num_elem - (1)
         if lt_int(i, start_element) then
-            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m));
+            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m), n, m);
         else
             if or_bool(gt_int(i, end_element), gteq_int(i, real_num_elem)) then
                 bits(m) temp_XT_95;
@@ -16624,9 +16690,9 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                         temp_XT_95 = plain_vector_access(vd_val, i, n, m);
                     when AGNOSTIC
                         temp_XT_95 = plain_vector_access(vd_val, i, n, m);
-                resultXN = plain_vector_update(resultXN, i, temp_XT_95);
+                resultXN = plain_vector_update(resultXN, i, temp_XT_95, n, m);
             else
-                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then rs1_val else plain_vector_access(vs2_val, i, n, m)));
+                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then rs1_val else plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16659,7 +16725,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant agtype tail_ag = get_vtype_vta();
     for i = 0 to num_elem - (1)
         if lt_int(i, start_element) then
-            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m));
+            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m), n, m);
         else
             if or_bool(gt_int(i, end_element), gteq_int(i, real_num_elem)) then
                 bits(m) temp_XT_97;
@@ -16669,9 +16735,9 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                         temp_XT_97 = plain_vector_access(vd_val, i, n, m);
                     when AGNOSTIC
                         temp_XT_97 = plain_vector_access(vd_val, i, n, m);
-                resultXN = plain_vector_update(resultXN, i, temp_XT_97);
+                resultXN = plain_vector_update(resultXN, i, temp_XT_97, n, m);
             else
-                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then plain_vector_access(vs1_val, i, n, m) else plain_vector_access(vs2_val, i, n, m)));
+                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then plain_vector_access(vs1_val, i, n, m) else plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -16704,7 +16770,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     constant agtype tail_ag = get_vtype_vta();
     for i = 0 to num_elem - (1)
         if lt_int(i, start_element) then
-            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m));
+            resultXN = plain_vector_update(resultXN, i, plain_vector_access(vd_val, i, n, m), n, m);
         else
             if or_bool(gt_int(i, end_element), gteq_int(i, real_num_elem)) then
                 bits(m) temp_XT_96;
@@ -16714,9 +16780,9 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                         temp_XT_96 = plain_vector_access(vd_val, i, n, m);
                     when AGNOSTIC
                         temp_XT_96 = plain_vector_access(vd_val, i, n, m);
-                resultXN = plain_vector_update(resultXN, i, temp_XT_96);
+                resultXN = plain_vector_update(resultXN, i, temp_XT_96, n, m);
             else
-                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then imm_val else plain_vector_access(vs2_val, i, n, m)));
+                resultXN = plain_vector_update(resultXN, i, (if eq_bit(bitvector_access(vm_val, i), '1') then imm_val else plain_vector_access(vs2_val, i, n, m)), n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18269,7 +18335,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_109 = fp_sub(rm_3b, fp_widen(plain_vector_access(vs2_val, i, n, m)), fp_widen(plain_vector_access(vs1_val, i, n, m)));
                 when FWVV_VMUL
                     temp_XT_109 = fp_mul(rm_3b, fp_widen(plain_vector_access(vs2_val, i, n, m)), fp_widen(plain_vector_access(vs1_val, i, n, m)));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_109);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_109, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18317,7 +18383,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_109 = fp_mulsub(rm_3b, fp_widen(plain_vector_access(vs1_val, i, n, m)), fp_widen(plain_vector_access(vs2_val, i, n, m)), plain_vector_access(vd_val, i, n, o));
                 when FWVV_VNMSAC
                     temp_XT_109 = fp_nmuladd(rm_3b, fp_widen(plain_vector_access(vs1_val, i, n, m)), fp_widen(plain_vector_access(vs2_val, i, n, m)), plain_vector_access(vd_val, i, n, o));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_109);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_109, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18361,7 +18427,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_102 = fp_add(rm_3b, plain_vector_access(vs2_val, i, n, o), fp_widen(plain_vector_access(vs1_val, i, n, m)));
                 when FWV_VSUB
                     temp_XT_102 = fp_sub(rm_3b, plain_vector_access(vs2_val, i, n, o), fp_widen(plain_vector_access(vs1_val, i, n, m)));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_102);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_102, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18407,7 +18473,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_101 = fp_sub(rm_3b, fp_widen(plain_vector_access(vs2_val, i, n, m)), fp_widen(rs1_val));
                 when FWVF_VMUL
                     temp_XT_101 = fp_mul(rm_3b, fp_widen(plain_vector_access(vs2_val, i, n, m)), fp_widen(rs1_val));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_101);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_101, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18455,7 +18521,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_101 = fp_mulsub(rm_3b, fp_widen(rs1_val), fp_widen(plain_vector_access(vs2_val, i, n, m)), plain_vector_access(vd_val, i, n, o));
                 when FWVF_VNMSAC
                     temp_XT_101 = fp_nmuladd(rm_3b, fp_widen(rs1_val), fp_widen(plain_vector_access(vs2_val, i, n, m)), plain_vector_access(vd_val, i, n, o));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_101);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_101, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18499,7 +18565,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_94 = fp_add(rm_3b, plain_vector_access(vs2_val, i, n, o), fp_widen(rs1_val));
                 when FWF_VSUB
                     temp_XT_94 = fp_sub(rm_3b, plain_vector_access(vs2_val, i, n, o), fp_widen(rs1_val));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_94);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_94, n, o);
     write_vreg(num_elem, SEW_widen, LMUL_pow_widen, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18554,7 +18620,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_82 = bitvector_concat(xor_vec('1', bitvector_access(plain_vector_access(vs1_val, i, n, m), m - (1))), subrange_bits(plain_vector_access(vs2_val, i, n, m), m - (2), 0));
                 when FVV_VSGNJXX
                     temp_XT_82 = bitvector_concat(xor_vec(bitvector_access(plain_vector_access(vs2_val, i, n, m), m - (1)), bitvector_access(plain_vector_access(vs1_val, i, n, m), m - (1))), subrange_bits(plain_vector_access(vs2_val, i, n, m), m - (2), 0));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_82);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_82, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18653,7 +18719,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_82 = fp_mulsub(rm_3b, plain_vector_access(vs1_val, i, n, m), plain_vector_access(vd_val, i, n, m), plain_vector_access(vs2_val, i, n, m));
                 when FVV_VNMSUB
                     temp_XT_82 = fp_nmuladd(rm_3b, plain_vector_access(vs1_val, i, n, m), plain_vector_access(vd_val, i, n, m), plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_82);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_82, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18720,7 +18786,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     constant integer last_elem = get_end_element();
                     assert(lt_int(last_elem, num_elem));
                     temp_XT_81 = (if lt_int(i, last_elem) then plain_vector_access(vs2_val, i + 1, n, m) else rs1_val);
-            resultXN = plain_vector_update(resultXN, i, temp_XT_81);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_81, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -18823,7 +18889,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
                     temp_XT_81 = fp_mulsub(rm_3b, rs1_val, plain_vector_access(vd_val, i, n, m), plain_vector_access(vs2_val, i, n, m));
                 when VF_VNMSUB
                     temp_XT_81 = fp_nmuladd(rm_3b, rs1_val, plain_vector_access(vd_val, i, n, m), plain_vector_access(vs2_val, i, n, m));
-            resultXN = plain_vector_update(resultXN, i, temp_XT_81);
+            resultXN = plain_vector_update(resultXN, i, temp_XT_81, n, m);
     write_vreg(num_elem, SEW, LMUL_pow, vd, resultXN);
     set_vstart(zeros(16));
     return RETIRE_SUCCESS;
@@ -19179,7 +19245,7 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
             temp_XT_7 = E_S_EnvCall;
         when Machine
             temp_XT_7 = E_M_EnvCall;
-    constant sync_exception t = asl_make_sync_exception((None, bits((pow2_int(3)) * (8)) UNKNOWN), None, temp_XT_7);
+    constant sync_exception t = ((None, bits((pow2_int(3)) * (8)) UNKNOWN), None, temp_XT_7);
     return (Trap, WaitReason UNKNOWN, cur_privilege, (CTL_TRAP, t), PC, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
 
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_EBREAK()

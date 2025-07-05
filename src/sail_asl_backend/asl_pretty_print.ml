@@ -26,12 +26,12 @@ let generate_encoding_block info =
   let opcode_doc = string ("__opcode '" ^ info.mask ^ "'") ^^ hardline in
   let guard_doc = match info.guard with
     | None -> string "__guard TRUE" ^^ hardline
-    | Some guard -> 
+    | Some guard ->
         match pp_exp guard with
         | Ok g -> string "__guard" ^^ space ^^ g ^^ hardline
         | Error msg -> failwith msg
   in
-  let decode_doc = string "__decode" ^^ nest 4 (hardline ^^ string "return;") ^^ hardline in
+  let decode_doc = string "__decode" ^^ nest 4 (hardline) ^^ hardline in
 
   (* Combine all components in the specified order *)
   let encoding_header = string ("__encoding " ^ encoding_name) in
@@ -96,26 +96,26 @@ let generate_decode_file info =
  *****************************************************************************)
 
 (* Guard functions to determine whether definitions should be printed *)
-let include_fundef (fdef: 'a fundef) = 
+let include_fundef (fdef: 'a fundef) =
   let func_id = id_of_fundef fdef in
   not (Asl_structure_analysis.is_instruction_function (string_of_id func_id)) &&
   not (Asl_context.is_unsupported_function func_id) &&
   not (Asl_context.is_external_function func_id)
 
-let include_external_fundef (fdef: 'a fundef) = 
+let include_external_fundef (fdef: 'a fundef) =
   let func_id = id_of_fundef fdef in
   not (Asl_structure_analysis.is_instruction_function (string_of_id func_id)) &&
   Asl_context.is_external_function func_id
 
-let include_typedef (tdef: 'a type_def) = 
+let include_typedef (tdef: 'a type_def) =
   let type_id = id_of_type_def tdef in
   not (Asl_context.is_external_type type_id)
 
-let include_regdef (rdef: 'a dec_spec) = 
+let include_regdef (rdef: 'a dec_spec) =
   let reg_id = id_of_dec_spec rdef in
   not (Asl_context.is_external_register reg_id)
 
-let include_letdef (letbind: 'a letbind) = 
+let include_letdef (letbind: 'a letbind) =
   let (LB_aux (LB_val (pat, _), _)) = letbind in
   let let_ids = pat_ids pat in
   not (IdSet.exists Asl_context.is_external_let let_ids)
@@ -128,7 +128,7 @@ let idset_to_string ids =
 let def_type_name def = match def with
   | DEF_aux (DEF_type _, _) -> "type definition"
   | DEF_aux (DEF_constraint _, _) -> "constraint"
-  | DEF_aux (DEF_fundef _, _) -> "function definition" 
+  | DEF_aux (DEF_fundef _, _) -> "function definition"
   | DEF_aux (DEF_mapdef _, _) -> "mapping definition"
   | DEF_aux (DEF_impl _, _) -> "impl definition"
   | DEF_aux (DEF_let _, _) -> "let definition"
@@ -200,7 +200,7 @@ let translate_definition def =
 let generate_support_file ictx =
   let header_doc = string "// Generated ASL support definitions" ^^ hardline ^^ hardline in
   let function_docs = List.filter_map translate_definition ictx.ast.defs in
-  header_doc ^^ separate (hardline ^^ hardline) function_docs ^^ hardline 
+  header_doc ^^ separate (hardline ^^ hardline) function_docs ^^ hardline
 
 (****************************************************************************
  * Main Pretty Printing Interface
