@@ -163,7 +163,6 @@ __decode R64
         when ('111000100000xxxxx001xxxxx1010011') => __encoding F_UN_X_TYPE_D_1
         when ('111001000000xxxxx000xxxxx1010011') => __encoding F_UN_X_TYPE_H_0
         when ('111001000000xxxxx001xxxxx1010011') => __encoding F_UN_X_TYPE_H_1
-        when ('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') => __encoding ILLEGAL_0
         when ('xxxxxxxxxxxxxxxxxxxxxxxxx0010011') => __encoding ITYPE_0
         when ('xxxxxxxxxxxxxxxxxxxxxxxxx1101111') => __encoding JAL_0
         when ('xxxxxxxxxxxxxxxxx000xxxxx1100111') => __encoding JALR_0
@@ -394,4 +393,5 @@ __decode R64
         when ('xxxxxx1xxxxxxxxxx010xxxxx1110111') => __encoding ZVKSHA2TYPE_0
         when ('1010011xxxxx10000010xxxxx1110111') => __encoding ZVKSM4RTYPE_0
         when ('1010001xxxxx10000010xxxxx1110111') => __encoding ZVKSM4RTYPE_1
+        when (_) => __UNALLOCATED
 

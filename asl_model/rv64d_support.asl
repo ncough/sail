@@ -16900,9 +16900,6 @@ boolean encdec_vsha2_backwards_matches(bits(6) argXH)
     wX_bits(rd, temp_XT_10);
     return RETIRE_SUCCESS;
 
-(ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_ILLEGAL(bits(32) s)
-    return (Illegal_Instruction, WaitReason UNKNOWN, Privilege UNKNOWN, (ctl_result, sync_exception) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, bits((pow2_int(3)) * (8)) UNKNOWN, ExceptionType UNKNOWN);
-
 (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) execute_F_UN_X_TYPE_H(bits(5) merge_var0, bits(5) merge_var1, f_un_x_op_H merge_var2)
     (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) temp_XT_1;
     constant (bits(5), bits(5), f_un_x_op_H) XM_match_101 = (merge_var0, merge_var1, merge_var2);

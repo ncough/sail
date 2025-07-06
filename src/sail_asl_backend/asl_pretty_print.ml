@@ -88,8 +88,10 @@ let generate_decode_file info =
     string when_line ^^ hardline
   ) info in
 
+  let term = string "        when (_) => __UNALLOCATED" ^^ hardline in
+
   (* Combine all parts *)
-  decode_header ^^ concat when_clauses ^^ hardline
+  decode_header ^^ concat when_clauses ^^ term ^^ hardline
 
 (****************************************************************************
  * Support File Generation

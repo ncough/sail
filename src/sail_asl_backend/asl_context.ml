@@ -143,7 +143,7 @@ let add_external_let id = external_lets := IdSet.add id !external_lets
 
 (* Global configuration variables with defaults *)
 let opt_architecture_name = ref "R64"
-let opt_instruction_filter = ref {|.^|}
+let opt_instruction_filter = ref {|ILLEGAL|}
 let opt_execute_function_name = ref "execute"
 let opt_encdec_function_name = ref "encdec_backwards"
 let opt_output_dir = ref (None : string option)

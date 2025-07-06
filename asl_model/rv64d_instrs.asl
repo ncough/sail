@@ -2789,18 +2789,6 @@ __instruction F_UN_X_TYPE_H_1
         constant bits(5) rd = encdec_reg_backwards(rd);
         - = execute_F_UN_X_TYPE_H(rs1, rd, FCLASS_H);
 
-__instruction ILLEGAL_0
-    __encoding ILLEGAL_0
-        __instruction_set R64
-        __field s 0 +: 32
-        __opcode 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-        __guard TRUE
-        __decode
-
-
-    __execute
-        - = execute_ILLEGAL(s);
-
 __instruction ITYPE_0
     __encoding ITYPE_0
         __instruction_set R64
