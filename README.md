@@ -44,5 +44,3 @@ We can almost run the full ASL coverage test `:coverage R64 .*`, except:
 There are some things to do in `aslp`:
 * Break out model init for partial evaluation, so that we can fix some known globals.
 * Coupled with this is a change to the partial evaluation state to track whether a variable is a constant, an expression or a fixed global. Modifying writes to a fixed global is a failure, beyond model bounds.
-* Break out model randomisation, so that we can create a random initial state for testing.
-* Need different heuristics in the coverage, as the field names in the `R64` model aren't useful.
