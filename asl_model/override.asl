@@ -58,3 +58,13 @@ random_state()
   mstatus = _update_Mstatus_UXL(mstatus, '10');
   return;
 
+process_result( (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) arg)
+    (exec, -, -, -, -, -, -) = arg;
+    case exec of
+        when Retire_Success
+            return;
+        when Trap 
+            return;
+        when -
+            UNDEFINED;
+

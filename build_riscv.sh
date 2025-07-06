@@ -18,4 +18,4 @@ mkdir -p asl_model
 cp sail-riscv/build/model/rv64d*.asl $OUTDIR/
 
 # Try to type check it
-asli --no-aarch64 --prelude $OUTDIR/prelude.asl $OUTDIR/sail_prelude.asl $OUTDIR/${MODEL}_support.asl $OUTDIR/${MODEL}_instrs.asl $OUTDIR/${MODEL}_decode.asl $OUTDIR/override.asl
+asli --no-aarch64 --prelude $OUTDIR/prelude.asl $OUTDIR/sail_prelude.asl $OUTDIR/${MODEL}_support.asl $OUTDIR/override.asl $OUTDIR/${MODEL}_instrs.asl $OUTDIR/${MODEL}_decode.asl

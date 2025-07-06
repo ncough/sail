@@ -737,7 +737,7 @@ let asl_var_assign lexp exp_doc =
 (* Construct a return/assert statements *)
 let asl_return arg = emit (return_stmt arg)
 let asl_assert arg = emit (assert_stmt arg)
-let asl_ignore arg = emit (assign_stmt wild_doc arg)
+let asl_process_result arg  = emit (string "process_result" ^^ parens arg ^^ semi)
 let asl_unit arg = emit (arg ^^ semi)
 
 (* Construct an pattern match case *)
@@ -1158,8 +1158,7 @@ let pp_exp e = unwrap_pure_opt (asl_exp e)
 
 let pp_stmts e = unwrap_unit (asl_body asl_return e)
 
-(* TODO: This isn't quite right: returns can't take unit and implicit results should terminate *)
-let pp_instruction_stmts e = unwrap_unit (asl_body asl_ignore e)
+let pp_instruction_stmts e = unwrap_unit (asl_body asl_process_result e)
 
 let pp_fundef (FD_aux (FD_function (_, _, funcls), _)) =
   fresh_counter := 0;

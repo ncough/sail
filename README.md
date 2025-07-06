@@ -16,8 +16,8 @@ The resulting files will be copied to `asl_model/*.asl`.
 ## Structure
 
 There is a plugin in `src/sail_asl_backend/`. It mirrors the `lem` plugin, with a few extra
-transforms to eliminate many of the language features widely used in `sail` but not available
-in `asl`. Notably:
+transforms to eliminate many of the language features widely used in Sail but not available
+in ASL. Notably:
 * newtypes
 * unions over record types
 * variable binding in `match` expressions
@@ -33,14 +33,19 @@ We have also had to mess with some of Sail's existing transforms:
 * The type system has a notion of which types can be undefined and which cannot. We abuse the notion of undefined throughout the plugin and lack similar type constraints in ASL, so this step of the checking has been turned off.
 * Functions can have clauses, corresponding to pattern matching over the function arguments. There is a transform to merge these into a single clause with a top-level pattern match. However, in doing so it merges all of the parameters into a tuple. This sucks, so we alter the transform to not do this.
 
-## Issues
+## TODO
 
-We can almost run the full ASL coverage test `:coverage R64 .*`, except:
-* We are missing implementations of various floating point ops. These are specified in external C files. For lifting, this isn't a big deal, but it means coverage cannot run these. Could try to pull from ARMv8 model.
-* SAIL makes use of euclidean division in the type system. ASL doesn't have a primitive that exactly matches this, but it seems this is generally fine.
-* `bv[slice] := expr` needs to know the concrete width of `bv`. We don't know this for certain vector cases, where vector widths can be scaled across multiple registers based on control registers. This breaks many assumptions, as you are suddenly dealing with dynamic bitvectors. Could use the offline technique a force an enumeration of all possible widths?
-* We eliminate bit-field globals, which is a little annoying. Might try to get these back.
+- [x] Interpret `ExecutionResult` as some ASL outcome.
+- [ ] Sanity check decoder with BDD. There are collision in the decoder, but these might be resolved by guards? If this is not the case, then need to retain ordering from Sail model somehow.
+- [ ] Patch out `FIXME: unsupported fence` print statement in model.
+- [ ] Patch in register array. A post-process script is probably the best way to make sure the old registers are fully eliminated.
+- [ ] Patch in vector array. Same as above.
+- [ ] Map vector accesses to `Elem.set` and `Elem.get` to improve reuse of existing vectoriser.
+- [ ] Status flags? Can these be matched up to ARMv8?
+- [ ] Force split `get_lmul_pow()` somehow, to ensure we have static bitvector widths. Might be best to just post-process this too, effectively inlining the function, so that the built-in `if` splitting can manage it.
+- [ ] Preserve bit-field globals through the translation from Sail. Hopefully just turning some stage of and extending the pretty printer.
+- [ ] Implement missing floating point operations by pulling from ARMv8 model. 
 
-There are some things to do in `aslp`:
-* Break out model init for partial evaluation, so that we can fix some known globals.
-* Coupled with this is a change to the partial evaluation state to track whether a variable is a constant, an expression or a fixed global. Modifying writes to a fixed global is a failure, beyond model bounds.
+## ASL TODO
+
+- [ ] Generalise `PSTATE` hacks so we can do the same thing here? Or maybe RISC-V provides enough wrappers to do this purely with overrides.

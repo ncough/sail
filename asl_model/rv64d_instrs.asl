@@ -14,7 +14,7 @@ __instruction ADDIW_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ADDIW(imm, rs1, rd);
+        process_result(execute_ADDIW(imm, rs1, rd));
 
 __instruction AES32DSI_0
     __encoding AES32DSI_0
@@ -32,7 +32,7 @@ __instruction AES32DSI_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES32DSI(bs, rs2, rs1, rd);
+        process_result(execute_AES32DSI(bs, rs2, rs1, rd));
 
 __instruction AES32DSMI_0
     __encoding AES32DSMI_0
@@ -50,7 +50,7 @@ __instruction AES32DSMI_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES32DSMI(bs, rs2, rs1, rd);
+        process_result(execute_AES32DSMI(bs, rs2, rs1, rd));
 
 __instruction AES32ESI_0
     __encoding AES32ESI_0
@@ -68,7 +68,7 @@ __instruction AES32ESI_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES32ESI(bs, rs2, rs1, rd);
+        process_result(execute_AES32ESI(bs, rs2, rs1, rd));
 
 __instruction AES32ESMI_0
     __encoding AES32ESMI_0
@@ -86,7 +86,7 @@ __instruction AES32ESMI_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES32ESMI(bs, rs2, rs1, rd);
+        process_result(execute_AES32ESMI(bs, rs2, rs1, rd));
 
 __instruction AES64DS_0
     __encoding AES64DS_0
@@ -103,7 +103,7 @@ __instruction AES64DS_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES64DS(rs2, rs1, rd);
+        process_result(execute_AES64DS(rs2, rs1, rd));
 
 __instruction AES64DSM_0
     __encoding AES64DSM_0
@@ -120,7 +120,7 @@ __instruction AES64DSM_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES64DSM(rs2, rs1, rd);
+        process_result(execute_AES64DSM(rs2, rs1, rd));
 
 __instruction AES64ES_0
     __encoding AES64ES_0
@@ -137,7 +137,7 @@ __instruction AES64ES_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES64ES(rs2, rs1, rd);
+        process_result(execute_AES64ES(rs2, rs1, rd));
 
 __instruction AES64ESM_0
     __encoding AES64ESM_0
@@ -154,7 +154,7 @@ __instruction AES64ESM_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES64ESM(rs2, rs1, rd);
+        process_result(execute_AES64ESM(rs2, rs1, rd));
 
 __instruction AES64IM_0
     __encoding AES64IM_0
@@ -169,7 +169,7 @@ __instruction AES64IM_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES64IM(rs1, rd);
+        process_result(execute_AES64IM(rs1, rd));
 
 __instruction AES64KS1I_0
     __encoding AES64KS1I_0
@@ -185,7 +185,7 @@ __instruction AES64KS1I_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES64KS1I(rnum, rs1, rd);
+        process_result(execute_AES64KS1I(rnum, rs1, rd));
 
 __instruction AES64KS2_0
     __encoding AES64KS2_0
@@ -202,7 +202,7 @@ __instruction AES64KS2_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AES64KS2(rs2, rs1, rd);
+        process_result(execute_AES64KS2(rs2, rs1, rd));
 
 __instruction AMO_0
     __encoding AMO_0
@@ -227,7 +227,7 @@ __instruction AMO_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant word_width size = size_enc_backwards(size);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_AMO(op, aq, rl, rs2, rs1, size, rd);
+        process_result(execute_AMO(op, aq, rl, rs2, rs1, size, rd));
 
 __instruction BREV8_0
     __encoding BREV8_0
@@ -242,7 +242,7 @@ __instruction BREV8_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_BREV8(rs1, rd);
+        process_result(execute_BREV8(rs1, rd));
 
 __instruction BTYPE_0
     __encoding BTYPE_0
@@ -263,7 +263,7 @@ __instruction BTYPE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bop op = encdec_bop_backwards(op);
-        - = execute_BTYPE(bitvector_concat(imm7_6, bitvector_concat(imm5_0, bitvector_concat(imm7_5_0, bitvector_concat(imm5_4_1, '0')))), rs2, rs1, op);
+        process_result(execute_BTYPE(bitvector_concat(imm7_6, bitvector_concat(imm5_0, bitvector_concat(imm7_5_0, bitvector_concat(imm5_4_1, '0')))), rs2, rs1, op));
 
 __instruction CLMUL_0
     __encoding CLMUL_0
@@ -280,7 +280,7 @@ __instruction CLMUL_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CLMUL(rs2, rs1, rd);
+        process_result(execute_CLMUL(rs2, rs1, rd));
 
 __instruction CLMULH_0
     __encoding CLMULH_0
@@ -297,7 +297,7 @@ __instruction CLMULH_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CLMULH(rs2, rs1, rd);
+        process_result(execute_CLMULH(rs2, rs1, rd));
 
 __instruction CLMULR_0
     __encoding CLMULR_0
@@ -314,7 +314,7 @@ __instruction CLMULR_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CLMULR(rs2, rs1, rd);
+        process_result(execute_CLMULR(rs2, rs1, rd));
 
 __instruction CLZ_0
     __encoding CLZ_0
@@ -329,7 +329,7 @@ __instruction CLZ_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CLZ(rs1, rd);
+        process_result(execute_CLZ(rs1, rd));
 
 __instruction CLZW_0
     __encoding CLZW_0
@@ -344,7 +344,7 @@ __instruction CLZW_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CLZW(rs1, rd);
+        process_result(execute_CLZW(rs1, rd));
 
 __instruction CPOP_0
     __encoding CPOP_0
@@ -359,7 +359,7 @@ __instruction CPOP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CPOP(rs1, rd);
+        process_result(execute_CPOP(rs1, rd));
 
 __instruction CPOPW_0
     __encoding CPOPW_0
@@ -374,7 +374,7 @@ __instruction CPOPW_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CPOPW(rs1, rd);
+        process_result(execute_CPOPW(rs1, rd));
 
 __instruction CSRImm_0
     __encoding CSRImm_0
@@ -391,7 +391,7 @@ __instruction CSRImm_0
     __execute
         constant csrop op = encdec_csrop_backwards(op);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CSRImm(csr, imm, rd, op);
+        process_result(execute_CSRImm(csr, imm, rd, op));
 
 __instruction CSRReg_0
     __encoding CSRReg_0
@@ -409,7 +409,7 @@ __instruction CSRReg_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant csrop op = encdec_csrop_backwards(op);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CSRReg(csr, rs1, rd, op);
+        process_result(execute_CSRReg(csr, rs1, rd, op));
 
 __instruction CTZ_0
     __encoding CTZ_0
@@ -424,7 +424,7 @@ __instruction CTZ_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CTZ(rs1, rd);
+        process_result(execute_CTZ(rs1, rd));
 
 __instruction CTZW_0
     __encoding CTZW_0
@@ -439,7 +439,7 @@ __instruction CTZW_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_CTZW(rs1, rd);
+        process_result(execute_CTZW(rs1, rd));
 
 __instruction DIV_0
     __encoding DIV_0
@@ -458,7 +458,7 @@ __instruction DIV_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant boolean is_unsigned = bool_bits_backwards(is_unsigned);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_DIV(rs2, rs1, rd, is_unsigned);
+        process_result(execute_DIV(rs2, rs1, rd, is_unsigned));
 
 __instruction DIVW_0
     __encoding DIVW_0
@@ -477,7 +477,7 @@ __instruction DIVW_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant boolean is_unsigned = bool_bits_backwards(is_unsigned);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_DIVW(rs2, rs1, rd, is_unsigned);
+        process_result(execute_DIVW(rs2, rs1, rd, is_unsigned));
 
 __instruction EBREAK_0
     __encoding EBREAK_0
@@ -488,7 +488,7 @@ __instruction EBREAK_0
 
 
     __execute
-        - = execute_EBREAK();
+        process_result(execute_EBREAK());
 
 __instruction ECALL_0
     __encoding ECALL_0
@@ -499,7 +499,7 @@ __instruction ECALL_0
 
 
     __execute
-        - = execute_ECALL();
+        process_result(execute_ECALL());
 
 __instruction FCVTMOD_W_D_0
     __encoding FCVTMOD_W_D_0
@@ -514,7 +514,7 @@ __instruction FCVTMOD_W_D_0
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FCVTMOD_W_D(rs1, rd);
+        process_result(execute_FCVTMOD_W_D(rs1, rd));
 
 __instruction FENCE_0
     __encoding FENCE_0
@@ -527,7 +527,7 @@ __instruction FENCE_0
 
 
     __execute
-        - = execute_FENCE(pred, succ);
+        process_result(execute_FENCE(pred, succ));
 
 __instruction FENCEI_0
     __encoding FENCEI_0
@@ -538,7 +538,7 @@ __instruction FENCEI_0
 
 
     __execute
-        - = execute_FENCEI();
+        process_result(execute_FENCEI());
 
 __instruction FENCEI_RESERVED_0
     __encoding FENCEI_RESERVED_0
@@ -554,7 +554,7 @@ __instruction FENCEI_RESERVED_0
     __execute
         constant bits(5) rs = encdec_reg_backwards(rs);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FENCEI_RESERVED(imm, rs, rd);
+        process_result(execute_FENCEI_RESERVED(imm, rs, rd));
 
 __instruction FENCE_RESERVED_0
     __encoding FENCE_RESERVED_0
@@ -572,7 +572,7 @@ __instruction FENCE_RESERVED_0
     __execute
         constant bits(5) rs = encdec_reg_backwards(rs);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FENCE_RESERVED(fm, pred, succ, rs, rd);
+        process_result(execute_FENCE_RESERVED(fm, pred, succ, rs, rd));
 
 __instruction FENCE_TSO_0
     __encoding FENCE_TSO_0
@@ -583,7 +583,7 @@ __instruction FENCE_TSO_0
 
 
     __execute
-        - = execute_FENCE_TSO();
+        process_result(execute_FENCE_TSO());
 
 __instruction FLEQ_D_0
     __encoding FLEQ_D_0
@@ -600,7 +600,7 @@ __instruction FLEQ_D_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FLEQ_D(rs2, rs1, rd);
+        process_result(execute_FLEQ_D(rs2, rs1, rd));
 
 __instruction FLEQ_H_0
     __encoding FLEQ_H_0
@@ -617,7 +617,7 @@ __instruction FLEQ_H_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FLEQ_H(rs2, rs1, rd);
+        process_result(execute_FLEQ_H(rs2, rs1, rd));
 
 __instruction FLEQ_S_0
     __encoding FLEQ_S_0
@@ -634,7 +634,7 @@ __instruction FLEQ_S_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FLEQ_S(rs2, rs1, rd);
+        process_result(execute_FLEQ_S(rs2, rs1, rd));
 
 __instruction FLI_D_0
     __encoding FLI_D_0
@@ -648,7 +648,7 @@ __instruction FLI_D_0
 
     __execute
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FLI_D(constantidx, rd);
+        process_result(execute_FLI_D(constantidx, rd));
 
 __instruction FLI_H_0
     __encoding FLI_H_0
@@ -662,7 +662,7 @@ __instruction FLI_H_0
 
     __execute
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FLI_H(constantidx, rd);
+        process_result(execute_FLI_H(constantidx, rd));
 
 __instruction FLI_S_0
     __encoding FLI_S_0
@@ -676,7 +676,7 @@ __instruction FLI_S_0
 
     __execute
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FLI_S(constantidx, rd);
+        process_result(execute_FLI_S(constantidx, rd));
 
 __instruction FLTQ_D_0
     __encoding FLTQ_D_0
@@ -693,7 +693,7 @@ __instruction FLTQ_D_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FLTQ_D(rs2, rs1, rd);
+        process_result(execute_FLTQ_D(rs2, rs1, rd));
 
 __instruction FLTQ_H_0
     __encoding FLTQ_H_0
@@ -710,7 +710,7 @@ __instruction FLTQ_H_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FLTQ_H(rs2, rs1, rd);
+        process_result(execute_FLTQ_H(rs2, rs1, rd));
 
 __instruction FLTQ_S_0
     __encoding FLTQ_S_0
@@ -727,7 +727,7 @@ __instruction FLTQ_S_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FLTQ_S(rs2, rs1, rd);
+        process_result(execute_FLTQ_S(rs2, rs1, rd));
 
 __instruction FMAXM_D_0
     __encoding FMAXM_D_0
@@ -744,7 +744,7 @@ __instruction FMAXM_D_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FMAXM_D(rs2, rs1, rd);
+        process_result(execute_FMAXM_D(rs2, rs1, rd));
 
 __instruction FMAXM_H_0
     __encoding FMAXM_H_0
@@ -761,7 +761,7 @@ __instruction FMAXM_H_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FMAXM_H(rs2, rs1, rd);
+        process_result(execute_FMAXM_H(rs2, rs1, rd));
 
 __instruction FMAXM_S_0
     __encoding FMAXM_S_0
@@ -778,7 +778,7 @@ __instruction FMAXM_S_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FMAXM_S(rs2, rs1, rd);
+        process_result(execute_FMAXM_S(rs2, rs1, rd));
 
 __instruction FMINM_D_0
     __encoding FMINM_D_0
@@ -795,7 +795,7 @@ __instruction FMINM_D_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FMINM_D(rs2, rs1, rd);
+        process_result(execute_FMINM_D(rs2, rs1, rd));
 
 __instruction FMINM_H_0
     __encoding FMINM_H_0
@@ -812,7 +812,7 @@ __instruction FMINM_H_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FMINM_H(rs2, rs1, rd);
+        process_result(execute_FMINM_H(rs2, rs1, rd));
 
 __instruction FMINM_S_0
     __encoding FMINM_S_0
@@ -829,7 +829,7 @@ __instruction FMINM_S_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FMINM_S(rs2, rs1, rd);
+        process_result(execute_FMINM_S(rs2, rs1, rd));
 
 __instruction FMVH_X_D_0
     __encoding FMVH_X_D_0
@@ -844,7 +844,7 @@ __instruction FMVH_X_D_0
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_FMVH_X_D(rs1, rd);
+        process_result(execute_FMVH_X_D(rs1, rd));
 
 __instruction FMVP_D_X_0
     __encoding FMVP_D_X_0
@@ -861,7 +861,7 @@ __instruction FMVP_D_X_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FMVP_D_X(rs2, rs1, rd);
+        process_result(execute_FMVP_D_X(rs2, rs1, rd));
 
 __instruction FROUNDNX_D_0
     __encoding FROUNDNX_D_0
@@ -878,7 +878,7 @@ __instruction FROUNDNX_D_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FROUNDNX_D(rs1, rm, rd);
+        process_result(execute_FROUNDNX_D(rs1, rm, rd));
 
 __instruction FROUNDNX_H_0
     __encoding FROUNDNX_H_0
@@ -895,7 +895,7 @@ __instruction FROUNDNX_H_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FROUNDNX_H(rs1, rm, rd);
+        process_result(execute_FROUNDNX_H(rs1, rm, rd));
 
 __instruction FROUNDNX_S_0
     __encoding FROUNDNX_S_0
@@ -912,7 +912,7 @@ __instruction FROUNDNX_S_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FROUNDNX_S(rs1, rm, rd);
+        process_result(execute_FROUNDNX_S(rs1, rm, rd));
 
 __instruction FROUND_D_0
     __encoding FROUND_D_0
@@ -929,7 +929,7 @@ __instruction FROUND_D_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FROUND_D(rs1, rm, rd);
+        process_result(execute_FROUND_D(rs1, rm, rd));
 
 __instruction FROUND_H_0
     __encoding FROUND_H_0
@@ -946,7 +946,7 @@ __instruction FROUND_H_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FROUND_H(rs1, rm, rd);
+        process_result(execute_FROUND_H(rs1, rm, rd));
 
 __instruction FROUND_S_0
     __encoding FROUND_S_0
@@ -963,7 +963,7 @@ __instruction FROUND_S_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_FROUND_S(rs1, rm, rd);
+        process_result(execute_FROUND_S(rs1, rm, rd));
 
 __instruction FVFMATYPE_0
     __encoding FVFMATYPE_0
@@ -983,7 +983,7 @@ __instruction FVFMATYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FVFMATYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_FVFMATYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction FVFMTYPE_0
     __encoding FVFMTYPE_0
@@ -1003,7 +1003,7 @@ __instruction FVFMTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FVFMTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_FVFMTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction FVFTYPE_0
     __encoding FVFTYPE_0
@@ -1023,7 +1023,7 @@ __instruction FVFTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FVFTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_FVFTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction FVVMATYPE_0
     __encoding FVVMATYPE_0
@@ -1043,7 +1043,7 @@ __instruction FVVMATYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FVVMATYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_FVVMATYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction FVVMTYPE_0
     __encoding FVVMTYPE_0
@@ -1063,7 +1063,7 @@ __instruction FVVMTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FVVMTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_FVVMTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction FVVTYPE_0
     __encoding FVVTYPE_0
@@ -1083,7 +1083,7 @@ __instruction FVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_FVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction FWFTYPE_0
     __encoding FWFTYPE_0
@@ -1103,7 +1103,7 @@ __instruction FWFTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FWFTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_FWFTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction FWVFMATYPE_0
     __encoding FWVFMATYPE_0
@@ -1123,7 +1123,7 @@ __instruction FWVFMATYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FWVFMATYPE(funct6, vm, rs1, vs2, vd);
+        process_result(execute_FWVFMATYPE(funct6, vm, rs1, vs2, vd));
 
 __instruction FWVFTYPE_0
     __encoding FWVFTYPE_0
@@ -1143,7 +1143,7 @@ __instruction FWVFTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FWVFTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_FWVFTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction FWVTYPE_0
     __encoding FWVTYPE_0
@@ -1163,7 +1163,7 @@ __instruction FWVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FWVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_FWVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction FWVVMATYPE_0
     __encoding FWVVMATYPE_0
@@ -1183,7 +1183,7 @@ __instruction FWVVMATYPE_0
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FWVVMATYPE(funct6, vm, vs1, vs2, vd);
+        process_result(execute_FWVVMATYPE(funct6, vm, vs1, vs2, vd));
 
 __instruction FWVVTYPE_0
     __encoding FWVVTYPE_0
@@ -1203,7 +1203,7 @@ __instruction FWVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_FWVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_FWVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction F_BIN_F_TYPE_D_0
     __encoding F_BIN_F_TYPE_D_0
@@ -1220,7 +1220,7 @@ __instruction F_BIN_F_TYPE_D_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FMAXX_D);
+        process_result(execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FMAXX_D));
 
 __instruction F_BIN_F_TYPE_D_1
     __encoding F_BIN_F_TYPE_D_1
@@ -1237,7 +1237,7 @@ __instruction F_BIN_F_TYPE_D_1
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FMIN_D);
+        process_result(execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FMIN_D));
 
 __instruction F_BIN_F_TYPE_D_2
     __encoding F_BIN_F_TYPE_D_2
@@ -1254,7 +1254,7 @@ __instruction F_BIN_F_TYPE_D_2
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJXX_D);
+        process_result(execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJXX_D));
 
 __instruction F_BIN_F_TYPE_D_3
     __encoding F_BIN_F_TYPE_D_3
@@ -1271,7 +1271,7 @@ __instruction F_BIN_F_TYPE_D_3
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJN_D);
+        process_result(execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJN_D));
 
 __instruction F_BIN_F_TYPE_D_4
     __encoding F_BIN_F_TYPE_D_4
@@ -1288,7 +1288,7 @@ __instruction F_BIN_F_TYPE_D_4
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJ_D);
+        process_result(execute_F_BIN_F_TYPE_D(rs2, rs1, rd, FSGNJ_D));
 
 __instruction F_BIN_F_TYPE_H_0
     __encoding F_BIN_F_TYPE_H_0
@@ -1305,7 +1305,7 @@ __instruction F_BIN_F_TYPE_H_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FMAXX_H);
+        process_result(execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FMAXX_H));
 
 __instruction F_BIN_F_TYPE_H_1
     __encoding F_BIN_F_TYPE_H_1
@@ -1322,7 +1322,7 @@ __instruction F_BIN_F_TYPE_H_1
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FMIN_H);
+        process_result(execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FMIN_H));
 
 __instruction F_BIN_F_TYPE_H_2
     __encoding F_BIN_F_TYPE_H_2
@@ -1339,7 +1339,7 @@ __instruction F_BIN_F_TYPE_H_2
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJXX_H);
+        process_result(execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJXX_H));
 
 __instruction F_BIN_F_TYPE_H_3
     __encoding F_BIN_F_TYPE_H_3
@@ -1356,7 +1356,7 @@ __instruction F_BIN_F_TYPE_H_3
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJN_H);
+        process_result(execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJN_H));
 
 __instruction F_BIN_F_TYPE_H_4
     __encoding F_BIN_F_TYPE_H_4
@@ -1373,7 +1373,7 @@ __instruction F_BIN_F_TYPE_H_4
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJ_H);
+        process_result(execute_F_BIN_F_TYPE_H(rs2, rs1, rd, FSGNJ_H));
 
 __instruction F_BIN_RM_TYPE_D_0
     __encoding F_BIN_RM_TYPE_D_0
@@ -1392,7 +1392,7 @@ __instruction F_BIN_RM_TYPE_D_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FDIV_D);
+        process_result(execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FDIV_D));
 
 __instruction F_BIN_RM_TYPE_D_1
     __encoding F_BIN_RM_TYPE_D_1
@@ -1411,7 +1411,7 @@ __instruction F_BIN_RM_TYPE_D_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FMUL_D);
+        process_result(execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FMUL_D));
 
 __instruction F_BIN_RM_TYPE_D_2
     __encoding F_BIN_RM_TYPE_D_2
@@ -1430,7 +1430,7 @@ __instruction F_BIN_RM_TYPE_D_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FSUB_D);
+        process_result(execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FSUB_D));
 
 __instruction F_BIN_RM_TYPE_D_3
     __encoding F_BIN_RM_TYPE_D_3
@@ -1449,7 +1449,7 @@ __instruction F_BIN_RM_TYPE_D_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FADD_D);
+        process_result(execute_F_BIN_RM_TYPE_D(rs2, rs1, rm, rd, FADD_D));
 
 __instruction F_BIN_RM_TYPE_H_0
     __encoding F_BIN_RM_TYPE_H_0
@@ -1468,7 +1468,7 @@ __instruction F_BIN_RM_TYPE_H_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FDIV_H);
+        process_result(execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FDIV_H));
 
 __instruction F_BIN_RM_TYPE_H_1
     __encoding F_BIN_RM_TYPE_H_1
@@ -1487,7 +1487,7 @@ __instruction F_BIN_RM_TYPE_H_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FMUL_H);
+        process_result(execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FMUL_H));
 
 __instruction F_BIN_RM_TYPE_H_2
     __encoding F_BIN_RM_TYPE_H_2
@@ -1506,7 +1506,7 @@ __instruction F_BIN_RM_TYPE_H_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FSUB_H);
+        process_result(execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FSUB_H));
 
 __instruction F_BIN_RM_TYPE_H_3
     __encoding F_BIN_RM_TYPE_H_3
@@ -1525,7 +1525,7 @@ __instruction F_BIN_RM_TYPE_H_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FADD_H);
+        process_result(execute_F_BIN_RM_TYPE_H(rs2, rs1, rm, rd, FADD_H));
 
 __instruction F_BIN_RM_TYPE_S_0
     __encoding F_BIN_RM_TYPE_S_0
@@ -1544,7 +1544,7 @@ __instruction F_BIN_RM_TYPE_S_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FDIV_S);
+        process_result(execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FDIV_S));
 
 __instruction F_BIN_RM_TYPE_S_1
     __encoding F_BIN_RM_TYPE_S_1
@@ -1563,7 +1563,7 @@ __instruction F_BIN_RM_TYPE_S_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FMUL_S);
+        process_result(execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FMUL_S));
 
 __instruction F_BIN_RM_TYPE_S_2
     __encoding F_BIN_RM_TYPE_S_2
@@ -1582,7 +1582,7 @@ __instruction F_BIN_RM_TYPE_S_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FSUB_S);
+        process_result(execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FSUB_S));
 
 __instruction F_BIN_RM_TYPE_S_3
     __encoding F_BIN_RM_TYPE_S_3
@@ -1601,7 +1601,7 @@ __instruction F_BIN_RM_TYPE_S_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FADD_S);
+        process_result(execute_F_BIN_RM_TYPE_S(rs2, rs1, rm, rd, FADD_S));
 
 __instruction F_BIN_TYPE_F_S_0
     __encoding F_BIN_TYPE_F_S_0
@@ -1618,7 +1618,7 @@ __instruction F_BIN_TYPE_F_S_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FMAXX_S);
+        process_result(execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FMAXX_S));
 
 __instruction F_BIN_TYPE_F_S_1
     __encoding F_BIN_TYPE_F_S_1
@@ -1635,7 +1635,7 @@ __instruction F_BIN_TYPE_F_S_1
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FMIN_S);
+        process_result(execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FMIN_S));
 
 __instruction F_BIN_TYPE_F_S_2
     __encoding F_BIN_TYPE_F_S_2
@@ -1652,7 +1652,7 @@ __instruction F_BIN_TYPE_F_S_2
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJXX_S);
+        process_result(execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJXX_S));
 
 __instruction F_BIN_TYPE_F_S_3
     __encoding F_BIN_TYPE_F_S_3
@@ -1669,7 +1669,7 @@ __instruction F_BIN_TYPE_F_S_3
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJN_S);
+        process_result(execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJN_S));
 
 __instruction F_BIN_TYPE_F_S_4
     __encoding F_BIN_TYPE_F_S_4
@@ -1686,7 +1686,7 @@ __instruction F_BIN_TYPE_F_S_4
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJ_S);
+        process_result(execute_F_BIN_TYPE_F_S(rs2, rs1, rd, FSGNJ_S));
 
 __instruction F_BIN_TYPE_X_S_0
     __encoding F_BIN_TYPE_X_S_0
@@ -1703,7 +1703,7 @@ __instruction F_BIN_TYPE_X_S_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FLE_S);
+        process_result(execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FLE_S));
 
 __instruction F_BIN_TYPE_X_S_1
     __encoding F_BIN_TYPE_X_S_1
@@ -1720,7 +1720,7 @@ __instruction F_BIN_TYPE_X_S_1
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FLT_S);
+        process_result(execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FLT_S));
 
 __instruction F_BIN_TYPE_X_S_2
     __encoding F_BIN_TYPE_X_S_2
@@ -1737,7 +1737,7 @@ __instruction F_BIN_TYPE_X_S_2
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FEQ_S);
+        process_result(execute_F_BIN_TYPE_X_S(rs2, rs1, rd, FEQ_S));
 
 __instruction F_BIN_X_TYPE_D_0
     __encoding F_BIN_X_TYPE_D_0
@@ -1754,7 +1754,7 @@ __instruction F_BIN_X_TYPE_D_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FLE_D);
+        process_result(execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FLE_D));
 
 __instruction F_BIN_X_TYPE_D_1
     __encoding F_BIN_X_TYPE_D_1
@@ -1771,7 +1771,7 @@ __instruction F_BIN_X_TYPE_D_1
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FLT_D);
+        process_result(execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FLT_D));
 
 __instruction F_BIN_X_TYPE_D_2
     __encoding F_BIN_X_TYPE_D_2
@@ -1788,7 +1788,7 @@ __instruction F_BIN_X_TYPE_D_2
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FEQ_D);
+        process_result(execute_F_BIN_X_TYPE_D(rs2, rs1, rd, FEQ_D));
 
 __instruction F_BIN_X_TYPE_H_0
     __encoding F_BIN_X_TYPE_H_0
@@ -1805,7 +1805,7 @@ __instruction F_BIN_X_TYPE_H_0
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FLE_H);
+        process_result(execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FLE_H));
 
 __instruction F_BIN_X_TYPE_H_1
     __encoding F_BIN_X_TYPE_H_1
@@ -1822,7 +1822,7 @@ __instruction F_BIN_X_TYPE_H_1
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FLT_H);
+        process_result(execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FLT_H));
 
 __instruction F_BIN_X_TYPE_H_2
     __encoding F_BIN_X_TYPE_H_2
@@ -1839,7 +1839,7 @@ __instruction F_BIN_X_TYPE_H_2
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FEQ_H);
+        process_result(execute_F_BIN_X_TYPE_H(rs2, rs1, rd, FEQ_H));
 
 __instruction F_MADD_TYPE_D_0
     __encoding F_MADD_TYPE_D_0
@@ -1860,7 +1860,7 @@ __instruction F_MADD_TYPE_D_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FNMADD_D);
+        process_result(execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FNMADD_D));
 
 __instruction F_MADD_TYPE_D_1
     __encoding F_MADD_TYPE_D_1
@@ -1881,7 +1881,7 @@ __instruction F_MADD_TYPE_D_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FNMSUB_D);
+        process_result(execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FNMSUB_D));
 
 __instruction F_MADD_TYPE_D_2
     __encoding F_MADD_TYPE_D_2
@@ -1902,7 +1902,7 @@ __instruction F_MADD_TYPE_D_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FMSUB_D);
+        process_result(execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FMSUB_D));
 
 __instruction F_MADD_TYPE_D_3
     __encoding F_MADD_TYPE_D_3
@@ -1923,7 +1923,7 @@ __instruction F_MADD_TYPE_D_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FMADD_D);
+        process_result(execute_F_MADD_TYPE_D(rs3, rs2, rs1, rm, rd, FMADD_D));
 
 __instruction F_MADD_TYPE_H_0
     __encoding F_MADD_TYPE_H_0
@@ -1944,7 +1944,7 @@ __instruction F_MADD_TYPE_H_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FNMADD_H);
+        process_result(execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FNMADD_H));
 
 __instruction F_MADD_TYPE_H_1
     __encoding F_MADD_TYPE_H_1
@@ -1965,7 +1965,7 @@ __instruction F_MADD_TYPE_H_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FNMSUB_H);
+        process_result(execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FNMSUB_H));
 
 __instruction F_MADD_TYPE_H_2
     __encoding F_MADD_TYPE_H_2
@@ -1986,7 +1986,7 @@ __instruction F_MADD_TYPE_H_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FMSUB_H);
+        process_result(execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FMSUB_H));
 
 __instruction F_MADD_TYPE_H_3
     __encoding F_MADD_TYPE_H_3
@@ -2007,7 +2007,7 @@ __instruction F_MADD_TYPE_H_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FMADD_H);
+        process_result(execute_F_MADD_TYPE_H(rs3, rs2, rs1, rm, rd, FMADD_H));
 
 __instruction F_MADD_TYPE_S_0
     __encoding F_MADD_TYPE_S_0
@@ -2028,7 +2028,7 @@ __instruction F_MADD_TYPE_S_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FNMADD_S);
+        process_result(execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FNMADD_S));
 
 __instruction F_MADD_TYPE_S_1
     __encoding F_MADD_TYPE_S_1
@@ -2049,7 +2049,7 @@ __instruction F_MADD_TYPE_S_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FNMSUB_S);
+        process_result(execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FNMSUB_S));
 
 __instruction F_MADD_TYPE_S_2
     __encoding F_MADD_TYPE_S_2
@@ -2070,7 +2070,7 @@ __instruction F_MADD_TYPE_S_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FMSUB_S);
+        process_result(execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FMSUB_S));
 
 __instruction F_MADD_TYPE_S_3
     __encoding F_MADD_TYPE_S_3
@@ -2091,7 +2091,7 @@ __instruction F_MADD_TYPE_S_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FMADD_S);
+        process_result(execute_F_MADD_TYPE_S(rs3, rs2, rs1, rm, rd, FMADD_S));
 
 __instruction F_UN_F_TYPE_D_0
     __encoding F_UN_F_TYPE_D_0
@@ -2106,7 +2106,7 @@ __instruction F_UN_F_TYPE_D_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_F_TYPE_D(rs1, rd, FMV_D_XX);
+        process_result(execute_F_UN_F_TYPE_D(rs1, rd, FMV_D_XX));
 
 __instruction F_UN_F_TYPE_H_0
     __encoding F_UN_F_TYPE_H_0
@@ -2121,7 +2121,7 @@ __instruction F_UN_F_TYPE_H_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_F_TYPE_H(rs1, rd, FMV_H_XX);
+        process_result(execute_F_UN_F_TYPE_H(rs1, rd, FMV_H_XX));
 
 __instruction F_UN_RM_FF_TYPE_D_0
     __encoding F_UN_RM_FF_TYPE_D_0
@@ -2138,7 +2138,7 @@ __instruction F_UN_RM_FF_TYPE_D_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FCVT_D_S);
+        process_result(execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FCVT_D_S));
 
 __instruction F_UN_RM_FF_TYPE_D_1
     __encoding F_UN_RM_FF_TYPE_D_1
@@ -2155,7 +2155,7 @@ __instruction F_UN_RM_FF_TYPE_D_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FCVT_S_D);
+        process_result(execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FCVT_S_D));
 
 __instruction F_UN_RM_FF_TYPE_D_2
     __encoding F_UN_RM_FF_TYPE_D_2
@@ -2172,7 +2172,7 @@ __instruction F_UN_RM_FF_TYPE_D_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FSQRT_D);
+        process_result(execute_F_UN_RM_FF_TYPE_D(rs1, rm, rd, FSQRT_D));
 
 __instruction F_UN_RM_FF_TYPE_H_0
     __encoding F_UN_RM_FF_TYPE_H_0
@@ -2189,7 +2189,7 @@ __instruction F_UN_RM_FF_TYPE_H_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_D_H);
+        process_result(execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_D_H));
 
 __instruction F_UN_RM_FF_TYPE_H_1
     __encoding F_UN_RM_FF_TYPE_H_1
@@ -2206,7 +2206,7 @@ __instruction F_UN_RM_FF_TYPE_H_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_S_H);
+        process_result(execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_S_H));
 
 __instruction F_UN_RM_FF_TYPE_H_2
     __encoding F_UN_RM_FF_TYPE_H_2
@@ -2223,7 +2223,7 @@ __instruction F_UN_RM_FF_TYPE_H_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_H_D);
+        process_result(execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_H_D));
 
 __instruction F_UN_RM_FF_TYPE_H_3
     __encoding F_UN_RM_FF_TYPE_H_3
@@ -2240,7 +2240,7 @@ __instruction F_UN_RM_FF_TYPE_H_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_H_S);
+        process_result(execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FCVT_H_S));
 
 __instruction F_UN_RM_FF_TYPE_H_4
     __encoding F_UN_RM_FF_TYPE_H_4
@@ -2257,7 +2257,7 @@ __instruction F_UN_RM_FF_TYPE_H_4
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FSQRT_H);
+        process_result(execute_F_UN_RM_FF_TYPE_H(rs1, rm, rd, FSQRT_H));
 
 __instruction F_UN_RM_FF_TYPE_S_0
     __encoding F_UN_RM_FF_TYPE_S_0
@@ -2274,7 +2274,7 @@ __instruction F_UN_RM_FF_TYPE_S_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_FF_TYPE_S(rs1, rm, rd, FSQRT_S);
+        process_result(execute_F_UN_RM_FF_TYPE_S(rs1, rm, rd, FSQRT_S));
 
 __instruction F_UN_RM_FX_TYPE_D_0
     __encoding F_UN_RM_FX_TYPE_D_0
@@ -2291,7 +2291,7 @@ __instruction F_UN_RM_FX_TYPE_D_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_LU_D);
+        process_result(execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_LU_D));
 
 __instruction F_UN_RM_FX_TYPE_D_1
     __encoding F_UN_RM_FX_TYPE_D_1
@@ -2308,7 +2308,7 @@ __instruction F_UN_RM_FX_TYPE_D_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_L_D);
+        process_result(execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_L_D));
 
 __instruction F_UN_RM_FX_TYPE_D_2
     __encoding F_UN_RM_FX_TYPE_D_2
@@ -2325,7 +2325,7 @@ __instruction F_UN_RM_FX_TYPE_D_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_WU_D);
+        process_result(execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_WU_D));
 
 __instruction F_UN_RM_FX_TYPE_D_3
     __encoding F_UN_RM_FX_TYPE_D_3
@@ -2342,7 +2342,7 @@ __instruction F_UN_RM_FX_TYPE_D_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_W_D);
+        process_result(execute_F_UN_RM_FX_TYPE_D(rs1, rm, rd, FCVT_W_D));
 
 __instruction F_UN_RM_FX_TYPE_H_0
     __encoding F_UN_RM_FX_TYPE_H_0
@@ -2359,7 +2359,7 @@ __instruction F_UN_RM_FX_TYPE_H_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_LU_H);
+        process_result(execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_LU_H));
 
 __instruction F_UN_RM_FX_TYPE_H_1
     __encoding F_UN_RM_FX_TYPE_H_1
@@ -2376,7 +2376,7 @@ __instruction F_UN_RM_FX_TYPE_H_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_L_H);
+        process_result(execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_L_H));
 
 __instruction F_UN_RM_FX_TYPE_H_2
     __encoding F_UN_RM_FX_TYPE_H_2
@@ -2393,7 +2393,7 @@ __instruction F_UN_RM_FX_TYPE_H_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_WU_H);
+        process_result(execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_WU_H));
 
 __instruction F_UN_RM_FX_TYPE_H_3
     __encoding F_UN_RM_FX_TYPE_H_3
@@ -2410,7 +2410,7 @@ __instruction F_UN_RM_FX_TYPE_H_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_W_H);
+        process_result(execute_F_UN_RM_FX_TYPE_H(rs1, rm, rd, FCVT_W_H));
 
 __instruction F_UN_RM_FX_TYPE_S_0
     __encoding F_UN_RM_FX_TYPE_S_0
@@ -2427,7 +2427,7 @@ __instruction F_UN_RM_FX_TYPE_S_0
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_LU_S);
+        process_result(execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_LU_S));
 
 __instruction F_UN_RM_FX_TYPE_S_1
     __encoding F_UN_RM_FX_TYPE_S_1
@@ -2444,7 +2444,7 @@ __instruction F_UN_RM_FX_TYPE_S_1
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_L_S);
+        process_result(execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_L_S));
 
 __instruction F_UN_RM_FX_TYPE_S_2
     __encoding F_UN_RM_FX_TYPE_S_2
@@ -2461,7 +2461,7 @@ __instruction F_UN_RM_FX_TYPE_S_2
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_WU_S);
+        process_result(execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_WU_S));
 
 __instruction F_UN_RM_FX_TYPE_S_3
     __encoding F_UN_RM_FX_TYPE_S_3
@@ -2478,7 +2478,7 @@ __instruction F_UN_RM_FX_TYPE_S_3
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_W_S);
+        process_result(execute_F_UN_RM_FX_TYPE_S(rs1, rm, rd, FCVT_W_S));
 
 __instruction F_UN_RM_XF_TYPE_D_0
     __encoding F_UN_RM_XF_TYPE_D_0
@@ -2495,7 +2495,7 @@ __instruction F_UN_RM_XF_TYPE_D_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_LU);
+        process_result(execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_LU));
 
 __instruction F_UN_RM_XF_TYPE_D_1
     __encoding F_UN_RM_XF_TYPE_D_1
@@ -2512,7 +2512,7 @@ __instruction F_UN_RM_XF_TYPE_D_1
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_L);
+        process_result(execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_L));
 
 __instruction F_UN_RM_XF_TYPE_D_2
     __encoding F_UN_RM_XF_TYPE_D_2
@@ -2529,7 +2529,7 @@ __instruction F_UN_RM_XF_TYPE_D_2
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_WU);
+        process_result(execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_WU));
 
 __instruction F_UN_RM_XF_TYPE_D_3
     __encoding F_UN_RM_XF_TYPE_D_3
@@ -2546,7 +2546,7 @@ __instruction F_UN_RM_XF_TYPE_D_3
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_W);
+        process_result(execute_F_UN_RM_XF_TYPE_D(rs1, rm, rd, FCVT_D_W));
 
 __instruction F_UN_RM_XF_TYPE_H_0
     __encoding F_UN_RM_XF_TYPE_H_0
@@ -2563,7 +2563,7 @@ __instruction F_UN_RM_XF_TYPE_H_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_LU);
+        process_result(execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_LU));
 
 __instruction F_UN_RM_XF_TYPE_H_1
     __encoding F_UN_RM_XF_TYPE_H_1
@@ -2580,7 +2580,7 @@ __instruction F_UN_RM_XF_TYPE_H_1
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_L);
+        process_result(execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_L));
 
 __instruction F_UN_RM_XF_TYPE_H_2
     __encoding F_UN_RM_XF_TYPE_H_2
@@ -2597,7 +2597,7 @@ __instruction F_UN_RM_XF_TYPE_H_2
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_WU);
+        process_result(execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_WU));
 
 __instruction F_UN_RM_XF_TYPE_H_3
     __encoding F_UN_RM_XF_TYPE_H_3
@@ -2614,7 +2614,7 @@ __instruction F_UN_RM_XF_TYPE_H_3
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_W);
+        process_result(execute_F_UN_RM_XF_TYPE_H(rs1, rm, rd, FCVT_H_W));
 
 __instruction F_UN_RM_XF_TYPE_S_0
     __encoding F_UN_RM_XF_TYPE_S_0
@@ -2631,7 +2631,7 @@ __instruction F_UN_RM_XF_TYPE_S_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_LU);
+        process_result(execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_LU));
 
 __instruction F_UN_RM_XF_TYPE_S_1
     __encoding F_UN_RM_XF_TYPE_S_1
@@ -2648,7 +2648,7 @@ __instruction F_UN_RM_XF_TYPE_S_1
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_L);
+        process_result(execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_L));
 
 __instruction F_UN_RM_XF_TYPE_S_2
     __encoding F_UN_RM_XF_TYPE_S_2
@@ -2665,7 +2665,7 @@ __instruction F_UN_RM_XF_TYPE_S_2
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_WU);
+        process_result(execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_WU));
 
 __instruction F_UN_RM_XF_TYPE_S_3
     __encoding F_UN_RM_XF_TYPE_S_3
@@ -2682,7 +2682,7 @@ __instruction F_UN_RM_XF_TYPE_S_3
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant rounding_mode rm = encdec_rounding_mode_backwards(rm);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_W);
+        process_result(execute_F_UN_RM_XF_TYPE_S(rs1, rm, rd, FCVT_S_W));
 
 __instruction F_UN_TYPE_F_S_0
     __encoding F_UN_TYPE_F_S_0
@@ -2697,7 +2697,7 @@ __instruction F_UN_TYPE_F_S_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_F_UN_TYPE_F_S(rs1, rd, FMV_W_XX);
+        process_result(execute_F_UN_TYPE_F_S(rs1, rd, FMV_W_XX));
 
 __instruction F_UN_TYPE_X_S_0
     __encoding F_UN_TYPE_X_S_0
@@ -2712,7 +2712,7 @@ __instruction F_UN_TYPE_X_S_0
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_TYPE_X_S(rs1, rd, FMV_XX_W);
+        process_result(execute_F_UN_TYPE_X_S(rs1, rd, FMV_XX_W));
 
 __instruction F_UN_TYPE_X_S_1
     __encoding F_UN_TYPE_X_S_1
@@ -2727,7 +2727,7 @@ __instruction F_UN_TYPE_X_S_1
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_TYPE_X_S(rs1, rd, FCLASS_S);
+        process_result(execute_F_UN_TYPE_X_S(rs1, rd, FCLASS_S));
 
 __instruction F_UN_X_TYPE_D_0
     __encoding F_UN_X_TYPE_D_0
@@ -2742,7 +2742,7 @@ __instruction F_UN_X_TYPE_D_0
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_X_TYPE_D(rs1, rd, FMV_XX_D);
+        process_result(execute_F_UN_X_TYPE_D(rs1, rd, FMV_XX_D));
 
 __instruction F_UN_X_TYPE_D_1
     __encoding F_UN_X_TYPE_D_1
@@ -2757,7 +2757,7 @@ __instruction F_UN_X_TYPE_D_1
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_X_TYPE_D(rs1, rd, FCLASS_D);
+        process_result(execute_F_UN_X_TYPE_D(rs1, rd, FCLASS_D));
 
 __instruction F_UN_X_TYPE_H_0
     __encoding F_UN_X_TYPE_H_0
@@ -2772,7 +2772,7 @@ __instruction F_UN_X_TYPE_H_0
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_X_TYPE_H(rs1, rd, FMV_XX_H);
+        process_result(execute_F_UN_X_TYPE_H(rs1, rd, FMV_XX_H));
 
 __instruction F_UN_X_TYPE_H_1
     __encoding F_UN_X_TYPE_H_1
@@ -2787,7 +2787,7 @@ __instruction F_UN_X_TYPE_H_1
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_F_UN_X_TYPE_H(rs1, rd, FCLASS_H);
+        process_result(execute_F_UN_X_TYPE_H(rs1, rd, FCLASS_H));
 
 __instruction ITYPE_0
     __encoding ITYPE_0
@@ -2805,7 +2805,7 @@ __instruction ITYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant iop op = encdec_iop_backwards(op);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ITYPE(imm, rs1, rd, op);
+        process_result(execute_ITYPE(imm, rs1, rd, op));
 
 __instruction JAL_0
     __encoding JAL_0
@@ -2823,7 +2823,7 @@ __instruction JAL_0
 
     __execute
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_JAL(bitvector_concat(imm_19, bitvector_concat(imm_7_0, bitvector_concat(imm_8, bitvector_concat(imm_18_13, bitvector_concat(imm_12_9, '0'))))), rd);
+        process_result(execute_JAL(bitvector_concat(imm_19, bitvector_concat(imm_7_0, bitvector_concat(imm_8, bitvector_concat(imm_18_13, bitvector_concat(imm_12_9, '0'))))), rd));
 
 __instruction JALR_0
     __encoding JALR_0
@@ -2839,7 +2839,7 @@ __instruction JALR_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_JALR(imm, rs1, rd);
+        process_result(execute_JALR(imm, rs1, rd));
 
 __instruction LOAD_0
     __encoding LOAD_0
@@ -2859,7 +2859,7 @@ __instruction LOAD_0
         constant boolean is_unsigned = bool_bits_backwards(is_unsigned);
         constant word_width width = size_enc_backwards(width);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_LOAD(imm, rs1, rd, is_unsigned, width);
+        process_result(execute_LOAD(imm, rs1, rd, is_unsigned, width));
 
 __instruction LOADRES_0
     __encoding LOADRES_0
@@ -2880,7 +2880,7 @@ __instruction LOADRES_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant word_width size = size_enc_backwards(size);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_LOADRES(aq, rl, rs1, size, rd);
+        process_result(execute_LOADRES(aq, rl, rs1, size, rd));
 
 __instruction LOAD_FP_0
     __encoding LOAD_FP_0
@@ -2896,7 +2896,7 @@ __instruction LOAD_FP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_LOAD_FP(imm, rs1, rd, DOUBLE);
+        process_result(execute_LOAD_FP(imm, rs1, rd, DOUBLE));
 
 __instruction LOAD_FP_1
     __encoding LOAD_FP_1
@@ -2912,7 +2912,7 @@ __instruction LOAD_FP_1
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_LOAD_FP(imm, rs1, rd, WORD);
+        process_result(execute_LOAD_FP(imm, rs1, rd, WORD));
 
 __instruction LOAD_FP_2
     __encoding LOAD_FP_2
@@ -2928,7 +2928,7 @@ __instruction LOAD_FP_2
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_LOAD_FP(imm, rs1, rd, HALF);
+        process_result(execute_LOAD_FP(imm, rs1, rd, HALF));
 
 __instruction MASKTYPEI_0
     __encoding MASKTYPEI_0
@@ -2944,7 +2944,7 @@ __instruction MASKTYPEI_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MASKTYPEI(vs2, simm, vd);
+        process_result(execute_MASKTYPEI(vs2, simm, vd));
 
 __instruction MASKTYPEV_0
     __encoding MASKTYPEV_0
@@ -2961,7 +2961,7 @@ __instruction MASKTYPEV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MASKTYPEV(vs2, vs1, vd);
+        process_result(execute_MASKTYPEV(vs2, vs1, vd));
 
 __instruction MASKTYPEX_0
     __encoding MASKTYPEX_0
@@ -2978,7 +2978,7 @@ __instruction MASKTYPEX_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MASKTYPEX(vs2, rs1, vd);
+        process_result(execute_MASKTYPEX(vs2, rs1, vd));
 
 __instruction MMTYPE_0
     __encoding MMTYPE_0
@@ -2997,7 +2997,7 @@ __instruction MMTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MMTYPE(funct6, vs2, vs1, vd);
+        process_result(execute_MMTYPE(funct6, vs2, vs1, vd));
 
 __instruction MOVETYPEI_0
     __encoding MOVETYPEI_0
@@ -3011,7 +3011,7 @@ __instruction MOVETYPEI_0
 
     __execute
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MOVETYPEI(vd, simm);
+        process_result(execute_MOVETYPEI(vd, simm));
 
 __instruction MOVETYPEV_0
     __encoding MOVETYPEV_0
@@ -3026,7 +3026,7 @@ __instruction MOVETYPEV_0
     __execute
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MOVETYPEV(vs1, vd);
+        process_result(execute_MOVETYPEV(vs1, vd));
 
 __instruction MOVETYPEX_0
     __encoding MOVETYPEX_0
@@ -3041,7 +3041,7 @@ __instruction MOVETYPEX_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MOVETYPEX(rs1, vd);
+        process_result(execute_MOVETYPEX(rs1, vd));
 
 __instruction MRET_0
     __encoding MRET_0
@@ -3052,7 +3052,7 @@ __instruction MRET_0
 
 
     __execute
-        - = execute_MRET();
+        process_result(execute_MRET());
 
 __instruction MUL_0
     __encoding MUL_0
@@ -3071,7 +3071,7 @@ __instruction MUL_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant mul_op mul_opXN = encdec_mul_op_backwards(mul_opXN);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_MUL(rs2, rs1, rd, mul_opXN);
+        process_result(execute_MUL(rs2, rs1, rd, mul_opXN));
 
 __instruction MULW_0
     __encoding MULW_0
@@ -3088,7 +3088,7 @@ __instruction MULW_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_MULW(rs2, rs1, rd);
+        process_result(execute_MULW(rs2, rs1, rd));
 
 __instruction MVVCOMPRESS_0
     __encoding MVVCOMPRESS_0
@@ -3105,7 +3105,7 @@ __instruction MVVCOMPRESS_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MVVCOMPRESS(vs2, vs1, vd);
+        process_result(execute_MVVCOMPRESS(vs2, vs1, vd));
 
 __instruction MVVMATYPE_0
     __encoding MVVMATYPE_0
@@ -3125,7 +3125,7 @@ __instruction MVVMATYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MVVMATYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_MVVMATYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction MVVTYPE_0
     __encoding MVVTYPE_0
@@ -3145,7 +3145,7 @@ __instruction MVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_MVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction MVXMATYPE_0
     __encoding MVXMATYPE_0
@@ -3165,7 +3165,7 @@ __instruction MVXMATYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MVXMATYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_MVXMATYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction MVXTYPE_0
     __encoding MVXTYPE_0
@@ -3185,7 +3185,7 @@ __instruction MVXTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_MVXTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_MVXTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction NISTYPE_0
     __encoding NISTYPE_0
@@ -3204,7 +3204,7 @@ __instruction NISTYPE_0
         constant nisfunct6 funct6 = encdec_nisfunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_NISTYPE(funct6, vm, vs2, simm, vd);
+        process_result(execute_NISTYPE(funct6, vm, vs2, simm, vd));
 
 __instruction NITYPE_0
     __encoding NITYPE_0
@@ -3223,7 +3223,7 @@ __instruction NITYPE_0
         constant nifunct6 funct6 = encdec_nifunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_NITYPE(funct6, vm, vs2, simm, vd);
+        process_result(execute_NITYPE(funct6, vm, vs2, simm, vd));
 
 __instruction NVSTYPE_0
     __encoding NVSTYPE_0
@@ -3243,7 +3243,7 @@ __instruction NVSTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_NVSTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_NVSTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction NVTYPE_0
     __encoding NVTYPE_0
@@ -3263,7 +3263,7 @@ __instruction NVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_NVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_NVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction NXSTYPE_0
     __encoding NXSTYPE_0
@@ -3283,7 +3283,7 @@ __instruction NXSTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_NXSTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_NXSTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction NXTYPE_0
     __encoding NXTYPE_0
@@ -3303,7 +3303,7 @@ __instruction NXTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_NXTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_NXTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction ORCB_0
     __encoding ORCB_0
@@ -3318,7 +3318,7 @@ __instruction ORCB_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ORCB(rs1, rd);
+        process_result(execute_ORCB(rs1, rd));
 
 __instruction REM_0
     __encoding REM_0
@@ -3337,7 +3337,7 @@ __instruction REM_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant boolean is_unsigned = bool_bits_backwards(is_unsigned);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_REM(rs2, rs1, rd, is_unsigned);
+        process_result(execute_REM(rs2, rs1, rd, is_unsigned));
 
 __instruction REMW_0
     __encoding REMW_0
@@ -3356,7 +3356,7 @@ __instruction REMW_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant boolean is_unsigned = bool_bits_backwards(is_unsigned);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_REMW(rs2, rs1, rd, is_unsigned);
+        process_result(execute_REMW(rs2, rs1, rd, is_unsigned));
 
 __instruction REV8_0
     __encoding REV8_0
@@ -3371,7 +3371,7 @@ __instruction REV8_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_REV8(rs1, rd);
+        process_result(execute_REV8(rs1, rd));
 
 __instruction REV8_1
     __encoding REV8_1
@@ -3386,7 +3386,7 @@ __instruction REV8_1
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_REV8(rs1, rd);
+        process_result(execute_REV8(rs1, rd));
 
 __instruction RFVVTYPE_0
     __encoding RFVVTYPE_0
@@ -3406,7 +3406,7 @@ __instruction RFVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_RFVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_RFVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction RIVVTYPE_0
     __encoding RIVVTYPE_0
@@ -3426,7 +3426,7 @@ __instruction RIVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_RIVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_RIVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction RMVVTYPE_0
     __encoding RMVVTYPE_0
@@ -3446,7 +3446,7 @@ __instruction RMVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_RMVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_RMVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction RORI_0
     __encoding RORI_0
@@ -3462,7 +3462,7 @@ __instruction RORI_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RORI(shamt, rs1, rd);
+        process_result(execute_RORI(shamt, rs1, rd));
 
 __instruction RORIW_0
     __encoding RORIW_0
@@ -3478,7 +3478,7 @@ __instruction RORIW_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RORIW(shamt, rs1, rd);
+        process_result(execute_RORIW(shamt, rs1, rd));
 
 __instruction RTYPE_0
     __encoding RTYPE_0
@@ -3495,7 +3495,7 @@ __instruction RTYPE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, SRA);
+        process_result(execute_RTYPE(rs2, rs1, rd, SRA));
 
 __instruction RTYPE_1
     __encoding RTYPE_1
@@ -3512,7 +3512,7 @@ __instruction RTYPE_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, SUB);
+        process_result(execute_RTYPE(rs2, rs1, rd, SUB));
 
 __instruction RTYPE_2
     __encoding RTYPE_2
@@ -3529,7 +3529,7 @@ __instruction RTYPE_2
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, SRL);
+        process_result(execute_RTYPE(rs2, rs1, rd, SRL));
 
 __instruction RTYPE_3
     __encoding RTYPE_3
@@ -3546,7 +3546,7 @@ __instruction RTYPE_3
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, SLL);
+        process_result(execute_RTYPE(rs2, rs1, rd, SLL));
 
 __instruction RTYPE_4
     __encoding RTYPE_4
@@ -3563,7 +3563,7 @@ __instruction RTYPE_4
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, XXOR);
+        process_result(execute_RTYPE(rs2, rs1, rd, XXOR));
 
 __instruction RTYPE_5
     __encoding RTYPE_5
@@ -3580,7 +3580,7 @@ __instruction RTYPE_5
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, OR_XN);
+        process_result(execute_RTYPE(rs2, rs1, rd, OR_XN));
 
 __instruction RTYPE_6
     __encoding RTYPE_6
@@ -3597,7 +3597,7 @@ __instruction RTYPE_6
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, AND_XN);
+        process_result(execute_RTYPE(rs2, rs1, rd, AND_XN));
 
 __instruction RTYPE_7
     __encoding RTYPE_7
@@ -3614,7 +3614,7 @@ __instruction RTYPE_7
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, SLTU);
+        process_result(execute_RTYPE(rs2, rs1, rd, SLTU));
 
 __instruction RTYPE_8
     __encoding RTYPE_8
@@ -3631,7 +3631,7 @@ __instruction RTYPE_8
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, SLT);
+        process_result(execute_RTYPE(rs2, rs1, rd, SLT));
 
 __instruction RTYPE_9
     __encoding RTYPE_9
@@ -3648,7 +3648,7 @@ __instruction RTYPE_9
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPE(rs2, rs1, rd, ADD);
+        process_result(execute_RTYPE(rs2, rs1, rd, ADD));
 
 __instruction RTYPEW_0
     __encoding RTYPEW_0
@@ -3665,7 +3665,7 @@ __instruction RTYPEW_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPEW(rs2, rs1, rd, SRAW);
+        process_result(execute_RTYPEW(rs2, rs1, rd, SRAW));
 
 __instruction RTYPEW_1
     __encoding RTYPEW_1
@@ -3682,7 +3682,7 @@ __instruction RTYPEW_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPEW(rs2, rs1, rd, SRLW);
+        process_result(execute_RTYPEW(rs2, rs1, rd, SRLW));
 
 __instruction RTYPEW_2
     __encoding RTYPEW_2
@@ -3699,7 +3699,7 @@ __instruction RTYPEW_2
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPEW(rs2, rs1, rd, SLLW);
+        process_result(execute_RTYPEW(rs2, rs1, rd, SLLW));
 
 __instruction RTYPEW_3
     __encoding RTYPEW_3
@@ -3716,7 +3716,7 @@ __instruction RTYPEW_3
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPEW(rs2, rs1, rd, SUBW);
+        process_result(execute_RTYPEW(rs2, rs1, rd, SUBW));
 
 __instruction RTYPEW_4
     __encoding RTYPEW_4
@@ -3733,7 +3733,7 @@ __instruction RTYPEW_4
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_RTYPEW(rs2, rs1, rd, ADDW);
+        process_result(execute_RTYPEW(rs2, rs1, rd, ADDW));
 
 __instruction SFENCE_INVAL_IR_0
     __encoding SFENCE_INVAL_IR_0
@@ -3744,7 +3744,7 @@ __instruction SFENCE_INVAL_IR_0
 
 
     __execute
-        - = execute_SFENCE_INVAL_IR();
+        process_result(execute_SFENCE_INVAL_IR());
 
 __instruction SFENCE_VMA_0
     __encoding SFENCE_VMA_0
@@ -3759,7 +3759,7 @@ __instruction SFENCE_VMA_0
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
-        - = execute_SFENCE_VMA(rs1, rs2);
+        process_result(execute_SFENCE_VMA(rs1, rs2));
 
 __instruction SFENCE_W_INVAL_0
     __encoding SFENCE_W_INVAL_0
@@ -3770,7 +3770,7 @@ __instruction SFENCE_W_INVAL_0
 
 
     __execute
-        - = execute_SFENCE_W_INVAL();
+        process_result(execute_SFENCE_W_INVAL());
 
 __instruction SHA256SIG0_0
     __encoding SHA256SIG0_0
@@ -3785,7 +3785,7 @@ __instruction SHA256SIG0_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA256SIG0(rs1, rd);
+        process_result(execute_SHA256SIG0(rs1, rd));
 
 __instruction SHA256SIG1_0
     __encoding SHA256SIG1_0
@@ -3800,7 +3800,7 @@ __instruction SHA256SIG1_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA256SIG1(rs1, rd);
+        process_result(execute_SHA256SIG1(rs1, rd));
 
 __instruction SHA256SUM0_0
     __encoding SHA256SUM0_0
@@ -3815,7 +3815,7 @@ __instruction SHA256SUM0_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA256SUM0(rs1, rd);
+        process_result(execute_SHA256SUM0(rs1, rd));
 
 __instruction SHA256SUM1_0
     __encoding SHA256SUM1_0
@@ -3830,7 +3830,7 @@ __instruction SHA256SUM1_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA256SUM1(rs1, rd);
+        process_result(execute_SHA256SUM1(rs1, rd));
 
 __instruction SHA512SIG0_0
     __encoding SHA512SIG0_0
@@ -3845,7 +3845,7 @@ __instruction SHA512SIG0_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SIG0(rs1, rd);
+        process_result(execute_SHA512SIG0(rs1, rd));
 
 __instruction SHA512SIG0H_0
     __encoding SHA512SIG0H_0
@@ -3862,7 +3862,7 @@ __instruction SHA512SIG0H_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SIG0H(rs2, rs1, rd);
+        process_result(execute_SHA512SIG0H(rs2, rs1, rd));
 
 __instruction SHA512SIG0L_0
     __encoding SHA512SIG0L_0
@@ -3879,7 +3879,7 @@ __instruction SHA512SIG0L_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SIG0L(rs2, rs1, rd);
+        process_result(execute_SHA512SIG0L(rs2, rs1, rd));
 
 __instruction SHA512SIG1_0
     __encoding SHA512SIG1_0
@@ -3894,7 +3894,7 @@ __instruction SHA512SIG1_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SIG1(rs1, rd);
+        process_result(execute_SHA512SIG1(rs1, rd));
 
 __instruction SHA512SIG1H_0
     __encoding SHA512SIG1H_0
@@ -3911,7 +3911,7 @@ __instruction SHA512SIG1H_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SIG1H(rs2, rs1, rd);
+        process_result(execute_SHA512SIG1H(rs2, rs1, rd));
 
 __instruction SHA512SIG1L_0
     __encoding SHA512SIG1L_0
@@ -3928,7 +3928,7 @@ __instruction SHA512SIG1L_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SIG1L(rs2, rs1, rd);
+        process_result(execute_SHA512SIG1L(rs2, rs1, rd));
 
 __instruction SHA512SUM0_0
     __encoding SHA512SUM0_0
@@ -3943,7 +3943,7 @@ __instruction SHA512SUM0_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SUM0(rs1, rd);
+        process_result(execute_SHA512SUM0(rs1, rd));
 
 __instruction SHA512SUM0R_0
     __encoding SHA512SUM0R_0
@@ -3960,7 +3960,7 @@ __instruction SHA512SUM0R_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SUM0R(rs2, rs1, rd);
+        process_result(execute_SHA512SUM0R(rs2, rs1, rd));
 
 __instruction SHA512SUM1_0
     __encoding SHA512SUM1_0
@@ -3975,7 +3975,7 @@ __instruction SHA512SUM1_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SUM1(rs1, rd);
+        process_result(execute_SHA512SUM1(rs1, rd));
 
 __instruction SHA512SUM1R_0
     __encoding SHA512SUM1R_0
@@ -3992,7 +3992,7 @@ __instruction SHA512SUM1R_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHA512SUM1R(rs2, rs1, rd);
+        process_result(execute_SHA512SUM1R(rs2, rs1, rd));
 
 __instruction SHIFTIOP_0
     __encoding SHIFTIOP_0
@@ -4008,7 +4008,7 @@ __instruction SHIFTIOP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHIFTIOP(shamt, rs1, rd, SRAI);
+        process_result(execute_SHIFTIOP(shamt, rs1, rd, SRAI));
 
 __instruction SHIFTIOP_1
     __encoding SHIFTIOP_1
@@ -4024,7 +4024,7 @@ __instruction SHIFTIOP_1
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHIFTIOP(shamt, rs1, rd, SRLI);
+        process_result(execute_SHIFTIOP(shamt, rs1, rd, SRLI));
 
 __instruction SHIFTIOP_2
     __encoding SHIFTIOP_2
@@ -4040,7 +4040,7 @@ __instruction SHIFTIOP_2
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHIFTIOP(shamt, rs1, rd, SLLI);
+        process_result(execute_SHIFTIOP(shamt, rs1, rd, SLLI));
 
 __instruction SHIFTIWOP_0
     __encoding SHIFTIWOP_0
@@ -4056,7 +4056,7 @@ __instruction SHIFTIWOP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHIFTIWOP(shamt, rs1, rd, SRAIW);
+        process_result(execute_SHIFTIWOP(shamt, rs1, rd, SRAIW));
 
 __instruction SHIFTIWOP_1
     __encoding SHIFTIWOP_1
@@ -4072,7 +4072,7 @@ __instruction SHIFTIWOP_1
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHIFTIWOP(shamt, rs1, rd, SRLIW);
+        process_result(execute_SHIFTIWOP(shamt, rs1, rd, SRLIW));
 
 __instruction SHIFTIWOP_2
     __encoding SHIFTIWOP_2
@@ -4088,7 +4088,7 @@ __instruction SHIFTIWOP_2
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SHIFTIWOP(shamt, rs1, rd, SLLIW);
+        process_result(execute_SHIFTIWOP(shamt, rs1, rd, SLLIW));
 
 __instruction SINVAL_VMA_0
     __encoding SINVAL_VMA_0
@@ -4103,7 +4103,7 @@ __instruction SINVAL_VMA_0
     __execute
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
-        - = execute_SINVAL_VMA(rs1, rs2);
+        process_result(execute_SINVAL_VMA(rs1, rs2));
 
 __instruction SLLIUW_0
     __encoding SLLIUW_0
@@ -4119,7 +4119,7 @@ __instruction SLLIUW_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SLLIUW(shamt, rs1, rd);
+        process_result(execute_SLLIUW(shamt, rs1, rd));
 
 __instruction SM3P0_0
     __encoding SM3P0_0
@@ -4134,7 +4134,7 @@ __instruction SM3P0_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SM3P0(rs1, rd);
+        process_result(execute_SM3P0(rs1, rd));
 
 __instruction SM3P1_0
     __encoding SM3P1_0
@@ -4149,7 +4149,7 @@ __instruction SM3P1_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SM3P1(rs1, rd);
+        process_result(execute_SM3P1(rs1, rd));
 
 __instruction SM4ED_0
     __encoding SM4ED_0
@@ -4167,7 +4167,7 @@ __instruction SM4ED_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SM4ED(bs, rs2, rs1, rd);
+        process_result(execute_SM4ED(bs, rs2, rs1, rd));
 
 __instruction SM4KS_0
     __encoding SM4KS_0
@@ -4185,7 +4185,7 @@ __instruction SM4KS_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_SM4KS(bs, rs2, rs1, rd);
+        process_result(execute_SM4KS(bs, rs2, rs1, rd));
 
 __instruction SRET_0
     __encoding SRET_0
@@ -4196,7 +4196,7 @@ __instruction SRET_0
 
 
     __execute
-        - = execute_SRET();
+        process_result(execute_SRET());
 
 __instruction STORE_0
     __encoding STORE_0
@@ -4215,7 +4215,7 @@ __instruction STORE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant word_width width = size_enc_backwards(width);
-        - = execute_STORE(bitvector_concat(imm7, imm5), rs2, rs1, width);
+        process_result(execute_STORE(bitvector_concat(imm7, imm5), rs2, rs1, width));
 
 __instruction STORECON_0
     __encoding STORECON_0
@@ -4238,7 +4238,7 @@ __instruction STORECON_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant word_width size = size_enc_backwards(size);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_STORECON(aq, rl, rs2, rs1, size, rd);
+        process_result(execute_STORECON(aq, rl, rs2, rs1, size, rd));
 
 __instruction STORE_FP_0
     __encoding STORE_FP_0
@@ -4255,7 +4255,7 @@ __instruction STORE_FP_0
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
-        - = execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, DOUBLE);
+        process_result(execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, DOUBLE));
 
 __instruction STORE_FP_1
     __encoding STORE_FP_1
@@ -4272,7 +4272,7 @@ __instruction STORE_FP_1
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
-        - = execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, WORD);
+        process_result(execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, WORD));
 
 __instruction STORE_FP_2
     __encoding STORE_FP_2
@@ -4289,7 +4289,7 @@ __instruction STORE_FP_2
     __execute
         constant bits(5) rs2 = encdec_freg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
-        - = execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, HALF);
+        process_result(execute_STORE_FP(bitvector_concat(imm7, imm5), rs2, rs1, HALF));
 
 __instruction UNZIP_0
     __encoding UNZIP_0
@@ -4304,7 +4304,7 @@ __instruction UNZIP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_UNZIP(rs1, rd);
+        process_result(execute_UNZIP(rs1, rd));
 
 __instruction UTYPE_0
     __encoding UTYPE_0
@@ -4320,7 +4320,7 @@ __instruction UTYPE_0
     __execute
         constant bits(5) rd = encdec_reg_backwards(rd);
         constant uop op = encdec_uop_backwards(op);
-        - = execute_UTYPE(imm, rd, op);
+        process_result(execute_UTYPE(imm, rd, op));
 
 __instruction VAESDF_0
     __encoding VAESDF_0
@@ -4337,7 +4337,7 @@ __instruction VAESDF_0
         constant zvk_vaesdf_funct6 funct6 = encdec_vaesdf_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VAESDF(funct6, vs2, vd);
+        process_result(execute_VAESDF(funct6, vs2, vd));
 
 __instruction VAESDM_0
     __encoding VAESDM_0
@@ -4354,7 +4354,7 @@ __instruction VAESDM_0
         constant zvk_vaesdm_funct6 funct6 = encdec_vaesdm_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VAESDM(funct6, vs2, vd);
+        process_result(execute_VAESDM(funct6, vs2, vd));
 
 __instruction VAESEF_0
     __encoding VAESEF_0
@@ -4371,7 +4371,7 @@ __instruction VAESEF_0
         constant zvk_vaesef_funct6 funct6 = encdec_vaesef_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VAESEF(funct6, vs2, vd);
+        process_result(execute_VAESEF(funct6, vs2, vd));
 
 __instruction VAESEM_0
     __encoding VAESEM_0
@@ -4388,7 +4388,7 @@ __instruction VAESEM_0
         constant zvk_vaesem_funct6 funct6 = encdec_vaesem_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VAESEM(funct6, vs2, vd);
+        process_result(execute_VAESEM(funct6, vs2, vd));
 
 __instruction VAESKF1_VI_0
     __encoding VAESKF1_VI_0
@@ -4404,7 +4404,7 @@ __instruction VAESKF1_VI_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VAESKF1_VI(vs2, rnd, vd);
+        process_result(execute_VAESKF1_VI(vs2, rnd, vd));
 
 __instruction VAESKF2_VI_0
     __encoding VAESKF2_VI_0
@@ -4420,7 +4420,7 @@ __instruction VAESKF2_VI_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VAESKF2_VI(vs2, rnd, vd);
+        process_result(execute_VAESKF2_VI(vs2, rnd, vd));
 
 __instruction VAESZ_VS_0
     __encoding VAESZ_VS_0
@@ -4435,7 +4435,7 @@ __instruction VAESZ_VS_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VAESZ_VS(vs2, vd);
+        process_result(execute_VAESZ_VS(vs2, vd));
 
 __instruction VANDN_VV_0
     __encoding VANDN_VV_0
@@ -4453,7 +4453,7 @@ __instruction VANDN_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VANDN_VV(vm, vs1, vs2, vd);
+        process_result(execute_VANDN_VV(vm, vs1, vs2, vd));
 
 __instruction VANDN_VX_0
     __encoding VANDN_VX_0
@@ -4471,7 +4471,7 @@ __instruction VANDN_VX_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VANDN_VX(vm, vs2, rs1, vd);
+        process_result(execute_VANDN_VX(vm, vs2, rs1, vd));
 
 __instruction VBREV8_V_0
     __encoding VBREV8_V_0
@@ -4487,7 +4487,7 @@ __instruction VBREV8_V_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VBREV8_V(vm, vs2, vd);
+        process_result(execute_VBREV8_V(vm, vs2, vd));
 
 __instruction VBREV_V_0
     __encoding VBREV_V_0
@@ -4503,7 +4503,7 @@ __instruction VBREV_V_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VBREV_V(vm, vs2, vd);
+        process_result(execute_VBREV_V(vm, vs2, vd));
 
 __instruction VCLMULH_VV_0
     __encoding VCLMULH_VV_0
@@ -4521,7 +4521,7 @@ __instruction VCLMULH_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VCLMULH_VV(vm, vs2, vs1, vd);
+        process_result(execute_VCLMULH_VV(vm, vs2, vs1, vd));
 
 __instruction VCLMULH_VX_0
     __encoding VCLMULH_VX_0
@@ -4539,7 +4539,7 @@ __instruction VCLMULH_VX_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VCLMULH_VX(vm, vs2, rs1, vd);
+        process_result(execute_VCLMULH_VX(vm, vs2, rs1, vd));
 
 __instruction VCLMUL_VV_0
     __encoding VCLMUL_VV_0
@@ -4557,7 +4557,7 @@ __instruction VCLMUL_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VCLMUL_VV(vm, vs2, vs1, vd);
+        process_result(execute_VCLMUL_VV(vm, vs2, vs1, vd));
 
 __instruction VCLMUL_VX_0
     __encoding VCLMUL_VX_0
@@ -4575,7 +4575,7 @@ __instruction VCLMUL_VX_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VCLMUL_VX(vm, vs2, rs1, vd);
+        process_result(execute_VCLMUL_VX(vm, vs2, rs1, vd));
 
 __instruction VCLZ_V_0
     __encoding VCLZ_V_0
@@ -4591,7 +4591,7 @@ __instruction VCLZ_V_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VCLZ_V(vm, vs2, vd);
+        process_result(execute_VCLZ_V(vm, vs2, vd));
 
 __instruction VCPOP_M_0
     __encoding VCPOP_M_0
@@ -4607,7 +4607,7 @@ __instruction VCPOP_M_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_VCPOP_M(vm, vs2, rd);
+        process_result(execute_VCPOP_M(vm, vs2, rd));
 
 __instruction VCPOP_V_0
     __encoding VCPOP_V_0
@@ -4623,7 +4623,7 @@ __instruction VCPOP_V_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VCPOP_V(vm, vs2, vd);
+        process_result(execute_VCPOP_V(vm, vs2, vd));
 
 __instruction VCTZ_V_0
     __encoding VCTZ_V_0
@@ -4639,7 +4639,7 @@ __instruction VCTZ_V_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VCTZ_V(vm, vs2, vd);
+        process_result(execute_VCTZ_V(vm, vs2, vd));
 
 __instruction VEXT2TYPE_0
     __encoding VEXT2TYPE_0
@@ -4657,7 +4657,7 @@ __instruction VEXT2TYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant vext2funct6 funct6 = vext2_vs1_backwards(funct6);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VEXT2TYPE(funct6, vm, vs2, vd);
+        process_result(execute_VEXT2TYPE(funct6, vm, vs2, vd));
 
 __instruction VEXT4TYPE_0
     __encoding VEXT4TYPE_0
@@ -4675,7 +4675,7 @@ __instruction VEXT4TYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant vext4funct6 funct6 = vext4_vs1_backwards(funct6);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VEXT4TYPE(funct6, vm, vs2, vd);
+        process_result(execute_VEXT4TYPE(funct6, vm, vs2, vd));
 
 __instruction VEXT8TYPE_0
     __encoding VEXT8TYPE_0
@@ -4693,7 +4693,7 @@ __instruction VEXT8TYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant vext8funct6 funct6 = vext8_vs1_backwards(funct6);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VEXT8TYPE(funct6, vm, vs2, vd);
+        process_result(execute_VEXT8TYPE(funct6, vm, vs2, vd));
 
 __instruction VFIRST_M_0
     __encoding VFIRST_M_0
@@ -4709,7 +4709,7 @@ __instruction VFIRST_M_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_VFIRST_M(vm, vs2, rd);
+        process_result(execute_VFIRST_M(vm, vs2, rd));
 
 __instruction VFMERGE_0
     __encoding VFMERGE_0
@@ -4726,7 +4726,7 @@ __instruction VFMERGE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VFMERGE(vs2, rs1, vd);
+        process_result(execute_VFMERGE(vs2, rs1, vd));
 
 __instruction VFMV_0
     __encoding VFMV_0
@@ -4741,7 +4741,7 @@ __instruction VFMV_0
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VFMV(rs1, vd);
+        process_result(execute_VFMV(rs1, vd));
 
 __instruction VFMVFS_0
     __encoding VFMVFS_0
@@ -4756,7 +4756,7 @@ __instruction VFMVFS_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rd = encdec_freg_backwards(rd);
-        - = execute_VFMVFS(vs2, rd);
+        process_result(execute_VFMVFS(vs2, rd));
 
 __instruction VFMVSF_0
     __encoding VFMVSF_0
@@ -4771,7 +4771,7 @@ __instruction VFMVSF_0
     __execute
         constant bits(5) rs1 = encdec_freg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VFMVSF(rs1, vd);
+        process_result(execute_VFMVSF(rs1, vd));
 
 __instruction VFNUNARY0_0
     __encoding VFNUNARY0_0
@@ -4789,7 +4789,7 @@ __instruction VFNUNARY0_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant vfnunary0 vfnunary0XN = encdec_vfnunary0_vs1_backwards(vfnunary0XN);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VFNUNARY0(vm, vs2, vfnunary0XN, vd);
+        process_result(execute_VFNUNARY0(vm, vs2, vfnunary0XN, vd));
 
 __instruction VFUNARY0_0
     __encoding VFUNARY0_0
@@ -4807,7 +4807,7 @@ __instruction VFUNARY0_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant vfunary0 vfunary0XN = encdec_vfunary0_vs1_backwards(vfunary0XN);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VFUNARY0(vm, vs2, vfunary0XN, vd);
+        process_result(execute_VFUNARY0(vm, vs2, vfunary0XN, vd));
 
 __instruction VFUNARY1_0
     __encoding VFUNARY1_0
@@ -4825,7 +4825,7 @@ __instruction VFUNARY1_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant vfunary1 vfunary1XN = encdec_vfunary1_vs1_backwards(vfunary1XN);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VFUNARY1(vm, vs2, vfunary1XN, vd);
+        process_result(execute_VFUNARY1(vm, vs2, vfunary1XN, vd));
 
 __instruction VFWUNARY0_0
     __encoding VFWUNARY0_0
@@ -4843,7 +4843,7 @@ __instruction VFWUNARY0_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant vfwunary0 vfwunary0XN = encdec_vfwunary0_vs1_backwards(vfwunary0XN);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VFWUNARY0(vm, vs2, vfwunary0XN, vd);
+        process_result(execute_VFWUNARY0(vm, vs2, vfwunary0XN, vd));
 
 __instruction VGHSH_VV_0
     __encoding VGHSH_VV_0
@@ -4860,7 +4860,7 @@ __instruction VGHSH_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VGHSH_VV(vs2, vs1, vd);
+        process_result(execute_VGHSH_VV(vs2, vs1, vd));
 
 __instruction VGMUL_VV_0
     __encoding VGMUL_VV_0
@@ -4875,7 +4875,7 @@ __instruction VGMUL_VV_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VGMUL_VV(vs2, vd);
+        process_result(execute_VGMUL_VV(vs2, vd));
 
 __instruction VICMPTYPE_0
     __encoding VICMPTYPE_0
@@ -4894,7 +4894,7 @@ __instruction VICMPTYPE_0
         constant vicmpfunct6 funct6 = encdec_vicmpfunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VICMPTYPE(funct6, vm, vs2, simm, vd);
+        process_result(execute_VICMPTYPE(funct6, vm, vs2, simm, vd));
 
 __instruction VID_V_0
     __encoding VID_V_0
@@ -4908,7 +4908,7 @@ __instruction VID_V_0
 
     __execute
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VID_V(vm, vd);
+        process_result(execute_VID_V(vm, vd));
 
 __instruction VIMCTYPE_0
     __encoding VIMCTYPE_0
@@ -4926,7 +4926,7 @@ __instruction VIMCTYPE_0
         constant vimcfunct6 funct6 = encdec_vimcfunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VIMCTYPE(funct6, vs2, simm, vd);
+        process_result(execute_VIMCTYPE(funct6, vs2, simm, vd));
 
 __instruction VIMSTYPE_0
     __encoding VIMSTYPE_0
@@ -4944,7 +4944,7 @@ __instruction VIMSTYPE_0
         constant vimsfunct6 funct6 = encdec_vimsfunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VIMSTYPE(funct6, vs2, simm, vd);
+        process_result(execute_VIMSTYPE(funct6, vs2, simm, vd));
 
 __instruction VIMTYPE_0
     __encoding VIMTYPE_0
@@ -4962,7 +4962,7 @@ __instruction VIMTYPE_0
         constant vimfunct6 funct6 = encdec_vimfunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VIMTYPE(funct6, vs2, simm, vd);
+        process_result(execute_VIMTYPE(funct6, vs2, simm, vd));
 
 __instruction VIOTA_M_0
     __encoding VIOTA_M_0
@@ -4978,7 +4978,7 @@ __instruction VIOTA_M_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VIOTA_M(vm, vs2, vd);
+        process_result(execute_VIOTA_M(vm, vs2, vd));
 
 __instruction VISG_0
     __encoding VISG_0
@@ -4997,7 +4997,7 @@ __instruction VISG_0
         constant visgfunct6 funct6 = encdec_visgfunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VISG(funct6, vm, vs2, simm, vd);
+        process_result(execute_VISG(funct6, vm, vs2, simm, vd));
 
 __instruction VITYPE_0
     __encoding VITYPE_0
@@ -5016,7 +5016,7 @@ __instruction VITYPE_0
         constant vifunct6 funct6 = encdec_vifunct6_backwards(funct6);
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VITYPE(funct6, vm, vs2, simm, vd);
+        process_result(execute_VITYPE(funct6, vm, vs2, simm, vd));
 
 __instruction VLOXSEGTYPE_0
     __encoding VLOXSEGTYPE_0
@@ -5037,7 +5037,7 @@ __instruction VLOXSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VLOXSEGTYPE(nf, vm, vs2, rs1, width, vd);
+        process_result(execute_VLOXSEGTYPE(nf, vm, vs2, rs1, width, vd));
 
 __instruction VLRETYPE_0
     __encoding VLRETYPE_0
@@ -5055,7 +5055,7 @@ __instruction VLRETYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VLRETYPE(nf, rs1, width, vd);
+        process_result(execute_VLRETYPE(nf, rs1, width, vd));
 
 __instruction VLSEGFFTYPE_0
     __encoding VLSEGFFTYPE_0
@@ -5074,7 +5074,7 @@ __instruction VLSEGFFTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VLSEGFFTYPE(nf, vm, rs1, width, vd);
+        process_result(execute_VLSEGFFTYPE(nf, vm, rs1, width, vd));
 
 __instruction VLSEGTYPE_0
     __encoding VLSEGTYPE_0
@@ -5093,7 +5093,7 @@ __instruction VLSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VLSEGTYPE(nf, vm, rs1, width, vd);
+        process_result(execute_VLSEGTYPE(nf, vm, rs1, width, vd));
 
 __instruction VLSSEGTYPE_0
     __encoding VLSSEGTYPE_0
@@ -5114,7 +5114,7 @@ __instruction VLSSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VLSSEGTYPE(nf, vm, rs2, rs1, width, vd);
+        process_result(execute_VLSSEGTYPE(nf, vm, rs2, rs1, width, vd));
 
 __instruction VLUXSEGTYPE_0
     __encoding VLUXSEGTYPE_0
@@ -5135,7 +5135,7 @@ __instruction VLUXSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VLUXSEGTYPE(nf, vm, vs2, rs1, width, vd);
+        process_result(execute_VLUXSEGTYPE(nf, vm, vs2, rs1, width, vd));
 
 __instruction VMSBF_M_0
     __encoding VMSBF_M_0
@@ -5151,7 +5151,7 @@ __instruction VMSBF_M_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VMSBF_M(vm, vs2, vd);
+        process_result(execute_VMSBF_M(vm, vs2, vd));
 
 __instruction VMSIF_M_0
     __encoding VMSIF_M_0
@@ -5167,7 +5167,7 @@ __instruction VMSIF_M_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VMSIF_M(vm, vs2, vd);
+        process_result(execute_VMSIF_M(vm, vs2, vd));
 
 __instruction VMSOF_M_0
     __encoding VMSOF_M_0
@@ -5183,7 +5183,7 @@ __instruction VMSOF_M_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VMSOF_M(vm, vs2, vd);
+        process_result(execute_VMSOF_M(vm, vs2, vd));
 
 __instruction VMTYPE_0
     __encoding VMTYPE_0
@@ -5200,7 +5200,7 @@ __instruction VMTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd_or_vs3 = encdec_vreg_backwards(vd_or_vs3);
         constant vmlsop op = encdec_lsop_backwards(op);
-        - = execute_VMTYPE(rs1, vd_or_vs3, op);
+        process_result(execute_VMTYPE(rs1, vd_or_vs3, op));
 
 __instruction VMVRTYPE_0
     __encoding VMVRTYPE_0
@@ -5217,7 +5217,7 @@ __instruction VMVRTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant integer nreg = encdec_nreg_forwards(nreg);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VMVRTYPE(vs2, nreg, vd);
+        process_result(execute_VMVRTYPE(vs2, nreg, vd));
 
 __instruction VMVSX_0
     __encoding VMVSX_0
@@ -5232,7 +5232,7 @@ __instruction VMVSX_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VMVSX(rs1, vd);
+        process_result(execute_VMVSX(rs1, vd));
 
 __instruction VMVXS_0
     __encoding VMVXS_0
@@ -5247,7 +5247,7 @@ __instruction VMVXS_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_VMVXS(vs2, rd);
+        process_result(execute_VMVXS(vs2, rd));
 
 __instruction VREV8_V_0
     __encoding VREV8_V_0
@@ -5263,7 +5263,7 @@ __instruction VREV8_V_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VREV8_V(vm, vs2, vd);
+        process_result(execute_VREV8_V(vm, vs2, vd));
 
 __instruction VROL_VV_0
     __encoding VROL_VV_0
@@ -5281,7 +5281,7 @@ __instruction VROL_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VROL_VV(vm, vs1, vs2, vd);
+        process_result(execute_VROL_VV(vm, vs1, vs2, vd));
 
 __instruction VROL_VX_0
     __encoding VROL_VX_0
@@ -5299,7 +5299,7 @@ __instruction VROL_VX_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VROL_VX(vm, vs2, rs1, vd);
+        process_result(execute_VROL_VX(vm, vs2, rs1, vd));
 
 __instruction VROR_VI_0
     __encoding VROR_VI_0
@@ -5317,7 +5317,7 @@ __instruction VROR_VI_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VROR_VI(vm, vs2, bitvector_concat(uimm5, uimm40), vd);
+        process_result(execute_VROR_VI(vm, vs2, bitvector_concat(uimm5, uimm40), vd));
 
 __instruction VROR_VV_0
     __encoding VROR_VV_0
@@ -5335,7 +5335,7 @@ __instruction VROR_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VROR_VV(vm, vs1, vs2, vd);
+        process_result(execute_VROR_VV(vm, vs1, vs2, vd));
 
 __instruction VROR_VX_0
     __encoding VROR_VX_0
@@ -5353,7 +5353,7 @@ __instruction VROR_VX_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VROR_VX(vm, vs2, rs1, vd);
+        process_result(execute_VROR_VX(vm, vs2, rs1, vd));
 
 __instruction VSETIVLI_0
     __encoding VSETIVLI_0
@@ -5371,7 +5371,7 @@ __instruction VSETIVLI_0
 
     __execute
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_VSETIVLI(ma, ta, sew, lmul, uimm, rd);
+        process_result(execute_VSETIVLI(ma, ta, sew, lmul, uimm, rd));
 
 __instruction VSETVL_0
     __encoding VSETVL_0
@@ -5388,7 +5388,7 @@ __instruction VSETVL_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_VSETVL(rs2, rs1, rd);
+        process_result(execute_VSETVL(rs2, rs1, rd));
 
 __instruction VSETVLI_0
     __encoding VSETVLI_0
@@ -5407,7 +5407,7 @@ __instruction VSETVLI_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_VSETVLI(ma, ta, sew, lmul, rs1, rd);
+        process_result(execute_VSETVLI(ma, ta, sew, lmul, rs1, rd));
 
 __instruction VSHA2MS_VV_0
     __encoding VSHA2MS_VV_0
@@ -5424,7 +5424,7 @@ __instruction VSHA2MS_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VSHA2MS_VV(vs2, vs1, vd);
+        process_result(execute_VSHA2MS_VV(vs2, vs1, vd));
 
 __instruction VSM3C_VI_0
     __encoding VSM3C_VI_0
@@ -5440,7 +5440,7 @@ __instruction VSM3C_VI_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VSM3C_VI(vs2, uimm, vd);
+        process_result(execute_VSM3C_VI(vs2, uimm, vd));
 
 __instruction VSM3ME_VV_0
     __encoding VSM3ME_VV_0
@@ -5457,7 +5457,7 @@ __instruction VSM3ME_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VSM3ME_VV(vs2, vs1, vd);
+        process_result(execute_VSM3ME_VV(vs2, vs1, vd));
 
 __instruction VSM4K_VI_0
     __encoding VSM4K_VI_0
@@ -5473,7 +5473,7 @@ __instruction VSM4K_VI_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VSM4K_VI(vs2, uimm, vd);
+        process_result(execute_VSM4K_VI(vs2, uimm, vd));
 
 __instruction VSOXSEGTYPE_0
     __encoding VSOXSEGTYPE_0
@@ -5494,7 +5494,7 @@ __instruction VSOXSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vs3 = encdec_vreg_backwards(vs3);
-        - = execute_VSOXSEGTYPE(nf, vm, vs2, rs1, width, vs3);
+        process_result(execute_VSOXSEGTYPE(nf, vm, vs2, rs1, width, vs3));
 
 __instruction VSRETYPE_0
     __encoding VSRETYPE_0
@@ -5510,7 +5510,7 @@ __instruction VSRETYPE_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vs3 = encdec_vreg_backwards(vs3);
-        - = execute_VSRETYPE(nf, rs1, vs3);
+        process_result(execute_VSRETYPE(nf, rs1, vs3));
 
 __instruction VSSEGTYPE_0
     __encoding VSSEGTYPE_0
@@ -5529,7 +5529,7 @@ __instruction VSSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vs3 = encdec_vreg_backwards(vs3);
-        - = execute_VSSEGTYPE(nf, vm, rs1, width, vs3);
+        process_result(execute_VSSEGTYPE(nf, vm, rs1, width, vs3));
 
 __instruction VSSSEGTYPE_0
     __encoding VSSSEGTYPE_0
@@ -5550,7 +5550,7 @@ __instruction VSSSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vs3 = encdec_vreg_backwards(vs3);
-        - = execute_VSSSEGTYPE(nf, vm, rs2, rs1, width, vs3);
+        process_result(execute_VSSSEGTYPE(nf, vm, rs2, rs1, width, vs3));
 
 __instruction VSUXSEGTYPE_0
     __encoding VSUXSEGTYPE_0
@@ -5571,7 +5571,7 @@ __instruction VSUXSEGTYPE_0
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant vlewidth width = encdec_vlewidth_backwards(width);
         constant bits(5) vs3 = encdec_vreg_backwards(vs3);
-        - = execute_VSUXSEGTYPE(nf, vm, vs2, rs1, width, vs3);
+        process_result(execute_VSUXSEGTYPE(nf, vm, vs2, rs1, width, vs3));
 
 __instruction VVCMPTYPE_0
     __encoding VVCMPTYPE_0
@@ -5591,7 +5591,7 @@ __instruction VVCMPTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VVCMPTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_VVCMPTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction VVMCTYPE_0
     __encoding VVMCTYPE_0
@@ -5610,7 +5610,7 @@ __instruction VVMCTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VVMCTYPE(funct6, vs2, vs1, vd);
+        process_result(execute_VVMCTYPE(funct6, vs2, vs1, vd));
 
 __instruction VVMSTYPE_0
     __encoding VVMSTYPE_0
@@ -5629,7 +5629,7 @@ __instruction VVMSTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VVMSTYPE(funct6, vs2, vs1, vd);
+        process_result(execute_VVMSTYPE(funct6, vs2, vs1, vd));
 
 __instruction VVMTYPE_0
     __encoding VVMTYPE_0
@@ -5648,7 +5648,7 @@ __instruction VVMTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VVMTYPE(funct6, vs2, vs1, vd);
+        process_result(execute_VVMTYPE(funct6, vs2, vs1, vd));
 
 __instruction VVTYPE_0
     __encoding VVTYPE_0
@@ -5668,7 +5668,7 @@ __instruction VVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_VVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction VWSLL_VI_0
     __encoding VWSLL_VI_0
@@ -5685,7 +5685,7 @@ __instruction VWSLL_VI_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VWSLL_VI(vm, vs2, uimm, vd);
+        process_result(execute_VWSLL_VI(vm, vs2, uimm, vd));
 
 __instruction VWSLL_VV_0
     __encoding VWSLL_VV_0
@@ -5703,7 +5703,7 @@ __instruction VWSLL_VV_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VWSLL_VV(vm, vs2, vs1, vd);
+        process_result(execute_VWSLL_VV(vm, vs2, vs1, vd));
 
 __instruction VWSLL_VX_0
     __encoding VWSLL_VX_0
@@ -5721,7 +5721,7 @@ __instruction VWSLL_VX_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VWSLL_VX(vm, vs2, rs1, vd);
+        process_result(execute_VWSLL_VX(vm, vs2, rs1, vd));
 
 __instruction VXCMPTYPE_0
     __encoding VXCMPTYPE_0
@@ -5741,7 +5741,7 @@ __instruction VXCMPTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VXCMPTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_VXCMPTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction VXMCTYPE_0
     __encoding VXMCTYPE_0
@@ -5760,7 +5760,7 @@ __instruction VXMCTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VXMCTYPE(funct6, vs2, rs1, vd);
+        process_result(execute_VXMCTYPE(funct6, vs2, rs1, vd));
 
 __instruction VXMSTYPE_0
     __encoding VXMSTYPE_0
@@ -5779,7 +5779,7 @@ __instruction VXMSTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VXMSTYPE(funct6, vs2, rs1, vd);
+        process_result(execute_VXMSTYPE(funct6, vs2, rs1, vd));
 
 __instruction VXMTYPE_0
     __encoding VXMTYPE_0
@@ -5798,7 +5798,7 @@ __instruction VXMTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VXMTYPE(funct6, vs2, rs1, vd);
+        process_result(execute_VXMTYPE(funct6, vs2, rs1, vd));
 
 __instruction VXSG_0
     __encoding VXSG_0
@@ -5818,7 +5818,7 @@ __instruction VXSG_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VXSG(funct6, vm, vs2, rs1, vd);
+        process_result(execute_VXSG(funct6, vm, vs2, rs1, vd));
 
 __instruction VXTYPE_0
     __encoding VXTYPE_0
@@ -5838,7 +5838,7 @@ __instruction VXTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_VXTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_VXTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction WFI_0
     __encoding WFI_0
@@ -5849,7 +5849,7 @@ __instruction WFI_0
 
 
     __execute
-        - = execute_WFI();
+        process_result(execute_WFI());
 
 __instruction WMVVTYPE_0
     __encoding WMVVTYPE_0
@@ -5869,7 +5869,7 @@ __instruction WMVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_WMVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_WMVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction WMVXTYPE_0
     __encoding WMVXTYPE_0
@@ -5889,7 +5889,7 @@ __instruction WMVXTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_WMVXTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_WMVXTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction WRS_0
     __encoding WRS_0
@@ -5902,7 +5902,7 @@ __instruction WRS_0
 
     __execute
         constant wrsop op = encdec_wrsop_backwards(op);
-        - = execute_WRS(op);
+        process_result(execute_WRS(op));
 
 __instruction WVTYPE_0
     __encoding WVTYPE_0
@@ -5922,7 +5922,7 @@ __instruction WVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_WVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_WVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction WVVTYPE_0
     __encoding WVVTYPE_0
@@ -5942,7 +5942,7 @@ __instruction WVVTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_WVVTYPE(funct6, vm, vs2, vs1, vd);
+        process_result(execute_WVVTYPE(funct6, vm, vs2, vs1, vd));
 
 __instruction WVXTYPE_0
     __encoding WVXTYPE_0
@@ -5962,7 +5962,7 @@ __instruction WVXTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_WVXTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_WVXTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction WXTYPE_0
     __encoding WXTYPE_0
@@ -5982,7 +5982,7 @@ __instruction WXTYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_WXTYPE(funct6, vm, vs2, rs1, vd);
+        process_result(execute_WXTYPE(funct6, vm, vs2, rs1, vd));
 
 __instruction XPERM4_0
     __encoding XPERM4_0
@@ -5999,7 +5999,7 @@ __instruction XPERM4_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_XPERM4(rs2, rs1, rd);
+        process_result(execute_XPERM4(rs2, rs1, rd));
 
 __instruction XPERM8_0
     __encoding XPERM8_0
@@ -6016,7 +6016,7 @@ __instruction XPERM8_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_XPERM8(rs2, rs1, rd);
+        process_result(execute_XPERM8(rs2, rs1, rd));
 
 __instruction ZBA_RTYPE_0
     __encoding ZBA_RTYPE_0
@@ -6033,7 +6033,7 @@ __instruction ZBA_RTYPE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBA_RTYPE(rs2, rs1, rd, SH3ADD);
+        process_result(execute_ZBA_RTYPE(rs2, rs1, rd, SH3ADD));
 
 __instruction ZBA_RTYPE_1
     __encoding ZBA_RTYPE_1
@@ -6050,7 +6050,7 @@ __instruction ZBA_RTYPE_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBA_RTYPE(rs2, rs1, rd, SH2ADD);
+        process_result(execute_ZBA_RTYPE(rs2, rs1, rd, SH2ADD));
 
 __instruction ZBA_RTYPE_2
     __encoding ZBA_RTYPE_2
@@ -6067,7 +6067,7 @@ __instruction ZBA_RTYPE_2
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBA_RTYPE(rs2, rs1, rd, SH1ADD);
+        process_result(execute_ZBA_RTYPE(rs2, rs1, rd, SH1ADD));
 
 __instruction ZBA_RTYPEUW_0
     __encoding ZBA_RTYPEUW_0
@@ -6084,7 +6084,7 @@ __instruction ZBA_RTYPEUW_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBA_RTYPEUW(rs2, rs1, rd, SH3ADDUW);
+        process_result(execute_ZBA_RTYPEUW(rs2, rs1, rd, SH3ADDUW));
 
 __instruction ZBA_RTYPEUW_1
     __encoding ZBA_RTYPEUW_1
@@ -6101,7 +6101,7 @@ __instruction ZBA_RTYPEUW_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBA_RTYPEUW(rs2, rs1, rd, SH2ADDUW);
+        process_result(execute_ZBA_RTYPEUW(rs2, rs1, rd, SH2ADDUW));
 
 __instruction ZBA_RTYPEUW_2
     __encoding ZBA_RTYPEUW_2
@@ -6118,7 +6118,7 @@ __instruction ZBA_RTYPEUW_2
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBA_RTYPEUW(rs2, rs1, rd, SH1ADDUW);
+        process_result(execute_ZBA_RTYPEUW(rs2, rs1, rd, SH1ADDUW));
 
 __instruction ZBA_RTYPEUW_3
     __encoding ZBA_RTYPEUW_3
@@ -6135,7 +6135,7 @@ __instruction ZBA_RTYPEUW_3
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBA_RTYPEUW(rs2, rs1, rd, ADDUW);
+        process_result(execute_ZBA_RTYPEUW(rs2, rs1, rd, ADDUW));
 
 __instruction ZBB_EXTOP_0
     __encoding ZBB_EXTOP_0
@@ -6150,7 +6150,7 @@ __instruction ZBB_EXTOP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_EXTOP(rs1, rd, ZEXXTH);
+        process_result(execute_ZBB_EXTOP(rs1, rd, ZEXXTH));
 
 __instruction ZBB_EXTOP_1
     __encoding ZBB_EXTOP_1
@@ -6165,7 +6165,7 @@ __instruction ZBB_EXTOP_1
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_EXTOP(rs1, rd, ZEXXTH);
+        process_result(execute_ZBB_EXTOP(rs1, rd, ZEXXTH));
 
 __instruction ZBB_EXTOP_2
     __encoding ZBB_EXTOP_2
@@ -6180,7 +6180,7 @@ __instruction ZBB_EXTOP_2
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_EXTOP(rs1, rd, SEXXTH);
+        process_result(execute_ZBB_EXTOP(rs1, rd, SEXXTH));
 
 __instruction ZBB_EXTOP_3
     __encoding ZBB_EXTOP_3
@@ -6195,7 +6195,7 @@ __instruction ZBB_EXTOP_3
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_EXTOP(rs1, rd, SEXXTB);
+        process_result(execute_ZBB_EXTOP(rs1, rd, SEXXTB));
 
 __instruction ZBB_RTYPE_0
     __encoding ZBB_RTYPE_0
@@ -6212,7 +6212,7 @@ __instruction ZBB_RTYPE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, ROR);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, ROR));
 
 __instruction ZBB_RTYPE_1
     __encoding ZBB_RTYPE_1
@@ -6229,7 +6229,7 @@ __instruction ZBB_RTYPE_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, ROL);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, ROL));
 
 __instruction ZBB_RTYPE_2
     __encoding ZBB_RTYPE_2
@@ -6246,7 +6246,7 @@ __instruction ZBB_RTYPE_2
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, MINU);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, MINU));
 
 __instruction ZBB_RTYPE_3
     __encoding ZBB_RTYPE_3
@@ -6263,7 +6263,7 @@ __instruction ZBB_RTYPE_3
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, MIN);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, MIN));
 
 __instruction ZBB_RTYPE_4
     __encoding ZBB_RTYPE_4
@@ -6280,7 +6280,7 @@ __instruction ZBB_RTYPE_4
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, MAXXU);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, MAXXU));
 
 __instruction ZBB_RTYPE_5
     __encoding ZBB_RTYPE_5
@@ -6297,7 +6297,7 @@ __instruction ZBB_RTYPE_5
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, MAXX);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, MAXX));
 
 __instruction ZBB_RTYPE_6
     __encoding ZBB_RTYPE_6
@@ -6314,7 +6314,7 @@ __instruction ZBB_RTYPE_6
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, XXNOR);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, XXNOR));
 
 __instruction ZBB_RTYPE_7
     __encoding ZBB_RTYPE_7
@@ -6331,7 +6331,7 @@ __instruction ZBB_RTYPE_7
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, ORN);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, ORN));
 
 __instruction ZBB_RTYPE_8
     __encoding ZBB_RTYPE_8
@@ -6348,7 +6348,7 @@ __instruction ZBB_RTYPE_8
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPE(rs2, rs1, rd, ANDN);
+        process_result(execute_ZBB_RTYPE(rs2, rs1, rd, ANDN));
 
 __instruction ZBB_RTYPEW_0
     __encoding ZBB_RTYPEW_0
@@ -6365,7 +6365,7 @@ __instruction ZBB_RTYPEW_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPEW(rs2, rs1, rd, RORW);
+        process_result(execute_ZBB_RTYPEW(rs2, rs1, rd, RORW));
 
 __instruction ZBB_RTYPEW_1
     __encoding ZBB_RTYPEW_1
@@ -6382,7 +6382,7 @@ __instruction ZBB_RTYPEW_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBB_RTYPEW(rs2, rs1, rd, ROLW);
+        process_result(execute_ZBB_RTYPEW(rs2, rs1, rd, ROLW));
 
 __instruction ZBKB_PACKW_0
     __encoding ZBKB_PACKW_0
@@ -6399,7 +6399,7 @@ __instruction ZBKB_PACKW_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBKB_PACKW(rs2, rs1, rd);
+        process_result(execute_ZBKB_PACKW(rs2, rs1, rd));
 
 __instruction ZBKB_RTYPE_0
     __encoding ZBKB_RTYPE_0
@@ -6416,7 +6416,7 @@ __instruction ZBKB_RTYPE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBKB_RTYPE(rs2, rs1, rd, PACKH);
+        process_result(execute_ZBKB_RTYPE(rs2, rs1, rd, PACKH));
 
 __instruction ZBKB_RTYPE_1
     __encoding ZBKB_RTYPE_1
@@ -6433,7 +6433,7 @@ __instruction ZBKB_RTYPE_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBKB_RTYPE(rs2, rs1, rd, PACK);
+        process_result(execute_ZBKB_RTYPE(rs2, rs1, rd, PACK));
 
 __instruction ZBS_IOP_0
     __encoding ZBS_IOP_0
@@ -6449,7 +6449,7 @@ __instruction ZBS_IOP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_IOP(shamt, rs1, rd, BSETI);
+        process_result(execute_ZBS_IOP(shamt, rs1, rd, BSETI));
 
 __instruction ZBS_IOP_1
     __encoding ZBS_IOP_1
@@ -6465,7 +6465,7 @@ __instruction ZBS_IOP_1
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_IOP(shamt, rs1, rd, BINVI);
+        process_result(execute_ZBS_IOP(shamt, rs1, rd, BINVI));
 
 __instruction ZBS_IOP_2
     __encoding ZBS_IOP_2
@@ -6481,7 +6481,7 @@ __instruction ZBS_IOP_2
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_IOP(shamt, rs1, rd, BEXXTI);
+        process_result(execute_ZBS_IOP(shamt, rs1, rd, BEXXTI));
 
 __instruction ZBS_IOP_3
     __encoding ZBS_IOP_3
@@ -6497,7 +6497,7 @@ __instruction ZBS_IOP_3
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_IOP(shamt, rs1, rd, BCLRI);
+        process_result(execute_ZBS_IOP(shamt, rs1, rd, BCLRI));
 
 __instruction ZBS_RTYPE_0
     __encoding ZBS_RTYPE_0
@@ -6514,7 +6514,7 @@ __instruction ZBS_RTYPE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_RTYPE(rs2, rs1, rd, BSET);
+        process_result(execute_ZBS_RTYPE(rs2, rs1, rd, BSET));
 
 __instruction ZBS_RTYPE_1
     __encoding ZBS_RTYPE_1
@@ -6531,7 +6531,7 @@ __instruction ZBS_RTYPE_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_RTYPE(rs2, rs1, rd, BINV);
+        process_result(execute_ZBS_RTYPE(rs2, rs1, rd, BINV));
 
 __instruction ZBS_RTYPE_2
     __encoding ZBS_RTYPE_2
@@ -6548,7 +6548,7 @@ __instruction ZBS_RTYPE_2
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_RTYPE(rs2, rs1, rd, BEXXT);
+        process_result(execute_ZBS_RTYPE(rs2, rs1, rd, BEXXT));
 
 __instruction ZBS_RTYPE_3
     __encoding ZBS_RTYPE_3
@@ -6565,7 +6565,7 @@ __instruction ZBS_RTYPE_3
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZBS_RTYPE(rs2, rs1, rd, BCLR);
+        process_result(execute_ZBS_RTYPE(rs2, rs1, rd, BCLR));
 
 __instruction ZICBOM_0
     __encoding ZICBOM_0
@@ -6580,7 +6580,7 @@ __instruction ZICBOM_0
     __execute
         constant cbop_zicbom cbop = encdec_cbop_backwards(cbop);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
-        - = execute_ZICBOM(cbop, rs1);
+        process_result(execute_ZICBOM(cbop, rs1));
 
 __instruction ZICBOZ_0
     __encoding ZICBOZ_0
@@ -6593,7 +6593,7 @@ __instruction ZICBOZ_0
 
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
-        - = execute_ZICBOZ(rs1);
+        process_result(execute_ZICBOZ(rs1));
 
 __instruction ZICOND_RTYPE_0
     __encoding ZICOND_RTYPE_0
@@ -6610,7 +6610,7 @@ __instruction ZICOND_RTYPE_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZICOND_RTYPE(rs2, rs1, rd, CZERO_NEZ);
+        process_result(execute_ZICOND_RTYPE(rs2, rs1, rd, CZERO_NEZ));
 
 __instruction ZICOND_RTYPE_1
     __encoding ZICOND_RTYPE_1
@@ -6627,7 +6627,7 @@ __instruction ZICOND_RTYPE_1
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZICOND_RTYPE(rs2, rs1, rd, CZERO_EQZ);
+        process_result(execute_ZICOND_RTYPE(rs2, rs1, rd, CZERO_EQZ));
 
 __instruction ZIMOP_MOP_R_0
     __encoding ZIMOP_MOP_R_0
@@ -6645,7 +6645,7 @@ __instruction ZIMOP_MOP_R_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZIMOP_MOP_R(bitvector_concat(mop_30, bitvector_concat(mop_27_26, mop_21_20)), rs1, rd);
+        process_result(execute_ZIMOP_MOP_R(bitvector_concat(mop_30, bitvector_concat(mop_27_26, mop_21_20)), rs1, rd));
 
 __instruction ZIMOP_MOP_RR_0
     __encoding ZIMOP_MOP_RR_0
@@ -6664,7 +6664,7 @@ __instruction ZIMOP_MOP_RR_0
         constant bits(5) rs2 = encdec_reg_backwards(rs2);
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZIMOP_MOP_RR(bitvector_concat(mop_30, mop_27_26), rs2, rs1, rd);
+        process_result(execute_ZIMOP_MOP_RR(bitvector_concat(mop_30, mop_27_26), rs2, rs1, rd));
 
 __instruction ZIP_0
     __encoding ZIP_0
@@ -6679,7 +6679,7 @@ __instruction ZIP_0
     __execute
         constant bits(5) rs1 = encdec_reg_backwards(rs1);
         constant bits(5) rd = encdec_reg_backwards(rd);
-        - = execute_ZIP(rs1, rd);
+        process_result(execute_ZIP(rs1, rd));
 
 __instruction ZVKSHA2TYPE_0
     __encoding ZVKSHA2TYPE_0
@@ -6698,7 +6698,7 @@ __instruction ZVKSHA2TYPE_0
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vs1 = encdec_vreg_backwards(vs1);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_ZVKSHA2TYPE(funct6, vs2, vs1, vd);
+        process_result(execute_ZVKSHA2TYPE(funct6, vs2, vs1, vd));
 
 __instruction ZVKSM4RTYPE_0
     __encoding ZVKSM4RTYPE_0
@@ -6713,7 +6713,7 @@ __instruction ZVKSM4RTYPE_0
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_ZVKSM4RTYPE(ZVK_VSM4R_VS, vs2, vd);
+        process_result(execute_ZVKSM4RTYPE(ZVK_VSM4R_VS, vs2, vd));
 
 __instruction ZVKSM4RTYPE_1
     __encoding ZVKSM4RTYPE_1
@@ -6728,4 +6728,4 @@ __instruction ZVKSM4RTYPE_1
     __execute
         constant bits(5) vs2 = encdec_vreg_backwards(vs2);
         constant bits(5) vd = encdec_vreg_backwards(vd);
-        - = execute_ZVKSM4RTYPE(ZVK_VSM4R_VV, vs2, vd);
+        process_result(execute_ZVKSM4RTYPE(ZVK_VSM4R_VV, vs2, vd));
