@@ -192,7 +192,7 @@ let match_decode_template = function
 type 'a arm =
   Reject |
   Ignore |
-  Accept of ('a pat * 'a exp option * 'a exp * (l * 'a))
+  Accept of ('a pat * 'a exp option * 'a exp * (l * 'a) * id Bindings.t)
 
 let join x y =
   match x, y with
@@ -228,6 +228,27 @@ let substitute_in_exp substitutions exp =
 
   fold_exp exp_alg exp
 
+(* Substitute mapping variables with final variable names using algebras *)
+let substitute_mapping_vars mappings exp =
+  let exp_alg = {
+    id_exp_alg with
+    e_id = fun id ->
+      (match Bindings.find_opt id mappings with
+       | Some replacement -> E_id replacement
+       | None -> E_id id)
+  } in
+  fold_exp exp_alg exp
+
+let substitute_mapping_vars_in_pattern mappings pat =
+  let pat_alg = {
+    id_pat_alg with
+    p_id = fun id ->
+      (match Bindings.find_opt id mappings with
+       | Some replacement -> P_id replacement
+       | None -> P_id id)
+  } in
+  fold_pat pat_alg pat
+
 let seq_guard pat' match_var x y =
   match x, y with
   | Some (E_aux (_, a) as x), Some y ->
@@ -250,13 +271,21 @@ let rec process_arm arm =
   | E_aux (E_app (id, _), _) when string_of_id id = "None" ->
       Ignore
   | E_aux (E_app (id, [E_aux (_,a) as e]), _) when string_of_id id = "Some" ->
-      Accept (pat, guard_opt, e, a)
+      Accept (pat, guard_opt, e, a, Bindings.empty)
   | E_aux (E_match (match_var, nested_arms), a) ->
       (match process_arms nested_arms with
-      | Accept (pat', guard_opt', body, annot) ->
+      | Accept (pat', guard_opt', body, annot, mappings) ->
           let guard_opt = seq_guard pat' match_var guard_opt guard_opt' in
           let body = E_aux (E_let (LB_aux (LB_val (pat', match_var), a), body), annot) in
-          Accept (pat, guard_opt, body, annot)
+          (* Extract mappings from the let binding pattern and match variable *)
+          let new_mappings = extract_substitutions pat' match_var in
+          let combined_mappings = List.fold_left (fun acc (final_var, mapping_exp) ->
+            match final_var, mapping_exp with
+            | id, E_aux (E_app (_, [E_aux (E_id mapping_var, _)]), _) -> 
+                Bindings.add mapping_var id acc
+            | _ -> acc
+          ) mappings new_mappings in
+          Accept (pat, guard_opt, body, annot, combined_mappings)
       | x -> x)
   | _ -> Reject
 
@@ -271,8 +300,12 @@ let transform_decode_body body =
   match match_decode_template body with
   | Some (opcode_var, arms, match_annot, pat_annot)  ->
       (match process_arms arms with
-      | Accept (pat, guard_opt, e, annot) ->
-          let new_arm = construct_pexp (pat, guard_opt, e, pat_annot) in
+      | Accept (pat, guard_opt, e, annot, mappings) ->
+          (* Apply substitutions to replace mapping variables with final variable names *)
+          let substituted_pat = substitute_mapping_vars_in_pattern mappings pat in
+          let substituted_guard = Option.map (substitute_mapping_vars mappings) guard_opt in
+          let substituted_e = substitute_mapping_vars mappings e in
+          let new_arm = construct_pexp (substituted_pat, substituted_guard, substituted_e, pat_annot) in
           E_aux (E_match (opcode_var, [new_arm]), match_annot)
       | _ -> body)
   | None -> body
