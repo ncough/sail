@@ -18,6 +18,12 @@ integer get_lmul_pow()
 integer get_sew_pow()
     return 3;
 
+(result, nat) get_start_element()
+    constant integer start_element = unsigned(vstart);
+    constant integer SEW_pow = get_sew_pow();
+    assert not(gt_int(start_element, pow2_int(3 + VLEN_pow - (SEW_pow)) - (1)));
+    return (Ok, start_element);
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Memory Shim
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,6 +52,16 @@ bits(size*8) Mem[bits(64) address, integer size, AccType acctype]
     Mem[paddr, width, AccType_NORMAL] = value;
     return (Ok, TRUE, ExceptionType UNKNOWN);
 
+(result, bits((8) * (width)), (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) vmem_read(bits(5) rs, bits((pow2_int(3)) * (8)) offset, integer width, AccessType acc, boolean aq, boolean rl, boolean res)
+    constant bits((pow2_int(3)) * (8)) paddr = add_bits(rX_bits(rs), offset);
+    data = Mem[paddr, width, AccType_NORMAL];
+    return (Ok, data, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) UNKNOWN);
+
+(result, boolean, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType)) vmem_write(bits(5) rs, bits((pow2_int(3)) * (8)) offset, integer width, bits((8) * (width)) data, AccessType acc, boolean aq, boolean rl, boolean res)
+    constant bits((pow2_int(3)) * (8)) paddr = add_bits(rX_bits(rs), offset);
+    Mem[paddr, width, AccType_NORMAL] = data;
+    return (Ok, TRUE, (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) UNKNOWN);
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Configuration for Coverage
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,12 +75,11 @@ random_state()
   return;
 
 process_result( (ExecutionResult, WaitReason, Privilege, (ctl_result, sync_exception), bits((pow2_int(3)) * (8)), bits((pow2_int(3)) * (8)), ExceptionType) arg)
-    (exec, -, -, -, -, -, -) = arg;
-    case exec of
-        when Retire_Success
+    case arg of
+        when (Retire_Success, -, -, -, -, -, -)
             return;
-        when Trap 
+        when (Trap, -, -, -, -, -, -)
             return;
-        when -
+        when (-, -, -, -, -, -, -)
             UNDEFINED;
 
