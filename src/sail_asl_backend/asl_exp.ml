@@ -26,6 +26,48 @@ let if_stmt cond body =
   let istmt = string "if" ^^ space ^^ cond ^^ space ^^ string "then" in
   istmt ^^ block body
 
+(* Helper to determine if pattern is a literal (doesn't start with '(') *)
+let is_literal_pattern pat_doc =
+  let pat_str = to_string pat_doc in
+  String.length pat_str > 0 && pat_str.[0] != '('
+
+(* Generate condition for pattern matching *)
+let make_pattern_condition exp_doc pat_doc guard_doc =
+  let pat_str = to_string pat_doc in
+  let base_cond = 
+    if pat_str = "-" then
+      (* Wildcard pattern always matches *)
+      string "TRUE"
+    else if is_literal_pattern pat_doc then
+      exp_doc ^^ space ^^ string "==" ^^ space ^^ pat_doc
+    else
+      exp_doc ^^ space ^^ string "IN" ^^ space ^^ pat_doc
+  in
+  base_cond ^^ guard_doc
+
+(* Generate if-elsif chain for match expressions *)
+let match_to_if_elsif exp_doc arms =
+  match arms with
+  | [] -> [string "assert" ^^ parens (string "FALSE") ^^ semi]
+  | (pat_doc, guard_doc, tbody) :: rest ->
+      let cond = make_pattern_condition exp_doc pat_doc guard_doc in
+      let first = string "if" ^^ space ^^ cond ^^ space ^^ string "then" ^^ block tbody in
+      let rec build_elsif_chain remaining =
+        match remaining with
+        | [] -> string "else" ^^ block [string "assert" ^^ parens (string "FALSE") ^^ semi]
+        | (pat_doc, guard_doc, tbody) :: more ->
+            let cond = make_pattern_condition exp_doc pat_doc guard_doc in
+            let elsif = string "elsif" ^^ space ^^ cond ^^ space ^^ string "then" ^^ block tbody in
+            if more = [] then
+              elsif ^^ hardline ^^ string "else" ^^ block [string "assert" ^^ parens (string "FALSE") ^^ semi]
+            else
+              elsif ^^ hardline ^^ build_elsif_chain more
+      in
+      if rest = [] then
+        [first ^^ hardline ^^ string "else" ^^ block [string "assert" ^^ parens (string "FALSE") ^^ semi]]
+      else
+        [first ^^ hardline ^^ build_elsif_chain rest]
+
 let for_stmt var start stop dir body =
   let var_decl = var ^^ space ^^ equals ^^ space ^^ start ^^ space ^^ dir ^^ space ^^ stop in
   string "for" ^^ space ^^ var_decl ^^ block body
@@ -635,11 +677,26 @@ let rec asl_typ ?(id) env (Typ_aux (t, annot) as typ) =
  * Variable Declerations
  ******************************************************************************)
 
+(* Helper function to generate temporaries recursively *)
+let rec asl_prep_temp_helper env typ =
+  match typ with
+  | Typ_aux (Typ_tuple typs, _) ->
+      (* Handle tuple types by generating multiple temporaries *)
+      let@ results = traverse (asl_prep_temp_helper env) typs in
+      let (decl_stmts, fresh_names) = List.split results in
+      let combined_decl = separate hardline decl_stmts in
+      let fresh_name = tuple_doc fresh_names in
+      return (combined_decl, fresh_name)
+  | _ ->
+      (* Handle non-tuple types *)
+      let@ typ_doc = asl_typ env typ in
+      let fresh_name = string (fresh_var "temp") in
+      let decl_stmt = typ_doc ^^ space ^^ fresh_name ^^ semi in
+      return (decl_stmt, fresh_name)
+
 (* Prepare a temporary *)
 let asl_prep_temp env typ =
-  let@ typ_doc = asl_typ env typ in
-  let fresh_name = string (fresh_var "temp") in
-  let decl_stmt = typ_doc ^^ space ^^ fresh_name ^^ semi in
+  let@ (decl_stmt, fresh_name) = asl_prep_temp_helper env typ in
   let@ () = write (fun st -> {st with temp_result = Some (fresh_name); temp_used = false}) in
   return (decl_stmt, fresh_name)
 
@@ -1004,8 +1061,30 @@ and asl_exp (E_aux (e, annot) as exp) =
               return (space ^^ string "&&" ^^ space ^^ guard)
         in
         let@ (_,tbody,res) = scope (asl_exp body) in
-        return (string "when" ^^ space ^^ pat_doc ^^ guard_doc,tbody,res)
+        return (pat_doc, guard_doc, tbody, res)
       ) arms in
+      
+      (* Use if-elsif chain instead of case statement *)
+      if List.for_all (fun (_,_,_,res) -> res = None) arms then
+        (* No return values - generate if-elsif chain as statements *)
+        let arm_tuples = List.map (fun (pat_doc, guard_doc, tbody, _) -> (pat_doc, guard_doc, tbody)) arms in
+        let if_stmts = match_to_if_elsif exp_doc arm_tuples in
+        emit_all if_stmts
+      else
+        (* Has return values - generate if-elsif chain with temporary variable *)
+        let@ temp = asl_get_temp in
+        let arm_tuples = List.map (fun (pat_doc, guard_doc, tbody, res) ->
+          let updated_body = match res with
+            | None -> tbody
+            | Some v -> tbody @ (assign_stmt_opt temp v)
+          in
+          (pat_doc, guard_doc, updated_body)
+        ) arms in
+        let if_stmts = match_to_if_elsif exp_doc arm_tuples in
+        let@ _ = emit_all if_stmts in
+        return temp
+        
+      (* Keep existing case statement logic commented out for future re-enabling
       if List.for_all (fun (_,_,res) -> res = None) arms then
         let arm_docs = List.map (fun (cond,body,res) -> (cond ^^ block body)) arms in
         emit (string "case" ^^ space ^^ exp_doc ^^ space ^^ string "of" ^^ block arm_docs)
@@ -1017,6 +1096,7 @@ and asl_exp (E_aux (e, annot) as exp) =
           | Some v -> (cond ^^ block (body@(assign_stmt_opt temp v)))) arms in
         let@ _ = emit (string "case" ^^ space ^^ exp_doc ^^ space ^^ string "of" ^^ block arm_docs)  in
         return temp
+      *)
   | E_for (id, from_exp, to_exp, E_aux(E_lit (L_aux (L_num i, _)), _), order, body)
         when Big_int.equal i (Big_int.of_int 1) ->
       let@ from_doc = asl_expr from_exp in
