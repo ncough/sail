@@ -29,6 +29,10 @@ bits(N1) lsr_bits(bits(N1) x, bits(N2) y)
     integer yn = SInt(y);
     return LSR(x, yn);
 
+bits(N1) lsl_bits(bits(N1) x, bits(N2) y)
+    integer yn = SInt(y);
+    return LSL(x, yn);
+
 // These should really be prim ops
 integer HighestSetBit(bits(N) x)
     assert 0 < N && N <= 64;

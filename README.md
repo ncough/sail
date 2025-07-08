@@ -36,7 +36,17 @@ We have also had to mess with some of Sail's existing transforms:
 ## TODO
 
 - [x] Interpret `ExecutionResult` as some ASL outcome.
-- [ ] Sanity check decoder with BDD. There are collision in the decoder, but these might be resolved by guards? If this is not the case, then need to retain ordering from Sail model somehow.
+- [x] Appears to be a bug where returned `ExecutionResult` isn't being properly set if its conditional. (`0xfff010ef`)
+- [x] Stop generating `case` statements until ASL bugs are fixed.
+- [x] Need to shim `vmem_read` and `vmem_write`.
+- [x] Sanity check decoder with SMT. There are collision in the decoder, but these might be resolved by guards? If this is not the case, then need to retain ordering from Sail model somehow. Turns out there is one collision, but the two implementations are semantically equivalent. Not clear if one can just replace the other due to feature flags. (`ZBKB_PACKW`, `ZBB_EXTOP`)
+- [x] `MASKTYPEI`, `MASKTYPEV`, `MOVETYPEI` has an unknown integer hanging around. (`0x5c0030d7`, `0x5e003057`)
+- [ ] `MVVCOMPRESS` has some issue with `int_of_expr`. (`0x5e0020d7`)
+- [ ] `MMTYPE` is very slow or hanging.
+- [ ] `zrem_int` is missing from post-processing. (`0x8a202057`)
+- [x] Missing `lsl_bits` in prelude. (`0x00201133`)
+- [ ] Dynamic bitvector remaining. Looks like rotate implementation. (`0x401050b3`)
+- [ ] Somehow left a `zeros_bits` in there. (`0xb800c157`)
 - [ ] Patch out `FIXME: unsupported fence` print statement in model.
 - [ ] Patch in register array. A post-process script is probably the best way to make sure the old registers are fully eliminated.
 - [ ] Patch in vector array. Same as above.
@@ -49,3 +59,7 @@ We have also had to mess with some of Sail's existing transforms:
 ## ASL TODO
 
 - [ ] Generalise `PSTATE` hacks so we can do the same thing here? Or maybe RISC-V provides enough wrappers to do this purely with overrides.
+- [ ] Need to replace late `UNKNOWN` with an arbitrary constant. Or make sure it doesn't happen.
+- [ ] ASL doesn't support return in `case`. This is probably more of a heuristic at this point. Can keep this, as long as the body of the match doesn't return.
+- [ ] ASL doesn't support conditional assignment to tuple variables.
+- [ ] RISC-V model handles errors as values, rather than exceptions. The result is lots of if statements, blocking optimisation of the good path. Requires if statement splitting across function boundaries, which has previously been used as a heuristic to not split.
